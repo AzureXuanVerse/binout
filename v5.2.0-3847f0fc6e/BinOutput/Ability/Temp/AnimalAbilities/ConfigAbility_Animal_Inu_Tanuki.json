@@ -1,0 +1,447 @@
+[
+  {
+    "Default": {
+      "$type": "LOMEAIKEDCN",
+      "abilityName": "Animal_Inu_Tanuki_IgnoreControlState",
+      "modifiers": {
+        "Animal_Inu_Tanuki_IgnoreControlState": {
+          "modifierName": "",
+          "FBDJMFGBKBC": 100.0,
+          "onAdded": [
+            {
+              "$type": "BJNPBNMEEKN",
+              "resistanceListID": 15001
+            },
+            {
+              "$type": "BJNPBNMEEKN",
+              "resistanceListID": 15002
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "BFPEJNOJJMI",
+          "modifierName": "Animal_Inu_Tanuki_IgnoreControlState"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "LOMEAIKEDCN",
+      "abilityName": "Animal_Inu_Tanuki_BlinkState",
+      "abilityMixins": [
+        {
+          "$type": "JGJCDFDDIFO",
+          "stateIDs": [
+            "Blink_BS",
+            "End_BS"
+          ],
+          "modifierName": "Blink_State",
+          "GBHKPFDPAML": ""
+        }
+      ],
+      "modifiers": {
+        "Blink_State": {
+          "modifierName": "",
+          "FBDJMFGBKBC": 100.0,
+          "onRemoved": [
+            {
+              "$type": "HJDFOIPPPIM",
+              "modifierName": "UNIQUE_Inu_Tanuki_Blink_Actions"
+            }
+          ]
+        },
+        "UNIQUE_Inu_Tanuki_Blink_Actions": {
+          "modifierName": "",
+          "forceTriggerWhenChangeAuthority": true,
+          "FBDJMFGBKBC": 100.0,
+          "onAdded": [
+            {
+              "$type": "MEFBHHPODGH"
+            },
+            {
+              "$type": "GFKHJGBBBPC",
+              "pushColliderNames": [
+                "PushCollider"
+              ]
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MEFBHHPODGH",
+              "ACLPCOHDINA": true
+            },
+            {
+              "$type": "GFKHJGBBBPC",
+              "pushColliderNames": [
+                "PushCollider"
+              ],
+              "setEnable": true
+            }
+          ]
+        }
+      },
+      "onAbilityStart": [
+        {
+          "$type": "BFPEJNOJJMI",
+          "modifierName": "UNIQUE_Inu_Tanuki_Blink_Actions"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "LOMEAIKEDCN",
+      "abilityName": "Animal_Inu_Tanuki_FindNextPathPoint",
+      "abilityMixins": [
+        {
+          "$type": "BFGKINDLFHJ",
+          "poseIDs": [
+            1,
+            2,
+            3
+          ],
+          "modifierName": "InitializeModifier"
+        },
+        {
+          "$type": "BFGKINDLFHJ",
+          "poseIDs": [
+            100
+          ],
+          "modifierName": "FindingNextPoint"
+        }
+      ],
+      "abilitySpecials": {
+        "NextPathPointFlag": 1.0
+      },
+      "modifiers": {
+        "InitializeModifier": {
+          "modifierName": "",
+          "FBDJMFGBKBC": 100.0,
+          "onAdded": [
+            {
+              "$type": "ABPBKGIPNEJ",
+              "param3": 1.0,
+              "key": "_TANUKI_NEXTPATHPOINTFLAG_",
+              "param2": 0.0,
+              "repeatTimes": 0.0
+            },
+            {
+              "$type": "PCFGMCNGOEE",
+              "intID": "NextPointType"
+            },
+            {
+              "$type": "DMHPEADECFP",
+              "param3": 1.0,
+              "overrideMapKey": "NextPathPointFlag",
+              "param2": 0.0,
+              "repeatTimes": 0.0
+            }
+          ]
+        },
+        "FindingNextPoint": {
+          "modifierName": "",
+          "FBDJMFGBKBC": 100.0,
+          "thinkInterval": 0.20000000298023224,
+          "onAdded": [
+            {
+              "$type": "LFJCGJEHCBA",
+              "otherTargets": {
+                "$type": "EFBNAMBMFLM",
+                "operation": "XOR",
+                "KOHNDAPMGFM": "NextPathPointFlag"
+              },
+              "targetPredicates": [
+                {
+                  "$type": "FABPFEABCJD",
+                  "key": "_TANUKI_PATHPOINT_END_",
+                  "param3": 1.0
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "PCFGMCNGOEE",
+                  "intID": "NextPointType",
+                  "value": 2
+                },
+                {
+                  "$type": "AACMIBFFLJN",
+                  "target": "Target",
+                  "forwardAngle": 360.0
+                }
+              ],
+              "failActions": [
+                {
+                  "$type": "LFJCGJEHCBA",
+                  "otherTargets": {
+                    "$type": "EFBNAMBMFLM",
+                    "operation": "XOR",
+                    "KOHNDAPMGFM": "NextPathPointFlag"
+                  },
+                  "targetPredicates": [
+                    {
+                      "$type": "FABPFEABCJD",
+                      "key": "_TANUKI_PATHPOINT_BLINK_",
+                      "param3": 1.0
+                    }
+                  ],
+                  "successActions": [
+                    {
+                      "$type": "PCFGMCNGOEE",
+                      "intID": "NextPointType",
+                      "value": 1
+                    },
+                    {
+                      "$type": "AACMIBFFLJN",
+                      "target": "Target",
+                      "forwardAngle": 360.0
+                    }
+                  ],
+                  "failActions": [
+                    {
+                      "$type": "PCFGMCNGOEE",
+                      "intID": "NextPointType",
+                      "value": 3
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "onThinkInterval": [
+            {
+              "$type": "LFJCGJEHCBA",
+              "otherTargets": {
+                "$type": "EFBNAMBMFLM",
+                "operation": "XOR",
+                "KOHNDAPMGFM": "NextPathPointFlag"
+              },
+              "targetPredicates": [
+                {
+                  "$type": "FABPFEABCJD",
+                  "key": "_TANUKI_PATHPOINT_END_",
+                  "param3": 1.0
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "PCFGMCNGOEE",
+                  "intID": "NextPointType",
+                  "value": 2
+                },
+                {
+                  "$type": "AACMIBFFLJN",
+                  "target": "Target",
+                  "forwardAngle": 360.0
+                }
+              ],
+              "failActions": [
+                {
+                  "$type": "LFJCGJEHCBA",
+                  "otherTargets": {
+                    "$type": "EFBNAMBMFLM",
+                    "operation": "XOR",
+                    "KOHNDAPMGFM": "NextPathPointFlag"
+                  },
+                  "targetPredicates": [
+                    {
+                      "$type": "FABPFEABCJD",
+                      "key": "_TANUKI_PATHPOINT_BLINK_",
+                      "param3": 1.0
+                    }
+                  ],
+                  "successActions": [
+                    {
+                      "$type": "PCFGMCNGOEE",
+                      "intID": "NextPointType",
+                      "value": 1
+                    },
+                    {
+                      "$type": "AACMIBFFLJN",
+                      "target": "Target",
+                      "forwardAngle": 360.0
+                    }
+                  ],
+                  "failActions": [
+                    {
+                      "$type": "PCFGMCNGOEE",
+                      "intID": "NextPointType",
+                      "value": 3
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "ABPBKGIPNEJ",
+          "param3": 1.0,
+          "key": "_TANUKI_NEXTPATHPOINTFLAG_",
+          "param2": 0.0,
+          "repeatTimes": 0.0
+        }
+      ],
+      "onAbilityStart": [
+        {
+          "$type": "ELPBJOPEOGL",
+          "boolID": "FixedMove"
+        },
+        {
+          "$type": "GGACJNFACEH",
+          "param3": 1.0,
+          "key": "_TANUKI_NEXTPATHPOINTFLAG_",
+          "useLimitRange": true,
+          "param2": 99.0,
+          "repeatTimes": 1.0
+        },
+        {
+          "$type": "POBEDGJAPAC",
+          "globalValueKey": "_TANUKI_NEXTPATHPOINTFLAG_",
+          "overrideMapKey": "NextPathPointFlag"
+        },
+        {
+          "$type": "PCFGMCNGOEE",
+          "intID": "NextPointType"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "LOMEAIKEDCN",
+      "abilityName": "Animal_Inu_Tanuki_DoBlink",
+      "onAbilityStart": [
+        {
+          "$type": "FALCMJBLHPM"
+        },
+        {
+          "$type": "POMMBCJPEIH",
+          "abilityName": "Animal_Inu_Tanuki_FindNextPathPoint"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "LOMEAIKEDCN",
+      "abilityName": "Animal_Inu_Tanuki_Attraction",
+      "abilityMixins": [
+        {
+          "$type": "JGJCDFDDIFO",
+          "stateIDs": [
+            "Alert",
+            "Alert_AS",
+            "Attraction",
+            "Attraction_AS"
+          ],
+          "modifierName": "Inu_Tanuki_AttractionEffect",
+          "GBHKPFDPAML": ""
+        },
+        {
+          "$type": "JGJCDFDDIFO",
+          "stateIDs": [
+            "Alert",
+            "Alert_AS"
+          ],
+          "modifierName": "Inu_Tanuki_AlertBehitModifier",
+          "GBHKPFDPAML": ""
+        }
+      ],
+      "modifiers": {
+        "Inu_Tanuki_AttractionEffect": {
+          "modifierName": "",
+          "FBDJMFGBKBC": 100.0,
+          "onAdded": [
+            {
+              "$type": "OJKEKGLFPHD",
+              "exclusionPairs": "Eff_Animal_Inu_Tanuki_Attraction",
+              "JIJFNGCFCFK": 1.0,
+              "HPFBIEOBCGE": -1.0
+            }
+          ]
+        },
+        "Inu_Tanuki_AlertBehitModifier": {
+          "modifierName": "",
+          "FBDJMFGBKBC": 100.0,
+          "onBeingHit": [
+            {
+              "$type": "GNMPLBFLKJL",
+              "GNKBNACHMCL": "AlertHitTrigger"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Default": {
+      "$type": "LOMEAIKEDCN",
+      "abilityName": "Animal_Inu_Tanuki_KillSelf",
+      "onAbilityStart": [
+        {
+          "$type": "HEDBMBADMFD"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "LOMEAIKEDCN",
+      "abilityName": "Animal_Inu_Tanuki_KillSelf_Escape",
+      "onAbilityStart": [
+        {
+          "$type": "HEDBMBADMFD",
+          "killSelfType": "Disappear",
+          "value": true,
+          "banExp": true
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "LOMEAIKEDCN",
+      "abilityName": "Animal_Inu_Tanuki_Steer",
+      "abilityMixins": [
+        {
+          "$type": "NNMCEOICNCI",
+          "steerStateIDs": [
+            "Blink_BS"
+          ],
+          "endNormalizedTime": 0.5,
+          "angularSpeed": 540.0,
+          "attackTrigger": "",
+          "attackDistance": 2.0,
+          "GBHKPFDPAML": ""
+        },
+        {
+          "$type": "NNMCEOICNCI",
+          "steerStateIDs": [
+            "End"
+          ],
+          "endNormalizedTime": 0.5,
+          "angularSpeed": 540.0,
+          "attackTrigger": "",
+          "attackDistance": 2.0,
+          "GBHKPFDPAML": ""
+        },
+        {
+          "$type": "NNMCEOICNCI",
+          "steerStateIDs": [
+            "Alert"
+          ],
+          "endNormalizedTime": 0.30000001192092896,
+          "angularSpeed": 540.0,
+          "attackTrigger": "",
+          "attackDistance": 2.0,
+          "GBHKPFDPAML": ""
+        }
+      ]
+    }
+  }
+]
