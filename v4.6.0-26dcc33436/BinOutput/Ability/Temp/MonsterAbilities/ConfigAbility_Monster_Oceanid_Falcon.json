@@ -1,0 +1,258 @@
+[
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Oceanid_Falcon_ElementState",
+      "modifiers": {
+        "UNIQUE_ElementState": {
+          "modifierName": "",
+          "isUnique": true,
+          "elementType": "Water",
+          "bonusCriticalHurt": 100.0,
+          "isElementDurabilityMutable": false
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "UNIQUE_ElementState"
+        },
+        {
+          "$type": "MoleMole.Config.AttachAbilityStateResistance",
+          "resistanceBuffDebuffs": [
+            "Struggle",
+            "ElementWet"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Oceanid_Falcon_Dive",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToNormalizedTimeMixin",
+          "stateID": "Dive",
+          "modifierName": "DiveState",
+          "normalizeStart": 0.375,
+          "normalizeEnd": 0.75,
+          "BILMCNCKIAO": ""
+        },
+        {
+          "$type": "MoleMole.Config.SteerAttackMixin",
+          "steerStateIDs": [
+            "Dive"
+          ],
+          "endNormalizedTime": 0.3199999928474426,
+          "angularSpeed": 180.0,
+          "attackTrigger": "",
+          "attackDistance": 1.5,
+          "BILMCNCKIAO": ""
+        }
+      ],
+      "modifiers": {
+        "DiveState": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.EnablePushColliderName",
+              "pushColliderNames": [
+                "PushCollider"
+              ]
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.EnablePushColliderName",
+              "pushColliderNames": [
+                "PushCollider"
+              ],
+              "setEnable": true
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Oceanid_Falcon_Steer",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.SteerAttackMixin",
+          "steerStateIDs": [
+            "NormalIdle"
+          ],
+          "angularSpeed": 180.0,
+          "attackTrigger": "",
+          "attackDistance": 1.5,
+          "BILMCNCKIAO": ""
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Oceanid_Falcon_Die",
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.FireEffect",
+          "rotationDampTime": "Eff_Monster_Oceanid_AnimalDie",
+          "born": {
+            "$type": "POAPJOHEDDM",
+            "offset": {
+              "AOFNOGLCGMP": 0.0,
+              "CHEGDAPFFHA": 0.0,
+              "JEGKAACFHJK": 0.0
+            },
+            "direction": {
+              "$type": "PBGHCONEIHD"
+            },
+            "attachPointName": "RootNode"
+          },
+          "NHGDGLICLFB": -1.0
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Oceanid_Falcon_HealHp_Challenge",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachModifierToSelfGlobalValueMixin",
+          "globalValueKey": "_HEALHP_STATE_",
+          "gvInTalk": 1.0,
+          "valueSteps": [
+            -0.5,
+            0.5,
+            1.5
+          ],
+          "modifierNameSteps": [
+            "Empty",
+            "UNIQUE_Falcon_Water_HealHp"
+          ]
+        }
+      ],
+      "abilitySpecials": {
+        "HealHPHigh": 0.15000000596046448
+      },
+      "modifiers": {
+        "UNIQUE_Falcon_Water_HealHp": {
+          "modifierName": "",
+          "isUnique": true,
+          "bonusCriticalHurt": 100.0,
+          "thinkInterval": 1.5,
+          "onBeingHit": [
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "targetPredicates": [
+                {
+                  "$type": "POOFKGMBLNA",
+                  "key": "SGV_MONSTERAFFIX_OCEANID_02_ANIMALHEAL_UP",
+                  "param3": 1.0
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "MoleMole.Config.ApplyModifier",
+                  "modifierName": "HealHP_Pause_AffixUp"
+                }
+              ],
+              "failActions": [
+                {
+                  "$type": "MoleMole.Config.ApplyModifier",
+                  "modifierName": "HealHP_Pause"
+                }
+              ]
+            }
+          ],
+          "onThinkInterval": [
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "targetPredicates": [
+                {
+                  "$type": "POOFKGMBLNA",
+                  "key": "SGV_MONSTERAFFIX_OCEANID_02_ANIMALHEAL_UP",
+                  "param3": 1.0
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "MoleMole.Config.HealHP",
+                  "MEEACMKOLJF": "HealHPHigh",
+                  "cdRatio": ""
+                },
+                {
+                  "$type": "MoleMole.Config.FireEffect",
+                  "rotationDampTime": "Eff_Monster_Oceanid_Falcon_Heal",
+                  "NHGDGLICLFB": -1.0
+                }
+              ]
+            }
+          ]
+        },
+        "HealHP_Pause": {
+          "modifierName": "",
+          "elementDurability": 3.0,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AddGlobalValue",
+              "param3": 0.0,
+              "key": "_HEALHP_STATE_",
+              "useLimitRange": true,
+              "param2": 0.0,
+              "triggerID": 0.0
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.AddGlobalValue",
+              "param3": 1.0,
+              "key": "_HEALHP_STATE_",
+              "useLimitRange": true,
+              "param2": 1.0,
+              "triggerID": 1.0
+            }
+          ]
+        },
+        "HealHP_Pause_AffixUp": {
+          "modifierName": "",
+          "elementDurability": 1.5,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AddGlobalValue",
+              "param3": 0.0,
+              "key": "_HEALHP_STATE_",
+              "useLimitRange": true,
+              "param2": 0.0,
+              "triggerID": 0.0
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.AddGlobalValue",
+              "param3": 1.0,
+              "key": "_HEALHP_STATE_",
+              "useLimitRange": true,
+              "param2": 1.0,
+              "triggerID": 1.0
+            }
+          ]
+        },
+        "Empty": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0
+        }
+      }
+    }
+  }
+]

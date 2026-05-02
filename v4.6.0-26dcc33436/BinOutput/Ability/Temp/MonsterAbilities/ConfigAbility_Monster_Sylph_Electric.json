@@ -1,0 +1,1658 @@
+[
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Sylph_Electric_PoseHandler",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachModifierToSelfGlobalValueMixin",
+          "globalValueKey": "_SYLPH_POSE_TAG_",
+          "gvInTalk": 0.0,
+          "valueSteps": [
+            -0.5,
+            0.5,
+            1.5
+          ],
+          "modifierNameSteps": [
+            "Pose_None",
+            "Pose_Activated"
+          ]
+        },
+        {
+          "$type": "MoleMole.Config.AttachModifierToHPPercentMixinV2",
+          "valueSteps": [
+            0.019999999552965164
+          ],
+          "modifierNameSteps": [
+            "Sylph_Empty",
+            "Sylph_DyingPoseState"
+          ]
+        }
+      ],
+      "modifiers": {
+        "UNIQUE_Sylph_Limbo": {
+          "modifierName": "",
+          "isUnique": true,
+          "bonusCriticalHurt": 100.0,
+          "properties": {
+            "Actor_HpThresholdRatio": 0.0
+          },
+          "state": "Limbo"
+        },
+        "Empty": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0
+        },
+        "Achieve_Moniter": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onKill": [
+            {
+              "$type": "MoleMole.Config.DoWatcherSystemAction",
+              "watcherId": 82125,
+              "inThreatListOnly": true
+            }
+          ]
+        },
+        "UNIQUE_Sylph_ChargeBar": {
+          "modifierName": "",
+          "isUnique": true,
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ChargeBarMixin",
+              "chargeBarIconID": 2,
+              "initialValue": 0.0,
+              "param2": 100.0
+            },
+            {
+              "$type": "MoleMole.Config.AttachModifierToSelfGlobalValueMixin",
+              "globalValueKey": "_CHARGEBAR_VALUE",
+              "gvInTalk": 0.0,
+              "valueSteps": [
+                -0.5,
+                0.5,
+                99.5,
+                100.5
+              ],
+              "modifierNameSteps": [
+                "Achieve_Moniter",
+                "Empty",
+                "ChargeActivated"
+              ]
+            },
+            {
+              "$type": "MoleMole.Config.DoActionByDamageReceivedMixin",
+              "valueMin": 0.1875,
+              "valueMax": 0.3125,
+              "actionQueue": [
+                {
+                  "$type": "MoleMole.Config.AddChargeBarValue",
+                  "param3": 20.0,
+                  "param2": 0.0,
+                  "triggerID": 0.0
+                }
+              ]
+            },
+            {
+              "$type": "MoleMole.Config.DoActionByDamageReceivedMixin",
+              "valueMin": 0.3125,
+              "valueMax": 0.4375,
+              "actionQueue": [
+                {
+                  "$type": "MoleMole.Config.AddChargeBarValue",
+                  "param3": 40.0,
+                  "param2": 0.0,
+                  "triggerID": 0.0
+                }
+              ]
+            },
+            {
+              "$type": "MoleMole.Config.DoActionByDamageReceivedMixin",
+              "valueMin": 0.4375,
+              "valueMax": 0.5625,
+              "actionQueue": [
+                {
+                  "$type": "MoleMole.Config.AddChargeBarValue",
+                  "param3": 70.0,
+                  "param2": 0.0,
+                  "triggerID": 0.0
+                }
+              ]
+            },
+            {
+              "$type": "MoleMole.Config.DoActionByDamageReceivedMixin",
+              "valueMin": 0.5625,
+              "valueMax": 3.4028234663852886E+38,
+              "actionQueue": [
+                {
+                  "$type": "MoleMole.Config.AddChargeBarValue",
+                  "param3": 100.0,
+                  "param2": 0.0,
+                  "triggerID": 0.0
+                }
+              ]
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetChargeBarValue",
+              "param3": 0.0
+            }
+          ]
+        },
+        "ChargeActivated": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 1.0,
+              "key": "_SYLPH_POSE_TAG_",
+              "param2": 0.0,
+              "triggerID": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.SetAnimatorTrigger",
+              "value": "NormalToActivated"
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 0.0,
+              "key": "_SYLPH_POSE_TAG_",
+              "param2": 0.0,
+              "triggerID": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.ResetAnimatorTrigger",
+              "value": "NormalToActivated"
+            }
+          ]
+        },
+        "Pose_None": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetPoseBool",
+              "boolID": "ActivatedTag"
+            },
+            {
+              "$type": "MoleMole.Config.SetAnimatorBool",
+              "boolID": "ActivatedTag"
+            }
+          ]
+        },
+        "Pose_Activated": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.VelocityForceMixin",
+              "excludeForces": [
+                "WindZoneType",
+                "AirflowType",
+                "RetreatAirType"
+              ]
+            }
+          ],
+          "properties": {
+            "Entity_WeightRatio": 2.0
+          },
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetPoseBool",
+              "boolID": "ActivatedTag",
+              "param3": true
+            },
+            {
+              "$type": "MoleMole.Config.SetAnimatorBool",
+              "boolID": "ActivatedTag",
+              "param3": true
+            },
+            {
+              "$type": "MoleMole.Config.SetAISkillCDAvailableNow",
+              "skillIDs": [
+                601
+              ]
+            },
+            {
+              "$type": "MoleMole.Config.ReTriggerAISkillInitialCD",
+              "skillIDs": [
+                601
+              ]
+            },
+            {
+              "$type": "MoleMole.Config.EnableHitBoxByName",
+              "hitBoxNames": [
+                "HitBoxBody"
+              ]
+            },
+            {
+              "$type": "MoleMole.Config.EnableHitBoxByName",
+              "hitBoxNames": [
+                "HitBoxBody_Activated"
+              ],
+              "setEnable": true
+            },
+            {
+              "$type": "MoleMole.Config.EnablePushColliderName",
+              "pushColliderNames": [
+                "PushCollider"
+              ]
+            },
+            {
+              "$type": "MoleMole.Config.EnablePushColliderName",
+              "pushColliderNames": [
+                "PushCollider_Activated"
+              ],
+              "setEnable": true
+            }
+          ]
+        },
+        "Sylph_DyingPoseState": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "properties": {
+            "Actor_EndureDelta": 0.0,
+            "Actor_SubHurtDelta": 1.0
+          },
+          "state": "DenyLockOn",
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetPoseBool",
+              "boolID": "DyingState",
+              "param3": true
+            },
+            {
+              "$type": "MoleMole.Config.EnableHitBoxByName",
+              "hitBoxNames": [
+                "HitBoxBody"
+              ]
+            },
+            {
+              "$type": "MoleMole.Config.EnableHitBoxByName",
+              "hitBoxNames": [
+                "HitBoxBody_Activated"
+              ]
+            },
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 1.0,
+              "key": "_SYLPH_DEATH_TAG_",
+              "param2": 0.0,
+              "triggerID": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.AttachModifier",
+              "modifierName": "Dying_IsGhostToAllied"
+            },
+            {
+              "$type": "MoleMole.Config.AttachModifier",
+              "modifierName": "Dying_IsGhostToEnemy"
+            },
+            {
+              "$type": "MoleMole.Config.AttachModifier",
+              "modifierName": "Dying_LockHP"
+            },
+            {
+              "$type": "MoleMole.Config.AttachModifier",
+              "modifierName": "Dying_NoHeal"
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.SetPoseBool",
+              "boolID": "DyingState"
+            },
+            {
+              "$type": "MoleMole.Config.EnableHitBoxByName",
+              "predicates": [
+                {
+                  "$type": "POOFKGMBLNA",
+                  "key": "_SYLPH_POSE_TAG_",
+                  "param3": 0.0,
+                  "compareType": "NoneOrEqual"
+                }
+              ],
+              "hitBoxNames": [
+                "HitBoxBody"
+              ],
+              "setEnable": true
+            },
+            {
+              "$type": "MoleMole.Config.EnableHitBoxByName",
+              "predicates": [
+                {
+                  "$type": "POOFKGMBLNA",
+                  "key": "_SYLPH_POSE_TAG_",
+                  "param3": 1.0
+                }
+              ],
+              "hitBoxNames": [
+                "HitBoxBody_Activated"
+              ],
+              "setEnable": true
+            },
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 0.0,
+              "key": "_SYLPH_DEATH_TAG_",
+              "param2": 0.0,
+              "triggerID": 0.0
+            }
+          ]
+        },
+        "Dying_IsGhostToAllied": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "state": "IsGhostToAllied"
+        },
+        "Dying_IsGhostToEnemy": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "state": "IsGhostToEnemy"
+        },
+        "Dying_LockHP": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "state": "LockHP"
+        },
+        "Dying_NoHeal": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "state": "NoHeal"
+        },
+        "Sylph_Empty": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "UNIQUE_Sylph_Limbo"
+        },
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "UNIQUE_Sylph_ChargeBar"
+        },
+        {
+          "$type": "MoleMole.Config.SetGlobalValue",
+          "param3": 0.0,
+          "key": "_SYLPH_DEATH_TAG_",
+          "param2": 0.0,
+          "triggerID": 0.0
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Sylph_Electric_PoseAction",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToPoseIDMixin",
+          "poseIDs": [
+            211,
+            311
+          ],
+          "modifierName": "Sylph_DyingAnimState"
+        }
+      ],
+      "modifiers": {
+        "Sylph_DyingAnimState": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "thinkInterval": 0.20000000298023224,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetAnimatorBool",
+              "predicates": [
+                {
+                  "$type": "POOFKGMBLNA",
+                  "key": "_SYLPH_POSE_TAG_",
+                  "param3": 0.0,
+                  "compareType": "NoneOrEqual"
+                }
+              ],
+              "boolID": "DeathTag",
+              "param3": true
+            },
+            {
+              "$type": "MoleMole.Config.SetAnimatorBool",
+              "predicates": [
+                {
+                  "$type": "POOFKGMBLNA",
+                  "key": "_SYLPH_POSE_TAG_",
+                  "param3": 1.0
+                }
+              ],
+              "boolID": "ActivatedDeathTag",
+              "param3": true
+            },
+            {
+              "$type": "MoleMole.Config.RemoveModifierByAbilityStateResistanceID",
+              "resistanceListID": 13002
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.SetAnimatorBool",
+              "predicates": [
+                {
+                  "$type": "POOFKGMBLNA",
+                  "key": "_SYLPH_POSE_TAG_",
+                  "param3": 0.0,
+                  "compareType": "NoneOrEqual"
+                }
+              ],
+              "boolID": "DeathTag"
+            },
+            {
+              "$type": "MoleMole.Config.SetAnimatorBool",
+              "predicates": [
+                {
+                  "$type": "POOFKGMBLNA",
+                  "key": "_SYLPH_POSE_TAG_",
+                  "param3": 1.0
+                }
+              ],
+              "boolID": "ActivatedDeathTag"
+            }
+          ],
+          "onThinkInterval": [
+            {
+              "$type": "MoleMole.Config.RemoveModifierByAbilityStateResistanceID",
+              "resistanceListID": 13002
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Sylph_Electric_Steer",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.SteerAttackMixin",
+          "steerStateIDs": [
+            "Activated_Standby"
+          ],
+          "angularSpeed": 240.0,
+          "attackTrigger": "",
+          "BILMCNCKIAO": ""
+        },
+        {
+          "$type": "MoleMole.Config.SteerAttackMixin",
+          "steerStateIDs": [
+            "Warning"
+          ],
+          "angularSpeed": 150.0,
+          "attackTrigger": "",
+          "BILMCNCKIAO": ""
+        },
+        {
+          "$type": "MoleMole.Config.SteerAttackMixin",
+          "steerStateIDs": [
+            "ElectricBullet"
+          ],
+          "endNormalizedTime": 0.11999999731779099,
+          "angularSpeed": 120.0,
+          "attackTrigger": "",
+          "BILMCNCKIAO": ""
+        },
+        {
+          "$type": "MoleMole.Config.SteerAttackMixin",
+          "steerStateIDs": [
+            "ElectricBullet"
+          ],
+          "startNormalizedTime": 0.25,
+          "endNormalizedTime": 0.4399999976158142,
+          "angularSpeed": 90.0,
+          "attackTrigger": "",
+          "BILMCNCKIAO": ""
+        },
+        {
+          "$type": "MoleMole.Config.SteerAttackMixin",
+          "steerStateIDs": [
+            "FlyHor_BS"
+          ],
+          "endNormalizedTime": 0.5,
+          "angularSpeed": 360.0,
+          "attackTrigger": "",
+          "BILMCNCKIAO": ""
+        },
+        {
+          "$type": "MoleMole.Config.SteerAttackMixin",
+          "steerStateIDs": [
+            "FlyHor_AS"
+          ],
+          "startNormalizedTime": 0.5,
+          "angularSpeed": 180.0,
+          "attackTrigger": "",
+          "BILMCNCKIAO": ""
+        },
+        {
+          "$type": "MoleMole.Config.SteerAttackMixin",
+          "steerStateIDs": [
+            "Activated_JumpAtk_BS"
+          ],
+          "endNormalizedTime": 0.3199999928474426,
+          "angularSpeed": 180.0,
+          "attackTrigger": "",
+          "BILMCNCKIAO": ""
+        },
+        {
+          "$type": "MoleMole.Config.SteerAttackMixin",
+          "steerStateIDs": [
+            "Activated_JumpAtk_BS"
+          ],
+          "startNormalizedTime": 0.49000000953674316,
+          "endNormalizedTime": 0.550000011920929,
+          "angularSpeed": 180.0,
+          "attackTrigger": "",
+          "BILMCNCKIAO": ""
+        },
+        {
+          "$type": "MoleMole.Config.SteerAttackMixin",
+          "steerStateIDs": [
+            "Activated_JumpAtk_BS"
+          ],
+          "startNormalizedTime": 0.8299999833106995,
+          "angularSpeed": 180.0,
+          "attackTrigger": "",
+          "BILMCNCKIAO": ""
+        },
+        {
+          "$type": "MoleMole.Config.SteerAttackMixin",
+          "steerStateIDs": [
+            "Activated_JumpAtk_Loop"
+          ],
+          "angularSpeed": 180.0,
+          "attackTrigger": "",
+          "BILMCNCKIAO": ""
+        },
+        {
+          "$type": "MoleMole.Config.SteerAttackMixin",
+          "steerStateIDs": [
+            "Activated_JumpAtk_AS"
+          ],
+          "endNormalizedTime": 0.30000001192092896,
+          "angularSpeed": 180.0,
+          "attackTrigger": "",
+          "BILMCNCKIAO": ""
+        },
+        {
+          "$type": "MoleMole.Config.SteerAttackMixin",
+          "steerStateIDs": [
+            "Activated_Deathrattle_Loop"
+          ],
+          "endNormalizedTime": 20.0,
+          "angularSpeed": 180.0,
+          "attackTrigger": "ActivatedDeathEnd",
+          "attackDistance": 3.0,
+          "BILMCNCKIAO": ""
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Sylph_Electric_ExitBattle",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToPoseIDMixin",
+          "poseIDs": [
+            901
+          ],
+          "modifierName": "ExitBattle"
+        }
+      ],
+      "modifiers": {
+        "ExitBattle": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetAnimatorTrigger",
+              "predicates": [
+                {
+                  "$type": "POOFKGMBLNA",
+                  "key": "_SYLPH_POSE_TAG_",
+                  "param3": 1.0
+                }
+              ],
+              "value": "ActivatedToNormal"
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 0.0,
+              "key": "_SYLPH_POSE_TAG_",
+              "param2": 0.0,
+              "triggerID": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.SetPoseBool",
+              "boolID": "DyingState"
+            },
+            {
+              "$type": "MoleMole.Config.SetPoseBool",
+              "boolID": "ActivatedTag"
+            },
+            {
+              "$type": "MoleMole.Config.SetAnimatorBool",
+              "boolID": "ActivatedTag"
+            },
+            {
+              "$type": "MoleMole.Config.SetChargeBarValue",
+              "param3": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.RemoveUniqueModifier",
+              "modifierName": "UNIQUE_Sylph_Face"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Sylph_Electric_ElectricBullet1_BS",
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.SetGlobalPos",
+          "target": "SelfAttackTarget",
+          "key": "ThunderPos1",
+          "born": {
+            "$type": "CGJIFGJJOJA",
+            "offset": {
+              "AOFNOGLCGMP": 0.0,
+              "CHEGDAPFFHA": 0.0,
+              "JEGKAACFHJK": 0.0
+            },
+            "onGround": true
+          },
+          "setTarget": false
+        },
+        {
+          "$type": "MoleMole.Config.SetGlobalPos",
+          "target": "SelfAttackTarget",
+          "key": "ThunderPos2",
+          "born": {
+            "$type": "CGJIFGJJOJA",
+            "offset": {
+              "AOFNOGLCGMP": 1.5,
+              "CHEGDAPFFHA": 0.0,
+              "JEGKAACFHJK": 1.5
+            },
+            "bornRandom": {
+              "$type": "OCDANLJMNNK",
+              "minRandomRange": 0.0,
+              "maxRandomRange": 0.5
+            },
+            "onGround": true
+          },
+          "setTarget": false
+        },
+        {
+          "$type": "MoleMole.Config.SetGlobalPos",
+          "target": "SelfAttackTarget",
+          "key": "ThunderPos3",
+          "born": {
+            "$type": "CGJIFGJJOJA",
+            "offset": {
+              "AOFNOGLCGMP": -1.5,
+              "CHEGDAPFFHA": 0.0,
+              "JEGKAACFHJK": 1.5
+            },
+            "bornRandom": {
+              "$type": "OCDANLJMNNK",
+              "minRandomRange": 0.0,
+              "maxRandomRange": 0.5
+            },
+            "onGround": true
+          },
+          "setTarget": false
+        },
+        {
+          "$type": "MoleMole.Config.FireSubEmitterEffect",
+          "rotationDampTime": "Eff_Monster_Sylph_Electric_ElectricBullet_Hit_Alert",
+          "born": {
+            "$type": "MKLCDCJFOHO",
+            "positionKey": "ThunderPos1",
+            "directionKey": ""
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Sylph_Electric_ElectricBullet1_AS",
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.FireSubEmitterEffect",
+          "rotationDampTime": "Eff_Monster_Sylph_Electric_ElectricBullet_Hit",
+          "born": {
+            "$type": "MKLCDCJFOHO",
+            "positionKey": "ThunderPos1",
+            "directionKey": ""
+          }
+        },
+        {
+          "$type": "MoleMole.Config.TriggerAttackEvent",
+          "attackEvent": {
+            "attackPattern": {
+              "$type": "ABPNLDBPPHF",
+              "triggerType": "TriggerNoRepeat",
+              "born": {
+                "$type": "MKLCDCJFOHO",
+                "positionKey": "ThunderPos1",
+                "directionKey": ""
+              },
+              "height": 2.0,
+              "IDLDJCPGNHD": 0.6499999761581421
+            },
+            "attackInfo": {
+              "attackTag": "",
+              "attenuationTag": "",
+              "attenuationGroup": "default",
+              "attackProperty": {
+                "AGMNCBAKCEF": 0.5,
+                "AILJJDMKONE": 0.0,
+                "elementType": "Electric",
+                "bonusCriticalHurt": 30.0,
+                "strikeType": "Blunt",
+                "enBreak": 10.0,
+                "bonusCritical": 0.0
+              },
+              "hitPattern": {
+                "onHitEffectName": "none",
+                "hitImpulseType": "LV2",
+                "hitHaltTimeScale": 0.009999999776482582
+              },
+              "canBeModifiedBy": "OriginOwner"
+            }
+          },
+          "targetType": "Enemy"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Sylph_Electric_ElectricBullet2_BS",
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.FireSubEmitterEffect",
+          "rotationDampTime": "Eff_Monster_Sylph_Electric_ElectricBullet_Hit_Alert",
+          "born": {
+            "$type": "MKLCDCJFOHO",
+            "positionKey": "ThunderPos2",
+            "directionKey": ""
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Sylph_Electric_ElectricBullet2_AS",
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.FireSubEmitterEffect",
+          "rotationDampTime": "Eff_Monster_Sylph_Electric_ElectricBullet_Hit",
+          "born": {
+            "$type": "MKLCDCJFOHO",
+            "positionKey": "ThunderPos2",
+            "directionKey": ""
+          }
+        },
+        {
+          "$type": "MoleMole.Config.TriggerAttackEvent",
+          "attackEvent": {
+            "attackPattern": {
+              "$type": "ABPNLDBPPHF",
+              "triggerType": "TriggerNoRepeat",
+              "born": {
+                "$type": "MKLCDCJFOHO",
+                "positionKey": "ThunderPos2",
+                "directionKey": ""
+              },
+              "height": 2.0,
+              "IDLDJCPGNHD": 0.6499999761581421
+            },
+            "attackInfo": {
+              "attackTag": "",
+              "attenuationTag": "",
+              "attenuationGroup": "default",
+              "attackProperty": {
+                "AGMNCBAKCEF": 0.5,
+                "AILJJDMKONE": 0.0,
+                "elementType": "Electric",
+                "bonusCriticalHurt": 30.0,
+                "strikeType": "Blunt",
+                "enBreak": 10.0,
+                "bonusCritical": 0.0
+              },
+              "hitPattern": {
+                "onHitEffectName": "none",
+                "hitImpulseType": "LV2",
+                "hitHaltTimeScale": 0.009999999776482582
+              },
+              "canBeModifiedBy": "OriginOwner"
+            }
+          },
+          "targetType": "Enemy"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Sylph_Electric_ElectricBullet3_BS",
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.FireSubEmitterEffect",
+          "rotationDampTime": "Eff_Monster_Sylph_Electric_ElectricBullet_Hit_Alert",
+          "born": {
+            "$type": "MKLCDCJFOHO",
+            "positionKey": "ThunderPos3",
+            "directionKey": ""
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Sylph_Electric_ElectricBullet3_AS",
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.FireSubEmitterEffect",
+          "rotationDampTime": "Eff_Monster_Sylph_Electric_ElectricBullet_Hit",
+          "born": {
+            "$type": "MKLCDCJFOHO",
+            "positionKey": "ThunderPos3",
+            "directionKey": ""
+          }
+        },
+        {
+          "$type": "MoleMole.Config.TriggerAttackEvent",
+          "attackEvent": {
+            "attackPattern": {
+              "$type": "ABPNLDBPPHF",
+              "triggerType": "TriggerNoRepeat",
+              "born": {
+                "$type": "MKLCDCJFOHO",
+                "positionKey": "ThunderPos3",
+                "directionKey": ""
+              },
+              "height": 2.0,
+              "IDLDJCPGNHD": 0.6499999761581421
+            },
+            "attackInfo": {
+              "attackTag": "",
+              "attenuationTag": "",
+              "attenuationGroup": "default",
+              "attackProperty": {
+                "AGMNCBAKCEF": 0.5,
+                "AILJJDMKONE": 0.0,
+                "elementType": "Electric",
+                "bonusCriticalHurt": 30.0,
+                "strikeType": "Blunt",
+                "enBreak": 10.0,
+                "bonusCritical": 0.0
+              },
+              "hitPattern": {
+                "onHitEffectName": "none",
+                "hitImpulseType": "LV2",
+                "hitHaltTimeScale": 0.009999999776482582
+              },
+              "canBeModifiedBy": "OriginOwner"
+            }
+          },
+          "targetType": "Enemy"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Sylph_Electric_FlyHor",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToStateIDMixin",
+          "stateIDs": [
+            "FlyHor_Loop"
+          ],
+          "modifierName": "FlyHor_FollowBullet",
+          "BILMCNCKIAO": ""
+        }
+      ],
+      "modifiers": {
+        "FlyHor_FollowBullet": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.TriggerBullet",
+              "bulletID": 42006501,
+              "born": {
+                "$type": "AHBFOPDDMPB"
+              },
+              "trackTarget": "Self",
+              "lifeByOwnerV2": true
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.KillSelf",
+              "otherTargets": {
+                "$type": "JHKLCAELLHL",
+                "configID": 42006501
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Sylph_Electric_FlyHor_RushMove",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToStateIDMixin",
+          "stateIDs": [
+            "FlyHor_Loop"
+          ],
+          "modifierName": "FlyHor_EffHandler",
+          "BILMCNCKIAO": ""
+        }
+      ],
+      "modifiers": {
+        "Collision_Control": {
+          "modifierName": "",
+          "elementDurability": 0.5,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.EnablePushColliderName",
+              "pushColliderNames": [
+                "PushCollider"
+              ]
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.EnablePushColliderName",
+              "pushColliderNames": [
+                "PushCollider"
+              ],
+              "setEnable": true
+            }
+          ]
+        },
+        "FlyHor_EffHandler": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.RemoveModifier",
+              "modifierName": "FlyHor_Eff"
+            }
+          ]
+        },
+        "FlyHor_Eff": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_Monster_Sylph_Electric_FlyDash_Shoot",
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        }
+      },
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.Predicated",
+          "target": "SelfAttackTarget",
+          "targetPredicates": [
+            {
+              "$type": "CBCDFBOOFDC",
+              "logic": "LesserOrEqual",
+              "param3": 8.0,
+              "PHMALDNHHLD": ""
+            }
+          ],
+          "successActions": [
+            {
+              "$type": "MoleMole.Config.TurnDirectionToPos",
+              "target": "SelfAttackTarget",
+              "toPos": {
+                "$type": "CGJIFGJJOJA"
+              }
+            },
+            {
+              "$type": "MoleMole.Config.TryFindBlinkPointByBorn",
+              "target": "SelfAttackTarget",
+              "born": {
+                "$type": "MNCJACPDDLK",
+                "onGround": true,
+                "linearOffset": 3.5,
+                "linearMin": 0.0,
+                "linearMax": 10.0
+              },
+              "hitSceneType": "BlinkHitSceneTestByThreeSegments",
+              "limitY": 2.5
+            },
+            {
+              "$type": "MoleMole.Config.ApplyModifier",
+              "modifierName": "Collision_Control"
+            },
+            {
+              "$type": "MoleMole.Config.FixedMonsterRushMove",
+              "toPos": {
+                "$type": "FICAJIGICAH"
+              },
+              "MBHPLECOEKG": 0.5,
+              "animatorStateIDs": [
+                "FlyHor_Loop"
+              ],
+              "overrideMoveCollider": "",
+              "isInAir": true
+            }
+          ],
+          "failActions": [
+            {
+              "$type": "MoleMole.Config.TurnDirectionToPos",
+              "target": "SelfAttackTarget",
+              "toPos": {
+                "$type": "CGJIFGJJOJA"
+              }
+            },
+            {
+              "$type": "MoleMole.Config.TryFindBlinkPointByBorn",
+              "born": {
+                "$type": "AHBFOPDDMPB",
+                "offset": {
+                  "AOFNOGLCGMP": 0.0,
+                  "CHEGDAPFFHA": 0.0,
+                  "JEGKAACFHJK": 8.0
+                }
+              },
+              "hitSceneType": "BlinkHitSceneTestByThreeSegments",
+              "limitY": 2.5
+            },
+            {
+              "$type": "MoleMole.Config.ApplyModifier",
+              "modifierName": "Collision_Control"
+            },
+            {
+              "$type": "MoleMole.Config.FixedMonsterRushMove",
+              "toPos": {
+                "$type": "FICAJIGICAH"
+              },
+              "MBHPLECOEKG": 1.0,
+              "animatorStateIDs": [
+                "FlyHor_Loop"
+              ],
+              "overrideMoveCollider": "",
+              "isInAir": true
+            }
+          ]
+        },
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "FlyHor_Eff"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Sylph_Electric_FlyHor_FollowBullet_Hit",
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.TriggerAttackEvent",
+          "attackEvent": {
+            "attackPattern": {
+              "$type": "CDFDJKDFCFJ",
+              "triggerType": "TriggerNoRepeat",
+              "born": {
+                "$type": "KKKABMDCNIJ"
+              },
+              "IDLDJCPGNHD": 1.0
+            },
+            "attackInfo": {
+              "attackTag": "",
+              "attenuationTag": "",
+              "attenuationGroup": "default",
+              "attackProperty": {
+                "AGMNCBAKCEF": 0.625,
+                "AILJJDMKONE": 0.0,
+                "elementType": "Electric",
+                "bonusCriticalHurt": 50.0,
+                "strikeType": "Blunt",
+                "enBreak": 100.0,
+                "bonusCritical": 0.0
+              },
+              "hitPattern": {
+                "onHitEffectName": "default",
+                "hitImpulseType": "LV4",
+                "hitHaltTimeScale": 0.009999999776482582
+              },
+              "canBeModifiedBy": "OriginOwner"
+            }
+          },
+          "targetType": "Enemy"
+        },
+        {
+          "$type": "MoleMole.Config.KillSelf"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Sylph_Electric_Deathrattle",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToStateIDMixin",
+          "stateIDs": [
+            "Deathrattle"
+          ],
+          "modifierName": "Deathrattle_Pos",
+          "BILMCNCKIAO": ""
+        }
+      ],
+      "modifiers": {
+        "Deathrattle_Pos": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.CreateGadget",
+              "born": {
+                "$type": "POAPJOHEDDM",
+                "offset": {
+                  "AOFNOGLCGMP": 0.0,
+                  "CHEGDAPFFHA": 0.0,
+                  "JEGKAACFHJK": 0.0
+                },
+                "attachPointName": "RootNode"
+              },
+              "gadgetID": 42006503,
+              "campID": 4001,
+              "byServer": true
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.RemoveUniqueModifier",
+              "modifierName": "UNIQUE_Sylph_Limbo"
+            },
+            {
+              "$type": "MoleMole.Config.KillSelf"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Sylph_Electric_DeathPosAction",
+      "modifiers": {
+        "Deathrattle_Timer": {
+          "modifierName": "",
+          "elementDurability": 1.2000000476837158,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.FireEffect",
+              "rotationDampTime": "Eff_Monster_Sylph_Electric_Deathrattle",
+              "NHGDGLICLFB": -1.0
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.ApplyModifier",
+              "modifierName": "Deathrattle_Actions"
+            }
+          ]
+        },
+        "Deathrattle_Actions": {
+          "modifierName": "",
+          "elementDurability": 0.20000000298023224,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.TriggerAttackEvent",
+              "attackEvent": {
+                "attackPattern": {
+                  "$type": "CDFDJKDFCFJ",
+                  "triggerType": "TriggerNoRepeat",
+                  "born": {
+                    "$type": "POAPJOHEDDM",
+                    "offset": {
+                      "AOFNOGLCGMP": 0.0,
+                      "CHEGDAPFFHA": 0.0,
+                      "JEGKAACFHJK": 0.0
+                    },
+                    "attachPointName": "RootNode"
+                  },
+                  "IDLDJCPGNHD": 2.5
+                },
+                "attackInfo": {
+                  "attackTag": "",
+                  "attenuationTag": "",
+                  "attenuationGroup": "default",
+                  "attackProperty": {
+                    "AGMNCBAKCEF": 0.625,
+                    "AILJJDMKONE": 0.0,
+                    "elementType": "Electric",
+                    "bonusCriticalHurt": 25.0,
+                    "strikeType": "Blunt",
+                    "enBreak": 100.0,
+                    "bonusCritical": 0.0
+                  },
+                  "hitPattern": {
+                    "onHitEffectName": "default",
+                    "hitImpulseType": "LV4",
+                    "hitHaltTimeScale": 0.009999999776482582
+                  }
+                }
+              },
+              "targetType": "Enemy"
+            }
+          ]
+        },
+        "Deathrattle_LifeHandler": {
+          "modifierName": "",
+          "elementDurability": 5.0,
+          "bonusCriticalHurt": 100.0,
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.KillSelf"
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "Deathrattle_Timer"
+        },
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "Deathrattle_LifeHandler"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Sylph_Electric_Activated_JumpAtk",
+      "modifiers": {
+        "Blink_Control": {
+          "modifierName": "",
+          "elementDurability": 0.06700000166893005,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.TriggerSetVisible"
+            },
+            {
+              "$type": "MoleMole.Config.HideUIBillBoard",
+              "hide": true
+            },
+            {
+              "$type": "MoleMole.Config.ApplyModifier",
+              "modifierName": "UnderGround_Invincible"
+            },
+            {
+              "$type": "MoleMole.Config.ApplyModifier",
+              "modifierName": "UnderGround_DenyLockOn"
+            },
+            {
+              "$type": "MoleMole.Config.FireEffect",
+              "rotationDampTime": "Eff_Monster_Sylph_Electric_Activated_Jump_Down_Warning",
+              "born": {
+                "$type": "FICAJIGICAH"
+              },
+              "NHGDGLICLFB": -1.0
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.DoBlink"
+            },
+            {
+              "$type": "MoleMole.Config.TriggerSetVisible",
+              "EKCJEIECJJH": true
+            },
+            {
+              "$type": "MoleMole.Config.HideUIBillBoard"
+            },
+            {
+              "$type": "MoleMole.Config.RemoveModifier",
+              "modifierName": "UnderGround_Invincible"
+            },
+            {
+              "$type": "MoleMole.Config.RemoveModifier",
+              "modifierName": "UnderGround_DenyLockOn"
+            }
+          ]
+        },
+        "Collision_Control": {
+          "modifierName": "",
+          "elementDurability": 0.6000000238418579,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.EnablePushColliderName",
+              "pushColliderNames": [
+                "PushCollider"
+              ]
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.EnablePushColliderName",
+              "pushColliderNames": [
+                "PushCollider"
+              ],
+              "setEnable": true
+            }
+          ]
+        },
+        "UnderGround_Invincible": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "state": "Invincible"
+        },
+        "UnderGround_DenyLockOn": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "state": "DenyLockOn"
+        }
+      },
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.TryFindBlinkPointByBorn",
+          "target": "SelfAttackTarget",
+          "born": {
+            "$type": "MNCJACPDDLK",
+            "offset": {
+              "AOFNOGLCGMP": 0.0,
+              "CHEGDAPFFHA": 2.5,
+              "JEGKAACFHJK": 0.0
+            },
+            "linearOffset": 0.0,
+            "linearMin": 0.0,
+            "linearMax": 20.0
+          },
+          "hitSceneType": "BlinkHitSceneTestByThreeSegments",
+          "limitY": 10.0
+        },
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "Collision_Control"
+        },
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "Blink_Control"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Sylph_Electric_Activated_Deathrattle",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToStateIDMixin",
+          "stateIDs": [
+            "Activated_Deathrattle_AS"
+          ],
+          "modifierName": "Activated_Deathrattle_Pos",
+          "BILMCNCKIAO": ""
+        },
+        {
+          "$type": "MoleMole.Config.AttachToStateIDMixin",
+          "stateIDs": [
+            "Activated_Deathrattle_BS",
+            "Activated_Deathrattle_Loop"
+          ],
+          "modifierName": "Activated_Deathrattle_Effect",
+          "BILMCNCKIAO": ""
+        },
+        {
+          "$type": "MoleMole.Config.AttachToPoseIDMixin",
+          "poseIDs": [
+            311
+          ],
+          "modifierName": "Activated_Deathrattle_Reconnect"
+        },
+        {
+          "$type": "MoleMole.Config.DoActionByStateIDMixin",
+          "stateIDs": [
+            "Activated_Deathrattle_Loop"
+          ],
+          "enterActions": [
+            {
+              "$type": "MoleMole.Config.ApplyModifier",
+              "modifierName": "Activated_Deathrattle_CountDown"
+            }
+          ],
+          "BILMCNCKIAO": ""
+        }
+      ],
+      "modifiers": {
+        "Activated_Deathrattle_Reconnect": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onReconnect": [
+            {
+              "$type": "MoleMole.Config.SetAnimatorTrigger",
+              "value": "ActivatedDeathEnd_RC"
+            }
+          ]
+        },
+        "Activated_Deathrattle_Effect": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_Monster_Sylph_Electric_Activated_Deathrattle_Rush",
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        },
+        "Activated_Deathrattle_CountDown": {
+          "stacking": "Unique",
+          "modifierName": "",
+          "elementDurability": 2.0,
+          "bonusCriticalHurt": 100.0,
+          "thinkInterval": 0.10000000149011612,
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.SetAnimatorTrigger",
+              "value": "ActivatedDeathEnd"
+            }
+          ],
+          "onThinkInterval": [
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "target": "SelfAttackTarget",
+              "targetPredicates": [
+                {
+                  "$type": "CBCDFBOOFDC",
+                  "logic": "LesserOrEqual",
+                  "param3": 1.0,
+                  "PHMALDNHHLD": ""
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "MoleMole.Config.SetAnimatorTrigger",
+                  "value": "ActivatedDeathEnd"
+                }
+              ]
+            }
+          ]
+        },
+        "Activated_Deathrattle_Pos": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.CreateGadget",
+              "born": {
+                "$type": "POAPJOHEDDM",
+                "offset": {
+                  "AOFNOGLCGMP": 0.0,
+                  "CHEGDAPFFHA": 0.0,
+                  "JEGKAACFHJK": 0.0
+                },
+                "attachPointName": "RootNode"
+              },
+              "gadgetID": 42006502,
+              "campID": 4001,
+              "byServer": true
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.RemoveUniqueModifier",
+              "modifierName": "UNIQUE_Sylph_Limbo"
+            },
+            {
+              "$type": "MoleMole.Config.KillSelf"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Sylph_Electric_Activated_DeathPosAction",
+      "modifiers": {
+        "Activated_Deathrattle_Timer": {
+          "modifierName": "",
+          "elementDurability": 0.6200000047683716,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.FireEffect",
+              "rotationDampTime": "Eff_Monster_Sylph_Electric_Activated_Deathrattle",
+              "NHGDGLICLFB": -1.0
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.ApplyModifier",
+              "modifierName": "Activated_Deathrattle_Actions"
+            }
+          ]
+        },
+        "Activated_Deathrattle_Actions": {
+          "modifierName": "",
+          "elementDurability": 0.20000000298023224,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.TriggerAttackEvent",
+              "attackEvent": {
+                "attackPattern": {
+                  "$type": "CDFDJKDFCFJ",
+                  "triggerType": "TriggerNoRepeat",
+                  "born": {
+                    "$type": "POAPJOHEDDM",
+                    "offset": {
+                      "AOFNOGLCGMP": 0.0,
+                      "CHEGDAPFFHA": 0.0,
+                      "JEGKAACFHJK": 0.0
+                    },
+                    "attachPointName": "RootNode"
+                  },
+                  "IDLDJCPGNHD": 6.0
+                },
+                "attackInfo": {
+                  "attackTag": "",
+                  "attenuationTag": "",
+                  "attenuationGroup": "default",
+                  "attackProperty": {
+                    "AGMNCBAKCEF": 0.75,
+                    "AILJJDMKONE": 0.0,
+                    "elementType": "Electric",
+                    "bonusCriticalHurt": 25.0,
+                    "strikeType": "Blunt",
+                    "enBreak": 150.0,
+                    "bonusCritical": 0.0
+                  },
+                  "hitPattern": {
+                    "onHitEffectName": "default",
+                    "hitImpulseType": "LV5",
+                    "hitHaltTimeScale": 0.009999999776482582
+                  }
+                }
+              },
+              "targetType": "Enemy"
+            }
+          ]
+        },
+        "Activated_Deathrattle_LifeHandler": {
+          "modifierName": "",
+          "elementDurability": 5.0,
+          "bonusCriticalHurt": 100.0,
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.KillSelf"
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "Activated_Deathrattle_Timer"
+        },
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "Activated_Deathrattle_LifeHandler"
+        }
+      ]
+    }
+  }
+]

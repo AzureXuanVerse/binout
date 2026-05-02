@@ -1,0 +1,6316 @@
+[
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "DynamicAbility_DirtyWater",
+      "modifiers": {
+        "DirtyWater_Handler": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.CurLocalAvatarMixinV2",
+              "modifierName": "AvatarAnimatorDecider"
+            },
+            {
+              "$type": "MoleMole.Config.CurLocalAvatarMixinV2",
+              "modifierName": "DiveGVDecider"
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachModifier",
+              "modifierName": "IncreasingPollutionVal"
+            },
+            {
+              "$type": "MoleMole.Config.AttachModifier",
+              "modifierName": "DecreasingPollutionVal"
+            }
+          ]
+        },
+        "AvatarAnimatorDecider": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.AttachToStateIDMixin",
+              "stateIDs": [
+                "Swim"
+              ],
+              "modifierName": "UNIQUE_SwimAnimatorDecider",
+              "isCheckOnAttach": true,
+              "BILMCNCKIAO": ""
+            },
+            {
+              "$type": "MoleMole.Config.AttachToStateIDMixin",
+              "stateIDs": [
+                "Dive"
+              ],
+              "modifierName": "UNIQUE_DiveAnimatorDecider",
+              "isCheckOnAttach": true,
+              "BILMCNCKIAO": ""
+            }
+          ]
+        },
+        "DiveGVDecider": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "thinkInterval": 0.20000000298023224,
+          "onThinkInterval": [
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "targetPredicates": [
+                {
+                  "$type": "BNNPNEDKIIH",
+                  "predicates": [
+                    {
+                      "$type": "LMBGIDDHLDM",
+                      "modifierName": "UNIQUE_Avatar_Diving_Common_Handler"
+                    },
+                    {
+                      "$type": "POOFKGMBLNA",
+                      "key": "_IS_DiveAnimator",
+                      "param3": 1.0
+                    }
+                  ]
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "MoleMole.Config.SetGlobalValue",
+                  "target": "Team",
+                  "param3": 1.0,
+                  "key": "_IS_DiveDirtyWater",
+                  "param2": 0.0,
+                  "triggerID": 0.0
+                }
+              ],
+              "failActions": [
+                {
+                  "$type": "MoleMole.Config.SetGlobalValue",
+                  "target": "Team",
+                  "param3": 0.0,
+                  "key": "_IS_DiveDirtyWater",
+                  "param2": 0.0,
+                  "triggerID": 0.0
+                }
+              ]
+            }
+          ]
+        },
+        "UNIQUE_DiveAnimatorDecider": {
+          "modifierName": "",
+          "isUnique": true,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 1.0,
+              "key": "_IS_DiveAnimator",
+              "param2": 0.0,
+              "triggerID": 0.0
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 0.0,
+              "key": "_IS_DiveAnimator",
+              "param2": 0.0,
+              "triggerID": 0.0
+            }
+          ]
+        },
+        "UNIQUE_SwimAnimatorDecider": {
+          "modifierName": "",
+          "isUnique": true,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "target": "Team",
+              "param3": 1.0,
+              "key": "_IS_SwimDirtyWater",
+              "param2": 0.0,
+              "triggerID": 0.0
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "target": "Team",
+              "param3": 0.0,
+              "key": "_IS_SwimDirtyWater",
+              "param2": 0.0,
+              "triggerID": 0.0
+            }
+          ]
+        },
+        "IncreasingPollutionVal": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "thinkInterval": 1.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "targetPredicates": [
+                {
+                  "$type": "POOFKGMBLNA",
+                  "target": "Team",
+                  "key": "SGV_DirtyWater_Status",
+                  "param3": 1.0
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "MoleMole.Config.Predicated",
+                  "targetPredicates": [
+                    {
+                      "$type": "BNNPNEDKIIH",
+                      "predicates": [
+                        {
+                          "$type": "POOFKGMBLNA",
+                          "target": "Team",
+                          "key": "_IS_SwimDirtyWater",
+                          "param3": 1.0
+                        },
+                        {
+                          "$type": "POOFKGMBLNA",
+                          "target": "Team",
+                          "key": "_IS_DiveDirtyWater",
+                          "param3": 1.0
+                        }
+                      ]
+                    }
+                  ],
+                  "successActions": [
+                    {
+                      "$type": "MoleMole.Config.AddRegionalPlayVarValue",
+                      "varType": "DirtyWaterErosion",
+                      "addValue": 3.0
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "onThinkInterval": [
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "targetPredicates": [
+                {
+                  "$type": "POOFKGMBLNA",
+                  "target": "Team",
+                  "key": "SGV_DirtyWater_Status",
+                  "param3": 1.0
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "MoleMole.Config.Predicated",
+                  "targetPredicates": [
+                    {
+                      "$type": "BNNPNEDKIIH",
+                      "predicates": [
+                        {
+                          "$type": "POOFKGMBLNA",
+                          "target": "Team",
+                          "key": "_IS_SwimDirtyWater",
+                          "param3": 1.0
+                        },
+                        {
+                          "$type": "POOFKGMBLNA",
+                          "target": "Team",
+                          "key": "_IS_DiveDirtyWater",
+                          "param3": 1.0
+                        }
+                      ]
+                    }
+                  ],
+                  "successActions": [
+                    {
+                      "$type": "MoleMole.Config.AddRegionalPlayVarValue",
+                      "varType": "DirtyWaterErosion",
+                      "addValue": 3.0
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "DecreasingPollutionVal": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "thinkInterval": 1.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "targetPredicates": [
+                {
+                  "$type": "POOFKGMBLNA",
+                  "target": "Team",
+                  "key": "SGV_DirtyWater_Status",
+                  "param3": 0.0
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "MoleMole.Config.AddRegionalPlayVarValue",
+                  "varType": "DirtyWaterErosion",
+                  "addValue": -10.0
+                }
+              ],
+              "failActions": [
+                {
+                  "$type": "MoleMole.Config.Predicated",
+                  "targetPredicates": [
+                    {
+                      "$type": "POOFKGMBLNA",
+                      "target": "Team",
+                      "key": "_IS_SwimDirtyWater",
+                      "param3": 0.0
+                    },
+                    {
+                      "$type": "POOFKGMBLNA",
+                      "target": "Team",
+                      "key": "_IS_DiveDirtyWater",
+                      "param3": 0.0
+                    }
+                  ],
+                  "successActions": [
+                    {
+                      "$type": "MoleMole.Config.AddRegionalPlayVarValue",
+                      "varType": "DirtyWaterErosion",
+                      "addValue": -10.0
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "onThinkInterval": [
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "targetPredicates": [
+                {
+                  "$type": "POOFKGMBLNA",
+                  "target": "Team",
+                  "key": "SGV_DirtyWater_Status",
+                  "param3": 0.0
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "MoleMole.Config.AddRegionalPlayVarValue",
+                  "varType": "DirtyWaterErosion",
+                  "addValue": -10.0
+                }
+              ],
+              "failActions": [
+                {
+                  "$type": "MoleMole.Config.Predicated",
+                  "targetPredicates": [
+                    {
+                      "$type": "POOFKGMBLNA",
+                      "target": "Team",
+                      "key": "_IS_SwimDirtyWater",
+                      "param3": 0.0
+                    },
+                    {
+                      "$type": "POOFKGMBLNA",
+                      "target": "Team",
+                      "key": "_IS_DiveDirtyWater",
+                      "param3": 0.0
+                    }
+                  ],
+                  "successActions": [
+                    {
+                      "$type": "MoleMole.Config.AddRegionalPlayVarValue",
+                      "varType": "DirtyWaterErosion",
+                      "addValue": -10.0
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.AttachModifier",
+          "modifierName": "DirtyWater_Handler"
+        }
+      ],
+      "isDynamicAbility": true
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Area_Fd_Property_Ani_Prop_ScoutRobot_01",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "modifierName": "Deactive"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 201,
+          "modifierName": "Active"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 202,
+          "modifierName": "Scaning"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 203,
+          "modifierName": "Finish"
+        }
+      ],
+      "modifiers": {
+        "Deactive": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0
+        },
+        "Active": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0
+        },
+        "Scaning": {
+          "modifierName": "",
+          "elementDurability": 4.0,
+          "bonusCriticalHurt": 100.0,
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.ChangeGadgetState"
+            }
+          ]
+        },
+        "Finish": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0
+        },
+        "HitManager": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onBeingHit": [
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "targetPredicates": [
+                {
+                  "$type": "IPJIAJLNIKC",
+                  "attackTags": [
+                    "JellyFish_Bomb"
+                  ]
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "MoleMole.Config.ChangeGadgetState",
+                  "state": 201
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "HitManager"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Area_Fd_Property_Ani_Prop_FDPipeDoorLarge_01",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "modifierName": "Close_Charged"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 201,
+          "modifierName": "Open"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 202,
+          "modifierName": "Close_Uncharged"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 203,
+          "modifierName": "Close_Lock"
+        }
+      ],
+      "modifiers": {
+        "Close_Charged": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "LHKFBGDFMEC": 1,
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetAnimatorInt",
+              "intID": "GadgetState",
+              "param3": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "targetPredicates": [
+                {
+                  "$type": "POOFKGMBLNA",
+                  "key": "UnlockEff",
+                  "param3": 1.0
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "MoleMole.Config.AttachEffect",
+                  "rotationDampTime": "Eff_SceneObj_FDPipeDoorLarge_01_Unlcok",
+                  "born": {
+                    "$type": "POAPJOHEDDM",
+                    "useRotation": true,
+                    "attachPointName": "RootNode"
+                  },
+                  "NHGDGLICLFB": -1.0
+                }
+              ]
+            },
+            {
+              "$type": "MoleMole.Config.SetLightColorIntensity",
+              "lightName": "Light1",
+              "targetColor": {
+                "r": 0.30880001187324524,
+                "g": 0.9140999913215637,
+                "b": 1.0,
+                "a": 1.0
+              },
+              "targetIntensity": 1.2000000476837158,
+              "shouldSetColor": true,
+              "shouldSetIntensity": true,
+              "intensityUseCurve": true,
+              "lerpTime": 1.0
+            },
+            {
+              "$type": "MoleMole.Config.SetLightColorIntensity",
+              "lightName": "Light2",
+              "targetColor": {
+                "r": 0.30880001187324524,
+                "g": 0.9140999913215637,
+                "b": 1.0,
+                "a": 1.0
+              },
+              "targetIntensity": 1.2000000476837158,
+              "shouldSetColor": true,
+              "shouldSetIntensity": true,
+              "intensityUseCurve": true,
+              "lerpTime": 1.0
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "targetPredicates": [
+                {
+                  "$type": "NJMOCHPJIKO",
+                  "target": "Self",
+                  "gadgetState": 201
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "MoleMole.Config.FireEffect",
+                  "rotationDampTime": "Eff_SceneObj_FDPipeDoorLarge_01_Open",
+                  "born": {
+                    "$type": "POAPJOHEDDM",
+                    "useRotation": true,
+                    "attachPointName": "RootNode"
+                  },
+                  "NHGDGLICLFB": -1.0
+                }
+              ]
+            }
+          ]
+        },
+        "Open": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "LHKFBGDFMEC": 1,
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 0.0,
+              "key": "UnlockEff",
+              "param2": 0.0,
+              "triggerID": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.SetAnimatorInt",
+              "intID": "GadgetState",
+              "param3": 201.0
+            },
+            {
+              "$type": "MoleMole.Config.SetLightColorIntensity",
+              "lightName": "Light1",
+              "targetColor": {
+                "r": 0.30880001187324524,
+                "g": 0.9140999913215637,
+                "b": 1.0,
+                "a": 1.0
+              },
+              "shouldSetColor": true,
+              "shouldSetIntensity": true,
+              "intensityUseCurve": true,
+              "lerpTime": 1.0
+            },
+            {
+              "$type": "MoleMole.Config.SetLightColorIntensity",
+              "lightName": "Light2",
+              "targetColor": {
+                "r": 0.30880001187324524,
+                "g": 0.9140999913215637,
+                "b": 1.0,
+                "a": 1.0
+              },
+              "shouldSetColor": true,
+              "shouldSetIntensity": true,
+              "intensityUseCurve": true,
+              "lerpTime": 1.0
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.FireEffect",
+              "rotationDampTime": "Eff_SceneObj_FDPipeDoorLarge_01_Close",
+              "born": {
+                "$type": "POAPJOHEDDM",
+                "useRotation": true,
+                "attachPointName": "RootNode"
+              },
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        },
+        "Close_Uncharged": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "LHKFBGDFMEC": 2,
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 1.0,
+              "key": "UnlockEff",
+              "param2": 0.0,
+              "triggerID": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.SetAnimatorInt",
+              "intID": "GadgetState",
+              "param3": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.SetLightColorIntensity",
+              "lightName": "Light1",
+              "targetColor": {
+                "r": 0.9043999910354614,
+                "g": 0.2761000096797943,
+                "b": 0.21940000355243683,
+                "a": 1.0
+              },
+              "targetIntensity": 1.2000000476837158,
+              "shouldSetColor": true,
+              "shouldSetIntensity": true,
+              "intensityUseCurve": true,
+              "lerpTime": 1.0
+            },
+            {
+              "$type": "MoleMole.Config.SetLightColorIntensity",
+              "lightName": "Light2",
+              "targetColor": {
+                "r": 0.9043999910354614,
+                "g": 0.2761000096797943,
+                "b": 0.21940000355243683,
+                "a": 1.0
+              },
+              "targetIntensity": 1.2000000476837158,
+              "shouldSetColor": true,
+              "shouldSetIntensity": true,
+              "intensityUseCurve": true,
+              "lerpTime": 1.0
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "targetPredicates": [
+                {
+                  "$type": "NJMOCHPJIKO",
+                  "target": "Self",
+                  "gadgetState": 201
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "MoleMole.Config.FireEffect",
+                  "rotationDampTime": "Eff_SceneObj_FDPipeDoorLarge_01_Open",
+                  "born": {
+                    "$type": "POAPJOHEDDM",
+                    "useRotation": true,
+                    "attachPointName": "RootNode"
+                  },
+                  "NHGDGLICLFB": -1.0
+                }
+              ]
+            }
+          ]
+        },
+        "Close_Lock": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 1.0,
+              "key": "UnlockEff",
+              "param2": 0.0,
+              "triggerID": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.SetAnimatorInt",
+              "intID": "GadgetState",
+              "param3": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.SetLightColorIntensity",
+              "lightName": "Light1",
+              "targetColor": {
+                "r": 0.9043999910354614,
+                "g": 0.2761000096797943,
+                "b": 0.21940000355243683,
+                "a": 1.0
+              },
+              "shouldSetColor": true,
+              "shouldSetIntensity": true,
+              "intensityUseCurve": true,
+              "lerpTime": 1.0
+            },
+            {
+              "$type": "MoleMole.Config.SetLightColorIntensity",
+              "lightName": "Light2",
+              "targetColor": {
+                "r": 0.9043999910354614,
+                "g": 0.2761000096797943,
+                "b": 0.21940000355243683,
+                "a": 1.0
+              },
+              "shouldSetColor": true,
+              "shouldSetIntensity": true,
+              "intensityUseCurve": true,
+              "lerpTime": 1.0
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "targetPredicates": [
+                {
+                  "$type": "NJMOCHPJIKO",
+                  "target": "Self",
+                  "gadgetState": 201
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "MoleMole.Config.FireEffect",
+                  "rotationDampTime": "Eff_SceneObj_FDPipeDoorLarge_01_Open",
+                  "born": {
+                    "$type": "POAPJOHEDDM",
+                    "useRotation": true,
+                    "attachPointName": "RootNode"
+                  },
+                  "NHGDGLICLFB": -1.0
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Area_Fd_Property_Ani_Prop_FDPipeDoorLarge_02",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "modifierName": "Close_Charged"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 201,
+          "modifierName": "Open"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 202,
+          "modifierName": "Close_Uncharged"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 203,
+          "modifierName": "Close_Lock"
+        }
+      ],
+      "modifiers": {
+        "Close_Charged": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "LHKFBGDFMEC": 1,
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetAnimatorInt",
+              "intID": "GadgetState",
+              "param3": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.SetLightColorIntensity",
+              "lightName": "Light1",
+              "targetColor": {
+                "r": 0.30880001187324524,
+                "g": 0.9140999913215637,
+                "b": 1.0,
+                "a": 1.0
+              },
+              "targetIntensity": 1.2000000476837158,
+              "shouldSetColor": true,
+              "shouldSetIntensity": true,
+              "intensityUseCurve": true,
+              "lerpTime": 1.0
+            },
+            {
+              "$type": "MoleMole.Config.SetLightColorIntensity",
+              "lightName": "Light2",
+              "targetColor": {
+                "r": 0.30880001187324524,
+                "g": 0.9140999913215637,
+                "b": 1.0,
+                "a": 1.0
+              },
+              "targetIntensity": 1.2000000476837158,
+              "shouldSetColor": true,
+              "shouldSetIntensity": true,
+              "intensityUseCurve": true,
+              "lerpTime": 1.0
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "targetPredicates": [
+                {
+                  "$type": "NJMOCHPJIKO",
+                  "target": "Self",
+                  "gadgetState": 201
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "MoleMole.Config.FireEffect",
+                  "rotationDampTime": "Eff_SceneObj_FDPipeDoorLarge_01_OpenUW",
+                  "born": {
+                    "$type": "POAPJOHEDDM",
+                    "useRotation": true,
+                    "attachPointName": "RootNode"
+                  },
+                  "NHGDGLICLFB": -1.0
+                }
+              ]
+            }
+          ]
+        },
+        "Open": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "LHKFBGDFMEC": 1,
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 0.0,
+              "key": "UnlockEff",
+              "param2": 0.0,
+              "triggerID": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.SetAnimatorInt",
+              "intID": "GadgetState",
+              "param3": 201.0
+            },
+            {
+              "$type": "MoleMole.Config.SetLightColorIntensity",
+              "lightName": "Light1",
+              "targetColor": {
+                "r": 0.30880001187324524,
+                "g": 0.9140999913215637,
+                "b": 1.0,
+                "a": 1.0
+              },
+              "shouldSetColor": true,
+              "shouldSetIntensity": true,
+              "intensityUseCurve": true,
+              "lerpTime": 1.0
+            },
+            {
+              "$type": "MoleMole.Config.SetLightColorIntensity",
+              "lightName": "Light2",
+              "targetColor": {
+                "r": 0.30880001187324524,
+                "g": 0.9140999913215637,
+                "b": 1.0,
+                "a": 1.0
+              },
+              "shouldSetColor": true,
+              "shouldSetIntensity": true,
+              "intensityUseCurve": true,
+              "lerpTime": 1.0
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.FireEffect",
+              "rotationDampTime": "Eff_SceneObj_FDPipeDoorLarge_01_CloseUW",
+              "born": {
+                "$type": "POAPJOHEDDM",
+                "useRotation": true,
+                "attachPointName": "RootNode"
+              },
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        },
+        "Close_Uncharged": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "LHKFBGDFMEC": 2,
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 1.0,
+              "key": "UnlockEff",
+              "param2": 0.0,
+              "triggerID": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.SetAnimatorInt",
+              "intID": "GadgetState",
+              "param3": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.SetLightColorIntensity",
+              "lightName": "Light1",
+              "targetColor": {
+                "r": 0.9043999910354614,
+                "g": 0.2761000096797943,
+                "b": 0.21940000355243683,
+                "a": 1.0
+              },
+              "targetIntensity": 1.2000000476837158,
+              "shouldSetColor": true,
+              "shouldSetIntensity": true,
+              "intensityUseCurve": true,
+              "lerpTime": 1.0
+            },
+            {
+              "$type": "MoleMole.Config.SetLightColorIntensity",
+              "lightName": "Light2",
+              "targetColor": {
+                "r": 0.9043999910354614,
+                "g": 0.2761000096797943,
+                "b": 0.21940000355243683,
+                "a": 1.0
+              },
+              "targetIntensity": 1.2000000476837158,
+              "shouldSetColor": true,
+              "shouldSetIntensity": true,
+              "intensityUseCurve": true,
+              "lerpTime": 1.0
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "targetPredicates": [
+                {
+                  "$type": "NJMOCHPJIKO",
+                  "target": "Self",
+                  "gadgetState": 201
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "MoleMole.Config.FireEffect",
+                  "rotationDampTime": "Eff_SceneObj_FDPipeDoorLarge_01_OpenUW",
+                  "born": {
+                    "$type": "POAPJOHEDDM",
+                    "useRotation": true,
+                    "attachPointName": "RootNode"
+                  },
+                  "NHGDGLICLFB": -1.0
+                }
+              ]
+            }
+          ]
+        },
+        "Close_Lock": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 1.0,
+              "key": "UnlockEff",
+              "param2": 0.0,
+              "triggerID": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.SetAnimatorInt",
+              "intID": "GadgetState",
+              "param3": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.SetLightColorIntensity",
+              "lightName": "Light1",
+              "targetColor": {
+                "r": 0.9043999910354614,
+                "g": 0.2761000096797943,
+                "b": 0.21940000355243683,
+                "a": 1.0
+              },
+              "shouldSetColor": true,
+              "shouldSetIntensity": true,
+              "intensityUseCurve": true,
+              "lerpTime": 1.0
+            },
+            {
+              "$type": "MoleMole.Config.SetLightColorIntensity",
+              "lightName": "Light2",
+              "targetColor": {
+                "r": 0.9043999910354614,
+                "g": 0.2761000096797943,
+                "b": 0.21940000355243683,
+                "a": 1.0
+              },
+              "shouldSetColor": true,
+              "shouldSetIntensity": true,
+              "intensityUseCurve": true,
+              "lerpTime": 1.0
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "targetPredicates": [
+                {
+                  "$type": "NJMOCHPJIKO",
+                  "target": "Self",
+                  "gadgetState": 201
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "MoleMole.Config.FireEffect",
+                  "rotationDampTime": "Eff_SceneObj_FDPipeDoorLarge_01_OpenUW",
+                  "born": {
+                    "$type": "POAPJOHEDDM",
+                    "useRotation": true,
+                    "attachPointName": "RootNode"
+                  },
+                  "NHGDGLICLFB": -1.0
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Area_Fd_Property_Ani_Prop_FDPipeDoorSmall_01",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "modifierName": "Close_Charged"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 201,
+          "modifierName": "Open"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 202,
+          "modifierName": "Close_Uncharged"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 203,
+          "modifierName": "Close_Lock"
+        }
+      ],
+      "modifiers": {
+        "Close_Charged": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "LHKFBGDFMEC": 1,
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetAnimatorInt",
+              "intID": "GadgetState",
+              "param3": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "targetPredicates": [
+                {
+                  "$type": "POOFKGMBLNA",
+                  "key": "UnlockEff",
+                  "param3": 1.0
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "MoleMole.Config.AttachEffect",
+                  "rotationDampTime": "Eff_SceneObj_FDPipeDoorSmall_01_Unlcok",
+                  "born": {
+                    "$type": "POAPJOHEDDM",
+                    "useRotation": true,
+                    "attachPointName": "RootNode"
+                  },
+                  "NHGDGLICLFB": -1.0
+                }
+              ]
+            },
+            {
+              "$type": "MoleMole.Config.SetLightColorIntensity",
+              "lightName": "Light1",
+              "targetColor": {
+                "r": 0.30880001187324524,
+                "g": 0.9140999913215637,
+                "b": 1.0,
+                "a": 1.0
+              },
+              "targetIntensity": 1.2000000476837158,
+              "shouldSetColor": true,
+              "shouldSetIntensity": true,
+              "intensityUseCurve": true,
+              "lerpTime": 1.0
+            },
+            {
+              "$type": "MoleMole.Config.SetLightColorIntensity",
+              "lightName": "Light2",
+              "targetColor": {
+                "r": 0.30880001187324524,
+                "g": 0.9140999913215637,
+                "b": 1.0,
+                "a": 1.0
+              },
+              "targetIntensity": 1.2000000476837158,
+              "shouldSetColor": true,
+              "shouldSetIntensity": true,
+              "intensityUseCurve": true,
+              "lerpTime": 1.0
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "targetPredicates": [
+                {
+                  "$type": "NJMOCHPJIKO",
+                  "target": "Self",
+                  "gadgetState": 201
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "MoleMole.Config.FireEffect",
+                  "rotationDampTime": "Eff_SceneObj_FDPipeDoorSmall_01_Open",
+                  "born": {
+                    "$type": "POAPJOHEDDM",
+                    "useRotation": true,
+                    "attachPointName": "RootNode"
+                  },
+                  "NHGDGLICLFB": -1.0
+                }
+              ]
+            }
+          ]
+        },
+        "Open": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "LHKFBGDFMEC": 1,
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 0.0,
+              "key": "UnlockEff",
+              "param2": 0.0,
+              "triggerID": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.SetAnimatorInt",
+              "intID": "GadgetState",
+              "param3": 201.0
+            },
+            {
+              "$type": "MoleMole.Config.SetLightColorIntensity",
+              "lightName": "Light1",
+              "targetColor": {
+                "r": 0.30880001187324524,
+                "g": 0.9140999913215637,
+                "b": 1.0,
+                "a": 1.0
+              },
+              "shouldSetColor": true,
+              "shouldSetIntensity": true,
+              "intensityUseCurve": true,
+              "lerpTime": 1.0
+            },
+            {
+              "$type": "MoleMole.Config.SetLightColorIntensity",
+              "lightName": "Light2",
+              "targetColor": {
+                "r": 0.30880001187324524,
+                "g": 0.9140999913215637,
+                "b": 1.0,
+                "a": 1.0
+              },
+              "shouldSetColor": true,
+              "shouldSetIntensity": true,
+              "intensityUseCurve": true,
+              "lerpTime": 1.0
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.FireEffect",
+              "rotationDampTime": "Eff_SceneObj_FDPipeDoorSmall_01_Close",
+              "born": {
+                "$type": "POAPJOHEDDM",
+                "useRotation": true,
+                "attachPointName": "RootNode"
+              },
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        },
+        "Close_Uncharged": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "LHKFBGDFMEC": 2,
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 1.0,
+              "key": "UnlockEff",
+              "param2": 0.0,
+              "triggerID": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.SetAnimatorInt",
+              "intID": "GadgetState",
+              "param3": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.SetLightColorIntensity",
+              "lightName": "Light1",
+              "targetColor": {
+                "r": 0.9043999910354614,
+                "g": 0.2761000096797943,
+                "b": 0.21940000355243683,
+                "a": 1.0
+              },
+              "targetIntensity": 1.2000000476837158,
+              "shouldSetColor": true,
+              "shouldSetIntensity": true,
+              "intensityUseCurve": true,
+              "lerpTime": 1.0
+            },
+            {
+              "$type": "MoleMole.Config.SetLightColorIntensity",
+              "lightName": "Light2",
+              "targetColor": {
+                "r": 0.9043999910354614,
+                "g": 0.2761000096797943,
+                "b": 0.21940000355243683,
+                "a": 1.0
+              },
+              "targetIntensity": 1.2000000476837158,
+              "shouldSetColor": true,
+              "shouldSetIntensity": true,
+              "intensityUseCurve": true,
+              "lerpTime": 1.0
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "targetPredicates": [
+                {
+                  "$type": "NJMOCHPJIKO",
+                  "target": "Self",
+                  "gadgetState": 201
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "MoleMole.Config.FireEffect",
+                  "rotationDampTime": "Eff_SceneObj_FDPipeDoorSmall_01_Open",
+                  "born": {
+                    "$type": "POAPJOHEDDM",
+                    "useRotation": true,
+                    "attachPointName": "RootNode"
+                  },
+                  "NHGDGLICLFB": -1.0
+                }
+              ]
+            }
+          ]
+        },
+        "Close_Lock": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 1.0,
+              "key": "UnlockEff",
+              "param2": 0.0,
+              "triggerID": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.SetAnimatorInt",
+              "intID": "GadgetState",
+              "param3": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.SetLightColorIntensity",
+              "lightName": "Light1",
+              "targetColor": {
+                "r": 0.9043999910354614,
+                "g": 0.2761000096797943,
+                "b": 0.21940000355243683,
+                "a": 1.0
+              },
+              "shouldSetColor": true,
+              "shouldSetIntensity": true,
+              "intensityUseCurve": true,
+              "lerpTime": 1.0
+            },
+            {
+              "$type": "MoleMole.Config.SetLightColorIntensity",
+              "lightName": "Light2",
+              "targetColor": {
+                "r": 0.9043999910354614,
+                "g": 0.2761000096797943,
+                "b": 0.21940000355243683,
+                "a": 1.0
+              },
+              "shouldSetColor": true,
+              "shouldSetIntensity": true,
+              "intensityUseCurve": true,
+              "lerpTime": 1.0
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "targetPredicates": [
+                {
+                  "$type": "NJMOCHPJIKO",
+                  "target": "Self",
+                  "gadgetState": 201
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "MoleMole.Config.FireEffect",
+                  "rotationDampTime": "Eff_SceneObj_FDPipeDoorSmall_01_Open",
+                  "born": {
+                    "$type": "POAPJOHEDDM",
+                    "useRotation": true,
+                    "attachPointName": "RootNode"
+                  },
+                  "NHGDGLICLFB": -1.0
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Area_Fd_Property_Ani_Prop_FDPipeDoorSmall_02",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "modifierName": "Close_Charged"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 201,
+          "modifierName": "Open"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 202,
+          "modifierName": "Close_Uncharged"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 203,
+          "modifierName": "Close_Lock"
+        }
+      ],
+      "modifiers": {
+        "Close_Charged": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "LHKFBGDFMEC": 1,
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetAnimatorInt",
+              "intID": "GadgetState",
+              "param3": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.SetLightColorIntensity",
+              "lightName": "Light1",
+              "targetColor": {
+                "r": 0.30880001187324524,
+                "g": 0.9140999913215637,
+                "b": 1.0,
+                "a": 1.0
+              },
+              "targetIntensity": 1.2000000476837158,
+              "shouldSetColor": true,
+              "shouldSetIntensity": true,
+              "intensityUseCurve": true,
+              "lerpTime": 1.0
+            },
+            {
+              "$type": "MoleMole.Config.SetLightColorIntensity",
+              "lightName": "Light2",
+              "targetColor": {
+                "r": 0.30880001187324524,
+                "g": 0.9140999913215637,
+                "b": 1.0,
+                "a": 1.0
+              },
+              "targetIntensity": 1.2000000476837158,
+              "shouldSetColor": true,
+              "shouldSetIntensity": true,
+              "intensityUseCurve": true,
+              "lerpTime": 1.0
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "targetPredicates": [
+                {
+                  "$type": "NJMOCHPJIKO",
+                  "target": "Self",
+                  "gadgetState": 201
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "MoleMole.Config.FireEffect",
+                  "rotationDampTime": "Eff_SceneObj_FDPipeDoorSmall_01_OpenUW",
+                  "born": {
+                    "$type": "POAPJOHEDDM",
+                    "useRotation": true,
+                    "attachPointName": "RootNode"
+                  },
+                  "NHGDGLICLFB": -1.0
+                }
+              ]
+            }
+          ]
+        },
+        "Open": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "LHKFBGDFMEC": 1,
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 0.0,
+              "key": "UnlockEff",
+              "param2": 0.0,
+              "triggerID": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.SetAnimatorInt",
+              "intID": "GadgetState",
+              "param3": 201.0
+            },
+            {
+              "$type": "MoleMole.Config.SetLightColorIntensity",
+              "lightName": "Light1",
+              "targetColor": {
+                "r": 0.30880001187324524,
+                "g": 0.9140999913215637,
+                "b": 1.0,
+                "a": 1.0
+              },
+              "shouldSetColor": true,
+              "shouldSetIntensity": true,
+              "intensityUseCurve": true,
+              "lerpTime": 1.0
+            },
+            {
+              "$type": "MoleMole.Config.SetLightColorIntensity",
+              "lightName": "Light2",
+              "targetColor": {
+                "r": 0.30880001187324524,
+                "g": 0.9140999913215637,
+                "b": 1.0,
+                "a": 1.0
+              },
+              "shouldSetColor": true,
+              "shouldSetIntensity": true,
+              "intensityUseCurve": true,
+              "lerpTime": 1.0
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.FireEffect",
+              "rotationDampTime": "Eff_SceneObj_FDPipeDoorSmall_01_CloseUW",
+              "born": {
+                "$type": "POAPJOHEDDM",
+                "useRotation": true,
+                "attachPointName": "RootNode"
+              },
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        },
+        "Close_Uncharged": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "LHKFBGDFMEC": 2,
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 1.0,
+              "key": "UnlockEff",
+              "param2": 0.0,
+              "triggerID": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.SetAnimatorInt",
+              "intID": "GadgetState",
+              "param3": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.SetLightColorIntensity",
+              "lightName": "Light1",
+              "targetColor": {
+                "r": 0.9043999910354614,
+                "g": 0.2761000096797943,
+                "b": 0.21940000355243683,
+                "a": 1.0
+              },
+              "targetIntensity": 1.2000000476837158,
+              "shouldSetColor": true,
+              "shouldSetIntensity": true,
+              "intensityUseCurve": true,
+              "lerpTime": 1.0
+            },
+            {
+              "$type": "MoleMole.Config.SetLightColorIntensity",
+              "lightName": "Light2",
+              "targetColor": {
+                "r": 0.9043999910354614,
+                "g": 0.2761000096797943,
+                "b": 0.21940000355243683,
+                "a": 1.0
+              },
+              "targetIntensity": 1.2000000476837158,
+              "shouldSetColor": true,
+              "shouldSetIntensity": true,
+              "intensityUseCurve": true,
+              "lerpTime": 1.0
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "targetPredicates": [
+                {
+                  "$type": "NJMOCHPJIKO",
+                  "target": "Self",
+                  "gadgetState": 201
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "MoleMole.Config.FireEffect",
+                  "rotationDampTime": "Eff_SceneObj_FDPipeDoorSmall_01_OpenUW",
+                  "born": {
+                    "$type": "POAPJOHEDDM",
+                    "useRotation": true,
+                    "attachPointName": "RootNode"
+                  },
+                  "NHGDGLICLFB": -1.0
+                }
+              ]
+            }
+          ]
+        },
+        "Close_Lock": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 1.0,
+              "key": "UnlockEff",
+              "param2": 0.0,
+              "triggerID": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.SetAnimatorInt",
+              "intID": "GadgetState",
+              "param3": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.SetLightColorIntensity",
+              "lightName": "Light1",
+              "targetColor": {
+                "r": 0.9043999910354614,
+                "g": 0.2761000096797943,
+                "b": 0.21940000355243683,
+                "a": 1.0
+              },
+              "shouldSetColor": true,
+              "shouldSetIntensity": true,
+              "intensityUseCurve": true,
+              "lerpTime": 1.0
+            },
+            {
+              "$type": "MoleMole.Config.SetLightColorIntensity",
+              "lightName": "Light2",
+              "targetColor": {
+                "r": 0.9043999910354614,
+                "g": 0.2761000096797943,
+                "b": 0.21940000355243683,
+                "a": 1.0
+              },
+              "shouldSetColor": true,
+              "shouldSetIntensity": true,
+              "intensityUseCurve": true,
+              "lerpTime": 1.0
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "targetPredicates": [
+                {
+                  "$type": "NJMOCHPJIKO",
+                  "target": "Self",
+                  "gadgetState": 201
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "MoleMole.Config.FireEffect",
+                  "rotationDampTime": "Eff_SceneObj_FDPipeDoorSmall_01_OpenUW",
+                  "born": {
+                    "$type": "POAPJOHEDDM",
+                    "useRotation": true,
+                    "attachPointName": "RootNode"
+                  },
+                  "NHGDGLICLFB": -1.0
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Area_Fd_Property_Ani_Prop_TransferStationDoor_01",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "modifierName": "Close"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 201,
+          "modifierName": "Open"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 202,
+          "modifierName": "AnimatorOpen"
+        }
+      ],
+      "modifiers": {
+        "Close": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetAnimatorInt",
+              "intID": "GadgetState",
+              "param3": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.SetLightColorIntensity",
+              "lightName": "Light1",
+              "targetColor": {
+                "r": 0.9043999910354614,
+                "g": 0.2761000096797943,
+                "b": 0.21940000355243683,
+                "a": 1.0
+              },
+              "targetIntensity": 0.6000000238418579,
+              "shouldSetColor": true,
+              "shouldSetIntensity": true,
+              "intensityUseCurve": true,
+              "lerpTime": 1.0
+            },
+            {
+              "$type": "MoleMole.Config.SetLightColorIntensity",
+              "lightName": "Light2",
+              "targetColor": {
+                "r": 0.9043999910354614,
+                "g": 0.2761000096797943,
+                "b": 0.21940000355243683,
+                "a": 1.0
+              },
+              "targetIntensity": 0.6000000238418579,
+              "shouldSetColor": true,
+              "shouldSetIntensity": true,
+              "intensityUseCurve": true,
+              "lerpTime": 1.0
+            }
+          ]
+        },
+        "Open": {
+          "modifierName": "",
+          "elementDurability": 2.0999999046325684,
+          "bonusCriticalHurt": 100.0,
+          "thinkInterval": 2.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "LHKFBGDFMEC": 1,
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_SceneObj_FDPipeDoorLarge_01_Unlcok",
+              "born": {
+                "$type": "POAPJOHEDDM",
+                "useRotation": true,
+                "attachPointName": "RootNode"
+              },
+              "NHGDGLICLFB": -1.0
+            },
+            {
+              "$type": "MoleMole.Config.SetLightColorIntensity",
+              "lightName": "Light1",
+              "targetColor": {
+                "r": 0.9043999910354614,
+                "g": 0.2761000096797943,
+                "b": 0.21940000355243683,
+                "a": 1.0
+              },
+              "targetIntensity": 0.6000000238418579,
+              "shouldSetColor": true,
+              "shouldSetIntensity": true,
+              "intensityUseCurve": true,
+              "lerpTime": 1.0
+            },
+            {
+              "$type": "MoleMole.Config.SetLightColorIntensity",
+              "lightName": "Light2",
+              "targetColor": {
+                "r": 0.9043999910354614,
+                "g": 0.2761000096797943,
+                "b": 0.21940000355243683,
+                "a": 1.0
+              },
+              "targetIntensity": 0.6000000238418579,
+              "shouldSetColor": true,
+              "shouldSetIntensity": true,
+              "intensityUseCurve": true,
+              "lerpTime": 1.0
+            }
+          ],
+          "onThinkInterval": [
+            {
+              "$type": "MoleMole.Config.ChangeGadgetState",
+              "state": 202
+            },
+            {
+              "$type": "MoleMole.Config.FireEffect",
+              "rotationDampTime": "Eff_Sc_TransferStationDoor_Water_01",
+              "born": {
+                "$type": "POAPJOHEDDM",
+                "useRotation": true,
+                "attachPointName": "AttachPoint"
+              },
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        },
+        "AnimatorOpen": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "LHKFBGDFMEC": 1,
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetLightColorIntensity",
+              "lightName": "Light1",
+              "targetColor": {
+                "r": 0.9043999910354614,
+                "g": 0.2761000096797943,
+                "b": 0.21940000355243683,
+                "a": 1.0
+              },
+              "shouldSetColor": true,
+              "shouldSetIntensity": true,
+              "intensityUseCurve": true,
+              "lerpTime": 1.0
+            },
+            {
+              "$type": "MoleMole.Config.SetLightColorIntensity",
+              "lightName": "Light2",
+              "targetColor": {
+                "r": 0.9043999910354614,
+                "g": 0.2761000096797943,
+                "b": 0.21940000355243683,
+                "a": 1.0
+              },
+              "shouldSetColor": true,
+              "shouldSetIntensity": true,
+              "intensityUseCurve": true,
+              "lerpTime": 1.0
+            },
+            {
+              "$type": "MoleMole.Config.SetAnimatorInt",
+              "intID": "GadgetState",
+              "param3": 201.0
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Area_Common_Property_Ani_Prop_LandGas_01",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "modifierName": "NoGas"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 201,
+          "modifierName": "SmallGas"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 202,
+          "modifierName": "MiddleGas"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 203,
+          "modifierName": "BigGas"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 204,
+          "modifierName": "BiggestGas"
+        }
+      ],
+      "modifiers": {
+        "NoGas": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0
+        },
+        "SmallGas": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_SceneObj_Area_Fd_Property_Ani_Prop_LandGas_01",
+              "born": {
+                "$type": "POAPJOHEDDM",
+                "useRotation": true,
+                "attachPointName": "AttachPoint"
+              },
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        },
+        "MiddleGas": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_SceneObj_Area_Fd_Property_Ani_Prop_LandGas_02",
+              "born": {
+                "$type": "POAPJOHEDDM",
+                "useRotation": true,
+                "attachPointName": "AttachPoint"
+              },
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        },
+        "BigGas": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_SceneObj_Area_Fd_Property_Ani_Prop_LandGas_03",
+              "born": {
+                "$type": "POAPJOHEDDM",
+                "useRotation": true,
+                "attachPointName": "AttachPoint"
+              },
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        },
+        "BiggestGas": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_SceneObj_Area_Fd_Property_Ani_Prop_LandGas_03",
+              "born": {
+                "$type": "POAPJOHEDDM",
+                "useRotation": true,
+                "attachPointName": "AttachPoint"
+              },
+              "scale": 1.2999999523162842,
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Area_Common_Property_Ani_Prop_UnderseaGas_01",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "modifierName": "NoGas"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 201,
+          "modifierName": "SmallGas"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 202,
+          "modifierName": "MiddleGas"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 203,
+          "modifierName": "BigGas"
+        }
+      ],
+      "modifiers": {
+        "NoGas": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0
+        },
+        "SmallGas": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_SceneObj_Area_Fd_Property_Ani_Prop_UnderseaGas_01",
+              "born": {
+                "$type": "POAPJOHEDDM",
+                "useRotation": true,
+                "attachPointName": "AttachPoint"
+              },
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        },
+        "MiddleGas": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_SceneObj_Area_Fd_Property_Ani_Prop_UnderseaGas_02",
+              "born": {
+                "$type": "POAPJOHEDDM",
+                "useRotation": true,
+                "attachPointName": "AttachPoint"
+              },
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        },
+        "BigGas": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_SceneObj_Area_Fd_Property_Ani_Prop_UnderseaGas_03",
+              "born": {
+                "$type": "POAPJOHEDDM",
+                "useRotation": true,
+                "attachPointName": "AttachPoint"
+              },
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Area_Fd_Property_Ani_Prop_EnergyCage_01",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "modifierName": "UnchargedState"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 201,
+          "modifierName": "ChargedAndCloseState"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 901,
+          "modifierName": "Lock"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 902,
+          "modifierName": "Open"
+        }
+      ],
+      "modifiers": {
+        "UnchargedState": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "LHKFBGDFMEC": 1,
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "temperature": true,
+              "param3": 0.0,
+              "key": "_Ability_Fd_Energy_Mark",
+              "param2": 0.0,
+              "triggerID": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.SetAnimatorInt",
+              "intID": "GadgetState",
+              "param3": 0.0
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "targetPredicates": [
+                {
+                  "$type": "NJMOCHPJIKO",
+                  "target": "Self",
+                  "gadgetState": 201
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "MoleMole.Config.FireEffect",
+                  "rotationDampTime": "Eff_SceneObj_EnergyCage_01_Unlock",
+                  "born": {
+                    "$type": "POAPJOHEDDM",
+                    "useRotation": true,
+                    "attachPointName": "AttachPoint"
+                  },
+                  "NHGDGLICLFB": -1.0
+                }
+              ]
+            }
+          ]
+        },
+        "ChargedAndCloseState": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "LHKFBGDFMEC": 2,
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "temperature": true,
+              "param3": 1.0,
+              "key": "_Ability_Fd_Energy_Mark",
+              "param2": 0.0,
+              "triggerID": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.SetAnimatorInt",
+              "intID": "GadgetState",
+              "param3": 201.0
+            }
+          ]
+        },
+        "Open": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "LHKFBGDFMEC": 3,
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetAnimatorInt",
+              "intID": "GadgetState",
+              "param3": 202.0
+            }
+          ]
+        },
+        "Lock": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetAnimatorInt",
+              "intID": "GadgetState",
+              "param3": 0.0
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Area_Fd_Property_Ani_Prop_FDStabilizers_01",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachModifierToSelfGlobalValueNoInitMixin",
+          "globalValueKey": "SGV_EnvironmentType",
+          "valueSteps": [
+            1.5,
+            2.5
+          ],
+          "modifierNameSteps": [
+            "Underwater"
+          ],
+          "MFJNNNHGMJD": true
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "modifierName": "UnchargedState"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 101,
+          "modifierName": "Start"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 102,
+          "modifierName": "SingleSuccess"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 201,
+          "modifierName": "ChargedState"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 202,
+          "modifierName": "Success"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 901,
+          "modifierName": "Lock"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 902,
+          "modifierName": "Fail"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 903,
+          "modifierName": "EnergyLogic"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 904,
+          "modifierName": "QuestFail"
+        },
+        {
+          "$type": "MoleMole.Config.DoActionOnGlobalValueChangeMixin",
+          "globalValueKey": "SGV_Right_Position",
+          "actions": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValueToOverrideMap",
+              "globalValueKey": "SGV_Right_Position",
+              "overrideMapKey": "_Right_Position"
+            }
+          ]
+        },
+        {
+          "$type": "MoleMole.Config.DoActionOnGlobalValueChangeMixin",
+          "globalValueKey": "SGV_Circle_Speed",
+          "actions": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValueToOverrideMap",
+              "globalValueKey": "SGV_Circle_Speed",
+              "overrideMapKey": "_Circle_Speed"
+            }
+          ]
+        }
+      ],
+      "abilitySpecials": {
+        "_Right_Position": 0.0,
+        "_Circle_Speed": 0.0
+      },
+      "modifiers": {
+        "Underwater": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ChangeLockTypeMixin",
+              "lockType": "Avatar&Monster_Lv4"
+            }
+          ]
+        },
+        "UnchargedState": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "LHKFBGDFMEC": 1,
+              "AKKOIFEFBPF": 10.0,
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "temperature": true,
+              "param3": 0.0,
+              "key": "_Ability_Fd_Energy_Mark",
+              "param2": 0.0,
+              "triggerID": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.SetAnimatorInt",
+              "intID": "Start",
+              "param3": 0.0
+            }
+          ]
+        },
+        "Start": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "thinkInterval": 0.5,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "otherTargets": {
+                "$type": "AFOOPHMLCCL",
+                "entityTypePriority": [
+                  "Avatar"
+                ],
+                "shapeName": "CircleR15H30",
+                "campTargetType": "All",
+                "doOffStage": 1.0
+              },
+              "targetPredicates": [
+                {
+                  "$type": "BBBFIPNGHGH",
+                  "entityTypes": [
+                    "Avatar"
+                  ]
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "MoleMole.Config.AttachModifier",
+                  "target": "Target",
+                  "modifierName": "StabilizerAvatarHit"
+                }
+              ]
+            },
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "temperature": true,
+              "param3": 1.0,
+              "key": "_Ability_Fd_Energy_Mark",
+              "param2": 0.0,
+              "triggerID": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.SetGlobalValueToOverrideMap",
+              "globalValueKey": "SGV_Right_Position",
+              "overrideMapKey": "_Right_Position"
+            },
+            {
+              "$type": "MoleMole.Config.SetGlobalValueToOverrideMap",
+              "globalValueKey": "SGV_Circle_Speed",
+              "overrideMapKey": "_Circle_Speed"
+            },
+            {
+              "$type": "MoleMole.Config.SetAnimatorFloat",
+              "floatID": "Circle_Speed",
+              "param3": "_Circle_Speed"
+            },
+            {
+              "$type": "MoleMole.Config.AttachModifier",
+              "modifierName": "EffManager"
+            },
+            {
+              "$type": "MoleMole.Config.SetAnimatorInt",
+              "intID": "Start",
+              "param3": 2.0
+            }
+          ],
+          "onThinkInterval": [
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "otherTargets": {
+                "$type": "AFOOPHMLCCL",
+                "entityTypePriority": [
+                  "Avatar"
+                ],
+                "shapeName": "CircleR15H30",
+                "campTargetType": "All",
+                "doOffStage": 1.0
+              },
+              "targetPredicates": [
+                {
+                  "$type": "BBBFIPNGHGH",
+                  "entityTypes": [
+                    "Avatar"
+                  ]
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "MoleMole.Config.AttachModifier",
+                  "target": "Target",
+                  "modifierName": "StabilizerAvatarHit"
+                }
+              ]
+            }
+          ]
+        },
+        "StabilizerAvatarHit": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onHittingOther": [
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "target": "Other",
+              "targetPredicates": [
+                {
+                  "$type": "POOFKGMBLNA",
+                  "key": "_IS_Stabilizer",
+                  "param3": 1.0
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "MoleMole.Config.Predicated",
+                  "target": "Other",
+                  "targetPredicates": [
+                    {
+                      "$type": "LMBGIDDHLDM",
+                      "modifierName": "HitDecider"
+                    }
+                  ],
+                  "failActions": [
+                    {
+                      "$type": "MoleMole.Config.Predicated",
+                      "target": "Other",
+                      "targetPredicates": [
+                        {
+                          "$type": "BNNPNEDKIIH",
+                          "predicates": [
+                            {
+                              "$type": "CFGBONPNELL",
+                              "predicates": [
+                                {
+                                  "$type": "POOFKGMBLNA",
+                                  "key": "_IS_Stabilizer",
+                                  "param3": 1.0
+                                },
+                                {
+                                  "$type": "COBKJPBALPC",
+                                  "logic": "Equal",
+                                  "param3": 1.0,
+                                  "parameter": "Circle_Pos_Right1"
+                                },
+                                {
+                                  "$type": "POOFKGMBLNA",
+                                  "key": "SGV_Right_Position",
+                                  "param3": 1.0
+                                }
+                              ]
+                            },
+                            {
+                              "$type": "CFGBONPNELL",
+                              "predicates": [
+                                {
+                                  "$type": "POOFKGMBLNA",
+                                  "key": "_IS_Stabilizer",
+                                  "param3": 1.0
+                                },
+                                {
+                                  "$type": "COBKJPBALPC",
+                                  "logic": "Equal",
+                                  "param3": 2.0,
+                                  "parameter": "Circle_Pos_Right2"
+                                },
+                                {
+                                  "$type": "POOFKGMBLNA",
+                                  "key": "SGV_Right_Position",
+                                  "param3": 2.0
+                                }
+                              ]
+                            },
+                            {
+                              "$type": "CFGBONPNELL",
+                              "predicates": [
+                                {
+                                  "$type": "POOFKGMBLNA",
+                                  "key": "_IS_Stabilizer",
+                                  "param3": 1.0
+                                },
+                                {
+                                  "$type": "COBKJPBALPC",
+                                  "logic": "Equal",
+                                  "param3": 3.0,
+                                  "parameter": "Circle_Pos_Right3"
+                                },
+                                {
+                                  "$type": "POOFKGMBLNA",
+                                  "key": "SGV_Right_Position",
+                                  "param3": 3.0
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ],
+                      "successActions": [
+                        {
+                          "$type": "MoleMole.Config.ServerLuaCall",
+                          "target": "Caster",
+                          "luaCallType": "FromGroup",
+                          "isTarget": true,
+                          "funcName": "SLC_player_hit_stabilizer_success",
+                          "param1": 0.0,
+                          "KEEFCBAAODF": 0.0,
+                          "LABHKHBCHFB": 0.0
+                        },
+                        {
+                          "$type": "MoleMole.Config.FireEffect",
+                          "target": "Caster",
+                          "rotationDampTime": "Eff_SceneObj_FDStabilizers_Attacked",
+                          "NHGDGLICLFB": -1.0
+                        },
+                        {
+                          "$type": "MoleMole.Config.ApplyModifier",
+                          "target": "Caster",
+                          "modifierName": "HitDecider"
+                        }
+                      ],
+                      "failActions": [
+                        {
+                          "$type": "MoleMole.Config.ServerLuaCall",
+                          "target": "Caster",
+                          "luaCallType": "FromGroup",
+                          "isTarget": true,
+                          "funcName": "SLC_player_hit_stabilizer_fail",
+                          "param1": 0.0,
+                          "KEEFCBAAODF": 0.0,
+                          "LABHKHBCHFB": 0.0
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "HitDecider": {
+          "modifierName": "",
+          "elementDurability": 0.10000000149011612,
+          "bonusCriticalHurt": 100.0
+        },
+        "EffManager": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "targetPredicates": [
+                {
+                  "$type": "POOFKGMBLNA",
+                  "target": "Self",
+                  "key": "SGV_Right_Position",
+                  "param3": 1.0
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "MoleMole.Config.AttachModifier",
+                  "modifierName": "LowLight"
+                }
+              ]
+            },
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "targetPredicates": [
+                {
+                  "$type": "POOFKGMBLNA",
+                  "target": "Self",
+                  "key": "SGV_Right_Position",
+                  "param3": 2.0
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "MoleMole.Config.AttachModifier",
+                  "modifierName": "MiddleLight"
+                }
+              ]
+            },
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "targetPredicates": [
+                {
+                  "$type": "POOFKGMBLNA",
+                  "target": "Self",
+                  "key": "SGV_Right_Position",
+                  "param3": 3.0
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "MoleMole.Config.AttachModifier",
+                  "modifierName": "TopLight"
+                }
+              ]
+            }
+          ],
+          "onReconnect": [
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "targetPredicates": [
+                {
+                  "$type": "POOFKGMBLNA",
+                  "target": "Self",
+                  "key": "SGV_Right_Position",
+                  "param3": 1.0
+                }
+              ]
+            },
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "targetPredicates": [
+                {
+                  "$type": "POOFKGMBLNA",
+                  "target": "Self",
+                  "key": "SGV_Right_Position",
+                  "param3": 2.0
+                }
+              ]
+            },
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "targetPredicates": [
+                {
+                  "$type": "POOFKGMBLNA",
+                  "target": "Self",
+                  "key": "SGV_Right_Position",
+                  "param3": 3.0
+                }
+              ]
+            }
+          ]
+        },
+        "LowLight": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "LHKFBGDFMEC": 3,
+              "AKKOIFEFBPF": 10.0,
+              "BGFMCENBKJD": ""
+            }
+          ]
+        },
+        "MiddleLight": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "LHKFBGDFMEC": 4,
+              "AKKOIFEFBPF": 10.0,
+              "BGFMCENBKJD": ""
+            }
+          ]
+        },
+        "TopLight": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "LHKFBGDFMEC": 5,
+              "AKKOIFEFBPF": 10.0,
+              "BGFMCENBKJD": ""
+            }
+          ]
+        },
+        "SingleSuccess": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "LHKFBGDFMEC": 2,
+              "AKKOIFEFBPF": 10.0,
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "temperature": true,
+              "param3": 1.0,
+              "key": "_Ability_Fd_Energy_Mark",
+              "param2": 0.0,
+              "triggerID": 0.0
+            }
+          ]
+        },
+        "ChargedState": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "LHKFBGDFMEC": 2,
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "temperature": true,
+              "param3": 1.0,
+              "key": "_Ability_Fd_Energy_Mark",
+              "param2": 0.0,
+              "triggerID": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.SetAnimatorInt",
+              "intID": "Start",
+              "param3": 1.0
+            }
+          ]
+        },
+        "Success": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "LHKFBGDFMEC": 6,
+              "AKKOIFEFBPF": 11.0,
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "temperature": true,
+              "param3": 2.0,
+              "key": "_Ability_Fd_Energy_Mark",
+              "param2": 0.0,
+              "triggerID": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.SetAnimatorInt",
+              "intID": "Start",
+              "param3": 1.0
+            },
+            {
+              "$type": "MoleMole.Config.FireEffect",
+              "rotationDampTime": "Eff_SceneObj_FDStabilizers_Succeed",
+              "born": {
+                "$type": "POAPJOHEDDM",
+                "useRotation": true,
+                "attachPointName": "RootNode"
+              },
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        },
+        "Lock": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_Item_SpecialTreasureBox_LockIdle",
+              "born": {
+                "$type": "POAPJOHEDDM",
+                "useRotation": true,
+                "attachPointName": "RootNode"
+              },
+              "NHGDGLICLFB": -1.0
+            },
+            {
+              "$type": "MoleMole.Config.SetAnimatorInt",
+              "intID": "Start",
+              "param3": 0.0
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.FireEffect",
+              "rotationDampTime": "Eff_Item_SpecialTreasureBox_Unlock",
+              "born": {
+                "$type": "POAPJOHEDDM",
+                "useRotation": true,
+                "attachPointName": "RootNode"
+              },
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        },
+        "Fail": {
+          "modifierName": "",
+          "elementDurability": 3.0,
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "LHKFBGDFMEC": 2,
+              "AKKOIFEFBPF": 10.0,
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "temperature": true,
+              "param3": 1.0,
+              "key": "_Ability_Fd_Energy_Mark",
+              "param2": 0.0,
+              "triggerID": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.SetAnimatorInt",
+              "intID": "Start",
+              "param3": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "targetPredicates": [
+                {
+                  "$type": "POOFKGMBLNA",
+                  "target": "Self",
+                  "key": "SGV_EnvironmentType",
+                  "param3": 0.0,
+                  "compareType": "NoneOrEqual"
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "MoleMole.Config.AttachEffect",
+                  "rotationDampTime": "Eff_SceneObj_FDStabilizers_Failed_01",
+                  "born": {
+                    "$type": "POAPJOHEDDM",
+                    "useRotation": true,
+                    "attachPointName": "AttachPoint"
+                  },
+                  "NHGDGLICLFB": -1.0
+                }
+              ],
+              "failActions": [
+                {
+                  "$type": "MoleMole.Config.FireEffect",
+                  "rotationDampTime": "Eff_SceneObj_FDStabilizers_WaterFailed",
+                  "born": {
+                    "$type": "POAPJOHEDDM",
+                    "useRotation": true,
+                    "attachPointName": "RootNode"
+                  },
+                  "NHGDGLICLFB": -1.0
+                }
+              ]
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.ChangeGadgetState",
+              "state": 201
+            }
+          ]
+        },
+        "EnergyLogic": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0
+        },
+        "QuestFail": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_SceneObj_FDStabilizers_Failed_02",
+              "born": {
+                "$type": "POAPJOHEDDM",
+                "useRotation": true,
+                "attachPointName": "AttachPoint"
+              },
+              "NHGDGLICLFB": -1.0
+            },
+            {
+              "$type": "MoleMole.Config.SetAnimatorInt",
+              "intID": "Start",
+              "param3": 0.0
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.SetGlobalValue",
+          "param3": 1.0,
+          "key": "_IS_Stabilizer",
+          "param2": 0.0,
+          "triggerID": 0.0
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Area_Fd_Property_Ani_Prop_HiliFirework_01",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "modifierName": "None"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 101,
+          "modifierName": "Up"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 201,
+          "modifierName": "Wire"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 202,
+          "modifierName": "FireWork"
+        }
+      ],
+      "modifiers": {
+        "HitManager": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onBeingHit": [
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "targetPredicates": [
+                {
+                  "$type": "OFJKNHNDFOO",
+                  "element": "Fire"
+                },
+                {
+                  "$type": "POOFKGMBLNA",
+                  "target": "Self",
+                  "key": "_Already_Fire",
+                  "param3": 0.0
+                },
+                {
+                  "$type": "NJMOCHPJIKO",
+                  "target": "Self",
+                  "gadgetState": 101
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "MoleMole.Config.ChangeGadgetState",
+                  "state": 201
+                },
+                {
+                  "$type": "MoleMole.Config.SetGlobalValue",
+                  "param3": 1.0,
+                  "key": "_Already_Fire",
+                  "param2": 0.0,
+                  "triggerID": 0.0
+                }
+              ]
+            }
+          ]
+        },
+        "None": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0
+        },
+        "Up": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_SceneObj_Area_Fd_Property_Ani_Prop_HiliFirework_03",
+              "born": {
+                "$type": "POAPJOHEDDM",
+                "useRotation": true,
+                "attachPointName": "RootNode"
+              },
+              "NHGDGLICLFB": -1.0
+            },
+            {
+              "$type": "MoleMole.Config.SetAnimatorInt",
+              "intID": "GadgetState",
+              "param3": 201.0
+            }
+          ]
+        },
+        "Wire": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_SceneObj_Area_Fd_Property_Ani_Prop_HiliFirework_01",
+              "born": {
+                "$type": "POAPJOHEDDM",
+                "useRotation": true,
+                "attachPointName": "AttachPoint"
+              },
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        },
+        "FireWork": {
+          "modifierName": "",
+          "elementDurability": 10.0,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachModifier",
+              "modifierName": "FirstAttack"
+            },
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_SceneObj_Area_Fd_Property_Ani_Prop_HiliFirework_02",
+              "born": {
+                "$type": "POAPJOHEDDM",
+                "useRotation": true,
+                "attachPointName": "RootNode"
+              },
+              "NHGDGLICLFB": -1.0
+            },
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Transmitter"
+              ]
+            },
+            {
+              "$type": "MoleMole.Config.AttachModifier",
+              "modifierName": "AttackManager"
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.KillSelf"
+            }
+          ]
+        },
+        "AttackManager": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "thinkInterval": 0.25,
+          "onThinkInterval": [
+            {
+              "$type": "MoleMole.Config.TriggerAbility",
+              "abilityName": "SceneObj_Area_Fd_Property_Ani_Prop_HiliFirework_01_Attack01"
+            }
+          ]
+        },
+        "FirstAttack": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.TriggerAttackEvent",
+              "attackEvent": {
+                "attackPattern": {
+                  "$type": "CDFDJKDFCFJ",
+                  "triggerType": "TriggerNoRepeat",
+                  "IDLDJCPGNHD": 4.0
+                },
+                "attackInfo": {
+                  "attackTag": "",
+                  "attenuationTag": "",
+                  "attenuationGroup": "default",
+                  "attackProperty": {
+                    "AGMNCBAKCEF": 1.0,
+                    "AILJJDMKONE": 0.0,
+                    "elementType": "Fire",
+                    "bonusCriticalHurt": 50.0,
+                    "strikeType": "Blunt",
+                    "enBreak": 9999999.0,
+                    "bonusCritical": 0.0
+                  },
+                  "hitPattern": {
+                    "onHitEffectName": "default",
+                    "hitImpulseType": "LV6",
+                    "hitHaltTimeScale": 0.05000000074505806
+                  },
+                  "forceCameraShake": true,
+                  "cameraShake": {
+                    "shakeRange": 0.36000001430511475,
+                    "shakeTime": 0.36000001430511475
+                  }
+                }
+              },
+              "targetType": "Enemy",
+              "entityTypes": [
+                "Avatar"
+              ]
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.SetGlobalValue",
+          "param3": 0.0,
+          "key": "_Already_Fire",
+          "param2": 0.0,
+          "triggerID": 0.0
+        },
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "HitManager"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Area_Fd_Property_Ani_Prop_HiliFirework_01_Attack01",
+      "abilitySpecials": {
+        "DamageSystemValue": 1.0,
+        "DamageRatio": 0.10000000149011612
+      },
+      "modifiers": {
+        "FireWorkAttack01": {
+          "stacking": "MultipleRefresh",
+          "stackingOption": {
+            "abilitySpecialName": "",
+            "maxModifierNumForMultipleType": 1.0
+          },
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.TriggerAttackEvent",
+              "attackEvent": {
+                "attackPattern": {
+                  "$type": "CDFDJKDFCFJ",
+                  "triggerType": "TriggerNoRepeat",
+                  "IDLDJCPGNHD": 4.0
+                },
+                "attackInfo": {
+                  "attackTag": "",
+                  "attenuationTag": "",
+                  "attenuationGroup": "default",
+                  "attackProperty": {
+                    "AILJJDMKONE": 0.0,
+                    "elementType": "Fire",
+                    "bonusCriticalHurt": 25.0,
+                    "strikeType": "Default",
+                    "enBreak": 0.0,
+                    "attackType": "Range",
+                    "actorGrassSubHurtDelta": [
+                      "DamageRatio",
+                      "DamageSystemValue",
+                      "MUL"
+                    ],
+                    "bonusCritical": 0.0
+                  },
+                  "hitPattern": {
+                    "onHitEffectName": "default",
+                    "hitImpulseType": "LV6"
+                  }
+                }
+              },
+              "targetType": "Enemy",
+              "entityTypes": [
+                "Avatar"
+              ]
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.SetSystemValueToOverrideMap",
+          "key": "DamageSystemValue",
+          "damageRatio": "ElementLevelCo"
+        }
+      ],
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "FireWorkAttack01"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Area_Fd_Property_Ani_Ajar_SciTowerBarrier_01",
+      "modifiers": {
+        "StateManager": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+              "modifierName": "Close"
+            },
+            {
+              "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+              "gadgetState": 201,
+              "modifierName": "Open"
+            }
+          ]
+        },
+        "Close": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "AirWall"
+              ],
+              "setEnable": true
+            },
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_ScenObj_SciTowerBarrier",
+              "born": {
+                "$type": "POAPJOHEDDM",
+                "useRotation": true,
+                "attachPointName": "AttachPoint"
+              },
+              "NHGDGLICLFB": -1.0
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.FireEffect",
+              "rotationDampTime": "Eff_ScenObj_SciTowerBarrier_Die",
+              "born": {
+                "$type": "POAPJOHEDDM",
+                "useRotation": true,
+                "attachPointName": "AttachPoint"
+              },
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        },
+        "Open": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "AirWall"
+              ]
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "StateManager"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Area_Fd_Property_Ani_Prop_FDLabSuppressor_01",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "modifierName": "DefaultState"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 201,
+          "modifierName": "Disappear"
+        }
+      ],
+      "modifiers": {
+        "DefaultState": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_SceneObj_FDLabSuppressor_Pollution",
+              "born": {
+                "$type": "POAPJOHEDDM",
+                "useRotation": true,
+                "attachPointName": "AttachPoint"
+              },
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        },
+        "Disappear": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "LHKFBGDFMEC": 1,
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.FireEffect",
+              "rotationDampTime": "Eff_SceneObj_FDLabSuppressor_Disappear",
+              "born": {
+                "$type": "POAPJOHEDDM",
+                "useRotation": true,
+                "attachPointName": "AttachPoint"
+              },
+              "NHGDGLICLFB": -1.0
+            },
+            {
+              "$type": "MoleMole.Config.AttachModifier",
+              "modifierName": "Kill_suppressor"
+            }
+          ]
+        },
+        "Kill_suppressor": {
+          "modifierName": "",
+          "elementDurability": 0.699999988079071,
+          "bonusCriticalHurt": 100.0,
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.KillSelf"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Area_Fd_Property_Ani_Prop_FDOreLab_01",
+      "modifiers": {
+        "StateManager": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+              "modifierName": "NotStable"
+            },
+            {
+              "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+              "gadgetState": 101,
+              "modifierName": "SuppressorDeliver"
+            },
+            {
+              "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+              "gadgetState": 102,
+              "modifierName": "CoreDeliver"
+            },
+            {
+              "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+              "gadgetState": 103,
+              "modifierName": "LeftStabilizerDeliver"
+            },
+            {
+              "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+              "gadgetState": 104,
+              "modifierName": "RightStabilizerDeliver"
+            },
+            {
+              "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+              "gadgetState": 105,
+              "modifierName": "TwoStabilizerDeliver"
+            },
+            {
+              "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+              "gadgetState": 201,
+              "modifierName": "Stable"
+            },
+            {
+              "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+              "gadgetState": 202,
+              "modifierName": "StableAndFix"
+            }
+          ]
+        },
+        "NotStable": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Suppressor0"
+              ]
+            },
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Suppressor1"
+              ]
+            },
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Suppressor2"
+              ]
+            },
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Suppressor3"
+              ]
+            },
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_SceneObj_FDOreLab_Spillover",
+              "born": {
+                "$type": "POAPJOHEDDM",
+                "useRotation": true,
+                "attachPointName": "RootNode"
+              },
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        },
+        "SuppressorDeliver": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Suppressor0"
+              ],
+              "setEnable": true
+            },
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Suppressor1"
+              ],
+              "setEnable": true
+            },
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Suppressor2"
+              ],
+              "setEnable": true
+            },
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Suppressor3"
+              ],
+              "setEnable": true
+            }
+          ]
+        },
+        "CoreDeliver": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Suppressor0"
+              ],
+              "setEnable": true
+            },
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Suppressor1"
+              ],
+              "setEnable": true
+            },
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Suppressor2"
+              ],
+              "setEnable": true
+            },
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Suppressor3"
+              ],
+              "setEnable": true
+            }
+          ]
+        },
+        "LeftStabilizerDeliver": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "LHKFBGDFMEC": 2,
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Suppressor0"
+              ],
+              "setEnable": true
+            },
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Suppressor1"
+              ],
+              "setEnable": true
+            },
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Suppressor2"
+              ],
+              "setEnable": true
+            },
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Suppressor3"
+              ],
+              "setEnable": true
+            }
+          ]
+        },
+        "RightStabilizerDeliver": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "LHKFBGDFMEC": 1,
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Suppressor0"
+              ],
+              "setEnable": true
+            },
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Suppressor1"
+              ],
+              "setEnable": true
+            },
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Suppressor2"
+              ],
+              "setEnable": true
+            },
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Suppressor3"
+              ],
+              "setEnable": true
+            }
+          ]
+        },
+        "TwoStabilizerDeliver": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "LHKFBGDFMEC": 3,
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Suppressor0"
+              ],
+              "setEnable": true
+            },
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Suppressor1"
+              ],
+              "setEnable": true
+            },
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Suppressor2"
+              ],
+              "setEnable": true
+            },
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Suppressor3"
+              ],
+              "setEnable": true
+            }
+          ]
+        },
+        "Stable": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "LHKFBGDFMEC": 3,
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Suppressor0"
+              ],
+              "setEnable": true
+            },
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Suppressor1"
+              ],
+              "setEnable": true
+            },
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Suppressor2"
+              ],
+              "setEnable": true
+            },
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Suppressor3"
+              ],
+              "setEnable": true
+            },
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_SceneObj_FDOreLab_Stable",
+              "born": {
+                "$type": "POAPJOHEDDM",
+                "useRotation": true,
+                "attachPointName": "RootNode"
+              },
+              "NHGDGLICLFB": -1.0
+            },
+            {
+              "$type": "MoleMole.Config.SetAnimatorInt",
+              "intID": "GadgetState",
+              "param3": 201.0
+            }
+          ]
+        },
+        "StableAndFix": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "LHKFBGDFMEC": 3,
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Suppressor0"
+              ],
+              "setEnable": true
+            },
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Suppressor1"
+              ],
+              "setEnable": true
+            },
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Suppressor2"
+              ],
+              "setEnable": true
+            },
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Suppressor3"
+              ],
+              "setEnable": true
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "StateManager"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Area_Fd_Property_Ani_Prop_FontaineSciTank_01",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachModifierToSelfGlobalValueNoInitMixin",
+          "globalValueKey": "SGV_EnvironmentType",
+          "valueSteps": [
+            1.5,
+            2.5
+          ],
+          "modifierNameSteps": [
+            "Underwater"
+          ],
+          "MFJNNNHGMJD": true
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "modifierName": "NormalCreate"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 201,
+          "modifierName": "Broken"
+        }
+      ],
+      "modifiers": {
+        "Underwater": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ChangeLockTypeMixin",
+              "lockType": "Avatar&Monster_Lv4"
+            }
+          ]
+        },
+        "NormalCreate": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.FireEffect",
+              "rotationDampTime": "Eff_SceneObj_Area_Fd_Property_Ani_Prop_FontaineSciTank_01",
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        },
+        "Broken": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.KillSelf"
+            }
+          ]
+        },
+        "BombBoxLoop": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onBeingHit": [
+            {
+              "$type": "MoleMole.Config.ChangeGadgetState",
+              "state": 201
+            },
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "targetPredicates": [
+                {
+                  "$type": "POOFKGMBLNA",
+                  "target": "Self",
+                  "key": "SGV_EnvironmentType",
+                  "param3": 0.0,
+                  "compareType": "NoneOrEqual"
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "MoleMole.Config.FireEffect",
+                  "rotationDampTime": "Eff_SceneObj_Area_Fd_Property_Ani_Prop_FontaineSciTank_02",
+                  "NHGDGLICLFB": -1.0
+                }
+              ],
+              "failActions": [
+                {
+                  "$type": "MoleMole.Config.FireEffect",
+                  "rotationDampTime": "Eff_SceneObj_Area_Common_Property_Ani_Prop_OreFountaine_02",
+                  "born": {
+                    "$type": "POAPJOHEDDM",
+                    "useRotation": true,
+                    "attachPointName": "AttachPoint"
+                  },
+                  "NHGDGLICLFB": -1.0
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "BombBoxLoop"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Area_Fd_Property_Ani_Prop_FactoryBlower_02_Ability",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "modifierName": "ShowState"
+        }
+      ],
+      "modifiers": {
+        "ShowState": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_SceneObj_FactoryBlowerSmallSlow_Light_01",
+              "NHGDGLICLFB": -1.0,
+              "isPlatformDependent": true
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Area_Fd_Property_Ani_Prop_FactoryBlower_03_Ability",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "modifierName": "MoveState"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 201,
+          "modifierName": "StillState"
+        }
+      ],
+      "modifiers": {
+        "MoveState": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Move"
+              ],
+              "setEnable": true
+            },
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Still"
+              ]
+            }
+          ]
+        },
+        "StillState": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Move"
+              ]
+            },
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Still"
+              ],
+              "setEnable": true
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_FDBubble_01_Ability",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "modifierName": "BubbleState"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 201,
+          "modifierName": "EmptyState"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 202,
+          "modifierName": "FinishState"
+        }
+      ],
+      "modifiers": {
+        "EmptyState": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "RootNode"
+              ]
+            }
+          ]
+        },
+        "BubbleState": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_SceneObj_FDBubble_BornIdle",
+              "NHGDGLICLFB": -1.0
+            },
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "RootNode"
+              ],
+              "setEnable": true
+            }
+          ],
+          "onBeingHit": [
+            {
+              "$type": "MoleMole.Config.ChangeGadgetState",
+              "state": 202
+            },
+            {
+              "$type": "MoleMole.Config.ApplyModifier",
+              "modifierName": "BubbleExplode"
+            }
+          ]
+        },
+        "FinishState": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "RootNode"
+              ]
+            }
+          ]
+        },
+        "BubbleExplode": {
+          "modifierName": "",
+          "elementDurability": 1.0,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.FireEffect",
+              "rotationDampTime": "Eff_SceneObj_FDBubble_Disappear",
+              "NHGDGLICLFB": -1.0
+            },
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "RootNode"
+              ]
+            }
+          ]
+        }
+      },
+      "onFieldEnter": [
+        {
+          "$type": "MoleMole.Config.Predicated",
+          "predicates": [
+            {
+              "$type": "NJMOCHPJIKO"
+            }
+          ],
+          "successActions": [
+            {
+              "$type": "MoleMole.Config.ChangeGadgetState",
+              "state": 202
+            },
+            {
+              "$type": "MoleMole.Config.ApplyModifier",
+              "modifierName": "BubbleExplode"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Bullet_BubbleGun_01_Ability",
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.DebugLog",
+          "content": "BubbleGun: onAbilityStart!!"
+        },
+        {
+          "$type": "MoleMole.Config.TriggerAudio",
+          "operation": {
+            "$type": "LOPKKEONDBJ",
+            "operation": {
+              "text": "Play_amb_sceneObj_gear_bubbleGun_hit"
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Bullet_BubbleGun_02_Ability",
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.DebugLog",
+          "content": "BubbleGun: onAbilityStart!!"
+        },
+        {
+          "$type": "MoleMole.Config.TriggerAudio",
+          "operation": {
+            "$type": "LOPKKEONDBJ",
+            "operation": {
+              "text": "Play_amb_sceneObj_gear_bubbleGun_hit"
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Bullet_BubbleGun_03_Ability",
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.DebugLog",
+          "content": "BubbleGun: onAbilityStart!!"
+        },
+        {
+          "$type": "MoleMole.Config.TriggerAudio",
+          "operation": {
+            "$type": "LOPKKEONDBJ",
+            "operation": {
+              "text": "Play_amb_sceneObj_gear_bubbleGun_hit"
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Area_Fd_Property_Ani_Prop_PrisonFistTarget_01_Ability",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "modifierName": "OffState"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 201,
+          "modifierName": "ReadyState"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 901,
+          "modifierName": "WaitState"
+        },
+        {
+          "$type": "MoleMole.Config.ServerUpdateGlobalValueMixin",
+          "key": "_Ability_FistTarget_Success",
+          "useLimitRange": true,
+          "param2": 1.0,
+          "triggerID": 0.0
+        },
+        {
+          "$type": "MoleMole.Config.AttachModifierToSelfGlobalValueMixin",
+          "globalValueKey": "_Ability_FistTarget_Success",
+          "gvInTalk": 0.0,
+          "valueSteps": [
+            0.5,
+            1.5
+          ],
+          "modifierNameSteps": [
+            "FistTarget_Success"
+          ],
+          "MFJNNNHGMJD": true
+        },
+        {
+          "$type": "MoleMole.Config.ServerUpdateGlobalValueMixin",
+          "key": "_Ability_FistTarget_HitResult",
+          "useLimitRange": true,
+          "param2": 2.0,
+          "triggerID": 0.0
+        },
+        {
+          "$type": "MoleMole.Config.AttachModifierToSelfGlobalValueMixin",
+          "globalValueKey": "_Ability_FistTarget_HitResult",
+          "gvInTalk": 0.0,
+          "valueSteps": [
+            0.5,
+            1.5,
+            2.5
+          ],
+          "modifierNameSteps": [
+            "FistTarget_Wrong",
+            "FistTarget_Right"
+          ],
+          "MFJNNNHGMJD": true
+        }
+      ],
+      "modifiers": {
+        "FistTarget_Success": {
+          "modifierName": "",
+          "elementDurability": 0.20000000298023224,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.FireEffect",
+              "rotationDampTime": "Eff_SceneObj_PrisonFistTarget_01_Finish",
+              "NHGDGLICLFB": -1.0
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 0.0,
+              "key": "_Ability_FistTarget_Success",
+              "param2": 0.0,
+              "triggerID": 0.0
+            }
+          ]
+        },
+        "FistTarget_Wrong": {
+          "modifierName": "",
+          "elementDurability": 0.5,
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "LHKFBGDFMEC": 1,
+              "BGFMCENBKJD": "",
+              "isTrigger": true
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValueV2",
+              "param3": 0.0,
+              "key": "_Ability_FistTarget_HitResult",
+              "param2": 0.0,
+              "triggerID": 0.0
+            }
+          ]
+        },
+        "FistTarget_Right": {
+          "modifierName": "",
+          "elementDurability": 0.5,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetAnimatorTrigger",
+              "value": "Hit"
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValueV2",
+              "param3": 0.0,
+              "key": "_Ability_FistTarget_HitResult",
+              "param2": 0.0,
+              "triggerID": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.ChangeGadgetState"
+            }
+          ]
+        },
+        "UNIQUE_FistTarget_Hit": {
+          "stacking": "Unique",
+          "modifierName": "",
+          "isUnique": true,
+          "elementDurability": 0.5,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.FireEffect",
+              "rotationDampTime": "Eff_SceneObj_PrisonFistTarget_01_Hit",
+              "NHGDGLICLFB": -1.0
+            },
+            {
+              "$type": "MoleMole.Config.ServerLuaCall",
+              "luaCallType": "FromGroup",
+              "funcName": "SLC_FistTarget_BeingHit",
+              "param1": 0.0,
+              "KEEFCBAAODF": 0.0,
+              "LABHKHBCHFB": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.SetAnimatorTrigger",
+              "value": "Hit"
+            }
+          ]
+        },
+        "OffState": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "NHJJKMPNMJP": true,
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.EnableHitBoxByName",
+              "hitBoxNames": [
+                "HitBox"
+              ]
+            }
+          ]
+        },
+        "WaitState": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "LHKFBGDFMEC": 3,
+              "NHJJKMPNMJP": true,
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.EnableHitBoxByName",
+              "hitBoxNames": [
+                "HitBox"
+              ]
+            }
+          ]
+        },
+        "ReadyState": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "LHKFBGDFMEC": 2,
+              "NHJJKMPNMJP": true,
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.EnableHitBoxByName",
+              "hitBoxNames": [
+                "HitBox"
+              ],
+              "setEnable": true
+            }
+          ],
+          "onBeingHit": [
+            {
+              "$type": "MoleMole.Config.AttachModifier",
+              "modifierName": "UNIQUE_FistTarget_Hit"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Area_Fd_Property_Ani_Prop_PrisonWorkerMachine_01_Ability",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "modifierName": "StopState"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 201,
+          "modifierName": "WaitState"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 903,
+          "modifierName": "ActiveState"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 901,
+          "modifierName": "HitState"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 902,
+          "modifierName": "JumpState"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 202,
+          "modifierName": "FinishState"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 204,
+          "modifierName": "FakeState"
+        },
+        {
+          "$type": "MoleMole.Config.FieldEntityCountChangeMixin",
+          "campTargetType": "All",
+          "targetPredicates": [
+            {
+              "$type": "BBBFIPNGHGH",
+              "entityTypes": [
+                "Avatar"
+              ]
+            }
+          ],
+          "onFieldEnter": [
+            {
+              "$type": "MoleMole.Config.AttachModifier",
+              "target": "Team",
+              "modifierName": "UNIQUE_WorkerMachine_CheckJump_Team"
+            }
+          ],
+          "onFieldExit": [
+            {
+              "$type": "MoleMole.Config.RemoveUniqueModifier",
+              "target": "Team",
+              "modifierName": "UNIQUE_WorkerMachine_CheckJump_Team"
+            }
+          ],
+          "replaceOnAddedInTick": true,
+          "simpleCountGlobaValueKey": "_Ability_PrisonWorkerMachine_AvatarCount",
+          "simpleCountUseLimitRange": true,
+          "simpleCountMaxValue": 1.0,
+          "simpleCountMinValue": 0.0
+        },
+        {
+          "$type": "MoleMole.Config.AttachModifierToSelfGlobalValueMixin",
+          "globalValueKey": "_Ability_WorkerMachine_Jump",
+          "gvInTalk": 0.0,
+          "valueSteps": [
+            0.5,
+            1.5
+          ],
+          "modifierNameSteps": [
+            "WorkerMachine_Jump"
+          ],
+          "MFJNNNHGMJD": true
+        },
+        {
+          "$type": "MoleMole.Config.ServerUpdateGlobalValueMixin",
+          "key": "_Ability_WorkerMachine_Jump",
+          "useLimitRange": true,
+          "param2": 1.0,
+          "triggerID": 0.0
+        }
+      ],
+      "modifiers": {
+        "UNIQUE_WorkerMachine_Steam": {
+          "stacking": "Unique",
+          "modifierName": "",
+          "isUnique": true,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_SceneObj_PrisonWorkerMachine_01_Steam_Loop",
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        },
+        "UNIQUE_WorkerMachine_CheckJump_Team": {
+          "stacking": "Unique",
+          "modifierName": "",
+          "isUnique": true,
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.CurLocalAvatarMixinV2",
+              "modifierName": "WorkerMachine_CheckJump_Avatar"
+            }
+          ]
+        },
+        "WorkerMachine_CheckJump_Avatar": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.AttachToAnimatorStateIDMixin",
+              "stateIDs": [
+                "FallOnGround",
+                "FallOnGroundLit",
+                "FallToGroundRun",
+                "FallToGroundRunHard",
+                "FallToGroundSprint"
+              ],
+              "modifierName": "UNIQUE_WorkerMachine_Land_Avatar",
+              "BILMCNCKIAO": ""
+            }
+          ]
+        },
+        "UNIQUE_WorkerMachine_Land_Avatar": {
+          "stacking": "Unique",
+          "modifierName": "",
+          "isUnique": true,
+          "elementDurability": 0.20000000298023224,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.ServerLuaCall",
+              "luaCallType": "CurGalleryControlGroup",
+              "funcName": "SLC_WorkerMachine_Jump",
+              "param1": 0.0,
+              "KEEFCBAAODF": 0.0,
+              "LABHKHBCHFB": 0.0
+            }
+          ]
+        },
+        "WorkerMachine_Jump": {
+          "modifierName": "",
+          "elementDurability": 0.20000000298023224,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "targetPredicates": [
+                {
+                  "$type": "BNNPNEDKIIH",
+                  "predicates": [
+                    {
+                      "$type": "NJMOCHPJIKO",
+                      "target": "Self",
+                      "gadgetState": 901
+                    },
+                    {
+                      "$type": "NJMOCHPJIKO",
+                      "target": "Self",
+                      "gadgetState": 902
+                    },
+                    {
+                      "$type": "NJMOCHPJIKO",
+                      "target": "Self",
+                      "gadgetState": 903
+                    }
+                  ]
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "MoleMole.Config.SetAnimatorTrigger",
+                  "otherTargets": {
+                    "$type": "BCLBMPBNHKO",
+                    "operation": "XOR",
+                    "value": 2
+                  },
+                  "value": "Jump"
+                },
+                {
+                  "$type": "MoleMole.Config.FireEffect",
+                  "rotationDampTime": "Eff_SceneObj_PrisonWorkerMachine_01_Board_Hit",
+                  "NHGDGLICLFB": -1.0
+                }
+              ]
+            },
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "targetPredicates": [
+                {
+                  "$type": "NJMOCHPJIKO",
+                  "target": "Self",
+                  "gadgetState": 902
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "MoleMole.Config.FireEffect",
+                  "rotationDampTime": "Eff_SceneObj_PrisonWorkerMachine_01_Hammer",
+                  "NHGDGLICLFB": -1.0
+                },
+                {
+                  "$type": "MoleMole.Config.FireEffect",
+                  "rotationDampTime": "Eff_SceneObj_PrisonWorkerMachine_01_Hit",
+                  "NHGDGLICLFB": -1.0
+                },
+                {
+                  "$type": "MoleMole.Config.FireEffect",
+                  "rotationDampTime": "Eff_SceneObj_PrisonWorkerMachine_01_Steam_Burst",
+                  "NHGDGLICLFB": -1.0
+                },
+                {
+                  "$type": "MoleMole.Config.SetAnimatorTrigger",
+                  "value": "Hit"
+                }
+              ]
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 0.0,
+              "key": "_Ability_WorkerMachine_Jump",
+              "param2": 0.0,
+              "triggerID": 0.0
+            }
+          ]
+        },
+        "FakeState": {
+          "modifierName": "",
+          "elementDurability": 1.0,
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "LHKFBGDFMEC": 1,
+              "NHJJKMPNMJP": true,
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.FireEffect",
+              "rotationDampTime": "Eff_SceneObj_PrisonWorkerMachine_01_Hammer",
+              "NHGDGLICLFB": -1.0
+            },
+            {
+              "$type": "MoleMole.Config.FireEffect",
+              "rotationDampTime": "Eff_SceneObj_PrisonWorkerMachine_01_Hit",
+              "NHGDGLICLFB": -1.0
+            },
+            {
+              "$type": "MoleMole.Config.FireEffect",
+              "rotationDampTime": "Eff_SceneObj_PrisonWorkerMachine_01_Steam_Burst",
+              "NHGDGLICLFB": -1.0
+            },
+            {
+              "$type": "MoleMole.Config.SetAnimatorTrigger",
+              "value": "Hit"
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.ChangeGadgetState",
+              "state": 903
+            }
+          ]
+        },
+        "StopState": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "AKKOIFEFBPF": 4.0,
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.RemoveUniqueModifier",
+              "modifierName": "UNIQUE_WorkerMachine_Steam"
+            },
+            {
+              "$type": "MoleMole.Config.ChangeGadgetState",
+              "otherTargets": {
+                "$type": "BCLBMPBNHKO",
+                "operation": "XOR",
+                "value": 2
+              }
+            }
+          ]
+        },
+        "WaitState": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "AKKOIFEFBPF": 4.0,
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.RemoveUniqueModifier",
+              "modifierName": "UNIQUE_WorkerMachine_Steam"
+            },
+            {
+              "$type": "MoleMole.Config.ChangeGadgetState",
+              "otherTargets": {
+                "$type": "BCLBMPBNHKO",
+                "operation": "XOR",
+                "value": 2
+              }
+            }
+          ]
+        },
+        "HitState": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "LHKFBGDFMEC": 2,
+              "AKKOIFEFBPF": 4.0,
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachModifier",
+              "modifierName": "UNIQUE_WorkerMachine_Steam"
+            },
+            {
+              "$type": "MoleMole.Config.ChangeGadgetState",
+              "otherTargets": {
+                "$type": "BCLBMPBNHKO",
+                "operation": "XOR",
+                "value": 1
+              },
+              "state": 901
+            },
+            {
+              "$type": "MoleMole.Config.ChangeGadgetState",
+              "otherTargets": {
+                "$type": "BCLBMPBNHKO",
+                "operation": "XOR",
+                "value": 2
+              },
+              "state": 201
+            }
+          ],
+          "onBeingHit": [
+            {
+              "$type": "MoleMole.Config.ChangeGadgetState",
+              "state": 903
+            }
+          ]
+        },
+        "JumpState": {
+          "modifierName": "",
+          "elementDurability": 2.0999999046325684,
+          "bonusCriticalHurt": 100.0,
+          "thinkInterval": 2.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "LHKFBGDFMEC": 3,
+              "AKKOIFEFBPF": 4.0,
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachModifier",
+              "modifierName": "UNIQUE_WorkerMachine_Steam"
+            },
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_SceneObj_PrisonWorkerMachine_01_Board_Appear",
+              "NHGDGLICLFB": -1.0
+            },
+            {
+              "$type": "MoleMole.Config.ChangeGadgetState",
+              "otherTargets": {
+                "$type": "BCLBMPBNHKO",
+                "operation": "XOR",
+                "value": 1
+              },
+              "state": 902
+            },
+            {
+              "$type": "MoleMole.Config.ChangeGadgetState",
+              "otherTargets": {
+                "$type": "BCLBMPBNHKO",
+                "operation": "XOR",
+                "value": 2
+              },
+              "state": 201
+            }
+          ],
+          "onThinkInterval": [
+            {
+              "$type": "MoleMole.Config.ChangeGadgetState",
+              "predicates": [
+                {
+                  "$type": "FLLFBKEHJMH",
+                  "predicates": [
+                    {
+                      "$type": "POOFKGMBLNA",
+                      "target": "Self",
+                      "key": "SGV_WorkerMachine_Finish",
+                      "param3": 1.0
+                    }
+                  ]
+                }
+              ],
+              "state": 903
+            }
+          ]
+        },
+        "ActiveState": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "LHKFBGDFMEC": 1,
+              "AKKOIFEFBPF": 4.0,
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachModifier",
+              "modifierName": "UNIQUE_WorkerMachine_Steam"
+            },
+            {
+              "$type": "MoleMole.Config.ChangeGadgetState",
+              "otherTargets": {
+                "$type": "BCLBMPBNHKO",
+                "operation": "XOR",
+                "value": 1
+              },
+              "state": 903
+            },
+            {
+              "$type": "MoleMole.Config.ChangeGadgetState",
+              "otherTargets": {
+                "$type": "BCLBMPBNHKO",
+                "operation": "XOR",
+                "value": 2
+              },
+              "state": 201
+            }
+          ]
+        },
+        "FinishState": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "AKKOIFEFBPF": 4.0,
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.RemoveUniqueModifier",
+              "modifierName": "UNIQUE_WorkerMachine_Steam"
+            },
+            {
+              "$type": "MoleMole.Config.FireEffect",
+              "rotationDampTime": "Eff_SceneObj_PrisonWorkerMachine_01_Steam_Burst",
+              "NHGDGLICLFB": -1.0
+            },
+            {
+              "$type": "MoleMole.Config.FireEffect",
+              "rotationDampTime": "Eff_SceneObj_PrisonWorkerMachine_01_Finish",
+              "NHGDGLICLFB": -1.0
+            },
+            {
+              "$type": "MoleMole.Config.ChangeGadgetState",
+              "otherTargets": {
+                "$type": "BCLBMPBNHKO",
+                "operation": "XOR",
+                "value": 1
+              },
+              "state": 202
+            },
+            {
+              "$type": "MoleMole.Config.ChangeGadgetState",
+              "otherTargets": {
+                "$type": "BCLBMPBNHKO",
+                "operation": "XOR",
+                "value": 2
+              }
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.SetGlobalValueV2",
+          "param3": 0.0,
+          "key": "_Ability_PrisonWorkerMachine_AvatarCount",
+          "param2": 0.0,
+          "triggerID": 0.0
+        },
+        {
+          "$type": "MoleMole.Config.SetGlobalValue",
+          "param3": 0.0,
+          "key": "_Ability_WorkerMachine_Jump",
+          "param2": 0.0,
+          "triggerID": 0.0
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Area_Fd_Property_Ani_Prop_PrisonWorkerMachine_02_Ability",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "modifierName": "HideState"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 201,
+          "modifierName": "WaitState"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 903,
+          "modifierName": "ActiveState"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 901,
+          "modifierName": "HitState"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 902,
+          "modifierName": "JumpState"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 202,
+          "modifierName": "FinishState"
+        }
+      ],
+      "modifiers": {
+        "HideState": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "AKKOIFEFBPF": 4.0,
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Unfinished"
+              ]
+            },
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Finished"
+              ]
+            }
+          ]
+        },
+        "WaitState": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "AKKOIFEFBPF": 4.0,
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Unfinished"
+              ],
+              "setEnable": true
+            },
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Finished"
+              ]
+            }
+          ]
+        },
+        "HitState": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "LHKFBGDFMEC": 2,
+              "AKKOIFEFBPF": 4.0,
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Unfinished"
+              ],
+              "setEnable": true
+            },
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Finished"
+              ]
+            }
+          ]
+        },
+        "JumpState": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "LHKFBGDFMEC": 1,
+              "AKKOIFEFBPF": 4.0,
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Unfinished"
+              ],
+              "setEnable": true
+            },
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Finished"
+              ]
+            }
+          ]
+        },
+        "ActiveState": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "LHKFBGDFMEC": 3,
+              "AKKOIFEFBPF": 4.0,
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Unfinished"
+              ],
+              "setEnable": true
+            },
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Finished"
+              ]
+            }
+          ]
+        },
+        "FinishState": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Unfinished"
+              ]
+            },
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Finished"
+              ],
+              "setEnable": true
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Area_Fd_Property_Ani_Prop_PrisonWorkerMachine_03_Ability",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "modifierName": "DefaultState"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 201,
+          "modifierName": "StartState"
+        }
+      ],
+      "modifiers": {
+        "DefaultState": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0
+        },
+        "StartState": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0
+        }
+      }
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Level_Fd_Property_Ani_Prop_SealValveSwitch_01",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "modifierName": "Normal"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 201,
+          "modifierName": "ValveOpen"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 202,
+          "modifierName": "Lock"
+        }
+      ],
+      "modifiers": {
+        "Normal": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "BGFMCENBKJD": ""
+            }
+          ]
+        },
+        "ValveOpen": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "LHKFBGDFMEC": 1,
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetAnimatorTrigger",
+              "value": "Attack",
+              "mpTriggerOnRemote": true
+            }
+          ]
+        },
+        "Lock": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_Item_SpecialTreasureBox_LockIdle",
+              "born": {
+                "$type": "POAPJOHEDDM",
+                "useRotation": true,
+                "attachPointName": "AttachPoint"
+              },
+              "NHGDGLICLFB": -1.0
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.FireEffect",
+              "rotationDampTime": "Eff_Item_SpecialTreasureBox_Unlock",
+              "born": {
+                "$type": "POAPJOHEDDM",
+                "useRotation": true,
+                "attachPointName": "AttachPoint"
+              },
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Level_Fd_Property_Ani_Prop_SealValve_01",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "modifierName": "Close"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 201,
+          "modifierName": "Open"
+        }
+      ],
+      "modifiers": {
+        "Close": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetAnimatorInt",
+              "intID": "GadgetState",
+              "param3": 0.0
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.FireEffect",
+              "rotationDampTime": "Eff_SceneObj_SealValve_01_Open",
+              "born": {
+                "$type": "POAPJOHEDDM",
+                "useRotation": true,
+                "attachPointName": "RootNode"
+              },
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        },
+        "Open": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetAnimatorInt",
+              "intID": "GadgetState",
+              "param3": 201.0
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Indoor_Fd_Property_Ani_Prop_PrisonSecretGate_01",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "modifierName": "Close"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 201,
+          "modifierName": "Open"
+        }
+      ],
+      "modifiers": {
+        "Close": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetAnimatorInt",
+              "intID": "GadgetState",
+              "param3": 0.0
+            }
+          ]
+        },
+        "Open": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetAnimatorInt",
+              "intID": "GadgetState",
+              "param3": 201.0
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Area_Fd_Property_Ani_Tree_FactoryElevator_02",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "modifierName": "Lock"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 201,
+          "modifierName": "Open"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 202,
+          "modifierName": "Close"
+        }
+      ],
+      "modifiers": {
+        "LightManager": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_SceneObj_Area_Fd_Property_Ani_Tree_FactoryElevator_02_Light",
+              "born": {
+                "$type": "POAPJOHEDDM",
+                "useRotation": true,
+                "attachPointName": "RootNode"
+              },
+              "NHGDGLICLFB": -1.0,
+              "isPlatformDependent": true
+            }
+          ]
+        },
+        "Lock": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetMaterialParamFloatByTransform",
+              "canBeHandledOnRecover": true,
+              "matName": "light",
+              "GGGADBNBNDN": "_EmissionStrength",
+              "param3": 0.5
+            },
+            {
+              "$type": "MoleMole.Config.RemoveModifier",
+              "modifierName": "LightManager"
+            }
+          ]
+        },
+        "Open": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetAnimatorInt",
+              "intID": "GadgetState",
+              "param3": 201.0
+            },
+            {
+              "$type": "MoleMole.Config.FireEffect",
+              "rotationDampTime": "Eff_SceneObj_Area_Common_Property_Ani_Prop_FactoryElevator_01",
+              "born": {
+                "$type": "POAPJOHEDDM",
+                "useRotation": true,
+                "attachPointName": "AttachPoint"
+              },
+              "NHGDGLICLFB": -1.0
+            },
+            {
+              "$type": "MoleMole.Config.FireEffect",
+              "rotationDampTime": "Eff_SceneObj_Area_Common_Property_Ani_Prop_FactoryElevator_02",
+              "born": {
+                "$type": "POAPJOHEDDM",
+                "useRotation": true,
+                "attachPointName": "RootNode"
+              },
+              "NHGDGLICLFB": -1.0
+            },
+            {
+              "$type": "MoleMole.Config.SetMaterialParamFloatByTransform",
+              "canBeHandledOnRecover": true,
+              "matName": "light",
+              "GGGADBNBNDN": "_EmissionStrength",
+              "param3": 4.909999847412109
+            },
+            {
+              "$type": "MoleMole.Config.ApplyModifier",
+              "modifierName": "LightManager"
+            }
+          ]
+        },
+        "Close": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetAnimatorInt",
+              "intID": "GadgetState",
+              "param3": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.SetMaterialParamFloatByTransform",
+              "canBeHandledOnRecover": true,
+              "matName": "light",
+              "GGGADBNBNDN": "_EmissionStrength",
+              "param3": 4.909999847412109
+            },
+            {
+              "$type": "MoleMole.Config.ApplyModifier",
+              "modifierName": "LightManager"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Indoor_Fd_Property_Ani_Prop_PrisonOfficeFrostedGlass_01",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "modifierName": "Close"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 201,
+          "modifierName": "Open"
+        }
+      ],
+      "modifiers": {
+        "Close": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "LHKFBGDFMEC": 1,
+              "BGFMCENBKJD": ""
+            }
+          ]
+        },
+        "Open": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "BGFMCENBKJD": ""
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Indoor_Fd_Property_Ani_Prop_PrisonOfficeFrostedGlass_02",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "modifierName": "Close"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 201,
+          "modifierName": "Open"
+        }
+      ],
+      "modifiers": {
+        "Close": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0
+        },
+        "Open": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0
+        }
+      }
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Quest_SimpleGadgetTalk_LimitAngle_Ability",
+      "onFieldEnter": [
+        {
+          "$type": "MoleMole.Config.Predicated",
+          "target": "CurLocalAvatar",
+          "targetPredicates": [
+            {
+              "$type": "GMHGMKNFHDJ",
+              "logic": "LesserOrEqual",
+              "param3": 90.0,
+              "JGJFMCHGNMC": false,
+              "namedTransform": ""
+            },
+            {
+              "$type": "GMHGMKNFHDJ",
+              "logic": "GreaterOrEqual",
+              "param3": -90.0,
+              "JGJFMCHGNMC": false,
+              "namedTransform": ""
+            }
+          ],
+          "successActions": [
+            {
+              "$type": "MoleMole.Config.EnableGadgetIntee",
+              "enable": true
+            }
+          ],
+          "failActions": [
+            {
+              "$type": "MoleMole.Config.EnableGadgetIntee"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Area_Fd_Property_Ani_Prop_ShardPrimalOre_01_Ability"
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Area_Common_Property_Ani_Prop_PrimalKey_02_Ability",
+      "onKill": [
+        {
+          "$type": "MoleMole.Config.FireEffect",
+          "rotationDampTime": "Eff_SceneObj_PrimalKey_08",
+          "NHGDGLICLFB": -1.0
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Area_Fd_Property_Ani_Ajar_TrainingJar_01_Ability",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "modifierName": "NormalCreate"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 201,
+          "modifierName": "Broken"
+        }
+      ],
+      "modifiers": {
+        "NormalCreate": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.FireEffect",
+              "rotationDampTime": "Eff_SceneObj_Area_Fd_Property_Ani_Prop_FontaineSciTank_01",
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        },
+        "Broken": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.KillSelf"
+            }
+          ]
+        },
+        "BombBoxLoop": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onBeingHit": [
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "target": "Other",
+              "targetPredicates": [
+                {
+                  "$type": "IPJIAJLNIKC",
+                  "attackTags": [
+                    "TrainingJar"
+                  ]
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "MoleMole.Config.ChangeGadgetState",
+                  "state": 201
+                },
+                {
+                  "$type": "MoleMole.Config.FireEffect",
+                  "rotationDampTime": "Eff_SceneObj_HumanJars_01_Destroy",
+                  "NHGDGLICLFB": -1.0
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "BombBoxLoop"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Area_Fd_Property_Ani_Prop_PotHitbox_01",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "modifierName": "HitAble"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 201,
+          "modifierName": "AlreadyHit"
+        }
+      ],
+      "modifiers": {
+        "HitAble": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onBeingHit": [
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "target": "Target",
+              "targetPredicates": [
+                {
+                  "$type": "DNNDJFLKHLB"
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "MoleMole.Config.ChangeGadgetState",
+                  "state": 201
+                }
+              ]
+            }
+          ]
+        },
+        "AlreadyHit": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0
+        }
+      }
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Area_Md_Property_Ani_Prop_FishblasterZhuoKong_01",
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.EnableGadgetIntee",
+          "enable": true
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Area_Fd_Property_Ani_Prop_DirtyWTShield_01",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "modifierName": "AirWallEnable"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 201,
+          "modifierName": "Break"
+        }
+      ],
+      "modifiers": {
+        "AirWallEnable": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.FieldEntityCountChangeMixin",
+              "campTargetType": "All",
+              "targetPredicates": [
+                {
+                  "$type": "BBBFIPNGHGH",
+                  "entityTypes": [
+                    "Avatar"
+                  ]
+                },
+                {
+                  "$type": "LMBGIDDHLDM",
+                  "modifierName": "ArkheCannon_Shoot_State_OnAvatar_Sub"
+                }
+              ],
+              "onFieldEnter": [
+                {
+                  "$type": "MoleMole.Config.AttachEffect",
+                  "rotationDampTime": "Eff_SceneObj_DirtyWTShield_Disappear",
+                  "born": {
+                    "$type": "POAPJOHEDDM",
+                    "useRotation": true,
+                    "attachPointName": "AttachPoint"
+                  },
+                  "NHGDGLICLFB": -1.0
+                }
+              ],
+              "replaceOnAddedInTick": true,
+              "simpleCountGlobaValueKey": "DirtyWTShield_Count",
+              "simpleCountUseLimitRange": true,
+              "simpleCountMaxValue": 1.0,
+              "simpleCountMinValue": 0.0
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 0.0,
+              "key": "Is_Broken",
+              "param2": 0.0,
+              "triggerID": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_SceneObj_DirtyWTShield_01",
+              "born": {
+                "$type": "POAPJOHEDDM",
+                "useRotation": true,
+                "attachPointName": "RootNode"
+              },
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        },
+        "Break": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Airwall"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Area_Fd_Property_Ani_Prop_DirtyWTShield_02",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "modifierName": "AirWallEnable"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 201,
+          "modifierName": "Break"
+        }
+      ],
+      "modifiers": {
+        "AirWallEnable": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.FieldEntityCountChangeMixin",
+              "campTargetType": "All",
+              "targetPredicates": [
+                {
+                  "$type": "BBBFIPNGHGH",
+                  "entityTypes": [
+                    "Avatar"
+                  ]
+                },
+                {
+                  "$type": "LMBGIDDHLDM",
+                  "modifierName": "ArkheCannon_Shoot_State_OnAvatar_Sub"
+                }
+              ],
+              "onFieldEnter": [
+                {
+                  "$type": "MoleMole.Config.AttachEffect",
+                  "rotationDampTime": "Eff_SceneObj_DirtyWTShield_Disappear",
+                  "born": {
+                    "$type": "POAPJOHEDDM",
+                    "useRotation": true,
+                    "attachPointName": "AttachPoint"
+                  },
+                  "NHGDGLICLFB": -1.0
+                }
+              ],
+              "replaceOnAddedInTick": true,
+              "simpleCountGlobaValueKey": "DirtyWTShield_Count",
+              "simpleCountUseLimitRange": true,
+              "simpleCountMaxValue": 1.0,
+              "simpleCountMinValue": 0.0
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_SceneObj_DirtyWTShield_02",
+              "born": {
+                "$type": "POAPJOHEDDM",
+                "useRotation": true,
+                "attachPointName": "RootNode"
+              },
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        },
+        "Break": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Airwall"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Area_Fd_Property_Ani_Prop_DirtyWTShield_03",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "modifierName": "AirWallEnable"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 201,
+          "modifierName": "Break"
+        }
+      ],
+      "modifiers": {
+        "AirWallEnable": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.FieldEntityCountChangeMixin",
+              "campTargetType": "All",
+              "targetPredicates": [
+                {
+                  "$type": "BBBFIPNGHGH",
+                  "entityTypes": [
+                    "Avatar"
+                  ]
+                },
+                {
+                  "$type": "LMBGIDDHLDM",
+                  "modifierName": "ArkheCannon_Shoot_State_OnAvatar_Sub"
+                }
+              ],
+              "onFieldEnter": [
+                {
+                  "$type": "MoleMole.Config.AttachEffect",
+                  "rotationDampTime": "Eff_SceneObj_DirtyWTShield_Disappear",
+                  "born": {
+                    "$type": "POAPJOHEDDM",
+                    "useRotation": true,
+                    "attachPointName": "AttachPoint"
+                  },
+                  "NHGDGLICLFB": -1.0
+                }
+              ],
+              "replaceOnAddedInTick": true,
+              "simpleCountGlobaValueKey": "DirtyWTShield_Count",
+              "simpleCountUseLimitRange": true,
+              "simpleCountMaxValue": 1.0,
+              "simpleCountMinValue": 0.0
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_SceneObj_DirtyWTShield_03",
+              "born": {
+                "$type": "POAPJOHEDDM",
+                "useRotation": true,
+                "attachPointName": "RootNode"
+              },
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        },
+        "Break": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 1.0,
+              "key": "Is_Broken",
+              "param2": 0.0,
+              "triggerID": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Airwall"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Area_Fd_Property_Ani_Prop_DirtyWTShield_04",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "modifierName": "AirWallEnable"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 201,
+          "modifierName": "Break"
+        }
+      ],
+      "modifiers": {
+        "AirWallEnable": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.FieldEntityCountChangeMixin",
+              "campTargetType": "All",
+              "targetPredicates": [
+                {
+                  "$type": "BBBFIPNGHGH",
+                  "entityTypes": [
+                    "Avatar"
+                  ]
+                },
+                {
+                  "$type": "LMBGIDDHLDM",
+                  "modifierName": "ArkheCannon_Shoot_State_OnAvatar_Sub"
+                }
+              ],
+              "onFieldEnter": [
+                {
+                  "$type": "MoleMole.Config.AttachEffect",
+                  "rotationDampTime": "Eff_SceneObj_DirtyWTShield_Disappear",
+                  "born": {
+                    "$type": "POAPJOHEDDM",
+                    "useRotation": true,
+                    "attachPointName": "AttachPoint"
+                  },
+                  "NHGDGLICLFB": -1.0
+                }
+              ],
+              "replaceOnAddedInTick": true,
+              "simpleCountGlobaValueKey": "DirtyWTShield_Count",
+              "simpleCountUseLimitRange": true,
+              "simpleCountMaxValue": 1.0,
+              "simpleCountMinValue": 0.0
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_SceneObj_DirtyWTShield_04",
+              "born": {
+                "$type": "POAPJOHEDDM",
+                "useRotation": true,
+                "attachPointName": "RootNode"
+              },
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        },
+        "Break": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 1.0,
+              "key": "Is_Broken",
+              "param2": 0.0,
+              "triggerID": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Airwall"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Area_Fd_Property_Ani_Prop_FDFacPipeValve_02",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "modifierName": "None"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 101,
+          "modifierName": "0Degree"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 102,
+          "modifierName": "90Degree"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 103,
+          "modifierName": "180Degree"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 104,
+          "modifierName": "270Degree"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 901,
+          "modifierName": "SuccessState"
+        }
+      ],
+      "modifiers": {
+        "None": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "BGFMCENBKJD": ""
+            }
+          ]
+        },
+        "0Degree": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Valve"
+              ],
+              "setEnable": true
+            },
+            {
+              "$type": "MoleMole.Config.SetAnimatorInt",
+              "intID": "degree",
+              "param3": 0.0
+            }
+          ]
+        },
+        "90Degree": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetAnimatorInt",
+              "intID": "degree",
+              "param3": 90.0
+            }
+          ]
+        },
+        "180Degree": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetAnimatorInt",
+              "intID": "degree",
+              "param3": 180.0
+            }
+          ]
+        },
+        "270Degree": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetAnimatorInt",
+              "intID": "degree",
+              "param3": 270.0
+            }
+          ]
+        },
+        "SuccessState": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "LHKFBGDFMEC": 3,
+              "BGFMCENBKJD": ""
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Area_Fd_Property_Ani_Prop_FdSeaobstacles_01",
+      "modifiers": {
+        "OnHit": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onBeingHit": [
+            {
+              "$type": "MoleMole.Config.LoseHP",
+              "predicates": [
+                {
+                  "$type": "IPJIAJLNIKC",
+                  "attackTags": [
+                    "Skiff_Cannon_Small"
+                  ]
+                }
+              ],
+              "LKDJMGOJHAH": 100.0,
+              "MIIHJFFDKKC": ""
+            },
+            {
+              "$type": "MoleMole.Config.LoseHP",
+              "predicates": [
+                {
+                  "$type": "IPJIAJLNIKC",
+                  "attackTags": [
+                    "Skiff_Cannon_Big"
+                  ]
+                }
+              ],
+              "LKDJMGOJHAH": 400.0,
+              "MIIHJFFDKKC": ""
+            },
+            {
+              "$type": "MoleMole.Config.LoseHP",
+              "predicates": [
+                {
+                  "$type": "IPJIAJLNIKC",
+                  "attackTags": [
+                    "Sea_Bomb_Barrel"
+                  ]
+                }
+              ],
+              "LKDJMGOJHAH": 300.0,
+              "MIIHJFFDKKC": ""
+            }
+          ]
+        },
+        "AttachEffect": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_SceneObj_FdWaterObjRipple_01",
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "OnHit"
+        },
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "AttachEffect"
+        }
+      ],
+      "onKill": [
+        {
+          "$type": "MoleMole.Config.FireEffect",
+          "rotationDampTime": "Eff_SceneObj_Seaobstacles_01_Destroy",
+          "NHGDGLICLFB": -1.0
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Area_Fd_Property_Ani_Prop_FdHiliSeaLookout_01",
+      "modifiers": {
+        "AttachEffect": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_SceneObj_FdWaterObjRipple_02",
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "AttachEffect"
+        }
+      ]
+    }
+  }
+]

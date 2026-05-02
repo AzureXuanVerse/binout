@@ -1,0 +1,195 @@
+[
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Cicin_Water_NormalAtk",
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.TriggerBullet",
+          "bulletID": 42606004,
+          "born": {
+            "$type": "AHBFOPDDMPB",
+            "offset": {
+              "AOFNOGLCGMP": 0.0,
+              "CHEGDAPFFHA": 0.20000000298023224,
+              "JEGKAACFHJK": 1.2000000476837158
+            },
+            "direction": {
+              "$type": "HAEIKNNFLFO",
+              "PDKJDHJIEJB": ""
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Cicin_WaterBall_Hit",
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.RemoveUniqueModifier",
+          "modifierName": "UNIQUE_Cicin_WaterBall_Loop"
+        },
+        {
+          "$type": "MoleMole.Config.FireEffect",
+          "rotationDampTime": "Eff_Monster_Cicin_Water_WaterBallAS",
+          "NHGDGLICLFB": -1.0
+        },
+        {
+          "$type": "MoleMole.Config.TriggerAttackEvent",
+          "temperature": true,
+          "attackEvent": {
+            "attackPattern": {
+              "$type": "CDFDJKDFCFJ",
+              "triggerType": "TriggerNoRepeat",
+              "born": {
+                "$type": "KKKABMDCNIJ"
+              },
+              "IDLDJCPGNHD": 0.5
+            },
+            "attackInfo": {
+              "attackTag": "",
+              "attenuationTag": "",
+              "attenuationGroup": "default",
+              "attackProperty": {
+                "AGMNCBAKCEF": 1.0,
+                "AILJJDMKONE": 0.0,
+                "elementType": "Water",
+                "bonusCriticalHurt": 50.0,
+                "strikeType": "Default",
+                "enBreak": 20.0,
+                "bonusCritical": 0.0
+              },
+              "hitPattern": {
+                "onHitEffectName": "",
+                "hitImpulseType": "LV2",
+                "hitHaltTimeScale": 0.05000000074505806
+              },
+              "canBeModifiedBy": "OriginOwner"
+            }
+          },
+          "targetType": "Enemy"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Cicin_WaterBall_Effect",
+      "modifiers": {
+        "UNIQUE_Cicin_WaterBall_Loop": {
+          "modifierName": "",
+          "isUnique": true,
+          "elementType": "Water",
+          "bonusCriticalHurt": 25.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_Monster_Cicin_Water_WaterBall",
+              "NHGDGLICLFB": -1.0
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.KillSelf"
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "UNIQUE_Cicin_WaterBall_Loop"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Cicin_Water_CommonEffect",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToAbilityStateMixin",
+          "abilityStates": [
+            "ElementFrozen"
+          ],
+          "modifierName": "FrozenDetect"
+        }
+      ],
+      "modifiers": {
+        "FrozenDetect": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.TriggerSetRenderersEnable",
+              "renderNames": [
+                "Wing"
+              ]
+            },
+            {
+              "$type": "MoleMole.Config.RemoveModifier",
+              "modifierName": "CommonEffect"
+            },
+            {
+              "$type": "MoleMole.Config.SetPoseBool",
+              "boolID": "Frozen",
+              "param3": true
+            },
+            {
+              "$type": "MoleMole.Config.EnablePushColliderName",
+              "pushColliderNames": [
+                "PushCollider_Frozen"
+              ],
+              "setEnable": true
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.TriggerSetRenderersEnable",
+              "renderNames": [
+                "Wing"
+              ],
+              "setEnable": true
+            },
+            {
+              "$type": "MoleMole.Config.ApplyModifier",
+              "modifierName": "CommonEffect"
+            },
+            {
+              "$type": "MoleMole.Config.SetPoseBool",
+              "boolID": "Frozen"
+            },
+            {
+              "$type": "MoleMole.Config.EnablePushColliderName",
+              "pushColliderNames": [
+                "PushCollider_Frozen"
+              ]
+            }
+          ]
+        },
+        "CommonEffect": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_Monster_Cicin_Water_BodyElement",
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "CommonEffect"
+        }
+      ]
+    }
+  }
+]

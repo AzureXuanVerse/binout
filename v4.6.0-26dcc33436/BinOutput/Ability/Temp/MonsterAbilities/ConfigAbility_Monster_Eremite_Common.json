@@ -1,0 +1,769 @@
+[
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Eremite_TurnState_AnimatorSteer",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.SteerAttackMixin",
+          "steerStateIDs": [
+            "Turn"
+          ],
+          "endNormalizedTime": 100.0,
+          "angularSpeed": 250.0,
+          "attackTrigger": "",
+          "BILMCNCKIAO": ""
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Eremite_Universal_Alert",
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.SetPoseInt",
+          "intID": "FreePoseMark"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Eremite_ReturnToBorn",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToPoseIDMixin",
+          "poseIDs": [
+            901
+          ],
+          "modifierName": "ReturnToBorn_Start"
+        }
+      ],
+      "modifiers": {
+        "ReturnToBorn_Start": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetAnimatorTrigger",
+              "value": "SheathWeaponTrigger"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Eremite_Equip_Delay_Destory",
+      "modifiers": {
+        "Weapon_Delay_Disappear": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.KillSelf"
+            },
+            {
+              "$type": "MoleMole.Config.HideUIBillBoard",
+              "hide": true
+            }
+          ]
+        }
+      },
+      "onDetach": [
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "Weapon_Delay_Disappear"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Eremite_Equip_Display_Manager",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachModifierToSelfGlobalValueMixin",
+          "globalValueKey": "_EREMITE_SHEATHWEAPON_",
+          "gvInTalk": 1.0,
+          "valueSteps": [
+            -0.5,
+            0.5,
+            1.5
+          ],
+          "modifierNameSteps": [
+            "UNIQUE_Eremite_ShowWeapon",
+            "UNIQUE_Eremite_SheathWeapon"
+          ]
+        },
+        {
+          "$type": "MoleMole.Config.AttachToStateIDMixin",
+          "stateIDs": [
+            "Struggle"
+          ],
+          "modifierName": "UNIQUE_Eremite_HideWeapon",
+          "BILMCNCKIAO": ""
+        },
+        {
+          "$type": "MoleMole.Config.DoActionByPoseIDMixin",
+          "poseIDs": [
+            1
+          ],
+          "enterActions": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 1.0,
+              "key": "_EREMITE_SHEATHWEAPON_",
+              "param2": 0.0,
+              "triggerID": 0.0
+            }
+          ]
+        }
+      ],
+      "modifiers": {
+        "UNIQUE_Eremite_SheathWeapon": {
+          "modifierName": "",
+          "isUnique": true,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetWeaponAttachPointRealName",
+              "canBeHandledOnRecover": true,
+              "partName": "equip01",
+              "realName": "WeaponSheathPoint"
+            },
+            {
+              "$type": "MoleMole.Config.SetPoseBool",
+              "canBeHandledOnRecover": true,
+              "boolID": "WeaponInHand"
+            }
+          ],
+          "onReconnect": [
+            {
+              "$type": "MoleMole.Config.SetWeaponAttachPointRealName",
+              "partName": "equip01",
+              "realName": "WeaponSheathPoint"
+            },
+            {
+              "$type": "MoleMole.Config.SetPoseBool",
+              "boolID": "WeaponInHand"
+            }
+          ],
+          "onChangeAuthority": [
+            {
+              "$type": "MoleMole.Config.SetWeaponAttachPointRealName",
+              "partName": "equip01",
+              "realName": "WeaponSheathPoint"
+            },
+            {
+              "$type": "MoleMole.Config.SetPoseBool",
+              "boolID": "WeaponInHand"
+            }
+          ]
+        },
+        "UNIQUE_Eremite_ShowWeapon": {
+          "modifierName": "",
+          "isUnique": true,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetWeaponAttachPointRealName",
+              "partName": "equip01",
+              "realName": ""
+            },
+            {
+              "$type": "MoleMole.Config.SetPoseBool",
+              "boolID": "WeaponInHand",
+              "param3": true
+            }
+          ]
+        },
+        "UNIQUE_Eremite_HideWeapon": {
+          "modifierName": "",
+          "isUnique": true,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.TriggerHideWeapon",
+              "canBeHandledOnRecover": true,
+              "partNames": [
+                "equip01"
+              ],
+              "modifyAnotherValue": true
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.TriggerHideWeapon",
+              "EKCJEIECJJH": true,
+              "partNames": [
+                "equip01"
+              ],
+              "modifyAnotherValue": true
+            }
+          ],
+          "onReconnect": [
+            {
+              "$type": "MoleMole.Config.TriggerHideWeapon",
+              "partNames": [
+                "equip01"
+              ],
+              "modifyAnotherValue": true
+            }
+          ],
+          "onChangeAuthority": [
+            {
+              "$type": "MoleMole.Config.TriggerHideWeapon",
+              "partNames": [
+                "equip01"
+              ],
+              "modifyAnotherValue": true
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.SetGlobalValue",
+          "canBeHandledOnRecover": true,
+          "param3": 1.0,
+          "key": "_EREMITE_SHEATHWEAPON_",
+          "param2": 0.0,
+          "triggerID": 0.0
+        }
+      ],
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.SetGlobalValue",
+          "param3": 0.0,
+          "key": "_EREMITE_SHEATHWEAPON_",
+          "param2": 0.0,
+          "triggerID": 0.0
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Eremite_Equip_SheathWeapon",
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.SetGlobalValue",
+          "param3": 1.0,
+          "key": "_EREMITE_SHEATHWEAPON_",
+          "param2": 0.0,
+          "triggerID": 0.0
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Eremite_Endure_Enhanced",
+      "modifiers": {
+        "Eremite_Endure_Enhanced": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "properties": {
+            "Actor_EndureDelta": 0.44999998807907104
+          }
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "Eremite_Endure_Enhanced"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Eremite_Gambling_Logic",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.DoActionByPoseIDMixin",
+          "poseIDs": [
+            9512
+          ],
+          "enterActions": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 1.0,
+              "key": "_EREMITE_GAMBLING_RESULT_RECEIVER_",
+              "param2": 0.0,
+              "triggerID": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.SetAnimatorBool",
+              "boolID": "GamblingBanker"
+            }
+          ],
+          "exitActions": [
+            {
+              "$type": "MoleMole.Config.ClearGlobalValue",
+              "key": "_EREMITE_GAMBLING_RESULT_RECEIVER_"
+            },
+            {
+              "$type": "MoleMole.Config.SetAnimatorBool",
+              "boolID": "GamblingBanker",
+              "param3": true
+            }
+          ]
+        },
+        {
+          "$type": "MoleMole.Config.DoActionByAnimatorStateIDMixin",
+          "stateIDs": [
+            "Crossleg_Gambling_Bet_Skill"
+          ],
+          "enterActions": [
+            {
+              "$type": "MoleMole.Config.ApplyModifier",
+              "otherTargets": {
+                "$type": "AFOOPHMLCCL",
+                "topLimit": 1,
+                "sortType": "Nearest",
+                "shapeName": "CircleR6",
+                "campTargetType": "Alliance",
+                "doOffStage": 1.0
+              },
+              "predicates": [
+                {
+                  "$type": "POOFKGMBLNA",
+                  "key": "_EREMITE_GAMBLING_RESULT_RECEIVER_",
+                  "param3": 1.0
+                }
+              ],
+              "modifierName": "Eremite_Gambling_Trigger_GamblingBet"
+            }
+          ],
+          "BILMCNCKIAO": ""
+        }
+      ],
+      "modifiers": {
+        "Eremite_Gambling_Trigger_GamblingBet": {
+          "modifierName": "",
+          "elementDurability": 5.0,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetAnimatorTrigger",
+              "value": "GamblingBet"
+            }
+          ]
+        },
+        "Eremite_Gambling_Trigger_GamblingLose": {
+          "modifierName": "",
+          "elementDurability": 5.0,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetAnimatorTrigger",
+              "value": "GamblingLose"
+            }
+          ]
+        },
+        "Eremite_Gambling_Trigger_GamblingWin": {
+          "modifierName": "",
+          "elementDurability": 5.0,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetAnimatorTrigger",
+              "value": "GamblingWin"
+            }
+          ]
+        }
+      },
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.Randomed",
+          "chance": 0.5,
+          "successActions": [
+            {
+              "$type": "MoleMole.Config.SetAnimatorBool",
+              "boolID": "GamblingResult",
+              "param3": true
+            },
+            {
+              "$type": "MoleMole.Config.ApplyModifier",
+              "otherTargets": {
+                "$type": "AFOOPHMLCCL",
+                "topLimit": 1,
+                "sortType": "Nearest",
+                "shapeName": "CircleR6",
+                "campTargetType": "Alliance",
+                "doOffStage": 1.0
+              },
+              "predicates": [
+                {
+                  "$type": "POOFKGMBLNA",
+                  "key": "_EREMITE_GAMBLING_RESULT_RECEIVER_",
+                  "param3": 1.0
+                }
+              ],
+              "modifierName": "Eremite_Gambling_Trigger_GamblingLose"
+            }
+          ],
+          "failActions": [
+            {
+              "$type": "MoleMole.Config.SetAnimatorBool",
+              "boolID": "GamblingResult"
+            },
+            {
+              "$type": "MoleMole.Config.ApplyModifier",
+              "otherTargets": {
+                "$type": "AFOOPHMLCCL",
+                "topLimit": 1,
+                "sortType": "Nearest",
+                "shapeName": "CircleR6",
+                "campTargetType": "Alliance",
+                "doOffStage": 1.0
+              },
+              "predicates": [
+                {
+                  "$type": "POOFKGMBLNA",
+                  "key": "_EREMITE_GAMBLING_RESULT_RECEIVER_",
+                  "param3": 1.0
+                }
+              ],
+              "modifierName": "Eremite_Gambling_Trigger_GamblingWin"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Eremite_FreePose_Display_Manager",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToAnimatorStateIDMixin",
+          "stateIDs": [
+            "Crossleg_OudIdle",
+            "Crossleg_PlayOud_BS",
+            "Crossleg_PlayOud_Loop",
+            "Crossleg_PlayOud_AS"
+          ],
+          "modifierName": "FreePose_Display_Oud",
+          "BILMCNCKIAO": ""
+        },
+        {
+          "$type": "MoleMole.Config.AttachToAnimatorStateIDMixin",
+          "stateIDs": [
+            "Crossleg_PlayDaff_Idle"
+          ],
+          "modifierName": "FreePose_Display_Daff",
+          "BILMCNCKIAO": ""
+        },
+        {
+          "$type": "MoleMole.Config.DoActionByPoseIDMixin",
+          "poseIDs": [
+            9555
+          ],
+          "enterActions": [
+            {
+              "$type": "MoleMole.Config.SetPoseBool",
+              "boolID": "StopPlayOud"
+            }
+          ]
+        },
+        {
+          "$type": "MoleMole.Config.DoActionByAnimatorStateIDMixin",
+          "stateIDs": [
+            "Crossleg_PlayOud_Loop"
+          ],
+          "exitActions": [
+            {
+              "$type": "MoleMole.Config.SetPoseBool",
+              "boolID": "StopPlayOud",
+              "param3": true
+            }
+          ],
+          "BILMCNCKIAO": ""
+        }
+      ],
+      "modifiers": {
+        "FreePose_Display_Oud": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_Monster_Eremite_Freepose_Oud",
+              "NHGDGLICLFB": -1.0
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.FireEffect",
+              "rotationDampTime": "Eff_Monster_Eremite_Weapon_Disappear",
+              "born": {
+                "$type": "POAPJOHEDDM",
+                "offset": {
+                  "JEGKAACFHJK": 0.2680000066757202
+                },
+                "attachPointName": "WeaponR"
+              },
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        },
+        "FreePose_Display_Daff": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_Monster_Eremite_Freepose_Daff",
+              "NHGDGLICLFB": -1.0
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.FireEffect",
+              "rotationDampTime": "Eff_Monster_Eremite_Weapon_Disappear",
+              "born": {
+                "$type": "POAPJOHEDDM",
+                "offset": {
+                  "AOFNOGLCGMP": -0.16300000250339508,
+                  "JEGKAACFHJK": 0.10599999874830246
+                },
+                "attachPointName": "WeaponL"
+              },
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Eremite_FreePose_Male_Drinking_Display_Manager",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToAnimatorStateIDMixin",
+          "stateIDs": [
+            "Crossleg_Drink_Skill_02",
+            "Crossleg_Drink_Skill_04"
+          ],
+          "modifierName": "EremiteDrinkingMark_Plugged",
+          "BILMCNCKIAO": ""
+        },
+        {
+          "$type": "MoleMole.Config.AttachToAnimatorStateIDMixin",
+          "stateIDs": [
+            "Crossleg_Drink_Skill_03"
+          ],
+          "modifierName": "EremiteDrinkingMark_Opened",
+          "BILMCNCKIAO": ""
+        }
+      ],
+      "modifiers": {
+        "EremiteDrinkingMark_Opened": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_Monster_Eremite_Freepose_WaterSkin",
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        },
+        "EremiteDrinkingMark_Plugged": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_Monster_Eremite_Freepose_WaterSkin_Plugged",
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        },
+        "EremiteDrinkingMark_Plugged_After": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_Monster_Eremite_Freepose_WaterSkin_Plugged",
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Eremite_FreePose_MuscleMan_Drinking_Display_Manager",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToAnimatorStateIDMixin",
+          "stateIDs": [
+            "Crossleg_Drink_Skill_02",
+            "Crossleg_Drink_Skill_04"
+          ],
+          "modifierName": "EremiteDrinkingMark_Plugged",
+          "BILMCNCKIAO": ""
+        },
+        {
+          "$type": "MoleMole.Config.AttachToAnimatorStateIDMixin",
+          "stateIDs": [
+            "Crossleg_Drink_Skill_03"
+          ],
+          "modifierName": "EremiteDrinkingMark_Opened",
+          "BILMCNCKIAO": ""
+        }
+      ],
+      "modifiers": {
+        "EremiteDrinkingMark_Opened": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_Monster_Eremite_Freepose_WaterSkin",
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        },
+        "EremiteDrinkingMark_Plugged": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_Monster_Eremite_Freepose_WaterSkin_Plugged",
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Eremite_FatuiMaranaWell_GlobalValue_Mark",
+      "modifiers": {
+        "SetGlobalValue_FatuiMaranaWell": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 1.0,
+              "key": "FatuiMaranaWell",
+              "param2": 0.0,
+              "triggerID": 0.0
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "SetGlobalValue_FatuiMaranaWell"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Eremite_MainWorld_ResetThreatBroadcastRange",
+      "modifiers": {
+        "Affix_ResetAIThreatBroadcastRange": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.ResetAIThreatBroadcastRange",
+              "range": 0.0
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "Affix_ResetAIThreatBroadcastRange"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Eremite_CommonEquip_UnhideWeapon_Logic",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachModifierToGlobalValueMixin",
+          "globalValueTarget": "Owner",
+          "globalValueKey": "_MONSTER_EREMITE_HIDE_WEAPON",
+          "valueSteps": [
+            -0.5,
+            0.5,
+            1.5
+          ],
+          "modifierNameSteps": [
+            "UNIQUE_UnhideWeapon",
+            "UNIQUE_HideWeapon"
+          ]
+        }
+      ],
+      "modifiers": {
+        "UNIQUE_UnhideWeapon": {
+          "stacking": "Unique",
+          "modifierName": "",
+          "isUnique": true,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.RemoveUniqueModifier",
+              "modifierName": "UNIQUE_HideWeapon"
+            },
+            {
+              "$type": "MoleMole.Config.TriggerSetVisible",
+              "canBeHandledOnRecover": true,
+              "EKCJEIECJJH": true
+            }
+          ]
+        },
+        "UNIQUE_HideWeapon": {
+          "stacking": "Unique",
+          "modifierName": "",
+          "isUnique": true,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.RemoveUniqueModifier",
+              "modifierName": "UNIQUE_UnhideWeapon"
+            },
+            {
+              "$type": "MoleMole.Config.TriggerSetVisible",
+              "canBeHandledOnRecover": true
+            }
+          ]
+        }
+      }
+    }
+  }
+]

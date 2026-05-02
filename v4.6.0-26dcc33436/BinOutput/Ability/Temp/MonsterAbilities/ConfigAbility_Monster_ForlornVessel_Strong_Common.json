@@ -1,0 +1,290 @@
+[
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_ForlornVessel_EndureDelta_Add",
+      "abilitySpecials": {
+        "ForlornVessel_Endure": 0.5
+      },
+      "modifiers": {
+        "UNIQUE_ForlornVessel_EndureDelta": {
+          "stacking": "Unique",
+          "modifierName": "",
+          "isUnique": true,
+          "bonusCriticalHurt": 100.0,
+          "properties": {
+            "Actor_EndureDelta": "ForlornVessel_Endure"
+          }
+        }
+      },
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "predicates": [
+            {
+              "$type": "POOFKGMBLNA",
+              "key": "ForlornVessel_ElementShield",
+              "param3": 0.0,
+              "compareType": "NoneOrEqual"
+            }
+          ],
+          "modifierName": "UNIQUE_ForlornVessel_EndureDelta"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_ForlornVessel_EndureDelta_Remove",
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.RemoveUniqueModifier",
+          "modifierName": "UNIQUE_ForlornVessel_EndureDelta"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_ForlornVessel_BeHitThrow",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToStateIDMixin",
+          "stateIDs": [
+            "BeHitThrow"
+          ],
+          "modifierName": "ForlornVessel_HitThrowHandler",
+          "BILMCNCKIAO": ""
+        }
+      ],
+      "modifiers": {
+        "ForlornVessel_HitThrowHandler": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.ClearEndura"
+            },
+            {
+              "$type": "MoleMole.Config.RemoveVelocityForce",
+              "forces": [
+                "WindZoneType"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_ForlornVessel_BeHeal",
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.SetGlobalValue",
+          "param3": 0.0,
+          "key": "ForlornVessel_Lance_Heal",
+          "param2": 0.0,
+          "triggerID": 0.0
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_ForlornVessel_Strong_Salute",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToPoseIDMixin",
+          "poseIDs": [
+            9001
+          ],
+          "modifierName": "ForlornVessel_Strong_Salute_Detect"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToStateIDMixin",
+          "stateIDs": [
+            "Salute"
+          ],
+          "modifierName": "ForlornVessel_Strong_Salute",
+          "BILMCNCKIAO": ""
+        },
+        {
+          "$type": "MoleMole.Config.SteerAttackMixin",
+          "steerStateIDs": [
+            "Salute"
+          ],
+          "endNormalizedTime": 0.20000000298023224,
+          "angularSpeed": 180.0,
+          "attackTrigger": "",
+          "remoteSteerToLocalTarget": false,
+          "facingTargetTypes": [
+            "BuddyTarget"
+          ],
+          "BILMCNCKIAO": ""
+        }
+      ],
+      "modifiers": {
+        "ForlornVessel_Strong_Salute_Detect": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "thinkInterval": 15.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "otherTargets": {
+                "$type": "AFOOPHMLCCL",
+                "sortType": "Nearest",
+                "shapeName": "CircleR10",
+                "campTargetType": "Alliance",
+                "doOffStage": 1.0
+              },
+              "targetPredicates": [
+                {
+                  "$type": "BBBFIPNGHGH",
+                  "entityTypes": [
+                    "Monster"
+                  ]
+                },
+                {
+                  "$type": "CHMEPBIEMNL",
+                  "featureTagIDs": [
+                    4014
+                  ]
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "MoleMole.Config.SetGlobalValue",
+                  "param3": 1.0,
+                  "key": "ForlornVessel_Salute",
+                  "param2": 0.0,
+                  "triggerID": 0.0
+                },
+                {
+                  "$type": "MoleMole.Config.ApplyModifier",
+                  "modifierName": "ForlornVessel_Strong_Salute_Wait"
+                }
+              ]
+            }
+          ],
+          "onThinkInterval": [
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "otherTargets": {
+                "$type": "AFOOPHMLCCL",
+                "sortType": "Nearest",
+                "shapeName": "CircleR10",
+                "campTargetType": "Alliance",
+                "doOffStage": 1.0
+              },
+              "targetPredicates": [
+                {
+                  "$type": "BBBFIPNGHGH",
+                  "entityTypes": [
+                    "Monster"
+                  ]
+                },
+                {
+                  "$type": "CHMEPBIEMNL",
+                  "featureTagIDs": [
+                    4014
+                  ]
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "MoleMole.Config.SetGlobalValue",
+                  "param3": 1.0,
+                  "key": "ForlornVessel_Salute",
+                  "param2": 0.0,
+                  "triggerID": 0.0
+                },
+                {
+                  "$type": "MoleMole.Config.ApplyModifier",
+                  "modifierName": "ForlornVessel_Strong_Salute_Wait"
+                }
+              ]
+            }
+          ]
+        },
+        "ForlornVessel_Strong_Salute_Wait": {
+          "modifierName": "",
+          "elementDurability": 1.0,
+          "bonusCriticalHurt": 100.0,
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 0.0,
+              "key": "ForlornVessel_Salute",
+              "param2": 0.0,
+              "triggerID": 0.0
+            }
+          ]
+        },
+        "ForlornVessel_Strong_Salute": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "otherTargets": {
+                "$type": "AFOOPHMLCCL",
+                "sortType": "Nearest",
+                "shapeName": "CircleR15",
+                "campTargetType": "Alliance",
+                "doOffStage": 1.0
+              },
+              "targetPredicates": [
+                {
+                  "$type": "BBBFIPNGHGH",
+                  "entityTypes": [
+                    "Monster"
+                  ]
+                },
+                {
+                  "$type": "CHMEPBIEMNL",
+                  "featureTagIDs": [
+                    4014
+                  ]
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "MoleMole.Config.ApplyModifier",
+                  "target": "Target",
+                  "modifierName": "ForlornVessel_Strong_Salute_Command"
+                }
+              ]
+            }
+          ]
+        },
+        "ForlornVessel_Strong_Salute_Command": {
+          "stacking": "Unique",
+          "modifierName": "",
+          "elementDurability": 5.0,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetAISkillCDAvailableNow",
+              "skillIDs": [
+                111
+              ]
+            },
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 1.0,
+              "key": "Darkwraith_Salute",
+              "param2": 0.0,
+              "triggerID": 0.0
+            }
+          ]
+        }
+      }
+    }
+  }
+]

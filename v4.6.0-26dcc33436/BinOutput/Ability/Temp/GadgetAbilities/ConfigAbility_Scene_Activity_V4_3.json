@@ -1,0 +1,2653 @@
+[
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Activity_Common_Property_Ani_Prop_Snipper_01",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachModifierToSelfGlobalValueNoInitMixin",
+          "globalValueKey": "_CURRENT_AMMO_NUMBER",
+          "valueSteps": [
+            -0.5,
+            0.5
+          ],
+          "modifierNameSteps": [
+            "Auto_Trigger_Reload"
+          ]
+        },
+        {
+          "$type": "MoleMole.Config.DoActionOnGlobalValueChangeMixin",
+          "globalValueKey": "GV_Filmfest_Sniper_Pos",
+          "actions": [
+            {
+              "$type": "MoleMole.Config.CopyGlobalValue",
+              "otherTargets": {
+                "$type": "LOFHFECCCGG",
+                "tag": "Is_SniperCamera"
+              },
+              "temperature": true,
+              "srcTarget": "Self",
+              "dstTarget": "Other",
+              "srcKey": "GV_Filmfest_Sniper_Pos",
+              "dstKey": "GV_Filmfest_Sniper_Pos"
+            }
+          ]
+        },
+        {
+          "$type": "MoleMole.Config.DoActionOnGlobalValueChangeMixin",
+          "globalValueKey": "GV_Is_Scope_On",
+          "actions": [
+            {
+              "$type": "MoleMole.Config.CopyGlobalValue",
+              "otherTargets": {
+                "$type": "LOFHFECCCGG",
+                "tag": "Is_SniperCamera"
+              },
+              "temperature": true,
+              "srcTarget": "Self",
+              "dstTarget": "Other",
+              "srcKey": "GV_Is_Scope_On",
+              "dstKey": "GV_Is_Scope_On"
+            }
+          ]
+        },
+        {
+          "$type": "MoleMole.Config.ShootFromCameraMixin",
+          "uiMessageId": "FireBullet_FromCamera",
+          "offsetFromCamera": {
+            "x": -0.029999999329447746,
+            "y": -0.15000000596046448,
+            "z": -2.0
+          },
+          "gvBulletInitPos": "GV_ShootPos",
+          "gvBulletForward": "GV_ShootDir",
+          "actionList": [
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "predicates": [
+                {
+                  "$type": "POOFKGMBLNA",
+                  "target": "Self",
+                  "key": "_CURRENT_AMMO_NUMBER",
+                  "param3": 1.0,
+                  "compareType": "MoreThanAndEqual"
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "MoleMole.Config.TriggerBullet",
+                  "bulletID": 70331002,
+                  "born": {
+                    "$type": "MKLCDCJFOHO",
+                    "positionKey": "GV_ShootPos",
+                    "directionKey": "GV_ShootDir"
+                  }
+                },
+                {
+                  "$type": "MoleMole.Config.ActCameraShake",
+                  "cameraShake": {
+                    "shakeType": "CustomVector",
+                    "shakeRange": 1.2000000476837158,
+                    "shakeTime": 0.6000000238418579,
+                    "shakeDistance": 500.0,
+                    "shakeDir": {
+                      "y": 1.0
+                    },
+                    "extension": {
+                      "baseOnCamera": true,
+                      "baseCycle": 1.0,
+                      "cycleDamping": 0.0,
+                      "rangeAttenuation": 0.10000000149011612
+                    }
+                  }
+                },
+                {
+                  "$type": "MoleMole.Config.AddGlobalValueV2",
+                  "param3": -1.0,
+                  "key": "_CURRENT_AMMO_NUMBER",
+                  "param2": 0.0,
+                  "triggerID": 0.0
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "PAFDPAGAOGO": [
+        "_AMMO_COST"
+      ],
+      "modifiers": {
+        "Reload_Performance": {
+          "modifierName": "",
+          "elementDurability": 1.2000000476837158,
+          "bonusCriticalHurt": 100.0,
+          "thinkInterval": 1.0,
+          "onThinkInterval": [
+            {
+              "$type": "MoleMole.Config.ActCameraShake",
+              "cameraShake": {
+                "shakeType": "CustomVector",
+                "shakeRange": 0.5,
+                "shakeTime": 1.5,
+                "shakeDistance": 500.0,
+                "shakeDir": {
+                  "x": 1.0,
+                  "y": 1.0
+                },
+                "extension": {
+                  "baseOnCamera": true,
+                  "baseCycle": 1.0
+                }
+              }
+            }
+          ]
+        },
+        "Reload_Performance_UI": {
+          "modifierName": "",
+          "elementDurability": 1.0,
+          "bonusCriticalHurt": 100.0,
+          "thinkInterval": 0.800000011920929,
+          "onThinkInterval": [
+            {
+              "$type": "MoleMole.Config.NotifyUI",
+              "uiContextName": "FilmfestSniperPlayPage",
+              "message": "ReloadStart",
+              "floatParam": 1.2000000476837158,
+              "stringParam": ""
+            }
+          ]
+        },
+        "Auto_Trigger_Reload": {
+          "modifierName": "",
+          "elementDurability": 0.20000000298023224,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.ApplyModifier",
+              "modifierName": "Reload_Performance_UI"
+            },
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "targetPredicates": [
+                {
+                  "$type": "POOFKGMBLNA",
+                  "key": "SGV_FilmFestSniper_HasBullet",
+                  "param3": 1.0,
+                  "compareType": "NoneOrEqual"
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "MoleMole.Config.TriggerAbility",
+                  "abilityName": "SceneObj_Activity_Common_Property_Ani_Prop_Snipper_Reload"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.SetGlobalValueV2",
+          "param3": 0.0,
+          "key": "_AMMO_RELOADING",
+          "param2": 0.0,
+          "triggerID": 0.0
+        },
+        {
+          "$type": "MoleMole.Config.SetGlobalValueV2",
+          "param3": 1.0,
+          "key": "_CURRENT_AMMO_NUMBER",
+          "param2": 0.0,
+          "triggerID": 0.0
+        },
+        {
+          "$type": "MoleMole.Config.SetGlobalValueV2",
+          "param3": 0.0,
+          "key": "_AMMO_COST",
+          "param2": 0.0,
+          "triggerID": 0.0
+        },
+        {
+          "$type": "MoleMole.Config.SetGlobalValueV2",
+          "param3": 0.0,
+          "key": "GV_Filmfest_Sniper_Pos",
+          "param2": 0.0,
+          "triggerID": 0.0
+        },
+        {
+          "$type": "MoleMole.Config.ServerLuaCall",
+          "luaCallType": "CurGalleryControlGroup",
+          "funcName": "SLC_Filmfest_Sniper_OnInit",
+          "param1": 0.0,
+          "KEEFCBAAODF": 0.0,
+          "LABHKHBCHFB": 0.0
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Activity_Common_Property_Ani_Prop_Snipper_Reload",
+      "modifiers": {
+        "Snipper_Reload": {
+          "modifierName": "",
+          "elementDurability": 2.0,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 1.0,
+              "key": "_AMMO_RELOADING",
+              "param2": 0.0,
+              "triggerID": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.AddGlobalValueV2",
+              "param3": 1.0,
+              "key": "_AMMO_COST",
+              "param2": 0.0,
+              "triggerID": 0.0
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 0.0,
+              "key": "_AMMO_RELOADING",
+              "param2": 0.0,
+              "triggerID": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.AddGlobalValueV2",
+              "param3": 1.0,
+              "key": "_CURRENT_AMMO_NUMBER",
+              "param2": 0.0,
+              "triggerID": 0.0
+            }
+          ]
+        }
+      },
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "Snipper_Reload"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Level_Fd_Property_Ani_Prop_FilmfestSniper_BalloonBomb_01",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 202,
+          "modifierName": "BalloonBomb_Suicide"
+        }
+      ],
+      "modifiers": {
+        "BalloonBomb_Eff": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_SceneObj_FilmfestSniper_01_BalloonBombMoving",
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        },
+        "BalloonBomb_Suicide": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.KillSelf"
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.FireEffect",
+          "rotationDampTime": "Eff_SceneObj_FilmfestSniper_01_BalloonBombAppear",
+          "NHGDGLICLFB": -1.0
+        },
+        {
+          "$type": "MoleMole.Config.SetGlobalValueV2",
+          "param3": 1.0,
+          "key": "Is_FilmfestSniper_Breakable",
+          "param2": 0.0,
+          "triggerID": 0.0
+        },
+        {
+          "$type": "MoleMole.Config.AttachModifier",
+          "modifierName": "BalloonBomb_Eff"
+        }
+      ],
+      "onKill": [
+        {
+          "$type": "MoleMole.Config.FireEffect",
+          "rotationDampTime": "Eff_SceneObj_FilmfestSniper_01_BalloonBombExplode",
+          "NHGDGLICLFB": -1.0
+        },
+        {
+          "$type": "MoleMole.Config.TriggerAttackEvent",
+          "attackEvent": {
+            "attackPattern": {
+              "$type": "CDFDJKDFCFJ",
+              "triggerType": "TriggerNoRepeat",
+              "ignoreMassive": true,
+              "born": {
+                "$type": "CGJIFGJJOJA",
+                "offset": {
+                  "AOFNOGLCGMP": 0.0,
+                  "CHEGDAPFFHA": 0.5,
+                  "JEGKAACFHJK": 0.0
+                }
+              },
+              "IDLDJCPGNHD": 6.0
+            },
+            "attackInfo": {
+              "attackTag": "FilmfestSniper_Bomb",
+              "attenuationTag": "",
+              "attenuationGroup": "default",
+              "attackProperty": {
+                "AGMNCBAKCEF": 9999999.0,
+                "AILJJDMKONE": 0.0,
+                "bonusCriticalHurt": 50.0,
+                "strikeType": "Blunt",
+                "enBreak": 9999999.0,
+                "bonusCritical": 0.0
+              },
+              "hitPattern": {
+                "onHitEffectName": "default",
+                "hitImpulseType": "LV6",
+                "hitHaltTimeScale": 0.05000000074505806
+              },
+              "forceCameraShake": true,
+              "cameraShake": {
+                "shakeRange": 0.36000001430511475,
+                "shakeTime": 0.36000001430511475
+              }
+            }
+          },
+          "targetType": "Enemy"
+        },
+        {
+          "$type": "MoleMole.Config.TriggerAttackEvent",
+          "attackEvent": {
+            "attackPattern": {
+              "$type": "CDFDJKDFCFJ",
+              "triggerType": "TriggerNoRepeat",
+              "born": {
+                "$type": "CGJIFGJJOJA"
+              },
+              "IDLDJCPGNHD": 2.0
+            },
+            "attackInfo": {
+              "attackTag": "",
+              "attenuationTag": "",
+              "attenuationGroup": "default",
+              "attackProperty": {
+                "AGMNCBAKCEF": 1.0,
+                "AILJJDMKONE": 0.0,
+                "bonusCriticalHurt": 50.0,
+                "strikeType": "Blunt",
+                "enBreak": 0.0,
+                "bonusCritical": 0.0
+              }
+            }
+          },
+          "targetType": "All"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Level_Fd_Property_Ani_Prop_FilmfestSniper_GateForbidArea_01",
+      "modifiers": {
+        "GateForbidArea_GateMarkRemove": {
+          "modifierName": "",
+          "elementDurability": 0.10000000149011612,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.RemoveModifier",
+              "modifierName": "GateForbidArea_GateMark"
+            },
+            {
+              "$type": "MoleMole.Config.SetGlobalValueV2",
+              "param3": 0.0,
+              "key": "GV_GateForbidArea_GateMark",
+              "param2": 0.0,
+              "triggerID": 0.0
+            }
+          ]
+        },
+        "GateForbidArea_GateMark": {
+          "modifierName": "",
+          "elementDurability": 0.10000000149011612,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.RemoveModifier",
+              "modifierName": "GateForbidArea_GateMarkRemove"
+            },
+            {
+              "$type": "MoleMole.Config.CopyGlobalValue",
+              "temperature": true,
+              "dstTarget": "Self",
+              "srcKey": "SGV_GateForbidArea_GateMark",
+              "dstKey": "GV_GateForbidArea_GateMark"
+            }
+          ]
+        }
+      },
+      "onFieldEnter": [
+        {
+          "$type": "MoleMole.Config.Predicated",
+          "target": "Target",
+          "targetPredicates": [
+            {
+              "$type": "BBBFIPNGHGH",
+              "entityTypes": [
+                "Avatar"
+              ]
+            }
+          ],
+          "successActions": [
+            {
+              "$type": "MoleMole.Config.ApplyModifier",
+              "target": "TargetTeam",
+              "modifierName": "GateForbidArea_GateMark"
+            }
+          ]
+        }
+      ],
+      "onFieldExit": [
+        {
+          "$type": "MoleMole.Config.Predicated",
+          "target": "Target",
+          "targetPredicates": [
+            {
+              "$type": "BBBFIPNGHGH",
+              "entityTypes": [
+                "Avatar"
+              ]
+            }
+          ],
+          "successActions": [
+            {
+              "$type": "MoleMole.Config.ApplyModifier",
+              "target": "TargetTeam",
+              "modifierName": "GateForbidArea_GateMarkRemove"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Activity_Common_Property_Ani_Prop_SnipperBullet_01",
+      "abilitySpecials": {
+        "DamagePercentage": 0.0,
+        "LevelEntity_AvatarDot_SystemValue": 1.0
+      },
+      "modifiers": {
+        "Blank": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0
+        },
+        "FilmFest_SniperBullet_HitGroundRespond": {
+          "modifierName": "",
+          "elementDurability": 0.5,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValueV2",
+              "param3": 2.0,
+              "key": "GV_RespondType",
+              "param2": 0.0,
+              "triggerID": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.TriggerAbility",
+              "abilityName": "MonsterAffix_FilmFest_Shooting_MonsterStateSwitch"
+            }
+          ]
+        },
+        "FilmFest_SniperBullet_HitGadgetRespond": {
+          "modifierName": "",
+          "elementDurability": 0.5,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValueV2",
+              "param3": 3.0,
+              "key": "GV_RespondType",
+              "param2": 0.0,
+              "triggerID": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.TriggerAbility",
+              "abilityName": "MonsterAffix_FilmFest_Shooting_MonsterStateSwitch"
+            }
+          ]
+        },
+        "FilmFest_SniperBullet_HitMonsterRespond": {
+          "modifierName": "",
+          "elementDurability": 0.5,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValueV2",
+              "param3": 3.0,
+              "key": "GV_RespondType",
+              "param2": 0.0,
+              "triggerID": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.TriggerAbility",
+              "abilityName": "MonsterAffix_FilmFest_Shooting_MonsterStateSwitch"
+            }
+          ]
+        },
+        "FilmFest_SniperBullet_Killer": {
+          "modifierName": "",
+          "elementDurability": 0.5,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.ServerLuaCall",
+              "target": "CasterOwner",
+              "luaCallType": "CurGalleryControlGroup",
+              "funcName": "SLC_Filmfest_Sniper_HitMonster",
+              "param1": 0.0,
+              "KEEFCBAAODF": 0.0,
+              "LABHKHBCHFB": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "targetPredicates": [
+                {
+                  "$type": "BNNPNEDKIIH",
+                  "predicates": [
+                    {
+                      "$type": "JAEEKGKDNDI",
+                      "logic": "Lesser",
+                      "ratio": 0.5
+                    },
+                    {
+                      "$type": "POOFKGMBLNA",
+                      "key": "_FilmFest_Shooting_MonsterLabel",
+                      "param3": 1.0,
+                      "compareType": "NoneOrEqual"
+                    }
+                  ]
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "MoleMole.Config.NotifyUI",
+                  "uiContextName": "FilmfestSniperPlayPage",
+                  "message": "MonsterKill",
+                  "intParam": 1,
+                  "stringParam": ""
+                },
+                {
+                  "$type": "MoleMole.Config.SetGlobalValueV2",
+                  "param3": 0.0,
+                  "key": "GV_FilmfestSniper_MonsterResponsable",
+                  "param2": 0.0,
+                  "triggerID": 0.0
+                }
+              ],
+              "failActions": [
+                {
+                  "$type": "MoleMole.Config.NotifyUI",
+                  "uiContextName": "FilmfestSniperPlayPage",
+                  "message": "MonsterKill",
+                  "stringParam": ""
+                }
+              ]
+            },
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "targetPredicates": [
+                {
+                  "$type": "POOFKGMBLNA",
+                  "key": "_FilmFest_Shooting_MonsterLabel",
+                  "param3": 1.0,
+                  "compareType": "NoneOrEqual"
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "MoleMole.Config.LoseHP",
+                  "OLMENJCGGJJ": 1.0,
+                  "MIIHJFFDKKC": ""
+                }
+              ],
+              "failActions": [
+                {
+                  "$type": "MoleMole.Config.LoseHP",
+                  "OLMENJCGGJJ": 0.5099999904632568,
+                  "MIIHJFFDKKC": ""
+                }
+              ]
+            }
+          ]
+        },
+        "FilmFest_SniperBullet_Effect": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_FilmfestSniper_Bullet_01",
+              "NHGDGLICLFB": -1.0
+            },
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_FilmfestSniper_Bullet_01_Trail",
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "FilmFest_SniperBullet_Effect"
+        },
+        {
+          "$type": "MoleMole.Config.SetSystemValueToOverrideMap",
+          "key": "LevelEntity_AvatarDot_SystemValue",
+          "damageRatio": "ElementLevelCo"
+        }
+      ],
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.Predicated",
+          "target": "Target",
+          "predicates": [
+            {
+              "$type": "POOFKGMBLNA",
+              "target": "Self",
+              "key": "GV_Filmfest_SniperBullet_Triggered",
+              "param3": 0.0,
+              "compareType": "NoneOrEqual"
+            }
+          ],
+          "targetPredicates": [
+            {
+              "$type": "BBBFIPNGHGH",
+              "entityTypes": [
+                "Monster"
+              ]
+            }
+          ],
+          "successActions": [
+            {
+              "$type": "MoleMole.Config.FireEffect",
+              "target": "Target",
+              "rotationDampTime": "Eff_FilmfestSniper_Bullet_HitEffect_01",
+              "born": {
+                "$type": "GMHJFNPAPGA"
+              },
+              "NHGDGLICLFB": -1.0
+            },
+            {
+              "$type": "MoleMole.Config.DebugLog",
+              "content": "############# HitMonster ###############"
+            },
+            {
+              "$type": "MoleMole.Config.SetGlobalValueV2",
+              "param3": 1.0,
+              "key": "GV_Filmfest_SniperBullet_Triggered",
+              "param2": 0.0,
+              "triggerID": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.DamageByAttackValue",
+              "target": "Other",
+              "predicates": [
+                {
+                  "$type": "POOFKGMBLNA",
+                  "key": "_FilmFest_Shooting_MonsterLabel",
+                  "param3": 1.0,
+                  "compareType": "NoneOrEqual"
+                }
+              ],
+              "attackInfo": {
+                "attackTag": "",
+                "attenuationTag": "",
+                "attenuationGroup": "default",
+                "attackProperty": {
+                  "AGMNCBAKCEF": 0.0,
+                  "AILJJDMKONE": 0.0,
+                  "bonusCriticalHurt": 0.0,
+                  "strikeType": "Blunt",
+                  "enBreak": 99999.0,
+                  "ignoreLevelDiff": true,
+                  "bonusCritical": 0.0
+                },
+                "hitPattern": {
+                  "onHitEffectName": "none",
+                  "hitImpulseType": "LV5",
+                  "hitHaltTimeScale": 0.009999999776482582,
+                  "muteHitText": true
+                }
+              }
+            },
+            {
+              "$type": "MoleMole.Config.DamageByAttackValue",
+              "target": "Other",
+              "predicates": [
+                {
+                  "$type": "POOFKGMBLNA",
+                  "key": "_FilmFest_Shooting_MonsterLabel",
+                  "param3": 2.0
+                }
+              ],
+              "attackInfo": {
+                "attackTag": "",
+                "attenuationTag": "",
+                "attenuationGroup": "default",
+                "attackProperty": {
+                  "AGMNCBAKCEF": 0.0,
+                  "AILJJDMKONE": 0.0,
+                  "bonusCriticalHurt": 0.0,
+                  "strikeType": "Blunt",
+                  "enBreak": 99999.0,
+                  "ignoreLevelDiff": true,
+                  "bonusCritical": 0.0
+                },
+                "hitPattern": {
+                  "onHitEffectName": "none",
+                  "hitImpulseType": "LV4",
+                  "hitHaltTimeScale": 0.009999999776482582,
+                  "muteHitText": true
+                }
+              }
+            },
+            {
+              "$type": "MoleMole.Config.ApplyModifier",
+              "target": "Target",
+              "modifierName": "FilmFest_SniperBullet_Killer"
+            },
+            {
+              "$type": "MoleMole.Config.SetGlobalPos",
+              "target": "Target",
+              "key": "GV_Hit_Pos",
+              "born": {
+                "$type": "GMHJFNPAPGA"
+              },
+              "setTarget": false
+            },
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "otherTargets": {
+                "$type": "LOFHFECCCGG",
+                "tag": "Filmfest_Monster"
+              },
+              "successActions": [
+                {
+                  "$type": "MoleMole.Config.Predicated",
+                  "target": "Target",
+                  "targetPredicates": [
+                    {
+                      "$type": "POOFKGMBLNA",
+                      "key": "GV_FilmfestSniper_MonsterResponsable",
+                      "param3": 1.0
+                    }
+                  ],
+                  "successActions": [
+                    {
+                      "$type": "MoleMole.Config.CopyGlobalValue",
+                      "target": "Target",
+                      "srcTarget": "Self",
+                      "srcKey": "GV_Hit_Pos_0",
+                      "dstKey": "GV_Hit_Pos_0"
+                    },
+                    {
+                      "$type": "MoleMole.Config.CopyGlobalValue",
+                      "target": "Target",
+                      "srcTarget": "Self",
+                      "srcKey": "GV_Hit_Pos_1",
+                      "dstKey": "GV_Hit_Pos_1"
+                    },
+                    {
+                      "$type": "MoleMole.Config.CopyGlobalValue",
+                      "target": "Target",
+                      "srcTarget": "Self",
+                      "srcKey": "GV_Hit_Pos_2",
+                      "dstKey": "GV_Hit_Pos_2"
+                    },
+                    {
+                      "$type": "MoleMole.Config.ApplyModifier",
+                      "target": "Target",
+                      "modifierName": "FilmFest_SniperBullet_HitMonsterRespond"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "failActions": [
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "target": "Target",
+              "targetPredicates": [
+                {
+                  "$type": "POOFKGMBLNA",
+                  "key": "Is_FilmfestSniper_Breakable",
+                  "param3": 1.0,
+                  "compareType": "MoreThanAndEqual"
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "MoleMole.Config.DebugLog",
+                  "content": "############# HitGadget ###############"
+                },
+                {
+                  "$type": "MoleMole.Config.SetGlobalPos",
+                  "target": "Target",
+                  "key": "GV_Hit_Pos",
+                  "born": {
+                    "$type": "GMHJFNPAPGA"
+                  },
+                  "setTarget": false
+                },
+                {
+                  "$type": "MoleMole.Config.Predicated",
+                  "otherTargets": {
+                    "$type": "LOFHFECCCGG",
+                    "tag": "Filmfest_Monster"
+                  },
+                  "successActions": [
+                    {
+                      "$type": "MoleMole.Config.Predicated",
+                      "target": "Target",
+                      "targetPredicates": [
+                        {
+                          "$type": "POOFKGMBLNA",
+                          "key": "GV_FilmfestSniper_MonsterResponsable",
+                          "param3": 1.0
+                        }
+                      ],
+                      "successActions": [
+                        {
+                          "$type": "MoleMole.Config.CopyGlobalValue",
+                          "target": "Other",
+                          "srcTarget": "Self",
+                          "dstTarget": "Other",
+                          "srcKey": "GV_Hit_Pos_0",
+                          "dstKey": "GV_Hit_Pos_0"
+                        },
+                        {
+                          "$type": "MoleMole.Config.CopyGlobalValue",
+                          "target": "Other",
+                          "srcTarget": "Self",
+                          "dstTarget": "Other",
+                          "srcKey": "GV_Hit_Pos_1",
+                          "dstKey": "GV_Hit_Pos_1"
+                        },
+                        {
+                          "$type": "MoleMole.Config.CopyGlobalValue",
+                          "target": "Other",
+                          "srcTarget": "Self",
+                          "dstTarget": "Other",
+                          "srcKey": "GV_Hit_Pos_2",
+                          "dstKey": "GV_Hit_Pos_2"
+                        },
+                        {
+                          "$type": "MoleMole.Config.ApplyModifier",
+                          "target": "Other",
+                          "modifierName": "FilmFest_SniperBullet_HitGadgetRespond"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "$type": "MoleMole.Config.FireEffect",
+                  "target": "Target",
+                  "rotationDampTime": "Eff_FilmfestSniper_Bullet_HitEffect_01",
+                  "born": {
+                    "$type": "GMHJFNPAPGA"
+                  },
+                  "NHGDGLICLFB": -1.0
+                },
+                {
+                  "$type": "MoleMole.Config.SetGlobalValueV2",
+                  "param3": 1.0,
+                  "key": "GV_Filmfest_SniperBullet_Triggered",
+                  "param2": 0.0,
+                  "triggerID": 0.0
+                },
+                {
+                  "$type": "MoleMole.Config.ServerLuaCall",
+                  "target": "CasterOwner",
+                  "temperature": true,
+                  "luaCallType": "CurGalleryControlGroup",
+                  "funcName": "SLC_Filmfest_Sniper_HitGadget",
+                  "param1": 0.0,
+                  "KEEFCBAAODF": 0.0,
+                  "LABHKHBCHFB": 0.0
+                },
+                {
+                  "$type": "MoleMole.Config.DamageByAttackValue",
+                  "target": "Target",
+                  "attackInfo": {
+                    "attackTag": "FilmfestSniper_Bullet",
+                    "attenuationTag": "",
+                    "attenuationGroup": "default",
+                    "attackProperty": {
+                      "AGMNCBAKCEF": 1.0,
+                      "AILJJDMKONE": 0.0,
+                      "bonusCriticalHurt": 25.0,
+                      "strikeType": "Default",
+                      "actorGrassSubHurtDelta": 99999.0,
+                      "bonusCritical": 0.0
+                    },
+                    "hitPattern": {
+                      "onHitEffectName": "default",
+                      "hitImpulseType": "LV1",
+                      "hitHaltTimeScale": 0.05000000074505806
+                    }
+                  }
+                }
+              ],
+              "failActions": [
+                {
+                  "$type": "MoleMole.Config.SetGlobalPos",
+                  "target": "Target",
+                  "key": "GV_Hit_Pos",
+                  "born": {
+                    "$type": "GMHJFNPAPGA"
+                  },
+                  "setTarget": false
+                },
+                {
+                  "$type": "MoleMole.Config.Predicated",
+                  "target": "Target",
+                  "targetPredicates": [
+                    {
+                      "$type": "BBBFIPNGHGH",
+                      "entityTypes": [
+                        "Gadget"
+                      ]
+                    }
+                  ],
+                  "successActions": [
+                    {
+                      "$type": "MoleMole.Config.DebugLog",
+                      "content": "############# HitGround(Gadget) ###############"
+                    },
+                    {
+                      "$type": "MoleMole.Config.Predicated",
+                      "otherTargets": {
+                        "$type": "LOFHFECCCGG",
+                        "tag": "Filmfest_Monster"
+                      },
+                      "successActions": [
+                        {
+                          "$type": "MoleMole.Config.Predicated",
+                          "target": "Target",
+                          "targetPredicates": [
+                            {
+                              "$type": "POOFKGMBLNA",
+                              "key": "GV_FilmfestSniper_MonsterResponsable",
+                              "param3": 1.0
+                            }
+                          ],
+                          "successActions": [
+                            {
+                              "$type": "MoleMole.Config.CopyGlobalValue",
+                              "target": "Target",
+                              "srcTarget": "Self",
+                              "srcKey": "GV_Hit_Pos_0",
+                              "dstKey": "GV_Hit_Pos_0"
+                            },
+                            {
+                              "$type": "MoleMole.Config.CopyGlobalValue",
+                              "target": "Target",
+                              "srcTarget": "Self",
+                              "srcKey": "GV_Hit_Pos_1",
+                              "dstKey": "GV_Hit_Pos_1"
+                            },
+                            {
+                              "$type": "MoleMole.Config.CopyGlobalValue",
+                              "target": "Target",
+                              "srcTarget": "Self",
+                              "srcKey": "GV_Hit_Pos_2",
+                              "dstKey": "GV_Hit_Pos_2"
+                            },
+                            {
+                              "$type": "MoleMole.Config.ApplyModifier",
+                              "target": "Target",
+                              "modifierName": "FilmFest_SniperBullet_HitGroundRespond"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "$type": "MoleMole.Config.FireEffect",
+                      "target": "Target",
+                      "rotationDampTime": "Eff_FilmfestSniper_Bullet_HitEffect_01",
+                      "born": {
+                        "$type": "GMHJFNPAPGA"
+                      },
+                      "NHGDGLICLFB": -1.0
+                    },
+                    {
+                      "$type": "MoleMole.Config.SetGlobalValueV2",
+                      "param3": 1.0,
+                      "key": "GV_Filmfest_SniperBullet_Triggered",
+                      "param2": 0.0,
+                      "triggerID": 0.0
+                    },
+                    {
+                      "$type": "MoleMole.Config.ServerLuaCall",
+                      "target": "CasterOwner",
+                      "luaCallType": "CurGalleryControlGroup",
+                      "funcName": "SLC_Filmfest_Sniper_HitGround",
+                      "param1": 0.0,
+                      "KEEFCBAAODF": 0.0,
+                      "LABHKHBCHFB": 0.0
+                    }
+                  ],
+                  "failActions": [
+                    {
+                      "$type": "MoleMole.Config.DebugLog",
+                      "content": "############# HitGround ###############"
+                    },
+                    {
+                      "$type": "MoleMole.Config.ServerLuaCall",
+                      "target": "CasterOwner",
+                      "luaCallType": "CurGalleryControlGroup",
+                      "funcName": "SLC_Filmfest_Sniper_HitGround",
+                      "param1": 0.0,
+                      "KEEFCBAAODF": 0.0,
+                      "LABHKHBCHFB": 0.0
+                    },
+                    {
+                      "$type": "MoleMole.Config.Predicated",
+                      "otherTargets": {
+                        "$type": "LOFHFECCCGG",
+                        "tag": "Filmfest_Monster"
+                      },
+                      "successActions": [
+                        {
+                          "$type": "MoleMole.Config.Predicated",
+                          "target": "Target",
+                          "targetPredicates": [
+                            {
+                              "$type": "POOFKGMBLNA",
+                              "key": "GV_FilmfestSniper_MonsterResponsable",
+                              "param3": 1.0
+                            }
+                          ],
+                          "successActions": [
+                            {
+                              "$type": "MoleMole.Config.CopyGlobalValue",
+                              "target": "Target",
+                              "srcTarget": "Self",
+                              "srcKey": "GV_Hit_Pos_0",
+                              "dstKey": "GV_Hit_Pos_0"
+                            },
+                            {
+                              "$type": "MoleMole.Config.CopyGlobalValue",
+                              "target": "Target",
+                              "srcTarget": "Self",
+                              "srcKey": "GV_Hit_Pos_1",
+                              "dstKey": "GV_Hit_Pos_1"
+                            },
+                            {
+                              "$type": "MoleMole.Config.CopyGlobalValue",
+                              "target": "Target",
+                              "srcTarget": "Self",
+                              "srcKey": "GV_Hit_Pos_2",
+                              "dstKey": "GV_Hit_Pos_2"
+                            },
+                            {
+                              "$type": "MoleMole.Config.ApplyModifier",
+                              "target": "Target",
+                              "modifierName": "FilmFest_SniperBullet_HitGroundRespond"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "$type": "MoleMole.Config.FireHitEffect",
+                      "hitEntity": "",
+                      "hitScene": {
+                        "defaultEffect": "Eff_Arrow_Hit_Earth",
+                        "surfaceEffect": {
+                          "Water": "Eff_Arrow_Hit_Water"
+                        }
+                      }
+                    },
+                    {
+                      "$type": "MoleMole.Config.SetGlobalValueV2",
+                      "param3": 1.0,
+                      "key": "GV_Filmfest_SniperBullet_Triggered",
+                      "param2": 0.0,
+                      "triggerID": 0.0
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Activity_Common_Property_Ani_Prop_FilmFestSniperCamera_01",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachModifierToSelfGlobalValueMixin",
+          "globalValueKey": "GV_Filmfest_Sniper_Pos",
+          "gvInTalk": 0.0,
+          "valueSteps": [
+            -0.5,
+            1.5
+          ],
+          "modifierNameSteps": [
+            "CameraPos_01_Normal"
+          ]
+        }
+      ],
+      "modifiers": {
+        "CameraPos_01_Normal": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.SpawnCameraStateMixin",
+              "CCJJGHGLFOL": {
+                "$type": "PGELPICJCFB",
+                "OHGFHECKDIK": "CameraPivot_1",
+                "EGEANJEACMN": {
+                  "z": -1.0
+                },
+                "defaultRadius": 0.10000000149011612,
+                "fov": 40.0,
+                "IFANGELOGKA": -20.0,
+                "GEPAOINAOHD": 35.0,
+                "EAHKCMPGOJH": -55.0,
+                "EONOPEIKLEC": 55.0,
+                "BHAPMLLFOPA": true,
+                "LKLHGDDHKKO": 150.0,
+                "HGOAMFCMKMH": [
+                  21010105,
+                  21020704,
+                  21010404,
+                  24060903,
+                  24061103,
+                  25010226,
+                  70331003,
+                  70331033
+                ],
+                "NFIBKODELBA": 1.0,
+                "HMAPDGBBKHH": 4.411799907684326
+              }
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.ChangeTag",
+          "isAdd": true,
+          "tag": "Is_SniperCamera"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Activity_Common_Property_Ani_Prop_FilmFestSniperCamera_02",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachModifierToSelfGlobalValueMixin",
+          "globalValueKey": "GV_Filmfest_Sniper_Pos",
+          "gvInTalk": 0.0,
+          "valueSteps": [
+            -0.5,
+            0.5,
+            1.5
+          ],
+          "modifierNameSteps": [
+            "CameraPos_01_Normal",
+            "CameraPos_02_Normal"
+          ]
+        }
+      ],
+      "modifiers": {
+        "CameraPos_01_Normal": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.SpawnCameraStateMixin",
+              "CCJJGHGLFOL": {
+                "$type": "PGELPICJCFB",
+                "OHGFHECKDIK": "CameraPivot_1",
+                "EGEANJEACMN": {
+                  "z": -1.0
+                },
+                "defaultRadius": 0.10000000149011612,
+                "fov": 40.0,
+                "IFANGELOGKA": -20.0,
+                "GEPAOINAOHD": 30.0,
+                "EAHKCMPGOJH": -50.0,
+                "EONOPEIKLEC": 80.0,
+                "BHAPMLLFOPA": true,
+                "LKLHGDDHKKO": 150.0,
+                "HGOAMFCMKMH": [
+                  21010105,
+                  21020704,
+                  21010404,
+                  24060903,
+                  24061103,
+                  25010226,
+                  70331003,
+                  70331033
+                ],
+                "NFIBKODELBA": 1.0,
+                "HMAPDGBBKHH": 4.411799907684326
+              }
+            }
+          ]
+        },
+        "CameraPos_02_Normal": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.SpawnCameraStateMixin",
+              "CCJJGHGLFOL": {
+                "$type": "PGELPICJCFB",
+                "OHGFHECKDIK": "CameraPivot_2",
+                "EGEANJEACMN": {
+                  "z": -1.0
+                },
+                "defaultRadius": 0.10000000149011612,
+                "fov": 40.0,
+                "IFANGELOGKA": -30.0,
+                "GEPAOINAOHD": 30.0,
+                "EAHKCMPGOJH": -40.0,
+                "EONOPEIKLEC": 80.0,
+                "BHAPMLLFOPA": true,
+                "LKLHGDDHKKO": 150.0,
+                "HGOAMFCMKMH": [
+                  21010105,
+                  21020704,
+                  21010404,
+                  24060903,
+                  24061103,
+                  25010226,
+                  70331003,
+                  70331033
+                ],
+                "NFIBKODELBA": 1.0,
+                "HMAPDGBBKHH": 4.411799907684326
+              }
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.ChangeTag",
+          "isAdd": true,
+          "tag": "Is_SniperCamera"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Activity_Common_Property_Ani_Prop_FilmFestSniperCamera_03",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachModifierToSelfGlobalValueMixin",
+          "globalValueKey": "GV_Filmfest_Sniper_Pos",
+          "gvInTalk": 0.0,
+          "valueSteps": [
+            -0.5,
+            1.5
+          ],
+          "modifierNameSteps": [
+            "CameraPos_01_Normal"
+          ]
+        }
+      ],
+      "modifiers": {
+        "CameraPos_01_Normal": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.SpawnCameraStateMixin",
+              "CCJJGHGLFOL": {
+                "$type": "PGELPICJCFB",
+                "OHGFHECKDIK": "CameraPivot_1",
+                "EGEANJEACMN": {
+                  "z": -1.0
+                },
+                "defaultRadius": 0.10000000149011612,
+                "fov": 40.0,
+                "IFANGELOGKA": -30.0,
+                "GEPAOINAOHD": 40.0,
+                "EAHKCMPGOJH": -50.0,
+                "EONOPEIKLEC": 80.0,
+                "BHAPMLLFOPA": true,
+                "LKLHGDDHKKO": 150.0,
+                "HGOAMFCMKMH": [
+                  21010105,
+                  21020704,
+                  21010404,
+                  24060903,
+                  24061103,
+                  25010226,
+                  70331003,
+                  70331033
+                ],
+                "NFIBKODELBA": 1.0,
+                "HMAPDGBBKHH": 4.411799907684326
+              }
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.ChangeTag",
+          "isAdd": true,
+          "tag": "Is_SniperCamera"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Activity_Common_Property_Ani_Prop_FilmFestSniperCamera_04",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachModifierToSelfGlobalValueMixin",
+          "globalValueKey": "GV_Filmfest_Sniper_Pos",
+          "gvInTalk": 0.0,
+          "valueSteps": [
+            -0.5,
+            0.5,
+            1.5
+          ],
+          "modifierNameSteps": [
+            "CameraPos_01_Normal",
+            "CameraPos_02_Normal"
+          ]
+        }
+      ],
+      "modifiers": {
+        "CameraPos_01_Normal": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.SpawnCameraStateMixin",
+              "CCJJGHGLFOL": {
+                "$type": "PGELPICJCFB",
+                "OHGFHECKDIK": "CameraPivot_1",
+                "EGEANJEACMN": {
+                  "z": -1.0
+                },
+                "defaultRadius": 0.10000000149011612,
+                "fov": 40.0,
+                "IFANGELOGKA": -30.0,
+                "GEPAOINAOHD": 25.0,
+                "EAHKCMPGOJH": -25.0,
+                "EONOPEIKLEC": 85.0,
+                "BHAPMLLFOPA": true,
+                "LKLHGDDHKKO": 150.0,
+                "HGOAMFCMKMH": [
+                  21010105,
+                  21020704,
+                  21010404,
+                  24060903,
+                  24061103,
+                  25010226,
+                  70331003,
+                  70331033
+                ],
+                "NFIBKODELBA": 1.0,
+                "HMAPDGBBKHH": 4.411799907684326
+              }
+            }
+          ]
+        },
+        "CameraPos_02_Normal": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.SpawnCameraStateMixin",
+              "CCJJGHGLFOL": {
+                "$type": "PGELPICJCFB",
+                "OHGFHECKDIK": "CameraPivot_2",
+                "EGEANJEACMN": {
+                  "z": -1.0
+                },
+                "defaultRadius": 0.10000000149011612,
+                "fov": 40.0,
+                "IFANGELOGKA": -30.0,
+                "GEPAOINAOHD": 30.0,
+                "EAHKCMPGOJH": -90.0,
+                "EONOPEIKLEC": 60.0,
+                "BHAPMLLFOPA": true,
+                "LKLHGDDHKKO": 150.0,
+                "HGOAMFCMKMH": [
+                  21010105,
+                  21020704,
+                  21010404,
+                  24060903,
+                  24061103,
+                  25010226,
+                  70331003,
+                  70331033
+                ],
+                "NFIBKODELBA": 1.0,
+                "HMAPDGBBKHH": 4.411799907684326
+              }
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.ChangeTag",
+          "isAdd": true,
+          "tag": "Is_SniperCamera"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Activity_Common_Property_Ani_Prop_FilmFestSniperCamera_05",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachModifierToSelfGlobalValueMixin",
+          "globalValueKey": "GV_Filmfest_Sniper_Pos",
+          "gvInTalk": 0.0,
+          "valueSteps": [
+            -0.5,
+            1.5
+          ],
+          "modifierNameSteps": [
+            "CameraPos_01_Normal"
+          ]
+        }
+      ],
+      "modifiers": {
+        "CameraPos_01_Normal": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.SpawnCameraStateMixin",
+              "CCJJGHGLFOL": {
+                "$type": "PGELPICJCFB",
+                "OHGFHECKDIK": "CameraPivot_1",
+                "EGEANJEACMN": {
+                  "z": -1.0
+                },
+                "defaultRadius": 0.10000000149011612,
+                "fov": 40.0,
+                "IFANGELOGKA": -30.0,
+                "GEPAOINAOHD": 20.0,
+                "EAHKCMPGOJH": -55.0,
+                "EONOPEIKLEC": 55.0,
+                "BHAPMLLFOPA": true,
+                "LKLHGDDHKKO": 150.0,
+                "HGOAMFCMKMH": [
+                  21010105,
+                  21020704,
+                  21010404,
+                  24060903,
+                  24061103,
+                  25010226,
+                  70331003,
+                  70331033
+                ],
+                "NFIBKODELBA": 1.0,
+                "HMAPDGBBKHH": 4.411799907684326
+              }
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.ChangeTag",
+          "isAdd": true,
+          "tag": "Is_SniperCamera"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Level_Fd_Property_Ani_Prop_FilmfestSniper_Blindage_01",
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.FireEffect",
+          "rotationDampTime": "Eff_SceneObj_FilmfestSniper_01_Appear",
+          "scale": 1.2000000476837158,
+          "NHGDGLICLFB": -1.0
+        }
+      ],
+      "onKill": [
+        {
+          "$type": "MoleMole.Config.FireEffect",
+          "rotationDampTime": "Eff_SceneObj_FilmfestSniper_01_Appear",
+          "scale": 1.2000000476837158,
+          "NHGDGLICLFB": -1.0
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Activity_Common_Property_Ani_Prop_FilmFestBallGame_01",
+      "modifiers": {
+        "FilmfestBallGame": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ActivityFilmfestBallGameMixin",
+              "NKGKGOAJEIG": "SGV_FilmFestBallGame_Start",
+              "FOOBBFJNGKO": 100,
+              "maxClientChaseSpeedRatio": 3.0,
+              "KDJIADAJBNI": 300,
+              "pingInterval": 100
+            }
+          ]
+        },
+        "FilmfestBallGame_Preload": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.FireEffect",
+              "rotationDampTime": "Eff_SceneObj_FilmfestBallGame_SealBall_01_Appear",
+              "NHGDGLICLFB": -1.0
+            },
+            {
+              "$type": "MoleMole.Config.FireEffect",
+              "rotationDampTime": "Eff_SceneObj_FilmfestBallGame_SealBall_01_Die",
+              "NHGDGLICLFB": -1.0
+            },
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_SceneObj_FilmfestBallGame_SealBall_01_Loop",
+              "NHGDGLICLFB": -1.0
+            },
+            {
+              "$type": "MoleMole.Config.FireEffect",
+              "rotationDampTime": "Eff_SceneObj_FilmfestBallGame_SealBall_02_Appear",
+              "NHGDGLICLFB": -1.0
+            },
+            {
+              "$type": "MoleMole.Config.FireEffect",
+              "rotationDampTime": "Eff_SceneObj_FilmfestBallGame_SealBall_02_Die",
+              "NHGDGLICLFB": -1.0
+            },
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_SceneObj_FilmfestBallGame_SealBall_02_Loop",
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.AttachModifier",
+          "modifierName": "FilmfestBallGame"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Level_Fd_Property_Ani_Prop_FilmfestSniper_BalloonCart_01",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+          "gadgetState": 204,
+          "modifierName": "Finish"
+        }
+      ],
+      "PAFDPAGAOGO": [
+        "GV_FilmfestBalloon_HP_PERCENT"
+      ],
+      "modifiers": {
+        "BalloonCart_Normal": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0
+        },
+        "BalloonCart_Hited": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.ExecuteGadgetLua",
+              "param1": 202
+            }
+          ]
+        },
+        "BalloonCart_Borken": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.ExecuteGadgetLua",
+              "param1": 203
+            }
+          ]
+        },
+        "Finish": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.HideUIBillBoard",
+              "hide": true
+            },
+            {
+              "$type": "MoleMole.Config.RemoveModifier",
+              "modifierName": "Taunting"
+            }
+          ]
+        },
+        "Taunting": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "thinkInterval": 2.0,
+          "onBeingHit": [
+            {
+              "$type": "MoleMole.Config.ServerLuaCall",
+              "predicates": [
+                {
+                  "$type": "CCPPBGKEJBP",
+                  "enBreak": 0.0
+                }
+              ],
+              "luaCallType": "CurGalleryControlGroup",
+              "funcName": "SLC_Filmfest_Sniper_BalloonHPDown",
+              "param1": 0.0,
+              "KEEFCBAAODF": 0.0,
+              "LABHKHBCHFB": 0.0
+            }
+          ],
+          "onThinkInterval": [
+            {
+              "$type": "MoleMole.Config.TriggerTaunt",
+              "otherTargets": {
+                "$type": "AFOOPHMLCCL",
+                "shapeName": "CircleR25",
+                "campTargetType": "Enemy",
+                "doOffStage": 1.0
+              },
+              "predicates": [
+                {
+                  "$type": "BBBFIPNGHGH",
+                  "entityTypes": [
+                    "Monster"
+                  ]
+                }
+              ],
+              "careValue": 10.0
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.FireEffect",
+          "rotationDampTime": "Eff_SceneObj_FilmfestSniper_01_Appear",
+          "scale": 2.299999952316284,
+          "NHGDGLICLFB": -1.0
+        },
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "Taunting"
+        },
+        {
+          "$type": "MoleMole.Config.SetGlobalValue",
+          "param3": 1.0,
+          "key": "Is_Filmfest_Balloon",
+          "param2": 0.0,
+          "triggerID": 0.0
+        },
+        {
+          "$type": "MoleMole.Config.ChangeTag",
+          "isAdd": true,
+          "tag": "SniperEscort"
+        }
+      ],
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "Taunting"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Level_Fd_Property_Ani_Prop_FilmfestSniper_BalloonCart_Brk1",
+      "modifiers": {
+        "Cart_Brk1_Effect": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_Balloon_Broken_FanBase_01",
+              "NHGDGLICLFB": -1.0
+            },
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_Balloon_Broken_Base_01",
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        }
+      },
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "Cart_Brk1_Effect"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Level_Fd_Property_Ani_Prop_FilmfestSniper_BalloonCart_Brk2",
+      "modifiers": {
+        "Cart_Brk2_Effect": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_Balloon_Broken_Fan_01",
+              "NHGDGLICLFB": -1.0
+            },
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_Balloon_Broken_Balloon_01",
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        }
+      },
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "Cart_Brk2_Effect"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Activity_Common_Property_Ani_Prop_FilmFestBallGameGate_01",
+      "modifiers": {
+        "UNIQUE_FilmFestBallGameGate_MonsterKillSelf": {
+          "stacking": "RefreshUniqueDurability",
+          "stackingOption": {
+            "abilitySpecialName": "",
+            "enableMixedUnique": true
+          },
+          "modifierName": "",
+          "isUnique": true,
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.DiePatternSwitchMixin",
+              "dieForceDisappearTime": 2.0,
+              "dieDisappearEffect": "",
+              "startDieEndAtOnce": true,
+              "ignoreElementDie": true
+            },
+            {
+              "$type": "MoleMole.Config.ReplaceEventPatternMixin",
+              "oldPatterns": [
+                "Monster_Slime_Electric_02_Die",
+                "Monster_Slime_Electric_03_Die",
+                "Monster_Slime_Fire_Die_02",
+                "Monster_Slime_Fire_Die_03"
+              ],
+              "newPatterns": [
+                "Monster_Slime_Fire_Die_03_WithFire",
+                "Monster_Slime_Fire_Die_03_WithFire",
+                "Monster_Slime_Fire_Die_03_WithFire",
+                "Monster_Slime_Fire_Die_03_WithFire"
+              ]
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.KillSelf"
+            },
+            {
+              "$type": "MoleMole.Config.HideUIBillBoard",
+              "hide": true
+            },
+            {
+              "$type": "MoleMole.Config.FireEffect",
+              "rotationDampTime": "Eff_Monster_Slime_Fire_Die",
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        }
+      },
+      "onFieldEnter": [
+        {
+          "$type": "MoleMole.Config.Predicated",
+          "target": "Target",
+          "targetPredicates": [
+            {
+              "$type": "BBBFIPNGHGH",
+              "entityTypes": [
+                "Monster"
+              ]
+            },
+            {
+              "$type": "FLLFBKEHJMH",
+              "predicates": [
+                {
+                  "$type": "LMBGIDDHLDM",
+                  "modifierName": "UNIQUE_FilmFestBallGameGate_MonsterKillSelf"
+                }
+              ]
+            }
+          ],
+          "successActions": [
+            {
+              "$type": "MoleMole.Config.ApplyModifier",
+              "target": "Target",
+              "modifierName": "UNIQUE_FilmFestBallGameGate_MonsterKillSelf"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Activity_Common_Property_Ani_Prop_FilmFestWoodenObject_01",
+      "modifiers": {
+        "WoodMaterial": {
+          "modifierName": "",
+          "elementType": "Wood",
+          "bonusCriticalHurt": 30.0,
+          "state": "Limbo",
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachModifier",
+              "modifierName": "Die_Effect"
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.AddGlobalValue",
+              "param3": 1.0,
+              "key": "_WoodenObject_DeathType",
+              "param2": 0.0,
+              "triggerID": 0.0
+            }
+          ],
+          "onBeingHit": [
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "targetPredicates": [
+                {
+                  "$type": "FLLFBKEHJMH",
+                  "predicates": [
+                    {
+                      "$type": "OFJKNHNDFOO",
+                      "element": "Fire"
+                    },
+                    {
+                      "$type": "CCPPBGKEJBP",
+                      "logic": "Equal",
+                      "enBreak": 0.0
+                    }
+                  ]
+                },
+                {
+                  "$type": "FLLFBKEHJMH",
+                  "predicates": [
+                    {
+                      "$type": "KKDONNLCCFK",
+                      "element": "Fire"
+                    }
+                  ]
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "MoleMole.Config.FireEffect",
+                  "rotationDampTime": "Eff_SceneObj_WoodenObject_Broken",
+                  "NHGDGLICLFB": -1.0
+                },
+                {
+                  "$type": "MoleMole.Config.KillSelf"
+                }
+              ]
+            },
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "targetPredicates": [
+                {
+                  "$type": "KKDONNLCCFK",
+                  "element": "Water"
+                },
+                {
+                  "$type": "FLLFBKEHJMH",
+                  "predicates": [
+                    {
+                      "$type": "CCPPBGKEJBP",
+                      "logic": "Equal",
+                      "enBreak": 0.0
+                    }
+                  ]
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "MoleMole.Config.FireEffect",
+                  "rotationDampTime": "Eff_SceneObj_WoodenObject_Broken",
+                  "NHGDGLICLFB": -1.0
+                },
+                {
+                  "$type": "MoleMole.Config.KillSelf"
+                }
+              ]
+            }
+          ]
+        },
+        "Die_Effect": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.FireEffect",
+              "predicates": [
+                {
+                  "$type": "POOFKGMBLNA",
+                  "key": "_WoodenObject_DeathType",
+                  "param3": 0.0,
+                  "compareType": "MoreThan"
+                }
+              ],
+              "rotationDampTime": "Eff_SceneObj_HiliWoodenBox_01_BurnOut",
+              "NHGDGLICLFB": -1.0
+            },
+            {
+              "$type": "MoleMole.Config.KillSelf",
+              "predicates": [
+                {
+                  "$type": "POOFKGMBLNA",
+                  "key": "_WoodenObject_DeathType",
+                  "param3": 0.0,
+                  "compareType": "MoreThan"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.FireEffect",
+          "rotationDampTime": "Eff_SceneObj_FilmfestSniper_01_Appear",
+          "scale": 0.8999999761581421,
+          "NHGDGLICLFB": -1.0
+        },
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "WoodMaterial"
+        },
+        {
+          "$type": "MoleMole.Config.AddGlobalValue",
+          "param3": 0.0,
+          "key": "_WoodenObject_DeathType",
+          "param2": 0.0,
+          "triggerID": 0.0
+        },
+        {
+          "$type": "MoleMole.Config.SetGlobalValueV2",
+          "param3": 1.0,
+          "key": "Is_FilmfestSniper_Breakable",
+          "param2": 0.0,
+          "triggerID": 0.0
+        },
+        {
+          "$type": "MoleMole.Config.AddGlobalValue",
+          "param3": 1.0,
+          "key": "_ABILITY_BURNING_IGNITE_ONLY",
+          "useLimitRange": true,
+          "param2": 1.0,
+          "triggerID": 1.0
+        }
+      ],
+      "onKill": [
+        {
+          "$type": "MoleMole.Config.FireEffect",
+          "predicates": [
+            {
+              "$type": "POOFKGMBLNA",
+              "key": "_WoodenObject_DeathType",
+              "param3": 0.0,
+              "compareType": "NoneOrEqual"
+            }
+          ],
+          "rotationDampTime": "Eff_SceneObj_WoodenObject_Broken",
+          "NHGDGLICLFB": -1.0
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Activity_Common_Property_Ani_Prop_FilmFestQQTarget_01",
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.FireEffect",
+          "rotationDampTime": "Eff_SceneObj_FilmfestSniper_01_Appear",
+          "scale": 0.44999998807907104,
+          "NHGDGLICLFB": -1.0
+        },
+        {
+          "$type": "MoleMole.Config.SetGlobalValueV2",
+          "param3": 1.0,
+          "key": "Is_FilmfestSniper_Breakable",
+          "param2": 0.0,
+          "triggerID": 0.0
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Level_Fd_Property_Ani_Prop_FilmfestSniper_BombBox_01",
+      "modifiers": {
+        "BombBoxLoop": {
+          "modifierName": "",
+          "elementType": "Wood",
+          "bonusCriticalHurt": 1.0,
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.FireEffect",
+              "rotationDampTime": "Eff_SceneObj_BombBarrel_03_Explode",
+              "NHGDGLICLFB": -1.0
+            },
+            {
+              "$type": "MoleMole.Config.TriggerAttackEvent",
+              "attackEvent": {
+                "attackPattern": {
+                  "$type": "CDFDJKDFCFJ",
+                  "triggerType": "TriggerNoRepeat",
+                  "ignoreMassive": true,
+                  "born": {
+                    "$type": "CGJIFGJJOJA",
+                    "offset": {
+                      "AOFNOGLCGMP": 0.0,
+                      "CHEGDAPFFHA": 0.5,
+                      "JEGKAACFHJK": 0.0
+                    }
+                  },
+                  "IDLDJCPGNHD": 6.0
+                },
+                "attackInfo": {
+                  "attackTag": "FilmfestSniper_Bomb",
+                  "attenuationTag": "",
+                  "attenuationGroup": "default",
+                  "attackProperty": {
+                    "AGMNCBAKCEF": 9999999.0,
+                    "AILJJDMKONE": 0.0,
+                    "bonusCriticalHurt": 50.0,
+                    "strikeType": "Blunt",
+                    "enBreak": 9999999.0,
+                    "bonusCritical": 0.0
+                  },
+                  "hitPattern": {
+                    "onHitEffectName": "default",
+                    "hitImpulseType": "LV6",
+                    "hitHaltTimeScale": 0.05000000074505806
+                  },
+                  "forceCameraShake": true,
+                  "cameraShake": {
+                    "shakeRange": 0.36000001430511475,
+                    "shakeTime": 0.36000001430511475
+                  }
+                }
+              },
+              "targetType": "Enemy"
+            },
+            {
+              "$type": "MoleMole.Config.TriggerAttackEvent",
+              "attackEvent": {
+                "attackPattern": {
+                  "$type": "CDFDJKDFCFJ",
+                  "triggerType": "TriggerNoRepeat",
+                  "born": {
+                    "$type": "CGJIFGJJOJA"
+                  },
+                  "IDLDJCPGNHD": 2.0
+                },
+                "attackInfo": {
+                  "attackTag": "",
+                  "attenuationTag": "",
+                  "attenuationGroup": "default",
+                  "attackProperty": {
+                    "AGMNCBAKCEF": 1.0,
+                    "AILJJDMKONE": 0.0,
+                    "bonusCriticalHurt": 50.0,
+                    "strikeType": "Blunt",
+                    "enBreak": 0.0,
+                    "bonusCritical": 0.0
+                  }
+                }
+              },
+              "targetType": "All"
+            },
+            {
+              "$type": "MoleMole.Config.KillSelf",
+              "duration": 1.0,
+              "hideEntity": true
+            }
+          ],
+          "onBeingHit": [
+            {
+              "$type": "MoleMole.Config.RemoveModifier",
+              "predicates": [
+                {
+                  "$type": "FLLFBKEHJMH",
+                  "predicates": [
+                    {
+                      "$type": "CCPPBGKEJBP",
+                      "logic": "Equal",
+                      "enBreak": 0.0
+                    }
+                  ]
+                }
+              ],
+              "modifierName": "BombBoxLoop"
+            }
+          ],
+          "onCrash": [
+            {
+              "$type": "MoleMole.Config.RemoveModifier",
+              "modifierName": "BombBoxLoop"
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "BombBoxLoop"
+        },
+        {
+          "$type": "MoleMole.Config.SetGlobalValueV2",
+          "param3": 1.0,
+          "key": "Is_FilmfestSniper_Breakable",
+          "param2": 0.0,
+          "triggerID": 0.0
+        },
+        {
+          "$type": "MoleMole.Config.FireEffect",
+          "rotationDampTime": "Eff_SceneObj_FilmfestSniper_01_Appear",
+          "scale": 0.44999998807907104,
+          "NHGDGLICLFB": -1.0
+        }
+      ],
+      "onKill": [
+        {
+          "$type": "MoleMole.Config.FireEffect",
+          "predicates": [
+            {
+              "$type": "LMBGIDDHLDM",
+              "modifierName": "BombBoxLoop"
+            }
+          ],
+          "rotationDampTime": "Eff_SceneObj_FilmfestSniper_01_Appear",
+          "scale": 0.44999998807907104,
+          "NHGDGLICLFB": -1.0
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Activity_Common_Property_Ani_Prop_FilmFestBallGameCam_01",
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.EnableGadgetSpecialCamera",
+          "canBeHandledOnRecover": true,
+          "enable": true
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Gear_Common_Property_Prop_JumpUp_03",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachModifierToSelfGlobalValueNoInitMixin",
+          "globalValueKey": "CharAmusement_JumpUp",
+          "valueSteps": [
+            -1.5,
+            0.5,
+            1.5
+          ],
+          "modifierNameSteps": [
+            "Mute",
+            "Interactable"
+          ]
+        }
+      ],
+      "modifiers": {
+        "Filmfest_BallGame_BuffPicked": {
+          "modifierName": "",
+          "elementDurability": 0.10000000149011612,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.ServerLuaCall",
+              "luaCallType": "CurGalleryControlGroup",
+              "funcName": "SLC_Filmfest_BallGame_BuffPicked",
+              "param1": 0.0,
+              "KEEFCBAAODF": 0.0,
+              "LABHKHBCHFB": 0.0
+            }
+          ]
+        },
+        "UNIQUE_JumpUpuff_Filmfest_BallGame": {
+          "stacking": "RefreshUniqueDurability",
+          "modifierName": "",
+          "isUnique": true,
+          "elementDurability": 10.0,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "target": "Team",
+              "param3": 1.0,
+              "key": "GV_JumpUpBuff",
+              "useLimitRange": true,
+              "param2": 1.0,
+              "triggerID": 0.0
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "target": "Team",
+              "param3": 0.0,
+              "key": "GV_JumpUpBuff",
+              "useLimitRange": true,
+              "param2": 1.0,
+              "triggerID": 0.0
+            }
+          ]
+        },
+        "Interactable": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_SceneObj_JumpUp_01",
+              "NHGDGLICLFB": -1.0
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.FireEffect",
+              "rotationDampTime": "Eff_SceneObj_JumpUp_01_Dis",
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        },
+        "Mute": {
+          "modifierName": "",
+          "elementDurability": 1.0,
+          "bonusCriticalHurt": 100.0,
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 1.0,
+              "key": "CharAmusement_JumpUp",
+              "param2": 0.0,
+              "triggerID": 0.0
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.SetGlobalValue",
+          "param3": 1.0,
+          "key": "CharAmusement_JumpUp",
+          "param2": 0.0,
+          "triggerID": 0.0
+        }
+      ],
+      "onFieldEnter": [
+        {
+          "$type": "MoleMole.Config.Predicated",
+          "target": "Target",
+          "targetPredicates": [
+            {
+              "$type": "POOFKGMBLNA",
+              "target": "Self",
+              "key": "CharAmusement_JumpUp",
+              "param3": 1.0
+            }
+          ],
+          "successActions": [
+            {
+              "$type": "MoleMole.Config.ApplyModifier",
+              "target": "TargetTeam",
+              "modifierName": "UNIQUE_JumpUpuff_Filmfest_BallGame"
+            },
+            {
+              "$type": "MoleMole.Config.ApplyModifier",
+              "target": "TargetTeam",
+              "modifierName": "Filmfest_BallGame_BuffPicked"
+            },
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 0.0,
+              "key": "CharAmusement_JumpUp",
+              "param2": 0.0,
+              "triggerID": 0.0
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Level_Common_Property_Ani_Light_GoalFollowSpot_01",
+      "modifiers": {
+        "LightManager": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_SceneObj_GoalFollowSpot",
+              "born": {
+                "$type": "POAPJOHEDDM",
+                "useRotation": true,
+                "attachPointName": "LightAttachPoint"
+              },
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        },
+        "StateManager": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+              "modifierName": "CloseState"
+            },
+            {
+              "$type": "MoleMole.Config.AttachToGadgetStateMixin",
+              "gadgetState": 201,
+              "modifierName": "LightOn"
+            }
+          ]
+        },
+        "CloseState": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "NHJJKMPNMJP": true,
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Light"
+              ]
+            },
+            {
+              "$type": "MoleMole.Config.SendEffectTrigger",
+              "parameter": "State",
+              "attachPoint": "",
+              "damageRatio": "Int",
+              "rotationDampTime": "Eff_SceneObj_GoalFollowSpot"
+            }
+          ]
+        },
+        "LightOn": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "LHKFBGDFMEC": 1,
+              "NHJJKMPNMJP": true,
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.EnableSceneTransformByName",
+              "transformNames": [
+                "Light"
+              ],
+              "setEnable": true
+            },
+            {
+              "$type": "MoleMole.Config.SendEffectTrigger",
+              "parameter": "State",
+              "attachPoint": "",
+              "damageRatio": "Int",
+              "value": 201,
+              "rotationDampTime": "Eff_SceneObj_GoalFollowSpot"
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "LightManager"
+        },
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "StateManager"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Area_Common_Property_Ani_Decal_Quest_Stain_01",
+      "modifiers": {
+        "Default_0": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_SceneObj_GroundDirty_02",
+              "NHGDGLICLFB": -1.0
+            }
+          ],
+          "onBeingHit": [
+            {
+              "$type": "MoleMole.Config.AddGlobalValue",
+              "predicates": [
+                {
+                  "$type": "OFJKNHNDFOO",
+                  "element": "Wind"
+                }
+              ],
+              "param3": 1.0,
+              "key": "_WIND_HIT_COUNT",
+              "useLimitRange": true,
+              "param2": 2.0,
+              "triggerID": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.SendEffectTrigger",
+              "predicates": [
+                {
+                  "$type": "POOFKGMBLNA",
+                  "key": "_WIND_HIT_COUNT",
+                  "param3": 1.0
+                }
+              ],
+              "parameter": "HalfDirty",
+              "attachPoint": "",
+              "rotationDampTime": "Eff_SceneObj_GroundDirty_02"
+            },
+            {
+              "$type": "MoleMole.Config.FireEffect",
+              "predicates": [
+                {
+                  "$type": "OFJKNHNDFOO",
+                  "element": "Wind"
+                }
+              ],
+              "rotationDampTime": "Eff_SceneObj_GroundDirty_Blow",
+              "NHGDGLICLFB": -1.0
+            },
+            {
+              "$type": "MoleMole.Config.ApplyModifier",
+              "target": "Team",
+              "predicates": [
+                {
+                  "$type": "OFJKNHNDFOO",
+                  "element": "Wind"
+                }
+              ],
+              "modifierName": "CameraFog"
+            },
+            {
+              "$type": "MoleMole.Config.FireEffect",
+              "predicates": [
+                {
+                  "$type": "OFJKNHNDFOO",
+                  "element": "Water"
+                }
+              ],
+              "rotationDampTime": "Eff_SceneObj_GroundDirty_Wash",
+              "NHGDGLICLFB": -1.0
+            },
+            {
+              "$type": "MoleMole.Config.KillSelf",
+              "predicates": [
+                {
+                  "$type": "OFJKNHNDFOO",
+                  "element": "Water"
+                }
+              ]
+            },
+            {
+              "$type": "MoleMole.Config.KillSelf",
+              "predicates": [
+                {
+                  "$type": "POOFKGMBLNA",
+                  "key": "_WIND_HIT_COUNT",
+                  "param3": 2.0
+                }
+              ]
+            }
+          ],
+          "onKill": [
+            {
+              "$type": "MoleMole.Config.SendEffectTrigger",
+              "parameter": "NoDirty",
+              "attachPoint": "",
+              "rotationDampTime": "Eff_SceneObj_GroundDirty_02"
+            }
+          ]
+        },
+        "CameraFog": {
+          "modifierName": "",
+          "elementDurability": 1.5,
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.TriggerPostProcessEffectMixin",
+              "postEffectAssetName": "PostEffect_Scene_Dust",
+              "duration": 1.5
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "Default_0"
+        }
+      ]
+    }
+  }
+]

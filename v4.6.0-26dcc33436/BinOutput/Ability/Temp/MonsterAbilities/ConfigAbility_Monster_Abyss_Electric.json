@@ -1,0 +1,2649 @@
+[
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Abyss_Electric_SpecialsState",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.DoActionByStateIDMixin",
+          "stateIDs": [
+            "Sacrifice",
+            "TurnToSacrifice"
+          ],
+          "enterPredicates": [
+            {
+              "$type": "POOFKGMBLNA",
+              "key": "_ELEMENTSHIELD_TAG_",
+              "param3": 1.0,
+              "forceByCaster": true
+            }
+          ],
+          "exitPredicates": [
+            {
+              "$type": "POOFKGMBLNA",
+              "key": "_ELEMENTSHIELD_TAG_",
+              "param3": 0.0,
+              "forceByCaster": true
+            }
+          ],
+          "enterActions": [
+            {
+              "$type": "MoleMole.Config.TriggerAbility",
+              "abilityName": "Monster_Abyss_Electric_ElementShield_Remove_NoBroken"
+            }
+          ],
+          "exitActions": [
+            {
+              "$type": "MoleMole.Config.SetPoseInt",
+              "intID": "ElementState",
+              "value": 2
+            },
+            {
+              "$type": "MoleMole.Config.TriggerAbility",
+              "abilityName": "Monster_Abyss_Electric_ElementShield"
+            },
+            {
+              "$type": "MoleMole.Config.TriggerAbility",
+              "abilityName": "Monster_Abyss_Electric_ElementShield_Effect"
+            }
+          ],
+          "BILMCNCKIAO": ""
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Abyss_Electric_ElementShield_Remove_NoBroken",
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.RemoveUniqueModifier",
+          "modifierName": "UNIQUE_Abyss_Electric_ElementShield"
+        },
+        {
+          "$type": "MoleMole.Config.SetPoseInt",
+          "intID": "ElementState",
+          "value": 2
+        },
+        {
+          "$type": "MoleMole.Config.ResetAnimatorTrigger",
+          "value": "ShiledBrokenTrigger"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Abyss_Electric_SacrificeAlert",
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.SetPoseInt",
+          "intID": "ElementState",
+          "value": 2
+        },
+        {
+          "$type": "MoleMole.Config.TriggerAbility",
+          "abilityName": "Monster_Abyss_Electric_ElementShield"
+        },
+        {
+          "$type": "MoleMole.Config.TriggerAbility",
+          "abilityName": "Monster_Abyss_Electric_ElementShield_Effect"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Abyss_Electric_ElementShield",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToPoseIDMixin",
+          "poseIDs": [
+            300,
+            301,
+            302
+          ],
+          "modifierName": "Abyss_Electric_ElementShield_RecoverHandler"
+        }
+      ],
+      "abilitySpecials": {
+        "ElementShield_DurabilityImprove": 0.0
+      },
+      "modifiers": {
+        "Abyss_Electric_ElementShield_RecoverHandler": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onReconnect": [
+            {
+              "$type": "MoleMole.Config.ApplyModifier",
+              "modifierName": "UNIQUE_Abyss_Electric_ElementShield"
+            }
+          ]
+        },
+        "UNIQUE_Abyss_Electric_ElementShield": {
+          "stacking": "Unique",
+          "modifierName": "",
+          "isUnique": true,
+          "elementType": "Electric",
+          "bonusCriticalHurt": [
+            200.0,
+            "ElementShield_DurabilityImprove",
+            "MUL",
+            200.0,
+            "ADD"
+          ],
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ElementShieldMixin",
+              "elementType": "Electric",
+              "showDamageText": "",
+              "shieldAngle": 360.0,
+              "maxShieldByHPRatio": 1.0,
+              "shieldHP": 0.20000000298023224,
+              "onShieldSuccess": [
+                {
+                  "$type": "MoleMole.Config.Predicated",
+                  "target": "Target",
+                  "targetPredicates": [
+                    {
+                      "$type": "BBBFIPNGHGH",
+                      "entityTypes": [
+                        "Avatar",
+                        "Partner"
+                      ]
+                    }
+                  ],
+                  "successActions": [
+                    {
+                      "$type": "MoleMole.Config.SetGlobalDir",
+                      "target": "Target",
+                      "key": "_ABILITY_ABYSS_Electric_ELEMENTSHIELD_HIT",
+                      "born": {
+                        "$type": "AHBFOPDDMPB",
+                        "direction": {
+                          "$type": "KPKEFLCHOHD",
+                          "namedTransform": ""
+                        }
+                      },
+                      "setTarget": false
+                    }
+                  ],
+                  "failActions": [
+                    {
+                      "$type": "MoleMole.Config.SetGlobalDir",
+                      "target": "TargetOriginOwner",
+                      "key": "_ABILITY_ABYSS_Electric_ELEMENTSHIELD_HIT",
+                      "born": {
+                        "$type": "AHBFOPDDMPB",
+                        "direction": {
+                          "$type": "KPKEFLCHOHD",
+                          "namedTransform": ""
+                        }
+                      },
+                      "setTarget": false
+                    }
+                  ]
+                },
+                {
+                  "$type": "MoleMole.Config.FireEffect",
+                  "rotationDampTime": "Eff_Monster_Abyss_Electric_ElementShield_Hit_Invalid",
+                  "born": {
+                    "$type": "CGJIFGJJOJA",
+                    "direction": {
+                      "$type": "AIJHOFHPJJB",
+                      "directionKey": "_ABILITY_ABYSS_Electric_ELEMENTSHIELD_HIT"
+                    }
+                  },
+                  "NHGDGLICLFB": -1.0
+                },
+                {
+                  "$type": "MoleMole.Config.SendEffectTrigger",
+                  "parameter": "BeHitInvalid",
+                  "attachPoint": "",
+                  "rotationDampTime": "Eff_Monster_Abyss_Electric_ElementShield_BS"
+                }
+              ],
+              "onShieldFailed": [
+                {
+                  "$type": "MoleMole.Config.Predicated",
+                  "target": "Target",
+                  "targetPredicates": [
+                    {
+                      "$type": "BBBFIPNGHGH",
+                      "entityTypes": [
+                        "Avatar",
+                        "Partner"
+                      ]
+                    }
+                  ],
+                  "successActions": [
+                    {
+                      "$type": "MoleMole.Config.SetGlobalDir",
+                      "target": "Target",
+                      "key": "_ABILITY_ABYSS_Electric_ELEMENTSHIELD_HIT",
+                      "born": {
+                        "$type": "AHBFOPDDMPB",
+                        "direction": {
+                          "$type": "KPKEFLCHOHD",
+                          "namedTransform": ""
+                        }
+                      },
+                      "setTarget": false
+                    }
+                  ],
+                  "failActions": [
+                    {
+                      "$type": "MoleMole.Config.SetGlobalDir",
+                      "target": "TargetOriginOwner",
+                      "key": "_ABILITY_ABYSS_Electric_ELEMENTSHIELD_HIT",
+                      "born": {
+                        "$type": "AHBFOPDDMPB",
+                        "direction": {
+                          "$type": "KPKEFLCHOHD",
+                          "namedTransform": ""
+                        }
+                      },
+                      "setTarget": false
+                    }
+                  ]
+                },
+                {
+                  "$type": "MoleMole.Config.FireEffect",
+                  "rotationDampTime": "Eff_Monster_Abyss_Electric_ElementShield_Hit",
+                  "born": {
+                    "$type": "CGJIFGJJOJA",
+                    "direction": {
+                      "$type": "AIJHOFHPJJB",
+                      "directionKey": "_ABILITY_ABYSS_Electric_ELEMENTSHIELD_HIT"
+                    }
+                  },
+                  "NHGDGLICLFB": -1.0
+                },
+                {
+                  "$type": "MoleMole.Config.SendEffectTrigger",
+                  "parameter": "BeHit",
+                  "attachPoint": "",
+                  "rotationDampTime": "Eff_Monster_Abyss_Electric_ElementShield_BS"
+                }
+              ],
+              "useMutiPlayerFixData": true,
+              "updateShieldByMaxHp": true
+            },
+            {
+              "$type": "MoleMole.Config.VelocityForceMixin",
+              "excludeForces": [
+                "WindZoneType"
+              ]
+            }
+          ],
+          "properties": {
+            "Actor_EndureDelta": 0.0
+          },
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 1.0,
+              "key": "_ELEMENTSHIELD_TAG_",
+              "param2": 0.0,
+              "triggerID": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.ApplyModifier",
+              "modifierName": "UNIQUE_Abyss_Electric_MoveOnWaterHandler"
+            },
+            {
+              "$type": "MoleMole.Config.AttachAbilityStateResistance",
+              "resistanceListID": 14001
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.SetAnimatorTrigger",
+              "value": "ShiledBrokenTrigger"
+            },
+            {
+              "$type": "MoleMole.Config.SetPoseInt",
+              "intID": "ElementState"
+            },
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 0.0,
+              "key": "_ELEMENTSHIELD_TAG_",
+              "param2": 0.0,
+              "triggerID": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.TriggerAbility",
+              "abilityName": "Monster_Abyss_Electric_DizzyTimer"
+            },
+            {
+              "$type": "MoleMole.Config.RemoveUniqueModifier",
+              "predicates": [
+                {
+                  "$type": "POOFKGMBLNA",
+                  "key": "_RETURNTOBORN_TAG_",
+                  "param3": 0.0,
+                  "compareType": "NoneOrEqual"
+                }
+              ],
+              "modifierName": "UNIQUE_Abyss_Electric_MoveOnWaterHandler"
+            },
+            {
+              "$type": "MoleMole.Config.RemoveUniqueModifier",
+              "modifierName": "UNIQUE_Abyss_Electric_ElementShield_Effect"
+            },
+            {
+              "$type": "MoleMole.Config.KillSelf",
+              "predicates": [
+                {
+                  "$type": "POOFKGMBLNA",
+                  "key": "_MONSTER_ForCharAmusement_Shield",
+                  "param3": 1.0
+                }
+              ]
+            }
+          ],
+          "onBeingHit": [
+            {
+              "$type": "MoleMole.Config.DamageByAttackValue",
+              "target": "Target",
+              "predicates": [
+                {
+                  "$type": "POOFKGMBLNA",
+                  "key": "_ELITEAFFIX_DEFENCE_ENHANCE",
+                  "param3": 1.0,
+                  "forceByCaster": true
+                },
+                {
+                  "$type": "BBBFIPNGHGH",
+                  "entityTypes": [
+                    "Avatar"
+                  ]
+                },
+                {
+                  "$type": "COBKJPBALPC",
+                  "target": "Caster",
+                  "logic": "GreaterOrEqual",
+                  "param3": 301.0,
+                  "parameter": "PoseID"
+                }
+              ],
+              "attackInfo": {
+                "attackTag": "",
+                "attenuationTag": "",
+                "attenuationGroup": "default",
+                "attackProperty": {
+                  "AGMNCBAKCEF": 0.0,
+                  "AILJJDMKONE": 0.0,
+                  "elementType": "Electric",
+                  "bonusCriticalHurt": 25.0,
+                  "enBreak": 0.0,
+                  "bonusCritical": 0.0
+                },
+                "hitPattern": {
+                  "onHitEffectName": "none",
+                  "hitImpulseType": "LV0",
+                  "muteHitText": true
+                }
+              }
+            },
+            {
+              "$type": "MoleMole.Config.DamageByAttackValue",
+              "target": "TargetOwner",
+              "predicates": [
+                {
+                  "$type": "POOFKGMBLNA",
+                  "key": "_ELITEAFFIX_DEFENCE_ENHANCE",
+                  "param3": 1.0,
+                  "forceByCaster": true
+                },
+                {
+                  "$type": "BBBFIPNGHGH",
+                  "entityTypes": [
+                    "Avatar"
+                  ]
+                },
+                {
+                  "$type": "COBKJPBALPC",
+                  "target": "Caster",
+                  "logic": "GreaterOrEqual",
+                  "param3": 301.0,
+                  "parameter": "PoseID"
+                }
+              ],
+              "attackInfo": {
+                "attackTag": "",
+                "attenuationTag": "",
+                "attenuationGroup": "default",
+                "attackProperty": {
+                  "AGMNCBAKCEF": 0.0,
+                  "AILJJDMKONE": 0.0,
+                  "elementType": "Electric",
+                  "bonusCriticalHurt": 25.0,
+                  "enBreak": 0.0,
+                  "bonusCritical": 0.0
+                },
+                "hitPattern": {
+                  "onHitEffectName": "none",
+                  "hitImpulseType": "LV0",
+                  "muteHitText": true
+                }
+              }
+            }
+          ],
+          "onKill": [
+            {
+              "$type": "MoleMole.Config.RemoveUniqueModifier",
+              "modifierName": "UNIQUE_Abyss_Electric_ElementShield"
+            }
+          ]
+        },
+        "UNIQUE_Abyss_Electric_MoveOnWaterHandler": {
+          "modifierName": "",
+          "isUnique": true,
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.EnableCharacterMoveOnWaterMixin"
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.SetGlobalValueToOverrideMap",
+          "globalValueKey": "_MONSTERAFFIX_ELEMENTSHIELD_DURABILITYIMPROVE",
+          "overrideMapKey": "ElementShield_DurabilityImprove"
+        },
+        {
+          "$type": "MoleMole.Config.SetPoseInt",
+          "intID": "ElementState",
+          "value": 2
+        },
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "UNIQUE_Abyss_Electric_ElementShield"
+        }
+      ],
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.SetPoseInt",
+          "intID": "ElementState",
+          "value": 2
+        },
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "UNIQUE_Abyss_Electric_ElementShield"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Abyss_Electric_ElementShield_Effect",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToPoseIDMixin",
+          "poseIDs": [
+            300,
+            301,
+            302
+          ],
+          "modifierName": "Abyss_Electric_ElementShield_Effect_RecoverHandler"
+        }
+      ],
+      "modifiers": {
+        "UNIQUE_Abyss_Electric_ElementShield_Effect": {
+          "stacking": "Unique",
+          "modifierName": "",
+          "isUnique": true,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.EnableHitBoxByName",
+              "hitBoxNames": [
+                "HitBox_ElementShield"
+              ],
+              "setEnable": true
+            },
+            {
+              "$type": "MoleMole.Config.EnableHitBoxByName",
+              "hitBoxNames": [
+                "HitBox",
+                "HeadBox"
+              ]
+            },
+            {
+              "$type": "MoleMole.Config.EnablePushColliderName",
+              "pushColliderNames": [
+                "PushCollider_ElementShield"
+              ],
+              "setEnable": true
+            },
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_Monster_Abyss_Electric_ElementShield_BS",
+              "NHGDGLICLFB": -1.0
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.EnableHitBoxByName",
+              "hitBoxNames": [
+                "HitBox_ElementShield"
+              ]
+            },
+            {
+              "$type": "MoleMole.Config.EnableHitBoxByName",
+              "hitBoxNames": [
+                "HitBox",
+                "HeadBox"
+              ],
+              "setEnable": true
+            },
+            {
+              "$type": "MoleMole.Config.EnablePushColliderName",
+              "pushColliderNames": [
+                "PushCollider_ElementShield"
+              ]
+            }
+          ]
+        },
+        "Abyss_Electric_ElementShield_Effect_RecoverHandler": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onReconnect": [
+            {
+              "$type": "MoleMole.Config.ApplyModifier",
+              "modifierName": "UNIQUE_Abyss_Electric_ElementShield_Effect"
+            }
+          ]
+        }
+      },
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "predicates": [
+            {
+              "$type": "POOFKGMBLNA",
+              "key": "_ELEMENTSHIELD_TAG_",
+              "param3": 1.0
+            }
+          ],
+          "modifierName": "UNIQUE_Abyss_Electric_ElementShield_Effect"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Abyss_Electric_DizzyTimer",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToPoseIDMixin",
+          "poseIDs": [
+            100,
+            101
+          ],
+          "modifierName": "Abyss_Electric_DizzyTimer_Handler"
+        }
+      ],
+      "abilitySpecials": {
+        "ElementShield_GapReduce": 0.0
+      },
+      "modifiers": {
+        "Abyss_Electric_DizzyTimer_Handler": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.ApplyModifier",
+              "modifierName": "UNIQUE_Abyss_Electric_DizzyTimer"
+            }
+          ],
+          "onReconnect": [
+            {
+              "$type": "MoleMole.Config.ApplyModifier",
+              "modifierName": "UNIQUE_Abyss_Electric_DizzyTimer"
+            }
+          ]
+        },
+        "UNIQUE_Abyss_Electric_DizzyTimer": {
+          "stacking": "Unique",
+          "modifierName": "",
+          "isUnique": true,
+          "elementDurability": [
+            12.0,
+            "ElementShield_GapReduce",
+            "MUL",
+            12.0,
+            "ADD"
+          ],
+          "bonusCriticalHurt": 100.0,
+          "properties": {
+            "Actor_EndureDelta": 3.0
+          },
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.SetPoseInt",
+              "predicates": [
+                {
+                  "$type": "POOFKGMBLNA",
+                  "key": "_ELEMENTSHIELD_TAG_",
+                  "param3": 0.0,
+                  "compareType": "NoneOrEqual"
+                }
+              ],
+              "intID": "ElementState",
+              "value": 1
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.SetGlobalValueToOverrideMap",
+          "globalValueKey": "_MONSTERAFFIX_ELEMENTSHIELD_GAPREDUCE",
+          "overrideMapKey": "ElementShield_GapReduce"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Abyss_Electric_GatherSet",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToPoseIDMixin",
+          "poseIDs": [
+            201
+          ],
+          "modifierName": "GatherEndure"
+        },
+        {
+          "$type": "MoleMole.Config.AttachToStateIDMixin",
+          "stateIDs": [
+            "GatherStart",
+            "GatherLoop",
+            "GatherSuccess_Alert"
+          ],
+          "modifierName": "GatherState",
+          "BILMCNCKIAO": ""
+        }
+      ],
+      "modifiers": {
+        "GatherEndure": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "properties": {
+            "Actor_EndureDelta": 0.4000000059604645
+          }
+        },
+        "GatherState": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.SetPoseInt",
+              "predicates": [
+                {
+                  "$type": "POOFKGMBLNA",
+                  "key": "_ELEMENTSHIELD_TAG_",
+                  "param3": 0.0,
+                  "compareType": "NoneOrEqual"
+                }
+              ],
+              "intID": "ElementState"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Abyss_Electric_GatherLoop",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToStateIDMixin",
+          "stateIDs": [
+            "GatherLoop"
+          ],
+          "modifierName": "GatherLoop_Effect",
+          "BILMCNCKIAO": ""
+        },
+        {
+          "$type": "MoleMole.Config.AttachToStateIDMixin",
+          "stateIDs": [
+            "GatherStart",
+            "GatherLoop"
+          ],
+          "modifierName": "Gather_Barrage_Handler",
+          "BILMCNCKIAO": ""
+        }
+      ],
+      "modifiers": {
+        "GatherLoop_Effect": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_Monster_Abyss_Electric_Gather",
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        },
+        "Gather_Barrage_Handler": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "thinkInterval": 1.5,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.ApplyModifier",
+              "modifierName": "Gather_Barrage"
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 0.0,
+              "key": "_GATHER_BARRAGE_DIRECTION_",
+              "param2": 0.0,
+              "triggerID": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.RemoveModifier",
+              "modifierName": "Gather_Barrage"
+            },
+            {
+              "$type": "MoleMole.Config.KillSelf",
+              "otherTargets": {
+                "$type": "JHKLCAELLHL",
+                "configID": 42201020
+              }
+            },
+            {
+              "$type": "MoleMole.Config.KillServerGadget",
+              "gadgetInfo": {
+                "configID": 42201020
+              }
+            }
+          ],
+          "onThinkInterval": [
+            {
+              "$type": "MoleMole.Config.ApplyModifier",
+              "modifierName": "Gather_Barrage"
+            }
+          ]
+        },
+        "Gather_Barrage": {
+          "modifierName": "",
+          "elementDurability": 0.20000000298023224,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "targetPredicates": [
+                {
+                  "$type": "POOFKGMBLNA",
+                  "target": "Self",
+                  "key": "_GATHER_BARRAGE_DIRECTION_",
+                  "param3": 0.0
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "MoleMole.Config.CreateGadget",
+                  "lifeByOwnerIsAlive": true,
+                  "born": {
+                    "$type": "AHBFOPDDMPB",
+                    "offset": {
+                      "AOFNOGLCGMP": 0.0,
+                      "CHEGDAPFFHA": 0.0,
+                      "JEGKAACFHJK": 0.0
+                    },
+                    "direction": {
+                      "$type": "OEEJPHNIBLE",
+                      "angleOffset": {
+                        "AOFNOGLCGMP": 0.0,
+                        "CHEGDAPFFHA": 45.0,
+                        "JEGKAACFHJK": 0.0
+                      }
+                    }
+                  },
+                  "gadgetID": 42201020,
+                  "byServer": true
+                },
+                {
+                  "$type": "MoleMole.Config.SetGlobalValue",
+                  "param3": 1.0,
+                  "key": "_GATHER_BARRAGE_DIRECTION_",
+                  "param2": 0.0,
+                  "triggerID": 0.0
+                }
+              ],
+              "failActions": [
+                {
+                  "$type": "MoleMole.Config.CreateGadget",
+                  "lifeByOwnerIsAlive": true,
+                  "born": {
+                    "$type": "AHBFOPDDMPB",
+                    "offset": {
+                      "AOFNOGLCGMP": 0.0,
+                      "CHEGDAPFFHA": 0.0,
+                      "JEGKAACFHJK": 0.0
+                    },
+                    "direction": {
+                      "$type": "OEEJPHNIBLE",
+                      "angleOffset": {
+                        "AOFNOGLCGMP": 0.0,
+                        "CHEGDAPFFHA": 0.0,
+                        "JEGKAACFHJK": 0.0
+                      }
+                    }
+                  },
+                  "gadgetID": 42201020,
+                  "byServer": true
+                },
+                {
+                  "$type": "MoleMole.Config.SetGlobalValue",
+                  "param3": 0.0,
+                  "key": "_GATHER_BARRAGE_DIRECTION_",
+                  "param2": 0.0,
+                  "triggerID": 0.0
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.SetGlobalValue",
+          "param3": 0.0,
+          "key": "_GATHER_BARRAGE_DIRECTION_",
+          "param2": 0.0,
+          "triggerID": 0.0
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Abyss_Electric_GatherAlert",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToStateIDMixin",
+          "stateIDs": [
+            "GatherSuccess_Alert"
+          ],
+          "modifierName": "GatherAlert",
+          "BILMCNCKIAO": ""
+        }
+      ],
+      "modifiers": {
+        "GatherAlert": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_Monster_Abyss_Electric_Gather_Alert",
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Abyss_Electric_GatherSuccess",
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.RemoveUniqueModifier",
+          "modifierName": "UNIQUE_Abyss_Electric_DizzyTimer"
+        },
+        {
+          "$type": "MoleMole.Config.FireEffect",
+          "rotationDampTime": "Eff_Monster_Abyss_Electric_Gather_AS_Hor",
+          "born": {
+            "$type": "CGJIFGJJOJA",
+            "offset": {
+              "AOFNOGLCGMP": 0.0,
+              "CHEGDAPFFHA": 1.0,
+              "JEGKAACFHJK": 0.0
+            }
+          },
+          "NHGDGLICLFB": -1.0
+        },
+        {
+          "$type": "MoleMole.Config.TriggerAttackEvent",
+          "attackEvent": {
+            "attackPattern": {
+              "$type": "ABPNLDBPPHF",
+              "triggerType": "TriggerNoRepeat",
+              "born": {
+                "$type": "AHBFOPDDMPB",
+                "offset": {
+                  "AOFNOGLCGMP": 0.0,
+                  "CHEGDAPFFHA": 0.75,
+                  "JEGKAACFHJK": 0.0
+                }
+              },
+              "IDLDJCPGNHD": 5.0
+            },
+            "attackInfo": {
+              "attackTag": "",
+              "attenuationTag": "",
+              "attenuationGroup": "default",
+              "attackProperty": {
+                "AGMNCBAKCEF": 1.2000000476837158,
+                "AILJJDMKONE": 0.0,
+                "elementType": "Electric",
+                "bonusCriticalHurt": 50.0,
+                "strikeType": "Default",
+                "enBreak": 200.0,
+                "bonusCritical": 0.0
+              },
+              "hitPattern": {
+                "onHitEffectName": "default",
+                "hitImpulseType": "LV5",
+                "hitHaltTimeScale": 0.05000000074505806
+              }
+            }
+          },
+          "targetType": "Enemy"
+        },
+        {
+          "$type": "MoleMole.Config.FireEffect",
+          "rotationDampTime": "Eff_Monster_Abyss_Electric_Gather_AS_Ver",
+          "born": {
+            "$type": "CGJIFGJJOJA",
+            "offset": {
+              "AOFNOGLCGMP": 0.0,
+              "CHEGDAPFFHA": 0.0,
+              "JEGKAACFHJK": 0.0
+            }
+          },
+          "NHGDGLICLFB": -1.0
+        },
+        {
+          "$type": "MoleMole.Config.TriggerAttackEvent",
+          "attackEvent": {
+            "attackPattern": {
+              "$type": "ABLEKHNLCEE",
+              "triggerType": "TriggerNoRepeat",
+              "born": {
+                "$type": "AHBFOPDDMPB",
+                "offset": {
+                  "AOFNOGLCGMP": 0.0,
+                  "CHEGDAPFFHA": 5.0,
+                  "JEGKAACFHJK": -0.5
+                }
+              },
+              "size": {
+                "AOFNOGLCGMP": 1.0,
+                "CHEGDAPFFHA": 10.0,
+                "JEGKAACFHJK": 1.0
+              }
+            },
+            "attackInfo": {
+              "attackTag": "",
+              "attenuationTag": "",
+              "attenuationGroup": "default",
+              "attackProperty": {
+                "AGMNCBAKCEF": 1.600000023841858,
+                "AILJJDMKONE": 0.0,
+                "elementType": "Electric",
+                "bonusCriticalHurt": 50.0,
+                "strikeType": "Default",
+                "enBreak": 200.0,
+                "bonusCritical": 0.0
+              },
+              "hitPattern": {
+                "onHitEffectName": "default",
+                "hitImpulseType": "LV5",
+                "hitHaltTimeScale": 0.05000000074505806
+              }
+            }
+          },
+          "targetType": "Enemy"
+        },
+        {
+          "$type": "MoleMole.Config.ActCameraShake",
+          "cameraShake": {
+            "shakeType": "CustomVector",
+            "shakeRange": 0.1599999964237213,
+            "shakeTime": 0.30000001192092896,
+            "shakeDistance": 25.0,
+            "shakeDir": {
+              "y": 1.0
+            },
+            "extension": {
+              "baseCycle": 0.07999999821186066,
+              "cycleDamping": 0.03999999910593033,
+              "rangeAttenuation": 0.8999999761581421
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Abyss_Electric_GatherBarrageEmitter",
+      "modifiers": {
+        "GatherBarrageWave": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.TriggerBullet",
+              "bulletID": 42201018,
+              "born": {
+                "$type": "POAPJOHEDDM",
+                "offset": {
+                  "AOFNOGLCGMP": 0.0,
+                  "CHEGDAPFFHA": 0.0,
+                  "JEGKAACFHJK": 0.0
+                },
+                "direction": {
+                  "$type": "JOHHBEHLHLO",
+                  "attachPointName": "BarrageAttachPoint1",
+                  "attachPointTargetType": "Self"
+                },
+                "attachPointName": "BarrageAttachPoint1"
+              }
+            },
+            {
+              "$type": "MoleMole.Config.TriggerBullet",
+              "bulletID": 42201018,
+              "born": {
+                "$type": "POAPJOHEDDM",
+                "offset": {
+                  "AOFNOGLCGMP": 0.0,
+                  "CHEGDAPFFHA": 0.0,
+                  "JEGKAACFHJK": 0.0
+                },
+                "direction": {
+                  "$type": "JOHHBEHLHLO",
+                  "attachPointName": "BarrageAttachPoint2",
+                  "attachPointTargetType": "Self"
+                },
+                "attachPointName": "BarrageAttachPoint2"
+              }
+            },
+            {
+              "$type": "MoleMole.Config.TriggerBullet",
+              "bulletID": 42201018,
+              "born": {
+                "$type": "POAPJOHEDDM",
+                "offset": {
+                  "AOFNOGLCGMP": 0.0,
+                  "CHEGDAPFFHA": 0.0,
+                  "JEGKAACFHJK": 0.0
+                },
+                "direction": {
+                  "$type": "JOHHBEHLHLO",
+                  "attachPointName": "BarrageAttachPoint3",
+                  "attachPointTargetType": "Self"
+                },
+                "attachPointName": "BarrageAttachPoint3"
+              }
+            },
+            {
+              "$type": "MoleMole.Config.TriggerBullet",
+              "bulletID": 42201018,
+              "born": {
+                "$type": "POAPJOHEDDM",
+                "offset": {
+                  "AOFNOGLCGMP": 0.0,
+                  "CHEGDAPFFHA": 0.0,
+                  "JEGKAACFHJK": 0.0
+                },
+                "direction": {
+                  "$type": "JOHHBEHLHLO",
+                  "attachPointName": "BarrageAttachPoint4",
+                  "attachPointTargetType": "Self"
+                },
+                "attachPointName": "BarrageAttachPoint4"
+              }
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "GatherBarrageWave"
+        }
+      ],
+      "onKill": [
+        {
+          "$type": "MoleMole.Config.RemoveModifier",
+          "modifierName": "GatherBarrageWave"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Abyss_Electric_GatherBarrage_Hit",
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.TriggerAttackEvent",
+          "attackEvent": {
+            "attackPattern": {
+              "$type": "CDFDJKDFCFJ",
+              "triggerType": "TriggerNoRepeat",
+              "ignoreMassive": true,
+              "born": {
+                "$type": "KKKABMDCNIJ"
+              },
+              "IDLDJCPGNHD": 1.25
+            },
+            "attackInfo": {
+              "attackTag": "",
+              "attenuationTag": "",
+              "attenuationGroup": "default",
+              "attackProperty": {
+                "AGMNCBAKCEF": 0.4000000059604645,
+                "AILJJDMKONE": 0.0,
+                "elementType": "Electric",
+                "bonusCriticalHurt": 25.0,
+                "strikeType": "Blunt",
+                "enBreak": 50.0,
+                "bonusCritical": 0.0
+              },
+              "hitPattern": {
+                "onHitEffectName": "default",
+                "hitImpulseType": "LV3",
+                "hitHaltTimeScale": 0.009999999776482582
+              },
+              "canBeModifiedBy": "OriginOwner"
+            }
+          },
+          "targetType": "Enemy"
+        },
+        {
+          "$type": "MoleMole.Config.FireHitEffect",
+          "hitEntity": "Eff_Monster_Abyss_Electric_GatherBullet_AS",
+          "hitScene": {
+            "defaultEffect": "Eff_Monster_Abyss_Electric_GatherBullet_AS"
+          }
+        },
+        {
+          "$type": "MoleMole.Config.KillSelf"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Abyss_Electric_GatherBarrage_Effect",
+      "modifiers": {
+        "GatherBarrage_BS": {
+          "modifierName": "",
+          "elementDurability": 0.800000011920929,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_Monster_Abyss_Electric_GatherBullet_BS",
+              "NHGDGLICLFB": -1.0
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.ApplyModifier",
+              "modifierName": "GatherBarrage_Loop"
+            }
+          ]
+        },
+        "GatherBarrage_Loop": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_Monster_Abyss_Electric_GatherBullet_Loop",
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "GatherBarrage_BS"
+        }
+      ],
+      "onKill": [
+        {
+          "$type": "MoleMole.Config.FireEffect",
+          "rotationDampTime": "Eff_Monster_Abyss_Electric_GatherBullet_AS",
+          "NHGDGLICLFB": -1.0
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Abyss_Electric_BlinkEffect",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToStateIDMixin",
+          "stateIDs": [
+            "Blink"
+          ],
+          "modifierName": "Blink_State",
+          "BILMCNCKIAO": ""
+        }
+      ],
+      "modifiers": {
+        "Blink_State": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.RemoveUniqueModifier",
+              "modifierName": "UNIQUE_Blink_Shield"
+            },
+            {
+              "$type": "MoleMole.Config.RemoveUniqueModifier",
+              "modifierName": "UNIQUE_Blink_Actions"
+            }
+          ]
+        },
+        "UNIQUE_Blink_Shield": {
+          "modifierName": "",
+          "isUnique": true,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.RemoveUniqueModifier",
+              "modifierName": "UNIQUE_Abyss_Electric_ElementShield_Effect"
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.TriggerAbility",
+              "predicates": [
+                {
+                  "$type": "POOFKGMBLNA",
+                  "key": "_ELEMENTSHIELD_TAG_",
+                  "param3": 1.0
+                }
+              ],
+              "abilityName": "Monster_Abyss_Electric_ElementShield_Effect"
+            }
+          ]
+        },
+        "UNIQUE_Blink_Actions": {
+          "modifierName": "",
+          "isUnique": true,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachModifier",
+              "modifierName": "Blink_Invincible"
+            },
+            {
+              "$type": "MoleMole.Config.AttachModifier",
+              "modifierName": "Blink_DenyLockOn"
+            },
+            {
+              "$type": "MoleMole.Config.TriggerSetVisible"
+            },
+            {
+              "$type": "MoleMole.Config.TriggerHideWeapon",
+              "partNames": [
+                "equip01"
+              ]
+            },
+            {
+              "$type": "MoleMole.Config.HideUIBillBoard",
+              "hide": true
+            },
+            {
+              "$type": "MoleMole.Config.EnableHitBoxByName",
+              "hitBoxNames": [
+                "HitBox",
+                "HeadBox"
+              ]
+            },
+            {
+              "$type": "MoleMole.Config.EnablePushColliderName",
+              "pushColliderNames": [
+                "PushCollider"
+              ]
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.EnableHitBoxByName",
+              "hitBoxNames": [
+                "HitBox",
+                "HeadBox"
+              ],
+              "setEnable": true
+            },
+            {
+              "$type": "MoleMole.Config.EnablePushColliderName",
+              "pushColliderNames": [
+                "PushCollider"
+              ],
+              "setEnable": true
+            },
+            {
+              "$type": "MoleMole.Config.TriggerSetVisible",
+              "EKCJEIECJJH": true
+            },
+            {
+              "$type": "MoleMole.Config.TriggerHideWeapon",
+              "EKCJEIECJJH": true,
+              "partNames": [
+                "equip01"
+              ]
+            },
+            {
+              "$type": "MoleMole.Config.HideUIBillBoard"
+            }
+          ]
+        },
+        "Blink_Invincible": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "state": "Invincible"
+        },
+        "Blink_DenyLockOn": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "state": "DenyLockOn"
+        }
+      },
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "UNIQUE_Blink_Shield"
+        },
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "UNIQUE_Blink_Actions"
+        },
+        {
+          "$type": "MoleMole.Config.FireEffect",
+          "rotationDampTime": "Eff_Monster_Abyss_Electric_Blink_BS",
+          "NHGDGLICLFB": -1.0
+        },
+        {
+          "$type": "MoleMole.Config.ClearLockTarget",
+          "target": "CurLocalAvatar"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Abyss_Electric_FindBlinkPoint",
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.TryFindBlinkPoint",
+          "target": "SelfAttackTarget",
+          "forwardAngle": 45.0,
+          "minRange": 1.0,
+          "maxRange": 2.5
+        },
+        {
+          "$type": "MoleMole.Config.FireEffect",
+          "rotationDampTime": "Eff_Monster_Abyss_Electric_Blink",
+          "born": {
+            "$type": "FICAJIGICAH"
+          },
+          "NHGDGLICLFB": -1.0
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Abyss_Electric_DoBlink",
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.DoBlink"
+        },
+        {
+          "$type": "MoleMole.Config.TriggerAbility",
+          "predicates": [
+            {
+              "$type": "POOFKGMBLNA",
+              "key": "_ELITEAFFIX_ATTACK_ENHANCE",
+              "param3": 1.0
+            }
+          ],
+          "abilityName": "Monster_Abyss_Electric_Elite_BlinkAction"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Abyss_Electric_DoBlink_Visible",
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.FireEffect",
+          "rotationDampTime": "Eff_Monster_Abyss_Electric_Blink_AS",
+          "born": {
+            "$type": "CGJIFGJJOJA",
+            "offset": {
+              "AOFNOGLCGMP": 0.0,
+              "CHEGDAPFFHA": 0.6499999761581421,
+              "JEGKAACFHJK": 0.0
+            }
+          },
+          "NHGDGLICLFB": -1.0
+        },
+        {
+          "$type": "MoleMole.Config.RemoveUniqueModifier",
+          "modifierName": "UNIQUE_Blink_Actions"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Abyss_Electric_DoBlink_Damage",
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.FireEffect",
+          "rotationDampTime": "Eff_Monster_Abyss_Electric_MagneticStorm",
+          "born": {
+            "$type": "AHBFOPDDMPB",
+            "offset": {
+              "AOFNOGLCGMP": 0.0,
+              "CHEGDAPFFHA": 1.2000000476837158,
+              "JEGKAACFHJK": 0.0
+            }
+          },
+          "NHGDGLICLFB": -1.0
+        },
+        {
+          "$type": "MoleMole.Config.TriggerAttackEvent",
+          "attackEvent": {
+            "attackPattern": {
+              "$type": "CDFDJKDFCFJ",
+              "triggerType": "TriggerNoRepeat",
+              "born": {
+                "$type": "AHBFOPDDMPB",
+                "offset": {
+                  "AOFNOGLCGMP": 0.0,
+                  "CHEGDAPFFHA": 1.0,
+                  "JEGKAACFHJK": 0.0
+                }
+              },
+              "IDLDJCPGNHD": 2.5
+            },
+            "attackInfo": {
+              "attackTag": "",
+              "attenuationTag": "",
+              "attenuationGroup": "default",
+              "attackProperty": {
+                "AGMNCBAKCEF": 1.0,
+                "AILJJDMKONE": 0.0,
+                "elementType": "Electric",
+                "bonusCriticalHurt": 50.0,
+                "strikeType": "Default",
+                "enBreak": 200.0,
+                "bonusCritical": 0.0
+              },
+              "hitPattern": {
+                "onHitEffectName": "default",
+                "hitImpulseType": "LV5",
+                "hitHaltTimeScale": 0.05000000074505806
+              }
+            }
+          },
+          "targetType": "Enemy"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Abyss_Electric_Blink_AS",
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.RemoveUniqueModifier",
+          "modifierName": "UNIQUE_Blink_Shield"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Abyss_Electric_Elite_BlinkAction",
+      "modifiers": {
+        "Abyss_Electric_Elite_BlinkDelay": {
+          "modifierName": "",
+          "elementDurability": 0.30000001192092896,
+          "bonusCriticalHurt": 100.0,
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.TriggerBullet",
+              "bulletID": 42201022
+            },
+            {
+              "$type": "MoleMole.Config.ApplyModifier",
+              "modifierName": "UNIQUE_Abyss_Electric_Elite_ElectricCircle_Timer"
+            }
+          ]
+        },
+        "UNIQUE_Abyss_Electric_Elite_ElectricCircle_Timer": {
+          "modifierName": "",
+          "isUnique": true,
+          "elementDurability": 6.5,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetPoseBool",
+              "boolID": "ElectricCircle",
+              "param3": true
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.SetPoseBool",
+              "boolID": "ElectricCircle"
+            }
+          ]
+        }
+      },
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "Abyss_Electric_Elite_BlinkDelay"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Abyss_Electric_ForceDefend",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToPoseIDMixin",
+          "poseIDs": [
+            101
+          ],
+          "modifierName": "ForceDefend"
+        }
+      ],
+      "modifiers": {
+        "ForceDefend": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.MonsterDefendMixin",
+              "stateIDs": [
+                "BeHit",
+                "BeHitThrow"
+              ],
+              "defendTriggerID": "DefendTrigger",
+              "defendProbability": 0.20000000298023224,
+              "defendProbabilityDelta": 0.0,
+              "defendTimeInterval": 8.0,
+              "alwaysRecover": false,
+              "ICOAJNCIGEN": 0,
+              "onDefendSucceded": [
+                {
+                  "$type": "MoleMole.Config.TriggerAbility",
+                  "abilityName": "Monster_Abyss_Electric_ForceBlink"
+                },
+                {
+                  "$type": "MoleMole.Config.ClearLockTarget",
+                  "target": "CurLocalAvatar"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Abyss_Electric_ForceBlink",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToStateIDMixin",
+          "stateIDs": [
+            "ForceBlink"
+          ],
+          "modifierName": "ForceBlink_State",
+          "BILMCNCKIAO": ""
+        }
+      ],
+      "modifiers": {
+        "ForceBlink_State": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.RemoveUniqueModifier",
+              "modifierName": "UNIQUE_ForceBlink_Actions"
+            }
+          ]
+        },
+        "UNIQUE_ForceBlink_Actions": {
+          "modifierName": "",
+          "isUnique": true,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachModifier",
+              "modifierName": "ForceBlink_Invincible"
+            },
+            {
+              "$type": "MoleMole.Config.AttachModifier",
+              "modifierName": "ForceBlink_DenyLockOn"
+            },
+            {
+              "$type": "MoleMole.Config.TriggerSetVisible"
+            },
+            {
+              "$type": "MoleMole.Config.TriggerHideWeapon",
+              "partNames": [
+                "equip01"
+              ]
+            },
+            {
+              "$type": "MoleMole.Config.HideUIBillBoard",
+              "hide": true
+            },
+            {
+              "$type": "MoleMole.Config.EnableHitBoxByName",
+              "hitBoxNames": [
+                "HitBox",
+                "HeadBox"
+              ]
+            },
+            {
+              "$type": "MoleMole.Config.EnablePushColliderName",
+              "pushColliderNames": [
+                "PushCollider"
+              ]
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.EnableHitBoxByName",
+              "hitBoxNames": [
+                "HitBox",
+                "HeadBox"
+              ],
+              "setEnable": true
+            },
+            {
+              "$type": "MoleMole.Config.EnablePushColliderName",
+              "pushColliderNames": [
+                "PushCollider"
+              ],
+              "setEnable": true
+            },
+            {
+              "$type": "MoleMole.Config.TriggerSetVisible",
+              "EKCJEIECJJH": true
+            },
+            {
+              "$type": "MoleMole.Config.TriggerHideWeapon",
+              "EKCJEIECJJH": true,
+              "partNames": [
+                "equip01"
+              ]
+            },
+            {
+              "$type": "MoleMole.Config.HideUIBillBoard"
+            }
+          ]
+        },
+        "ForceBlink_Invincible": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "state": "Invincible"
+        },
+        "ForceBlink_DenyLockOn": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "state": "DenyLockOn"
+        }
+      },
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.RemoveUniqueModifier",
+          "modifierName": "UNIQUE_Abyss_Electric_DizzyTimer"
+        },
+        {
+          "$type": "MoleMole.Config.TryFindBlinkPoint",
+          "target": "SelfAttackTarget",
+          "forwardAngle": 30.0,
+          "minRange": 9.0,
+          "maxRange": 12.0
+        },
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "UNIQUE_ForceBlink_Actions"
+        },
+        {
+          "$type": "MoleMole.Config.FireEffect",
+          "rotationDampTime": "Eff_Monster_Abyss_Electric_Blink_BS",
+          "NHGDGLICLFB": -1.0
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Abyss_Electric_ForceBlink_DoBlink",
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.DoBlink"
+        },
+        {
+          "$type": "MoleMole.Config.FireEffect",
+          "rotationDampTime": "Eff_Monster_Abyss_Electric_Blink_AS",
+          "born": {
+            "$type": "POAPJOHEDDM",
+            "attachPointName": "RootNode"
+          },
+          "NHGDGLICLFB": -1.0
+        },
+        {
+          "$type": "MoleMole.Config.TriggerAbility",
+          "predicates": [
+            {
+              "$type": "POOFKGMBLNA",
+              "key": "_ELITEAFFIX_ATTACK_ENHANCE",
+              "param3": 1.0
+            }
+          ],
+          "abilityName": "Monster_Abyss_Electric_Elite_BlinkAction"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Abyss_Electric_ForceBlink_Visible",
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.RemoveUniqueModifier",
+          "modifierName": "UNIQUE_ForceBlink_Actions"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Abyss_Electric_ForceBlink_AS",
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.SetPoseInt",
+          "intID": "ElementState",
+          "value": 1
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Abyss_Electric_ReturnToBorn",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachToStateIDMixin",
+          "stateIDs": [
+            "ReturnToBorn"
+          ],
+          "modifierName": "ReturnToBorn_Disappear",
+          "BILMCNCKIAO": ""
+        }
+      ],
+      "modifiers": {
+        "ReturnToBorn_Disappear": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 1.0,
+              "key": "_RETURNTOBORN_TAG_",
+              "param2": 0.0,
+              "triggerID": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.AttachModifier",
+              "modifierName": "UNIQUE_ReturnToBorn_Shield"
+            },
+            {
+              "$type": "MoleMole.Config.AttachModifier",
+              "modifierName": "UNIQUE_ReturnToBorn_Actions"
+            },
+            {
+              "$type": "MoleMole.Config.AttachModifier",
+              "modifierName": "UNIQUE_ReturnToBorn_Dizzy"
+            },
+            {
+              "$type": "MoleMole.Config.FireEffect",
+              "rotationDampTime": "Eff_Monster_Abyss_Electric_Blink_BS",
+              "NHGDGLICLFB": -1.0
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 0.0,
+              "key": "_RETURNTOBORN_TAG_",
+              "param2": 0.0,
+              "triggerID": 0.0
+            }
+          ]
+        },
+        "UNIQUE_ReturnToBorn_Shield": {
+          "modifierName": "",
+          "isUnique": true,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.RemoveUniqueModifier",
+              "modifierName": "UNIQUE_Abyss_Electric_ElementShield"
+            },
+            {
+              "$type": "MoleMole.Config.ResetAnimatorTrigger",
+              "value": "ShiledBrokenTrigger"
+            },
+            {
+              "$type": "MoleMole.Config.AttachModifier",
+              "modifierName": "ReturnToBorn_Invincible"
+            },
+            {
+              "$type": "MoleMole.Config.AttachModifier",
+              "modifierName": "ReturnToBorn_DenyLockOn"
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.SetPoseInt",
+              "intID": "ElementState",
+              "value": 2
+            },
+            {
+              "$type": "MoleMole.Config.TriggerAbility",
+              "abilityName": "Monster_Abyss_Electric_ElementShield"
+            }
+          ]
+        },
+        "UNIQUE_ReturnToBorn_Dizzy": {
+          "modifierName": "",
+          "isUnique": true,
+          "bonusCriticalHurt": 100.0,
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.RemoveUniqueModifier",
+              "modifierName": "UNIQUE_Abyss_Electric_DizzyTimer"
+            },
+            {
+              "$type": "MoleMole.Config.SetPoseInt",
+              "intID": "ElementState",
+              "value": 2
+            },
+            {
+              "$type": "MoleMole.Config.TriggerAbility",
+              "abilityName": "Monster_Abyss_Electric_ElementShield"
+            },
+            {
+              "$type": "MoleMole.Config.TriggerAbility",
+              "abilityName": "Monster_Abyss_Electric_ElementShield_Effect"
+            }
+          ]
+        },
+        "UNIQUE_ReturnToBorn_Actions": {
+          "modifierName": "",
+          "isUnique": true,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.TriggerSetVisible"
+            },
+            {
+              "$type": "MoleMole.Config.TriggerHideWeapon",
+              "partNames": [
+                "equip01"
+              ]
+            },
+            {
+              "$type": "MoleMole.Config.HideUIBillBoard",
+              "hide": true
+            },
+            {
+              "$type": "MoleMole.Config.EnableHitBoxByName",
+              "hitBoxNames": [
+                "HitBox",
+                "HeadBox",
+                "HitBox_ElementShield"
+              ]
+            },
+            {
+              "$type": "MoleMole.Config.EnablePushColliderName",
+              "pushColliderNames": [
+                "PushCollider",
+                "PushCollider_ElementShield"
+              ]
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.TriggerSetVisible",
+              "EKCJEIECJJH": true
+            },
+            {
+              "$type": "MoleMole.Config.TriggerHideWeapon",
+              "EKCJEIECJJH": true,
+              "partNames": [
+                "equip01"
+              ]
+            },
+            {
+              "$type": "MoleMole.Config.HideUIBillBoard"
+            },
+            {
+              "$type": "MoleMole.Config.EnableHitBoxByName",
+              "hitBoxNames": [
+                "HitBox",
+                "HeadBox"
+              ],
+              "setEnable": true
+            },
+            {
+              "$type": "MoleMole.Config.EnablePushColliderName",
+              "pushColliderNames": [
+                "PushCollider"
+              ],
+              "setEnable": true
+            }
+          ]
+        },
+        "ReturnToBorn_Invincible": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "state": "Invincible"
+        },
+        "ReturnToBorn_DenyLockOn": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "state": "DenyLockOn"
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.SetGlobalValue",
+          "param3": 0.0,
+          "key": "_RETURNTOBORN_TAG_",
+          "param2": 0.0,
+          "triggerID": 0.0
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Abyss_Electric_ReturnToBorn_AS",
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.FireEffect",
+          "rotationDampTime": "Eff_Monster_Abyss_Electric_Blink_AS",
+          "born": {
+            "$type": "CGJIFGJJOJA",
+            "offset": {
+              "AOFNOGLCGMP": 0.0,
+              "CHEGDAPFFHA": 0.6499999761581421,
+              "JEGKAACFHJK": 0.0
+            }
+          },
+          "NHGDGLICLFB": -1.0
+        },
+        {
+          "$type": "MoleMole.Config.RemoveUniqueModifier",
+          "modifierName": "UNIQUE_ReturnToBorn_Dizzy"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Abyss_Electric_ReturnToBorn_Visible",
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.RemoveUniqueModifier",
+          "modifierName": "UNIQUE_ReturnToBorn_Actions"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Abyss_Electric_ReturnToBorn_ElementShield",
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.RemoveUniqueModifier",
+          "modifierName": "UNIQUE_ReturnToBorn_Shield"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Abyss_Electric_ElectricBall",
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.TriggerBullet",
+          "predicates": [
+            {
+              "$type": "POOFKGMBLNA",
+              "target": "Self",
+              "key": "_ELITEAFFIX_ATTACK_ENHANCE",
+              "param3": 0.0,
+              "compareType": "NoneOrEqual"
+            }
+          ],
+          "bulletID": 42201019,
+          "born": {
+            "$type": "POAPJOHEDDM",
+            "offset": {
+              "AOFNOGLCGMP": 0.0,
+              "CHEGDAPFFHA": 0.0,
+              "JEGKAACFHJK": 0.0
+            },
+            "direction": {
+              "$type": "HAEIKNNFLFO",
+              "PDKJDHJIEJB": ""
+            },
+            "attachPointName": "ElectricBall"
+          }
+        },
+        {
+          "$type": "MoleMole.Config.TriggerBullet",
+          "predicates": [
+            {
+              "$type": "POOFKGMBLNA",
+              "target": "Self",
+              "key": "_ELITEAFFIX_ATTACK_ENHANCE",
+              "param3": 1.0
+            }
+          ],
+          "bulletID": 42201023,
+          "born": {
+            "$type": "POAPJOHEDDM",
+            "offset": {
+              "AOFNOGLCGMP": 0.0,
+              "CHEGDAPFFHA": 0.0,
+              "JEGKAACFHJK": 0.0
+            },
+            "direction": {
+              "$type": "HAEIKNNFLFO",
+              "PDKJDHJIEJB": ""
+            },
+            "attachPointName": "ElectricBall"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Abyss_Electric_ElectricBall_Hit",
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.TriggerAttackEvent",
+          "attackEvent": {
+            "attackPattern": {
+              "$type": "CDFDJKDFCFJ",
+              "triggerType": "TriggerNoRepeat",
+              "born": {
+                "$type": "KKKABMDCNIJ"
+              },
+              "IDLDJCPGNHD": 0.5
+            },
+            "attackInfo": {
+              "attackTag": "",
+              "attenuationTag": "",
+              "attenuationGroup": "default",
+              "attackProperty": {
+                "AGMNCBAKCEF": 0.6000000238418579,
+                "AILJJDMKONE": 0.0,
+                "elementType": "Electric",
+                "bonusCriticalHurt": 50.0,
+                "strikeType": "Blunt",
+                "enBreak": 150.0,
+                "bonusCritical": 0.0
+              },
+              "hitPattern": {
+                "onHitEffectName": "default",
+                "hitImpulseType": "LV3",
+                "hitHaltTimeScale": 0.009999999776482582
+              },
+              "canBeModifiedBy": "OriginOwner"
+            }
+          },
+          "targetType": "Enemy"
+        },
+        {
+          "$type": "MoleMole.Config.FireHitEffect",
+          "hitEntity": "Eff_Monster_Abyss_Electric_ElectricBullet_AS",
+          "hitScene": {
+            "defaultEffect": "Eff_Monster_Abyss_Electric_ElectricBullet_AS"
+          }
+        },
+        {
+          "$type": "MoleMole.Config.KillSelf"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Abyss_Electric_ElectricBall_Effect",
+      "modifiers": {
+        "ElectricBall_Effect": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_Monster_Abyss_Electric_ElectricBullet_Loop",
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "ElectricBall_Effect"
+        }
+      ],
+      "onKill": [
+        {
+          "$type": "MoleMole.Config.FireHitEffect",
+          "hitEntity": "Eff_Monster_Abyss_Electric_ElectricBullet_AS"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Abyss_Electric_ElectricCircle",
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.TriggerBullet",
+          "predicates": [
+            {
+              "$type": "POOFKGMBLNA",
+              "key": "_ELITEAFFIX_ATTACK_ENHANCE",
+              "param3": 0.0,
+              "compareType": "NoneOrEqual"
+            }
+          ],
+          "bulletID": 42201021
+        },
+        {
+          "$type": "MoleMole.Config.FireEffect",
+          "predicates": [
+            {
+              "$type": "POOFKGMBLNA",
+              "key": "_ELITEAFFIX_ATTACK_ENHANCE",
+              "param3": 0.0,
+              "compareType": "NoneOrEqual"
+            }
+          ],
+          "rotationDampTime": "Eff_Monster_Abyss_Electric_ElectricCircle_Damage",
+          "born": {
+            "$type": "AHBFOPDDMPB",
+            "offset": {
+              "AOFNOGLCGMP": 0.0,
+              "CHEGDAPFFHA": 1.0,
+              "JEGKAACFHJK": 0.0
+            }
+          },
+          "NHGDGLICLFB": -1.0
+        },
+        {
+          "$type": "MoleMole.Config.TriggerBullet",
+          "predicates": [
+            {
+              "$type": "POOFKGMBLNA",
+              "key": "_ELITEAFFIX_ATTACK_ENHANCE",
+              "param3": 1.0
+            }
+          ],
+          "bulletID": 42201022
+        }
+      ],
+      "onKill": [
+        {
+          "$type": "MoleMole.Config.KillSelf",
+          "otherTargets": {
+            "$type": "JHKLCAELLHL",
+            "configID": 42201021
+          },
+          "predicates": [
+            {
+              "$type": "POOFKGMBLNA",
+              "target": "Self",
+              "key": "_ELITEAFFIX_ATTACK_ENHANCE",
+              "param3": 0.0,
+              "compareType": "NoneOrEqual"
+            }
+          ]
+        },
+        {
+          "$type": "MoleMole.Config.KillSelf",
+          "otherTargets": {
+            "$type": "JHKLCAELLHL",
+            "configID": 42201022
+          },
+          "predicates": [
+            {
+              "$type": "POOFKGMBLNA",
+              "target": "Self",
+              "key": "_ELITEAFFIX_ATTACK_ENHANCE",
+              "param3": 1.0
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Abyss_Electric_ElectricCircle_Hit",
+      "modifiers": {
+        "ElectricCircle_Timer": {
+          "modifierName": "",
+          "elementDurability": 0.23000000417232513,
+          "bonusCriticalHurt": 100.0,
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.ApplyModifier",
+              "modifierName": "ElectricCircle_Damage"
+            }
+          ]
+        },
+        "ElectricCircle_Damage": {
+          "modifierName": "",
+          "elementDurability": 2.9000000953674316,
+          "bonusCriticalHurt": 100.0,
+          "thinkInterval": 0.10000000149011612,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.EnableBulletCollisionPluginTrigger"
+            }
+          ],
+          "onThinkInterval": [
+            {
+              "$type": "MoleMole.Config.TriggerAttackEvent",
+              "attackEvent": {
+                "attackPattern": {
+                  "$type": "ABPNLDBPPHF",
+                  "triggerType": "TriggerNoRepeat",
+                  "born": {
+                    "$type": "AHBFOPDDMPB",
+                    "offset": {
+                      "AOFNOGLCGMP": 0.0,
+                      "CHEGDAPFFHA": 0.0,
+                      "JEGKAACFHJK": 0.0
+                    }
+                  },
+                  "height": 1.2000000476837158,
+                  "IDLDJCPGNHD": 5.75,
+                  "BKCGFGDBNGH": 4.5
+                },
+                "attackInfo": {
+                  "attackTag": "",
+                  "attenuationTag": "Monster_Abyss_Electric_ElectricCircle",
+                  "attenuationGroup": "Monster_Abyss_Electric_ElectricCircle",
+                  "attackProperty": {
+                    "AGMNCBAKCEF": 0.800000011920929,
+                    "AILJJDMKONE": 0.0,
+                    "elementType": "Electric",
+                    "bonusCriticalHurt": 25.0,
+                    "strikeType": "Blunt",
+                    "enBreak": 100.0,
+                    "bonusCritical": 0.0
+                  },
+                  "hitPattern": {
+                    "onHitEffectName": "default",
+                    "hitImpulseType": "LV3",
+                    "hitHaltTimeScale": 0.009999999776482582
+                  },
+                  "canBeModifiedBy": "OriginOwner"
+                }
+              },
+              "targetType": "Enemy"
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "ElectricCircle_Timer"
+        }
+      ],
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.DamageByAttackValue",
+          "target": "Target",
+          "attackInfo": {
+            "attackTag": "",
+            "attenuationTag": "",
+            "attenuationGroup": "default",
+            "attackProperty": {
+              "AGMNCBAKCEF": 0.800000011920929,
+              "AILJJDMKONE": 0.0,
+              "elementType": "Electric",
+              "bonusCriticalHurt": 25.0,
+              "strikeType": "Blunt",
+              "enBreak": 100.0,
+              "bonusCritical": 0.0
+            },
+            "hitPattern": {
+              "onHitEffectName": "default",
+              "hitImpulseType": "LV3",
+              "hitHaltTimeScale": 0.009999999776482582
+            },
+            "canBeModifiedBy": "OriginOwner"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Abyss_Electric_Elite_ElectricCircle_Hit",
+      "modifiers": {
+        "ElectricCircle_Elite_Timer": {
+          "modifierName": "",
+          "elementDurability": 0.23000000417232513,
+          "bonusCriticalHurt": 100.0,
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.ApplyModifier",
+              "modifierName": "ElectricCircle_Elite_Damage"
+            }
+          ]
+        },
+        "ElectricCircle_Elite_Damage": {
+          "modifierName": "",
+          "elementDurability": 5.800000190734863,
+          "bonusCriticalHurt": 100.0,
+          "thinkInterval": 0.10000000149011612,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.EnableBulletCollisionPluginTrigger"
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.KillSelf"
+            }
+          ],
+          "onThinkInterval": [
+            {
+              "$type": "MoleMole.Config.TriggerAttackEvent",
+              "attackEvent": {
+                "attackPattern": {
+                  "$type": "ABPNLDBPPHF",
+                  "triggerType": "TriggerNoRepeat",
+                  "born": {
+                    "$type": "AHBFOPDDMPB",
+                    "offset": {
+                      "AOFNOGLCGMP": 0.0,
+                      "CHEGDAPFFHA": 0.0,
+                      "JEGKAACFHJK": 0.0
+                    }
+                  },
+                  "height": 1.2000000476837158,
+                  "IDLDJCPGNHD": 5.75,
+                  "BKCGFGDBNGH": 4.5
+                },
+                "attackInfo": {
+                  "attackTag": "",
+                  "attenuationTag": "Monster_Abyss_Electric_ElectricCircle",
+                  "attenuationGroup": "Monster_Abyss_Electric_ElectricCircle",
+                  "attackProperty": {
+                    "AGMNCBAKCEF": 1.0,
+                    "AILJJDMKONE": 0.0,
+                    "elementType": "Electric",
+                    "bonusCriticalHurt": 25.0,
+                    "strikeType": "Blunt",
+                    "enBreak": 100.0,
+                    "bonusCritical": 0.0
+                  },
+                  "hitPattern": {
+                    "onHitEffectName": "default",
+                    "hitImpulseType": "LV3",
+                    "hitHaltTimeScale": 0.009999999776482582
+                  },
+                  "canBeModifiedBy": "OriginOwner"
+                }
+              },
+              "targetType": "Enemy"
+            }
+          ]
+        },
+        "ElectricCircle_Elite_Effect": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_Monster_Abyss_Electric_Elite_ElectricCircle_Damage",
+              "born": {
+                "$type": "AHBFOPDDMPB",
+                "offset": {
+                  "AOFNOGLCGMP": 0.0,
+                  "CHEGDAPFFHA": 1.0,
+                  "JEGKAACFHJK": 0.0
+                }
+              },
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "ElectricCircle_Elite_Timer"
+        },
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "ElectricCircle_Elite_Effect"
+        }
+      ],
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.DamageByAttackValue",
+          "target": "Target",
+          "attackInfo": {
+            "attackTag": "",
+            "attenuationTag": "",
+            "attenuationGroup": "default",
+            "attackProperty": {
+              "AGMNCBAKCEF": 0.800000011920929,
+              "AILJJDMKONE": 0.0,
+              "elementType": "Electric",
+              "bonusCriticalHurt": 25.0,
+              "strikeType": "Blunt",
+              "enBreak": 100.0,
+              "bonusCritical": 0.0
+            },
+            "hitPattern": {
+              "onHitEffectName": "default",
+              "hitImpulseType": "LV3",
+              "hitHaltTimeScale": 0.009999999776482582
+            },
+            "canBeModifiedBy": "OriginOwner"
+          }
+        }
+      ],
+      "onKill": [
+        {
+          "$type": "MoleMole.Config.FireEffect",
+          "rotationDampTime": "Eff_Monster_Abyss_Electric_Elite_ElectricCircle_Damage_AS",
+          "born": {
+            "$type": "AHBFOPDDMPB",
+            "offset": {
+              "AOFNOGLCGMP": 0.0,
+              "CHEGDAPFFHA": 1.0,
+              "JEGKAACFHJK": 0.0
+            }
+          },
+          "NHGDGLICLFB": -1.0
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Abyss_Electric_AnimationSteer",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.SteerAttackMixin",
+          "steerStateIDs": [
+            "NormalAtk"
+          ],
+          "angularSpeed": 180.0,
+          "attackTrigger": "",
+          "attackDistance": 12.0,
+          "BILMCNCKIAO": ""
+        },
+        {
+          "$type": "MoleMole.Config.SteerAttackMixin",
+          "steerStateIDs": [
+            "SpecialAtk"
+          ],
+          "angularSpeed": 180.0,
+          "attackTrigger": "",
+          "attackDistance": 12.0,
+          "BILMCNCKIAO": ""
+        },
+        {
+          "$type": "MoleMole.Config.SteerAttackMixin",
+          "steerStateIDs": [
+            "RandomAction"
+          ],
+          "angularSpeed": 180.0,
+          "attackTrigger": "",
+          "attackDistance": 12.0,
+          "BILMCNCKIAO": ""
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Abyss_Electric_WeaponElementEffect"
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Abyss_Electric_WeaponInit",
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.TriggerAbility",
+          "target": "Owner",
+          "abilityName": "Monster_Abyss_Electric_WeaponElementEffect"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Monster_Abyss_Electric_EliteSet",
+      "modifiers": {
+        "UNIQUE_MonsterEliteAffix_DefaultState": {
+          "modifierName": "",
+          "isUnique": true,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.UseSkillEliteSet",
+              "skillEliteSetID": 1
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "predicates": [
+            {
+              "$type": "POOFKGMBLNA",
+              "key": "_ELITEAFFIX_ATTACK_ENHANCE",
+              "param3": 0.0,
+              "compareType": "NoneOrEqual"
+            },
+            {
+              "$type": "POOFKGMBLNA",
+              "key": "_ELITEAFFIX_DEFENCE_ENHANCE",
+              "param3": 0.0,
+              "compareType": "NoneOrEqual"
+            }
+          ],
+          "modifierName": "UNIQUE_MonsterEliteAffix_DefaultState"
+        }
+      ]
+    }
+  }
+]

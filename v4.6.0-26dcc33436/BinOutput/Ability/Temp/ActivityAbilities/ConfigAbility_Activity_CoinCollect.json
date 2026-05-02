@@ -1,0 +1,394 @@
+[
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "ActivityAbility_CoinCollect_TestAbility",
+      "isDynamicAbility": true
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "ActivityAbility_CoinCollect_MoveSpeedUp",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachModifierToGlobalValueMixin",
+          "globalValueTarget": "Team",
+          "globalValueKey": "SGV_CoinCollect_Widget_SkillEnabled",
+          "valueSteps": [
+            -0.5,
+            0.5,
+            1.5
+          ],
+          "modifierNameSteps": [
+            "Blank",
+            "UNIQUE_CoinCollect_MoveSpeedUp"
+          ]
+        }
+      ],
+      "abilitySpecials": {
+        "SpeedUpRatio": 0.0
+      },
+      "modifiers": {
+        "Blank": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0
+        },
+        "UNIQUE_CoinCollect_MoveSpeedUp": {
+          "stacking": "Unique",
+          "modifierName": "",
+          "isUnique": true,
+          "bonusCriticalHurt": 100.0,
+          "properties": {
+            "Animator_MoveSpeedRatio": "SpeedUpRatio"
+          },
+          "isLimitedProperties": true
+        }
+      },
+      "isDynamicAbility": true
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "ActivityAbility_CoinCollect_RocketJump",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachModifierToGlobalValueMixin",
+          "globalValueTarget": "Team",
+          "globalValueKey": "SGV_CoinCollect_Widget_SkillEnabled",
+          "valueSteps": [
+            -0.5,
+            0.5,
+            1.5
+          ],
+          "modifierNameSteps": [
+            "Blank",
+            "UNIQUE_CoinCollect_RocketJump"
+          ]
+        }
+      ],
+      "modifiers": {
+        "Blank": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0
+        },
+        "UNIQUE_CoinCollect_RocketJump": {
+          "stacking": "Unique",
+          "modifierName": "",
+          "isUnique": true,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.EnableRocketJump",
+              "temperature": true,
+              "canBeHandledOnRecover": true,
+              "damageRatio": "DungeonJump",
+              "enable": true,
+              "extention": {
+                "xzMultiplier": 2.0,
+                "yMultiplier": 6.0
+              }
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.EnableRocketJump",
+              "temperature": true,
+              "damageRatio": "DungeonJump"
+            }
+          ],
+          "onAvatarIn": [
+            {
+              "$type": "MoleMole.Config.EnableRocketJump",
+              "temperature": true,
+              "canBeHandledOnRecover": true,
+              "damageRatio": "DungeonJump",
+              "enable": true,
+              "extention": {
+                "xzMultiplier": 2.0,
+                "yMultiplier": 6.0
+              }
+            }
+          ],
+          "isLimitedProperties": true
+        }
+      },
+      "isDynamicAbility": true
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "ActivityAbility_CoinCollect_CreateWindField",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachModifierToGlobalValueMixin",
+          "globalValueTarget": "Team",
+          "globalValueKey": "GV_WINDFIELD",
+          "valueSteps": [
+            -0.5,
+            0.5,
+            1.5
+          ],
+          "modifierNameSteps": [
+            "Blank",
+            "UNIQUE_CoinCollect_CreateWindField_ApplyTeam"
+          ]
+        }
+      ],
+      "modifiers": {
+        "Blank": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0
+        },
+        "UNIQUE_CoinCollect_CreateWindField_ApplyTeam": {
+          "stacking": "Unique",
+          "modifierName": "",
+          "isUnique": true,
+          "elementDurability": 0.10000000149011612,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetGlobalPos",
+              "target": "Team",
+              "key": "CoinCollect_WindField_Pos",
+              "born": {
+                "$type": "AHBFOPDDMPB",
+                "useRotation": true
+              }
+            },
+            {
+              "$type": "MoleMole.Config.ApplyModifier",
+              "target": "Team",
+              "modifierName": "CoinCollect_CreateWindField"
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "target": "Team",
+              "temperature": true,
+              "param3": 0.0,
+              "key": "GV_WINDFIELD",
+              "param2": 0.0,
+              "triggerID": 0.0
+            }
+          ]
+        },
+        "CoinCollect_CreateWindField": {
+          "modifierName": "",
+          "elementDurability": 0.10000000149011612,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.KillGadget",
+              "temperature": true,
+              "gadgetInfo": {
+                "configID": 44000549
+              }
+            },
+            {
+              "$type": "MoleMole.Config.CreateGadget",
+              "born": {
+                "$type": "MKLCDCJFOHO",
+                "offset": {
+                  "AOFNOGLCGMP": 0.0,
+                  "CHEGDAPFFHA": 0.0,
+                  "JEGKAACFHJK": 0.0
+                },
+                "direction": {
+                  "$type": "JLNMKCHJBEB",
+                  "eularAngles": {
+                    "x": 0.10000000149011612,
+                    "y": 0.10000000149011612,
+                    "z": 0.10000000149011612
+                  }
+                },
+                "useRotation": true,
+                "positionKey": "CoinCollect_WindField_Pos",
+                "directionKey": ""
+              },
+              "gadgetID": 44000549,
+              "campID": 1001,
+              "campTargetType": "Enemy"
+            }
+          ]
+        },
+        "CoinCollect_RemoveWindField": {
+          "modifierName": "",
+          "elementDurability": 0.10000000149011612,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.KillGadget",
+              "temperature": true,
+              "gadgetInfo": {
+                "configID": 44000549
+              }
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.SetGlobalValue",
+          "target": "Team",
+          "param3": 0.0,
+          "key": "GV_WINDFIELD",
+          "param2": 0.0,
+          "triggerID": 0.0
+        }
+      ],
+      "onRemoved": [
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "target": "Team",
+          "modifierName": "CoinCollect_RemoveWindField"
+        }
+      ],
+      "isDynamicAbility": true
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "ActivityAbility_CoinCollect_CreateWindZone",
+      "modifiers": {
+        "UNIQUE_CoinCollect_WindFiled_Effect": {
+          "modifierName": "",
+          "isUnique": true,
+          "elementDurability": 10.0,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_Item_WindSeed_WindField",
+              "NHGDGLICLFB": -1.0
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.KillSelf"
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.AttachModifier",
+          "modifierName": "UNIQUE_CoinCollect_WindFiled_Effect"
+        }
+      ],
+      "isDynamicAbility": true
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "ActivityAbility_CoinCollect_CostStamina_Zero",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachModifierToGlobalValueMixin",
+          "globalValueTarget": "Team",
+          "globalValueKey": "SGV_CoinCollect_Widget_SkillEnabled",
+          "valueSteps": [
+            -0.5,
+            0.5,
+            1.5
+          ],
+          "modifierNameSteps": [
+            "Blank",
+            "UNIQUE_CoinCollect_CostStamina_Zero"
+          ]
+        }
+      ],
+      "modifiers": {
+        "Blank": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0
+        },
+        "UNIQUE_CoinCollect_CostStamina_Zero": {
+          "stacking": "Unique",
+          "modifierName": "",
+          "isUnique": true,
+          "bonusCriticalHurt": 100.0,
+          "properties": {
+            "Actor_CostStaminaRatio": -999.0
+          },
+          "isLimitedProperties": true
+        }
+      },
+      "isDynamicAbility": true
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "ActivityAbility_CoinCollect_Range_Eff",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachModifierToGlobalValueMixin",
+          "globalValueTarget": "Team",
+          "globalValueKey": "SGV_CoinCollect_Widget_SkillEnabled",
+          "valueSteps": [
+            -0.5,
+            0.5,
+            1.5
+          ],
+          "modifierNameSteps": [
+            "Blank",
+            "UNIQUE_CoinCollect_Range_Eff_Handler"
+          ]
+        }
+      ],
+      "modifiers": {
+        "Blank": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0
+        },
+        "UNIQUE_CoinCollect_Range_Eff_Handler": {
+          "stacking": "Unique",
+          "modifierName": "",
+          "isUnique": true,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachModifier",
+              "modifierName": "UNIQUE_CoinCollect_Range_Eff"
+            }
+          ],
+          "onAvatarIn": [
+            {
+              "$type": "MoleMole.Config.AttachModifier",
+              "modifierName": "UNIQUE_CoinCollect_Range_Eff"
+            }
+          ],
+          "onAvatarOut": [
+            {
+              "$type": "MoleMole.Config.RemoveUniqueModifier",
+              "temperature": true,
+              "modifierName": "UNIQUE_CoinCollect_Range_Eff"
+            }
+          ],
+          "isLimitedProperties": true
+        },
+        "UNIQUE_CoinCollect_Range_Eff": {
+          "stacking": "Unique",
+          "modifierName": "",
+          "isUnique": true,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_SceneObj_DIK_BUFFC_01_Buff",
+              "NHGDGLICLFB": -1.0
+            }
+          ],
+          "isLimitedProperties": true
+        }
+      },
+      "isDynamicAbility": true
+    }
+  }
+]

@@ -1,0 +1,842 @@
+[
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "TargetShooting_Cannon_Init",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.AttachModifierToSelfGlobalValueMixin",
+          "globalValueKey": "_CURRENT_AMMO_NUMBER",
+          "gvInTalk": 0.0,
+          "valueSteps": [
+            -0.5,
+            30.5
+          ],
+          "modifierNameSteps": [
+            "Reload_Listener"
+          ]
+        },
+        {
+          "$type": "MoleMole.Config.AttachModifierToSelfGlobalValueMixin",
+          "globalValueKey": "_CURRENT_AMMO_NUMBER",
+          "gvInTalk": 0.0,
+          "valueSteps": [
+            -0.5,
+            5.5,
+            30.5
+          ],
+          "modifierNameSteps": [
+            "TargetShooting_MaterialStateSwitch_LackAmmo",
+            "TargetShooting_MaterialStateSwitch_EnoughAmmoMaterial"
+          ]
+        },
+        {
+          "$type": "MoleMole.Config.RotationFollowCameraMixin",
+          "BHGNCMHGFJC": "VerticalRotateBone",
+          "OILAOBKFMBD": -12.0,
+          "APPKNOLKGHD": "HorizontalRotateBone",
+          "EHNPMFGMEBB": [
+            "Cannon"
+          ]
+        }
+      ],
+      "modifiers": {
+        "TargetShooting_MaterialStateSwitch_LackAmmo": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "LHKFBGDFMEC": 1,
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_SceneObj_Cannon_09",
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        },
+        "TargetShooting_MaterialStateSwitch_EnoughAmmoMaterial": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "BGFMCENBKJD": ""
+            }
+          ]
+        },
+        "Reload_Listener": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.AttachModifierToSelfGlobalValueMixin",
+              "globalValueKey": "_CURRENT_AMMO_NUMBER",
+              "gvInTalk": 0.0,
+              "valueSteps": [
+                -0.5,
+                0.5
+              ],
+              "modifierNameSteps": [
+                "Auto_Trigger_Reload"
+              ]
+            }
+          ]
+        },
+        "Auto_Trigger_Reload": {
+          "modifierName": "",
+          "elementDurability": 1.5,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.TriggerAbility",
+              "abilityName": "TargetShooting_Reload"
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.Predicated",
+          "targetPredicates": [
+            {
+              "$type": "POOFKGMBLNA",
+              "key": "_LOCAL_MAX_AMMO",
+              "param3": 0.0,
+              "compareType": "NoneOrEqual"
+            }
+          ],
+          "successActions": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 10.0,
+              "key": "_LOCAL_MAX_AMMO",
+              "param2": 0.0,
+              "triggerID": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 10.0,
+              "key": "_CURRENT_AMMO_NUMBER",
+              "param2": 0.0,
+              "triggerID": 0.0
+            }
+          ]
+        },
+        {
+          "$type": "MoleMole.Config.SetGlobalValue",
+          "param3": 0.0,
+          "key": "_AMMO_RELOADING",
+          "param2": 0.0,
+          "triggerID": 0.0
+        },
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "TargetShooting_MaterialStateSwitch_EnoughAmmoMaterial"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "TargetShooting_Reload",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.ServerUpdateGlobalValueMixin",
+          "key": "SGV_TARGETSHOOTING_BUFF_ACTIVE",
+          "useLimitRange": true,
+          "param2": 1.0,
+          "triggerID": 0.0
+        },
+        {
+          "$type": "MoleMole.Config.AttachModifierToGlobalValueMixin",
+          "globalValueTarget": "Team",
+          "globalValueKey": "SGV_TARGETSHOOTING_BUFF_ACTIVE",
+          "valueSteps": [
+            0.5,
+            1.5
+          ],
+          "modifierNameSteps": [
+            "TARGETSHOOTING_BURSTBUFF_ACTIVE"
+          ],
+          "MFJNNNHGMJD": true
+        }
+      ],
+      "modifiers": {
+        "Reload_Cannon_Ball": {
+          "modifierName": "",
+          "elementDurability": 1.5,
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.AttachModifierToSelfGlobalValueMixin",
+              "globalValueKey": "_LOCAL_MAX_AMMO",
+              "gvInTalk": 0.0,
+              "valueSteps": [
+                -0.5,
+                10.5,
+                15.5,
+                20.5,
+                25.5,
+                30.5
+              ],
+              "modifierNameSteps": [
+                "Basic_Reload",
+                "Reload_1_Extra_Mag",
+                "Reload_2_Extra_Mag",
+                "Reload_3_Extra_Mag",
+                "Reload_Full_Extra_Mag"
+              ]
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 1.0,
+              "key": "_AMMO_RELOADING",
+              "param2": 0.0,
+              "triggerID": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_SceneObj_Cannon_08",
+              "NHGDGLICLFB": -1.0
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 0.0,
+              "key": "_AMMO_RELOADING",
+              "param2": 0.0,
+              "triggerID": 0.0
+            }
+          ]
+        },
+        "TargetShooting_Remove_Burst_Delay": {
+          "modifierName": "",
+          "elementDurability": 0.44999998807907104,
+          "bonusCriticalHurt": 100.0
+        },
+        "TARGETSHOOTING_BURSTBUFF_ACTIVE": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "MoleMole.Config.AttachModifierToSelfGlobalValueMixin",
+              "globalValueKey": "_LOCAL_MAX_AMMO",
+              "gvInTalk": 0.0,
+              "valueSteps": [
+                -0.5,
+                10.5,
+                15.5,
+                20.5,
+                25.5,
+                30.5
+              ],
+              "modifierNameSteps": [
+                "Basic_Reload",
+                "Reload_1_Extra_Mag",
+                "Reload_2_Extra_Mag",
+                "Reload_3_Extra_Mag",
+                "Reload_Full_Extra_Mag"
+              ]
+            },
+            {
+              "$type": "MoleMole.Config.ShaderStateMachineSwitchMixin",
+              "BGFMCENBKJD": ""
+            }
+          ],
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_SceneObj_Cannon_05",
+              "NHGDGLICLFB": -1.0
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 0.0,
+              "key": "_AMMO_RELOADING",
+              "param2": 0.0,
+              "triggerID": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.ApplyModifier",
+              "modifierName": "TargetShooting_Remove_Burst_Delay"
+            }
+          ]
+        },
+        "Basic_Reload": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 10.0,
+              "key": "_CURRENT_AMMO_NUMBER",
+              "param2": 0.0,
+              "triggerID": 0.0
+            }
+          ]
+        },
+        "Reload_1_Extra_Mag": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 15.0,
+              "key": "_CURRENT_AMMO_NUMBER",
+              "param2": 0.0,
+              "triggerID": 0.0
+            }
+          ]
+        },
+        "Reload_2_Extra_Mag": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 20.0,
+              "key": "_CURRENT_AMMO_NUMBER",
+              "param2": 0.0,
+              "triggerID": 0.0
+            }
+          ]
+        },
+        "Reload_3_Extra_Mag": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 25.0,
+              "key": "_CURRENT_AMMO_NUMBER",
+              "param2": 0.0,
+              "triggerID": 0.0
+            }
+          ]
+        },
+        "Reload_Full_Extra_Mag": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 30.0,
+              "key": "_CURRENT_AMMO_NUMBER",
+              "param2": 0.0,
+              "triggerID": 0.0
+            }
+          ]
+        }
+      },
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "Reload_Cannon_Ball"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "TargetShooting_Extra_Magzine",
+      "abilityMixins": [
+        {
+          "$type": "MoleMole.Config.ServerUpdateGlobalValueMixin",
+          "key": "SGV_TARGETSHOOTING_BULLET_MAX",
+          "useLimitRange": true,
+          "param2": 30.0,
+          "triggerID": 10.0
+        },
+        {
+          "$type": "MoleMole.Config.AttachModifierToGlobalValueMixin",
+          "globalValueTarget": "Team",
+          "globalValueKey": "SGV_TARGETSHOOTING_BULLET_MAX",
+          "valueSteps": [
+            9.5,
+            10.5,
+            15.5,
+            20.5,
+            25.5,
+            30.5
+          ],
+          "modifierNameSteps": [
+            "Base_Magzine",
+            "One_Extra_Mag",
+            "Two_Extra_Mag",
+            "Three_Extra_Mag",
+            "Full_Magzine"
+          ],
+          "MFJNNNHGMJD": true
+        }
+      ],
+      "modifiers": {
+        "Base_Magzine": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 10.0,
+              "key": "_LOCAL_MAX_AMMO",
+              "param2": 0.0,
+              "triggerID": 0.0
+            }
+          ]
+        },
+        "One_Extra_Mag": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 15.0,
+              "key": "_LOCAL_MAX_AMMO",
+              "param2": 0.0,
+              "triggerID": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.AddGlobalValue",
+              "param3": 5.0,
+              "key": "_CURRENT_AMMO_NUMBER",
+              "useLimitRange": true,
+              "param2": 15.0,
+              "triggerID": 0.0
+            }
+          ]
+        },
+        "Two_Extra_Mag": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 20.0,
+              "key": "_LOCAL_MAX_AMMO",
+              "param2": 0.0,
+              "triggerID": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.AddGlobalValue",
+              "param3": 5.0,
+              "key": "_CURRENT_AMMO_NUMBER",
+              "useLimitRange": true,
+              "param2": 20.0,
+              "triggerID": 0.0
+            }
+          ]
+        },
+        "Three_Extra_Mag": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 25.0,
+              "key": "_LOCAL_MAX_AMMO",
+              "param2": 0.0,
+              "triggerID": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.AddGlobalValue",
+              "param3": 5.0,
+              "key": "_CURRENT_AMMO_NUMBER",
+              "useLimitRange": true,
+              "param2": 25.0,
+              "triggerID": 0.0
+            }
+          ]
+        },
+        "Full_Magzine": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.SetGlobalValue",
+              "param3": 30.0,
+              "key": "_LOCAL_MAX_AMMO",
+              "param2": 0.0,
+              "triggerID": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.AddGlobalValue",
+              "param3": 5.0,
+              "key": "_CURRENT_AMMO_NUMBER",
+              "useLimitRange": true,
+              "param2": 30.0,
+              "triggerID": 0.0
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "TargetShooting_Cannon_Shot",
+      "abilitySpecials": {
+        "Auto_Reload_CD": 1.5,
+        "Manual_Reload_CD": 1.5
+      },
+      "modifiers": {
+        "TargetShooting_ExplosiveShootDelay": {
+          "modifierName": "",
+          "elementDurability": 0.009999999776482582,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.FireEffect",
+              "rotationDampTime": "Eff_SceneObj_Cannon_01",
+              "NHGDGLICLFB": -1.0
+            },
+            {
+              "$type": "MoleMole.Config.FireEffect",
+              "rotationDampTime": "Eff_SceneObj_Cannon_02",
+              "NHGDGLICLFB": -1.0
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.ActCameraShake",
+              "cameraShake": {
+                "shakeType": "CustomVector",
+                "shakeRange": 0.5,
+                "shakeTime": 0.3499999940395355,
+                "shakeDistance": 30.0,
+                "shakeDir": {
+                  "y": 1.0
+                },
+                "extension": {
+                  "baseCycle": 0.5,
+                  "cycleDamping": 0.0,
+                  "rangeAttenuation": 0.30000001192092896
+                }
+              }
+            },
+            {
+              "$type": "MoleMole.Config.TriggerBullet",
+              "bulletID": 70291152,
+              "born": {
+                "$type": "POAPJOHEDDM",
+                "offset": {
+                  "AOFNOGLCGMP": 0.0,
+                  "CHEGDAPFFHA": 0.0,
+                  "JEGKAACFHJK": 0.10000000149011612
+                },
+                "direction": {
+                  "$type": "JJACABIBANN"
+                },
+                "useRotation": true,
+                "attachPointName": "ShootPoint"
+              },
+              "ownerIs": "CurLocalAvatar",
+              "propOwnerIs": "CurLocalAvatar"
+            },
+            {
+              "$type": "MoleMole.Config.SetAnimatorTrigger",
+              "value": "ExplosiveShot"
+            }
+          ]
+        },
+        "TargetShooting_ShootDelay": {
+          "modifierName": "",
+          "elementDurability": 0.009999999776482582,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.FireEffect",
+              "rotationDampTime": "Eff_SceneObj_Cannon_01",
+              "NHGDGLICLFB": -1.0
+            },
+            {
+              "$type": "MoleMole.Config.FireEffect",
+              "rotationDampTime": "Eff_SceneObj_Cannon_02",
+              "NHGDGLICLFB": -1.0
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.AddGlobalValue",
+              "param3": -1.0,
+              "key": "_CURRENT_AMMO_NUMBER",
+              "useLimitRange": true,
+              "param2": 30.0,
+              "triggerID": 0.0
+            },
+            {
+              "$type": "MoleMole.Config.ActCameraShake",
+              "cameraShake": {
+                "shakeType": "CustomVector",
+                "shakeRange": 0.5,
+                "shakeTime": 0.3499999940395355,
+                "shakeDistance": 30.0,
+                "shakeDir": {
+                  "y": 1.0
+                },
+                "extension": {
+                  "baseCycle": 0.5,
+                  "cycleDamping": 0.0,
+                  "rangeAttenuation": 0.30000001192092896
+                }
+              }
+            },
+            {
+              "$type": "MoleMole.Config.TriggerBullet",
+              "bulletID": 70291151,
+              "born": {
+                "$type": "POAPJOHEDDM",
+                "offset": {
+                  "AOFNOGLCGMP": 0.0,
+                  "CHEGDAPFFHA": 0.0,
+                  "JEGKAACFHJK": 0.10000000149011612
+                },
+                "direction": {
+                  "$type": "JJACABIBANN"
+                },
+                "useRotation": true,
+                "attachPointName": "ShootPoint"
+              },
+              "ownerIs": "OriginOwner",
+              "propOwnerIs": "OriginOwner"
+            },
+            {
+              "$type": "MoleMole.Config.SetAnimatorTrigger",
+              "value": "Shot"
+            }
+          ]
+        }
+      },
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.Predicated",
+          "targetPredicates": [
+            {
+              "$type": "POOFKGMBLNA",
+              "key": "_AMMO_RELOADING",
+              "param3": 0.0
+            }
+          ],
+          "successActions": [
+            {
+              "$type": "MoleMole.Config.Predicated",
+              "targetPredicates": [
+                {
+                  "$type": "POOFKGMBLNA",
+                  "key": "_CURRENT_AMMO_NUMBER",
+                  "param3": 0.0,
+                  "compareType": "MoreThan"
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "MoleMole.Config.Predicated",
+                  "target": "Team",
+                  "targetPredicates": [
+                    {
+                      "$type": "POOFKGMBLNA",
+                      "key": "SGV_TARGETSHOOTING_BUFF_ACTIVE",
+                      "param3": 0.0,
+                      "compareType": "MoreThan"
+                    }
+                  ],
+                  "successActions": [
+                    {
+                      "$type": "MoleMole.Config.ApplyModifier",
+                      "modifierName": "TargetShooting_ExplosiveShootDelay"
+                    }
+                  ],
+                  "failActions": [
+                    {
+                      "$type": "MoleMole.Config.ApplyModifier",
+                      "modifierName": "TargetShooting_ShootDelay"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Bullet_TargetShooting_CannonBall",
+      "abilitySpecials": {
+        "DamagePercentage": 0.0,
+        "LevelEntity_AvatarDot_SystemValue": 1.0
+      },
+      "modifiers": {
+        "BulletEffect": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_SceneObj_Cannon_03",
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "BulletEffect"
+        },
+        {
+          "$type": "MoleMole.Config.SetSystemValueToOverrideMap",
+          "key": "LevelEntity_AvatarDot_SystemValue",
+          "damageRatio": "ElementLevelCo"
+        }
+      ],
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.TriggerAttackEvent",
+          "attackEvent": {
+            "attackPattern": {
+              "$type": "CDFDJKDFCFJ",
+              "triggerType": "TriggerNoRepeat",
+              "born": {
+                "$type": "KKKABMDCNIJ"
+              },
+              "IDLDJCPGNHD": 3.299999952316284
+            },
+            "attackInfo": {
+              "attackTag": "TargetShootingCannon",
+              "attenuationTag": "",
+              "attenuationGroup": "default",
+              "attackProperty": {
+                "AGMNCBAKCEF": 0.0,
+                "AILJJDMKONE": 0.0,
+                "elementType": "Water",
+                "bonusCriticalHurt": 0.0,
+                "ignoreAttackerProperty": true,
+                "strikeType": "Blunt",
+                "enBreak": 0.0,
+                "actorGrassSubHurtDelta": [
+                  "LevelEntity_AvatarDot_SystemValue",
+                  "DamagePercentage",
+                  "MUL"
+                ],
+                "trueDamage": true,
+                "ignoreModifyDamage": true,
+                "bonusCritical": 0.0
+              },
+              "hitPattern": {
+                "onHitEffectName": "",
+                "hitImpulseType": "LV4",
+                "hitHaltTimeScale": 0.05000000074505806,
+                "muteHitText": true
+              },
+              "canBeModifiedBy": "OriginOwner"
+            }
+          },
+          "targetType": "AllExceptSelf"
+        },
+        {
+          "$type": "MoleMole.Config.FireEffect",
+          "rotationDampTime": "Eff_SceneObj_Cannon_04",
+          "NHGDGLICLFB": -1.0
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Bullet_TargetShooting_ExplosiveCannonBall",
+      "abilitySpecials": {
+        "DamagePercentage": 0.0,
+        "LevelEntity_AvatarDot_SystemValue": 1.0
+      },
+      "modifiers": {
+        "BulletEffect": {
+          "modifierName": "",
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_SceneObj_Cannon_06",
+              "NHGDGLICLFB": -1.0
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "BulletEffect"
+        },
+        {
+          "$type": "MoleMole.Config.SetSystemValueToOverrideMap",
+          "key": "LevelEntity_AvatarDot_SystemValue",
+          "damageRatio": "ElementLevelCo"
+        }
+      ],
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.TriggerAttackEvent",
+          "attackEvent": {
+            "attackPattern": {
+              "$type": "CDFDJKDFCFJ",
+              "triggerType": "TriggerNoRepeat",
+              "born": {
+                "$type": "KKKABMDCNIJ"
+              },
+              "IDLDJCPGNHD": 15.0
+            },
+            "attackInfo": {
+              "attackTag": "TargetShootingCannonMax",
+              "attenuationTag": "",
+              "attenuationGroup": "default",
+              "attackProperty": {
+                "AGMNCBAKCEF": 0.0,
+                "AILJJDMKONE": 0.0,
+                "elementType": "Water",
+                "bonusCriticalHurt": 0.0,
+                "ignoreAttackerProperty": true,
+                "strikeType": "Blunt",
+                "enBreak": 0.0,
+                "actorGrassSubHurtDelta": [
+                  "LevelEntity_AvatarDot_SystemValue",
+                  "DamagePercentage",
+                  "MUL"
+                ],
+                "trueDamage": true,
+                "ignoreModifyDamage": true,
+                "bonusCritical": 0.0
+              },
+              "hitPattern": {
+                "onHitEffectName": "",
+                "hitImpulseType": "LV4",
+                "hitHaltTimeScale": 0.05000000074505806,
+                "muteHitText": true
+              },
+              "canBeModifiedBy": "OriginOwner"
+            }
+          },
+          "targetType": "AllExceptSelf"
+        },
+        {
+          "$type": "MoleMole.Config.FireEffect",
+          "rotationDampTime": "Eff_SceneObj_Cannon_07",
+          "NHGDGLICLFB": -1.0
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,273 @@
+[
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Task_HuntTrap_GlobalValue",
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.HideUIBillBoard",
+          "hide": true
+        },
+        {
+          "$type": "MoleMole.Config.EnableAIStealthy",
+          "enable": true
+        },
+        {
+          "$type": "MoleMole.Config.AddGlobalValue",
+          "param3": 1.0,
+          "key": "_Is_Hunt_Trap",
+          "useLimitRange": true,
+          "param2": 1.0,
+          "triggerID": 0.0
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "SceneObj_Task_TrapHunter",
+      "modifiers": {
+        "RunToEscape": {
+          "modifierName": "",
+          "elementDurability": 7.0,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.DebugLog",
+              "content": "onRunAdd Start!!!!!!"
+            },
+            {
+              "$type": "MoleMole.Config.SetPoseInt",
+              "intID": "FleeState",
+              "value": -1
+            },
+            {
+              "$type": "MoleMole.Config.SetPoseBool",
+              "boolID": "NearTrap",
+              "param3": true
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.SetPoseInt",
+              "intID": "FleeState"
+            },
+            {
+              "$type": "MoleMole.Config.SetPoseBool",
+              "boolID": "NearTrap"
+            }
+          ]
+        },
+        "HuntBuff": {
+          "modifierName": "",
+          "elementDurability": 2.0,
+          "bonusCriticalHurt": 100.0,
+          "thinkInterval": 1.0,
+          "onThinkInterval": [
+            {
+              "$type": "MoleMole.Config.ApplyModifier",
+              "modifierName": "HuntBuff"
+            },
+            {
+              "$type": "MoleMole.Config.ApplyModifier",
+              "otherTargets": {
+                "$type": "AFOOPHMLCCL",
+                "shapeName": "CircleR50",
+                "campTargetType": "All",
+                "doOffStage": 1.0
+              },
+              "predicates": [
+                {
+                  "$type": "POOFKGMBLNA",
+                  "key": "_Is_Hunt_Animal",
+                  "param3": 1.0
+                }
+              ],
+              "modifierName": "RunToEscape"
+            }
+          ]
+        },
+        "Suicide180": {
+          "modifierName": "",
+          "elementDurability": 180.0,
+          "bonusCriticalHurt": 180.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.AttachEffect",
+              "rotationDampTime": "Eff_Quest_SiteInteract",
+              "NHGDGLICLFB": -1.0
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.KillSelf",
+              "configIdArray": [
+                70300080
+              ]
+            }
+          ]
+        }
+      },
+      "onAdded": [
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "Suicide180"
+        },
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "modifierName": "HuntBuff"
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "MoleMole.Config.ConfigAbility",
+      "abilityName": "Trap_Hunt_Attack",
+      "modifiers": {
+        "MonsterSkill": {
+          "modifierName": "",
+          "elementDurability": 0.20000000298023224,
+          "bonusCriticalHurt": 100.0,
+          "onAdded": [
+            {
+              "$type": "MoleMole.Config.ApplyModifier",
+              "otherTargets": {
+                "$type": "AFOOPHMLCCL",
+                "shapeName": "CircleR3",
+                "campTargetType": "All",
+                "doOffStage": 1.0
+              },
+              "predicates": [
+                {
+                  "$type": "POOFKGMBLNA",
+                  "key": "_Is_Hunt_Trap",
+                  "param3": 1.0
+                }
+              ],
+              "modifierName": "Trap_Suicide"
+            },
+            {
+              "$type": "MoleMole.Config.DamageByAttackValue",
+              "attackInfo": {
+                "attackTag": "",
+                "attenuationTag": "",
+                "attenuationGroup": "default",
+                "attackProperty": {
+                  "AGMNCBAKCEF": 1.0,
+                  "AILJJDMKONE": 0.0,
+                  "bonusCriticalHurt": 20.0,
+                  "strikeType": "Blunt",
+                  "enBreak": 500.0,
+                  "bonusCritical": 0.0
+                },
+                "hitPattern": {
+                  "onHitEffectName": "default",
+                  "hitImpulseType": "LV3",
+                  "overrideHitImpulse": {
+                    "hitLevel": "Heavy",
+                    "DJKONCLKGJH": 0.0,
+                    "DKJLLKDHBNJ": 0.0
+                  },
+                  "hitHaltTimeScale": 0.05000000074505806,
+                  "muteHitText": true
+                }
+              }
+            }
+          ],
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.DebugLog",
+              "content": "onMonster_Suicide Start!!!!!!"
+            },
+            {
+              "$type": "MoleMole.Config.ApplyModifier",
+              "otherTargets": {
+                "$type": "AFOOPHMLCCL",
+                "shapeName": "CircleR3",
+                "campTargetType": "All",
+                "doOffStage": 1.0
+              },
+              "predicates": [
+                {
+                  "$type": "POOFKGMBLNA",
+                  "key": "_Is_Hunt_Trap",
+                  "param3": 1.0
+                }
+              ],
+              "modifierName": "Trap_Suicide"
+            },
+            {
+              "$type": "MoleMole.Config.DamageByAttackValue",
+              "attackInfo": {
+                "attackTag": "",
+                "attenuationTag": "",
+                "attenuationGroup": "default",
+                "attackProperty": {
+                  "AGMNCBAKCEF": 1.0,
+                  "AILJJDMKONE": 0.0,
+                  "bonusCriticalHurt": 20.0,
+                  "strikeType": "Blunt",
+                  "enBreak": 500.0,
+                  "bonusCritical": 0.0
+                },
+                "hitPattern": {
+                  "onHitEffectName": "default",
+                  "hitImpulseType": "LV3",
+                  "overrideHitImpulse": {
+                    "hitLevel": "Heavy",
+                    "DJKONCLKGJH": 0.0,
+                    "DKJLLKDHBNJ": 0.0
+                  },
+                  "hitHaltTimeScale": 0.05000000074505806,
+                  "muteHitText": true
+                }
+              }
+            }
+          ]
+        },
+        "Trap_Suicide": {
+          "modifierName": "",
+          "elementDurability": 0.800000011920929,
+          "bonusCriticalHurt": 100.0,
+          "onRemoved": [
+            {
+              "$type": "MoleMole.Config.DebugLog",
+              "content": "onKILL_Trap Start!!!!!!"
+            },
+            {
+              "$type": "MoleMole.Config.DropSubfield",
+              "subfieldName": "MonsterMeat"
+            },
+            {
+              "$type": "MoleMole.Config.KillSelf",
+              "configIdArray": [
+                70300080
+              ]
+            }
+          ]
+        }
+      },
+      "onAbilityStart": [
+        {
+          "$type": "MoleMole.Config.ApplyModifier",
+          "otherTargets": {
+            "$type": "AFOOPHMLCCL",
+            "shapeName": "CircleR3",
+            "campTargetType": "All",
+            "doOffStage": 1.0
+          },
+          "predicates": [
+            {
+              "$type": "POOFKGMBLNA",
+              "key": "_Is_Hunt_Animal",
+              "param3": 1.0
+            }
+          ],
+          "modifierName": "MonsterSkill"
+        }
+      ]
+    }
+  }
+]
