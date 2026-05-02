@@ -14,13 +14,22 @@ git -C "$DM_REPO" worktree add --detach --no-checkout -- "$OUT" "$COMMIT"
 mv -- "$OUT/.git" "$OUT/.git.tmp"
 
 for pathspec in \
-	BinOutput/Ability/Temp/AvatarAbilities \
-	BinOutput/Ability/Temp/ConfigAbility_Element.json \
-	BinOutput/Ability/Temp/EquipAbilities \
+	BinOutput/Ability/Temp \
+	?BinOutput/AbilityPath \
+	?BinOutput/AnimationStateGroup \
 	BinOutput/Avatar \
+	BinOutput/Common \
 	BinOutput/Gadget \
-	BinOutput/Talent; do
-	git -C "$OUT" --git-dir ".git.tmp" checkout HEAD -- "$pathspec"
+	?BinOutput/GadgetPath \
+	BinOutput/Talent \
+	${nul+}; do
+	opt=false
+	[ "${pathspec#'?'}" = "${pathspec}" ] || opt=true
+	pathspec="${pathspec#'?'}"
+	git -C "$OUT" --git-dir ".git.tmp" checkout HEAD -- "$pathspec" || {
+		[ "$opt" = true ]
+		continue
+	}
 	git add -v -- "$NAME/$pathspec" > /dev/null
 done
 
