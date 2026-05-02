@@ -1,0 +1,581 @@
+[
+  {
+    "Default": {
+      "$type": "FGKJODDHNFD",
+      "abilityName": "Animal_Pteromys_Steer"
+    }
+  },
+  {
+    "Default": {
+      "$type": "FGKJODDHNFD",
+      "abilityName": "Animal_Ptromys_Glide",
+      "abilityMixins": [
+        {
+          "$type": "JGNCCIDCLGC",
+          "stateIDs": [
+            "Glide_BS"
+          ],
+          "modifierName": "GlideLaunch",
+          "OBBDEBIEHMK": ""
+        },
+        {
+          "$type": "JGNCCIDCLGC",
+          "stateIDs": [
+            "GlideToAS",
+            "Glide_AS_Ditching"
+          ],
+          "modifierName": "GlideDrop",
+          "OBBDEBIEHMK": ""
+        },
+        {
+          "$type": "JGNCCIDCLGC",
+          "stateIDs": [
+            "HitThrow",
+            "HitThrowDrop",
+            "ReturnToBorn_BS",
+            "Glide_AS_Landing"
+          ],
+          "modifierName": "GlideLand",
+          "OBBDEBIEHMK": ""
+        },
+        {
+          "$type": "JGNCCIDCLGC",
+          "stateIDs": [
+            "Glide_BS",
+            "Glide_BSToGlide",
+            "Glide",
+            "GlideFlee"
+          ],
+          "modifierName": "GlideEffect",
+          "OBBDEBIEHMK": ""
+        }
+      ],
+      "modifiers": {
+        "GlideLaunch": {
+          "modifierName": "",
+          "DMCLENCALMP": 100.0,
+          "onAdded": [
+            {
+              "$type": "PGDKNOLOHNI",
+              "boolID": "AirTag",
+              "ratio": true
+            }
+          ]
+        },
+        "GlideDrop": {
+          "modifierName": "",
+          "DMCLENCALMP": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "HMHOBDDMIDL",
+              "onMotionChange": [
+                {
+                  "$type": "PGDKNOLOHNI",
+                  "boolID": "AirTag"
+                }
+              ],
+              "dropToPos": ""
+            }
+          ]
+        },
+        "GlideLand": {
+          "modifierName": "",
+          "DMCLENCALMP": 100.0,
+          "onAdded": [
+            {
+              "$type": "PGDKNOLOHNI",
+              "boolID": "AirTag"
+            }
+          ]
+        },
+        "GlideEffect": {
+          "modifierName": "",
+          "DMCLENCALMP": 100.0,
+          "onAdded": [
+            {
+              "$type": "LKDKPDGBEBF",
+              "rotationDampTime": "Eff_Animal_Pteromys_Glide_Loop",
+              "GNJCLBNGGBN": 1.0,
+              "DAFPKJDDJHF": -1.0
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Default": {
+      "$type": "FGKJODDHNFD",
+      "abilityName": "Animal_Ptromys_ServerRouteManager",
+      "abilityMixins": [
+        {
+          "$type": "HJHFOEAIIBJ",
+          "poseIDs": [
+            1031,
+            31
+          ],
+          "modifierName": "OnPoint_MainLogic"
+        },
+        {
+          "$type": "HJHFOEAIIBJ",
+          "poseIDs": [
+            1032,
+            32
+          ],
+          "modifierName": "OnPointWaiting_MainLogic"
+        },
+        {
+          "$type": "HJHFOEAIIBJ",
+          "poseIDs": [
+            1030,
+            30
+          ],
+          "modifierName": "Gliding_MainLogic"
+        }
+      ],
+      "modifiers": {
+        "OnPoint_MainLogic": {
+          "modifierName": "",
+          "DMCLENCALMP": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "ELNNGCFMNCA",
+              "globalValueKey": "_AIGV_SERVERROUTE_STARTFLAG_",
+              "valueSteps": [
+                -0.5,
+                0.5,
+                1.5
+              ],
+              "modifierNameSteps": [
+                "OnPoint_WaitingForNewRoutePoint",
+                "OnPoint_NewRoutePointReceived"
+              ]
+            }
+          ]
+        },
+        "OnPoint_NewRoutePointReceived": {
+          "modifierName": "",
+          "DMCLENCALMP": 100.0,
+          "onAdded": [
+            {
+              "$type": "EODDDFEGLMH"
+            }
+          ],
+          "onThinkInterval": [
+            {
+              "$type": "EPKHDMNNGIM",
+              "targetPredicates": [
+                {
+                  "$type": "GKFEMMBFJNK",
+                  "target": "Self",
+                  "predicates": [
+                    {
+                      "$type": "HMFPJIKNKAG",
+                      "key": "RoutePointType",
+                      "ratio": 0.0
+                    },
+                    {
+                      "$type": "HMFPJIKNKAG",
+                      "key": "RoutePointType",
+                      "ratio": 1.0
+                    },
+                    {
+                      "$type": "HMFPJIKNKAG",
+                      "key": "RoutePointType",
+                      "ratio": 2.0
+                    },
+                    {
+                      "$type": "HMFPJIKNKAG",
+                      "key": "RoutePointType",
+                      "ratio": 3.0
+                    }
+                  ]
+                }
+              ],
+              "successActions": [
+                {
+                  "$type": "JKHLPMAGLLC",
+                  "triggerID": "ToGlideTrigger"
+                },
+                {
+                  "$type": "IIJJPLLGCIM",
+                  "luaCallType": "FromGroup",
+                  "sourceName": "SetMonsterSGV",
+                  "param1": 0.0,
+                  "MEDJPOAPLAF": 0.0,
+                  "FFHKIGFPJGB": 0.0
+                }
+              ],
+              "failActions": [
+                {
+                  "$type": "LJIOMNEFBAB",
+                  "content": "Animal_Pteromys: Route Point Type Invalid!!!!!!!!!!!!!!!"
+                }
+              ]
+            }
+          ]
+        },
+        "OnPoint_WaitingForNewRoutePoint": {
+          "modifierName": "",
+          "DMCLENCALMP": 100.0
+        },
+        "OnPointWaiting_MainLogic": {
+          "modifierName": "",
+          "DMCLENCALMP": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "ELNNGCFMNCA",
+              "globalValueKey": "SGV_SERVERROUTE_STOPWAITINGFLAG_",
+              "valueSteps": [
+                -0.5,
+                0.5,
+                1.5
+              ],
+              "modifierNameSteps": [
+                "OnPointWaiting_KeepWaiting",
+                "OnPointWaiting_StopWaiting"
+              ],
+              "NCIJFCNPHBK": true
+            }
+          ]
+        },
+        "OnPointWaiting_KeepWaiting": {
+          "modifierName": "",
+          "DMCLENCALMP": 100.0
+        },
+        "OnPointWaiting_StopWaiting": {
+          "modifierName": "",
+          "DMCLENCALMP": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "ELNNGCFMNCA",
+              "globalValueKey": "_AIGV_SERVERROUTE_STARTFLAG_",
+              "valueSteps": [
+                -0.5,
+                0.5,
+                1.5
+              ],
+              "modifierNameSteps": [
+                "OnPoint_WaitingForNewRoutePoint",
+                "OnPoint_NewRoutePointReceived"
+              ]
+            }
+          ]
+        },
+        "Gliding_MainLogic": {
+          "modifierName": "",
+          "DMCLENCALMP": 100.0,
+          "modifierMixins": [
+            {
+              "$type": "ELNNGCFMNCA",
+              "globalValueKey": "_AIGV_SERVERROUTE_CLOSEFLAG_",
+              "valueSteps": [
+                -0.5,
+                0.5,
+                1.5
+              ],
+              "modifierNameSteps": [
+                "Gliding_MovingToRoutePoint",
+                "Gliding_CloseToRoutePoint"
+              ]
+            },
+            {
+              "$type": "ELNNGCFMNCA",
+              "globalValueKey": "_AIGV_SERVERROUTE_BLOCKFLAG_",
+              "valueSteps": [
+                -0.5,
+                0.5,
+                1.5
+              ],
+              "modifierNameSteps": [
+                "Empty",
+                "Empty"
+              ]
+            }
+          ],
+          "onReconnect": [
+            {
+              "$type": "PGDKNOLOHNI",
+              "boolID": "Reconnect",
+              "ratio": true
+            }
+          ],
+          "onChangeAuthority": [
+            {
+              "$type": "PGDKNOLOHNI",
+              "boolID": "Reconnect",
+              "ratio": true
+            }
+          ]
+        },
+        "Gliding_MovingToRoutePoint": {
+          "modifierName": "",
+          "DMCLENCALMP": 100.0
+        },
+        "Gliding_CloseToRoutePoint": {
+          "modifierName": "",
+          "DMCLENCALMP": 100.0,
+          "thinkInterval": 0.20000000298023224,
+          "onAdded": [
+            {
+              "$type": "JKHLPMAGLLC",
+              "predicates": [
+                {
+                  "$type": "GKFEMMBFJNK",
+                  "target": "Self",
+                  "predicates": [
+                    {
+                      "$type": "HMFPJIKNKAG",
+                      "key": "RoutePointType",
+                      "ratio": 1.0
+                    },
+                    {
+                      "$type": "HMFPJIKNKAG",
+                      "key": "RoutePointType",
+                      "ratio": 2.0
+                    },
+                    {
+                      "$type": "HMFPJIKNKAG",
+                      "key": "RoutePointType",
+                      "ratio": 3.0
+                    }
+                  ]
+                }
+              ],
+              "triggerID": "GlideToLandTrigger"
+            }
+          ],
+          "onThinkInterval": [
+            {
+              "$type": "JKHLPMAGLLC",
+              "predicates": [
+                {
+                  "$type": "GKFEMMBFJNK",
+                  "target": "Self",
+                  "predicates": [
+                    {
+                      "$type": "HMFPJIKNKAG",
+                      "key": "RoutePointType",
+                      "ratio": 1.0
+                    },
+                    {
+                      "$type": "HMFPJIKNKAG",
+                      "key": "RoutePointType",
+                      "ratio": 2.0
+                    },
+                    {
+                      "$type": "HMFPJIKNKAG",
+                      "key": "RoutePointType",
+                      "ratio": 3.0
+                    }
+                  ]
+                }
+              ],
+              "triggerID": "GlideToLandTrigger"
+            }
+          ]
+        },
+        "Empty": {
+          "modifierName": "",
+          "DMCLENCALMP": 100.0
+        }
+      }
+    }
+  },
+  {
+    "Default": {
+      "$type": "FGKJODDHNFD",
+      "abilityName": "Animal_Ptromys_LandingToRoutePoint",
+      "onAbilityStart": [
+        {
+          "$type": "HDBFMNMLLNP",
+          "toPos": {
+            "$type": "INNAOEBGLDI",
+            "positionKey": "RoutePointPos",
+            "directionKey": ""
+          },
+          "FACFDCJDFKJ": 0.3400000035762787,
+          "maxRange": -1.0,
+          "animatorStateIDs": [
+            "Glide_AS_Landing"
+          ],
+          "overrideMoveCollider": "",
+          "exactArrive": true
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "FGKJODDHNFD",
+      "abilityName": "Animal_Ptromys_StartServerRoute",
+      "abilityMixins": [
+        {
+          "$type": "HJHFOEAIIBJ",
+          "poseIDs": [
+            10,
+            1010
+          ],
+          "modifierName": "Pose_OnTreeNotOnRoute"
+        }
+      ],
+      "modifiers": {
+        "Pose_OnTreeNotOnRoute": {
+          "modifierName": "",
+          "DMCLENCALMP": 100.0
+        }
+      },
+      "onAbilityStart": [
+        {
+          "$type": "DHPKNPJBCFB",
+          "predicates": [
+            {
+              "$type": "FDCIEBBJMKG",
+              "target": "Self",
+              "modifierName": "Pose_OnTreeNotOnRoute"
+            }
+          ],
+          "intID": "PoseFlag",
+          "value": 31
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "FGKJODDHNFD",
+      "abilityName": "Animal_Ptromys_DecidingLandingPose",
+      "onAbilityStart": [
+        {
+          "$type": "DHPKNPJBCFB",
+          "predicates": [
+            {
+              "$type": "HMFPJIKNKAG",
+              "target": "Self",
+              "key": "RoutePointType",
+              "ratio": 1.0
+            }
+          ],
+          "intID": "PoseFlag",
+          "value": 31
+        },
+        {
+          "$type": "DHPKNPJBCFB",
+          "predicates": [
+            {
+              "$type": "HMFPJIKNKAG",
+              "target": "Self",
+              "key": "RoutePointType",
+              "ratio": 2.0
+            }
+          ],
+          "intID": "PoseFlag",
+          "value": 20
+        },
+        {
+          "$type": "DHPKNPJBCFB",
+          "predicates": [
+            {
+              "$type": "HMFPJIKNKAG",
+              "target": "Self",
+              "key": "RoutePointType",
+              "ratio": 3.0
+            }
+          ],
+          "intID": "PoseFlag",
+          "value": 32
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "FGKJODDHNFD",
+      "abilityName": "Animal_Ptromys_GlideTest_StartGlide",
+      "onAbilityStart": [
+        {
+          "$type": "HCBCBBHLDKG",
+          "ratio": 0.0,
+          "key": "_AIGV_SERVERROUTE_REACHFLAG_",
+          "param2": 0.0,
+          "param3": 0.0
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "FGKJODDHNFD",
+      "abilityName": "Animal_Ptromys_GlideTest_StopGlideToGround",
+      "onAbilityStart": [
+        {
+          "$type": "HCBCBBHLDKG",
+          "ratio": 2.0,
+          "key": "RoutePointType",
+          "param2": 0.0,
+          "param3": 0.0
+        },
+        {
+          "$type": "HCBCBBHLDKG",
+          "ratio": 1.0,
+          "key": "_AIGV_SERVERROUTE_CLOSEFLAG_",
+          "param2": 0.0,
+          "param3": 0.0
+        }
+      ]
+    }
+  },
+  {
+    "Default": {
+      "$type": "FGKJODDHNFD",
+      "abilityName": "Animal_Ptromys_Flee",
+      "abilityMixins": [
+        {
+          "$type": "JGNCCIDCLGC",
+          "stateIDs": [
+            "Flee_Disappear"
+          ],
+          "modifierName": "DisappearTimer",
+          "OBBDEBIEHMK": ""
+        },
+        {
+          "$type": "JGNCCIDCLGC",
+          "stateIDs": [
+            "GlideFlee_Disappear"
+          ],
+          "modifierName": "DisappearTimer",
+          "OBBDEBIEHMK": ""
+        }
+      ],
+      "modifiers": {
+        "DisappearTimer": {
+          "modifierName": "",
+          "DMCLENCALMP": 100.0,
+          "onAdded": [
+            {
+              "$type": "PBEMFKLCIHL",
+              "duration": 2.0,
+              "IPGBNLFIDGB": 10.0
+            },
+            {
+              "$type": "JBPFICPFOAN",
+              "boolID": "Disappear",
+              "ratio": true
+            },
+            {
+              "$type": "ENLCJEPPPCI",
+              "duration": 1.5,
+              "killSelfType": "Disappear",
+              "configIdArray": [
+                28022501,
+                28022502
+              ],
+              "banDrop": true,
+              "banExp": true
+            }
+          ]
+        }
+      }
+    }
+  }
+]
