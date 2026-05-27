@@ -3,43 +3,43 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Fungus_Trois_BVB_Fire_FlameStorm_Backup",
-      "KBODACCMEFE": [
+      "abilityMixins": [
         {
           "$type": "AttachToAnimatorStateIDMixin",
-          "FHCHNMKMJJA": [
+          "stateIDs": [
             "FlameStorm_BS",
             "FlameStorm_Loop"
           ],
-          "BGIONAIMBCJ": "ExplodeLoopEffect_UB"
+          "modifierName": "ExplodeLoopEffect_UB"
         },
         {
           "$type": "DoActionByStateIDMixin",
-          "FHCHNMKMJJA": [
+          "stateIDs": [
             "UnionBurst"
           ],
           "EEGIIGFKBHC": [
             {
               "$type": "SetAnimatorTrigger",
-              "POPKLBPMAJN": "UBShader"
+              "triggerID": "UBShader"
             }
           ]
         }
       ],
-      "CLHBPEHHEJB": {
-        "sub_hurt_delta_negative": -0.15000000596046448
+      "abilitySpecials": {
+        "sub_hurt_delta_negative": -0.15
       },
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "FlameStorm_Attack_Monitor": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "FNDEOLGHDHC": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAttackLanded": [
             {
               "$type": "Predicated",
-              "KMGAOOHMCPK": "Target",
-              "EGMDPEHBAOA": [
+              "target": "Target",
+              "targetPredicates": [
                 {
-                  "$type": "AOBPABGGJHL",
-                  "LBKHBAHAAIL": [
+                  "$type": "ByAttackTags",
+                  "attackTags": [
                     "FlameStorm"
                   ]
                 }
@@ -47,27 +47,27 @@
               "successActions": [
                 {
                   "$type": "ApplyModifier",
-                  "KMGAOOHMCPK": "Target",
-                  "FLEEHCIOPKA": [
+                  "target": "Target",
+                  "predicates": [
                     {
-                      "$type": "FAGBAHBLACH",
-                      "MALHNOJHHDJ": [
+                      "$type": "ByEntityTypes",
+                      "entityTypes": [
                         "Monster",
                         "Partner"
                       ]
                     }
                   ],
-                  "BGIONAIMBCJ": "FlameStorm_Vulnerable"
+                  "modifierName": "FlameStorm_Vulnerable"
                 }
               ]
             }
           ]
         },
         "FlameStorm_Vulnerable": {
-          "BGIONAIMBCJ": "",
-          "FAFCPJJAIGK": 8.0,
-          "ONIHJPOMNHA": 100.0,
-          "NLPPKPOJEOA": {
+          "modifierName": "",
+          "duration": 8,
+          "elementDurability": 100,
+          "properties": {
             "Actor_PhysicalSubHurtDelta": "sub_hurt_delta_negative",
             "Actor_FireSubHurtDelta": "sub_hurt_delta_negative",
             "Actor_ElecSubHurtDelta": "sub_hurt_delta_negative",
@@ -77,146 +77,142 @@
             "Actor_WindSubHurtDelta": "sub_hurt_delta_negative",
             "Actor_RockSubHurtDelta": "sub_hurt_delta_negative"
           },
-          "FJMPEOEHPJK": "DefenseDown"
+          "state": "DefenseDown"
         },
         "ExplodeLoopEffect_UB": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "CLOIGOBCDJK": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "modifierMixins": [
             {
               "$type": "WindZoneMixin",
-              "IBPOJODNMHO": "CircleR8",
-              "CCNCMOGOFAG": {
-                "$type": "IADBHDLMGJB",
+              "shapeName": "CircleR8",
+              "born": {
+                "$type": "ConfigBornByAttachPoint",
                 "offset": {
-                  "NEEHMANEJKM": 0.0,
-                  "KKKLBADAPPB": -0.5,
-                  "GENNNOANKOO": 0.0
+                  "y": -0.5
                 },
-                "FPDJOHEHNDD": true,
-                "MDPMJPIOGLA": "RootNode"
+                "useRotation": true,
+                "attachPointName": "RootNode"
               },
-              "KEODLBNGJGH": 3.75,
-              "BGBDDJHIFCM": 2.700000047683716,
-              "HJHKHEMMDCE": 1.2000000476837158,
-              "PFBJAFHFBDE": "Enemy",
-              "FLEEHCIOPKA": [
+              "strength": 3.75,
+              "attenuation": 2.7,
+              "innerRadius": 1.2,
+              "targetType": "Enemy",
+              "predicates": [
                 {
-                  "$type": "FAGBAHBLACH",
-                  "MALHNOJHHDJ": [
+                  "$type": "ByEntityTypes",
+                  "entityTypes": [
                     "Monster",
                     "Partner"
                   ]
                 },
                 {
-                  "$type": "KCNEABODHDN",
-                  "JCMFILJLNFH": "LesserOrEqual",
-                  "HJKALMELCLL": 140.0
+                  "$type": "ByTargetWeight",
+                  "logic": "LesserOrEqual",
+                  "weight": 140
                 }
               ],
-              "BGIONAIMBCJ": ""
+              "modifierName": ""
             }
           ],
-          "NLFIGALMIPD": [
+          "onAdded": [
             {
               "$type": "FireEffect",
-              "LHHFHDEJOHC": "Eff_Monster_Fungus_Trois_Fire_FlameStorm_WindZone",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_Monster_Fungus_Trois_Fire_FlameStorm_WindZone"
             },
             {
               "$type": "AttachModifier",
-              "BGIONAIMBCJ": "ExplodeLoopEffect_Camera"
+              "modifierName": "ExplodeLoopEffect_Camera"
             }
           ]
         },
         "ExplodeLoopEffect_Camera": {
-          "BGIONAIMBCJ": "",
-          "FAFCPJJAIGK": 1.25,
-          "ONIHJPOMNHA": 100.0,
-          "ANPDJHOGAFE": 0.20000000298023224,
-          "MDPGEKAIFIM": [
+          "modifierName": "",
+          "duration": 1.25,
+          "elementDurability": 100,
+          "thinkInterval": 0.2,
+          "onThinkInterval": [
             {
               "$type": "ActCameraShake",
-              "FCDFPCPCJGO": {
-                "FIKIBNDMNEF": 0.33000001311302185,
-                "NCDMOKAIAJD": 0.25,
-                "JOLJAMKOCJL": 25.0,
-                "LLNFDIKODIM": {
+              "cameraShake": {
+                "shakeRange": 0.33,
+                "shakeTime": 0.25,
+                "shakeDistance": 25,
+                "extension": {
                   "CHHLPPNNJGM": false,
-                  "JMGEPMNEIGC": 0.20000000298023224
+                  "rangeAttenuation": 0.2
                 }
               }
             }
           ]
         }
       },
-      "NLFIGALMIPD": [
+      "onAdded": [
         {
           "$type": "ApplyModifier",
-          "BGIONAIMBCJ": "FlameStorm_Attack_Monitor"
+          "modifierName": "FlameStorm_Attack_Monitor"
         }
       ],
-      "DEOJHLMNLFC": [
+      "onAbilityStart": [
         {
           "$type": "TriggerAttackEvent",
-          "FMDHJHAACGM": {
-            "LOPCJCIFFBE": {
-              "$type": "IHKJIHKGECH",
+          "attackEvent": {
+            "attackPattern": {
+              "$type": "ConfigAttackSphere",
               "triggerType": "TriggerNoRepeat",
-              "CCNCMOGOFAG": {
-                "$type": "DELDMCFKBBL",
-                "FPDJOHEHNDD": true
+              "born": {
+                "$type": "ConfigBornBySelf",
+                "useRotation": true
               },
-              "GGEJLLOCJDH": 5.0
+              "radius": 5
             },
-            "OIAMOBFMPAB": {
-              "KNOKCFHALLI": "FlameStorm",
-              "HOKPLNACNKG": "",
-              "ILLFBEHPCJA": "default",
-              "BAPFFKCLDPC": {
-                "OLLFABADCKH": 5.119999885559082,
-                "PDHAKJCMPHB": 0.0,
+            "attackInfo": {
+              "attackTag": "FlameStorm",
+              "attenuationTag": "",
+              "attenuationGroup": "default",
+              "attackProperty": {
+                "damagePercentage": 5.12,
+                "damagePercentageRatio": 0,
                 "elementType": "Fire",
-                "ONIHJPOMNHA": 100.0,
-                "FFIIMACIKEA": 150.0,
-                "AEOLDMAMNLM": 0.0
+                "elementDurability": 100,
+                "enBreak": 150,
+                "__exp_arkhe": 0
               },
-              "OCHEEDIDOHI": {
-                "AIDMNBLLAIJ": "default",
-                "OEGAJNNFFPO": "LV6"
+              "hitPattern": {
+                "onHitEffectName": "default",
+                "hitImpulseType": "LV6"
               }
             }
           },
-          "PFBJAFHFBDE": "Enemy"
+          "targetType": "Enemy"
         },
         {
           "$type": "FireEffect",
-          "LHHFHDEJOHC": "Eff_Monster_Fungus_Trois_Fire_FlameStorm",
-          "PCLAEGHPNHE": -1.0
+          "effectPattern": "Eff_Monster_Fungus_Trois_Fire_FlameStorm"
         },
         {
           "$type": "ActCameraShake",
-          "FCDFPCPCJGO": {
-            "DFOAHDENBKP": "CustomVector",
-            "FIKIBNDMNEF": 2.0999999046325684,
-            "NCDMOKAIAJD": 0.4000000059604645,
-            "JOLJAMKOCJL": 30.0,
-            "BOEOGMPKDBO": {
-              "z": 1.0
+          "cameraShake": {
+            "shakeType": "CustomVector",
+            "shakeRange": 2.1,
+            "shakeTime": 0.4,
+            "shakeDistance": 30,
+            "shakeDir": {
+              "z": 1
             },
-            "LLNFDIKODIM": {
-              "LOCEENOGLOH": 0.25,
-              "JBAENFBBNHF": 0.6000000238418579,
-              "JMGEPMNEIGC": 0.10000000149011612
+            "extension": {
+              "baseCycle": 0.25,
+              "cycleDamping": 0.6,
+              "rangeAttenuation": 0.1
             }
           }
         },
         {
           "$type": "ActCameraRadialBlur",
-          "KHDOFBLONED": {
-            "FHBANGLKDIL": 0.20000000298023224,
-            "KBNCJNPFLDA": 0.10000000149011612,
-            "BGFFDKADGHJ": 0.15000000596046448
+          "cameraRadialBlur": {
+            "power": 0.2,
+            "blurTime": 0.1,
+            "fadeTime": 0.15
           }
         }
       ]
@@ -226,66 +222,65 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Fungus_Trois_BVB_Fire_FireRing",
-      "CLHBPEHHEJB": {
-        "defence_ratio_enhanced": 2.0
+      "abilitySpecials": {
+        "defence_ratio_enhanced": 2
       },
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "FireDance_Gen_FireRing": {
-          "BGIONAIMBCJ": "",
-          "FAFCPJJAIGK": 9.0,
-          "ONIHJPOMNHA": 100.0,
-          "ANPDJHOGAFE": 0.6660000085830688,
-          "NLPPKPOJEOA": {
+          "modifierName": "",
+          "duration": 9,
+          "elementDurability": 100,
+          "thinkInterval": 0.666,
+          "properties": {
             "Actor_DefenceRatio": "defence_ratio_enhanced"
           },
-          "FJMPEOEHPJK": "DefenseUp",
-          "NLFIGALMIPD": [
+          "state": "DefenseUp",
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_Monster_Fungus_Trois_Fire_FireRing",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_Monster_Fungus_Trois_Fire_FireRing"
             }
           ],
-          "MDPGEKAIFIM": [
+          "onThinkInterval": [
             {
               "$type": "TriggerAttackEvent",
-              "FMDHJHAACGM": {
-                "LOPCJCIFFBE": {
-                  "$type": "IHKJIHKGECH",
+              "attackEvent": {
+                "attackPattern": {
+                  "$type": "ConfigAttackSphere",
                   "triggerType": "TriggerNoRepeat",
-                  "CCNCMOGOFAG": {
-                    "$type": "DELDMCFKBBL",
-                    "FPDJOHEHNDD": true
+                  "born": {
+                    "$type": "ConfigBornBySelf",
+                    "useRotation": true
                   },
-                  "GGEJLLOCJDH": 2.700000047683716
+                  "radius": 2.7
                 },
-                "OIAMOBFMPAB": {
-                  "KNOKCFHALLI": "",
-                  "HOKPLNACNKG": "FireRing",
-                  "ILLFBEHPCJA": "FungusFight_Trois_FireRing",
-                  "BAPFFKCLDPC": {
-                    "OLLFABADCKH": 0.10899999737739563,
-                    "PDHAKJCMPHB": 0.0,
+                "attackInfo": {
+                  "attackTag": "",
+                  "attenuationTag": "FireRing",
+                  "attenuationGroup": "FungusFight_Trois_FireRing",
+                  "attackProperty": {
+                    "damagePercentage": 0.109,
+                    "damagePercentageRatio": 0,
                     "elementType": "Fire",
-                    "ONIHJPOMNHA": 25.0,
-                    "FFIIMACIKEA": 6.0,
-                    "AEOLDMAMNLM": 0.0
+                    "elementDurability": 25,
+                    "enBreak": 6,
+                    "__exp_arkhe": 0
                   },
-                  "OCHEEDIDOHI": {
-                    "AIDMNBLLAIJ": "default",
-                    "OEGAJNNFFPO": "LV0"
+                  "hitPattern": {
+                    "onHitEffectName": "default",
+                    "hitImpulseType": "LV0"
                   }
                 }
               },
-              "PFBJAFHFBDE": "Enemy"
+              "targetType": "Enemy"
             }
           ]
         }
       },
-      "DEOJHLMNLFC": [
+      "onAbilityStart": [
         {
           "$type": "ApplyModifier",
-          "BGIONAIMBCJ": "FireDance_Gen_FireRing"
+          "modifierName": "FireDance_Gen_FireRing"
         }
       ]
     }
@@ -294,67 +289,65 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Fungus_Trois_BVB_Fire_Explode",
-      "KBODACCMEFE": [
+      "abilityMixins": [
         {
           "$type": "AttachToAnimatorStateIDMixin",
-          "FHCHNMKMJJA": [
+          "stateIDs": [
             "Explode_BS",
             "Explode_Loop"
           ],
-          "BGIONAIMBCJ": "ExplodeLoopEffect_Normal"
+          "modifierName": "ExplodeLoopEffect_Normal"
         }
       ],
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "ExplodeLoopEffect_Normal": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_Monster_Fungus_Trois_Gamma_Fire_ExplodeDecayed_Loop",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_Monster_Fungus_Trois_Gamma_Fire_ExplodeDecayed_Loop"
             }
           ]
         }
       },
-      "DEOJHLMNLFC": [
+      "onAbilityStart": [
         {
           "$type": "TriggerAttackEvent",
-          "FMDHJHAACGM": {
-            "LOPCJCIFFBE": {
-              "$type": "IHKJIHKGECH",
+          "attackEvent": {
+            "attackPattern": {
+              "$type": "ConfigAttackSphere",
               "triggerType": "TriggerNoRepeat",
-              "CCNCMOGOFAG": {
-                "$type": "DELDMCFKBBL",
-                "FPDJOHEHNDD": true
+              "born": {
+                "$type": "ConfigBornBySelf",
+                "useRotation": true
               },
-              "GGEJLLOCJDH": 3.5
+              "radius": 3.5
             },
-            "OIAMOBFMPAB": {
-              "KNOKCFHALLI": "",
-              "HOKPLNACNKG": "",
-              "ILLFBEHPCJA": "default",
-              "BAPFFKCLDPC": {
-                "OLLFABADCKH": 3.0,
-                "PDHAKJCMPHB": 0.0,
+            "attackInfo": {
+              "attackTag": "",
+              "attenuationTag": "",
+              "attenuationGroup": "default",
+              "attackProperty": {
+                "damagePercentage": 3,
+                "damagePercentageRatio": 0,
                 "elementType": "Fire",
-                "ONIHJPOMNHA": 25.0,
-                "FFIIMACIKEA": 45.0,
-                "ELCPFOMENGK": "Range",
-                "AEOLDMAMNLM": 0.0
+                "elementDurability": 25,
+                "enBreak": 45,
+                "attackType": "Range",
+                "__exp_arkhe": 0
               },
-              "OCHEEDIDOHI": {
-                "AIDMNBLLAIJ": "default",
-                "OEGAJNNFFPO": "LV4"
+              "hitPattern": {
+                "onHitEffectName": "default",
+                "hitImpulseType": "LV4"
               }
             }
           },
-          "PFBJAFHFBDE": "Enemy"
+          "targetType": "Enemy"
         },
         {
           "$type": "FireEffect",
-          "LHHFHDEJOHC": "Eff_Monster_Fungus_Trois_Gamma_Fire_ExplodeDecayed_Attack",
-          "PCLAEGHPNHE": -1.0
+          "effectPattern": "Eff_Monster_Fungus_Trois_Gamma_Fire_ExplodeDecayed_Attack"
         }
       ]
     }
@@ -363,16 +356,16 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Fungus_Trois_BVB_Fire_FlameStorm",
-      "CLHBPEHHEJB": {
-        "sub_hurt_delta_positive": 0.699999988079071
+      "abilitySpecials": {
+        "sub_hurt_delta_positive": 0.7
       },
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "FlameStorm_State": {
-          "BGIONAIMBCJ": "",
-          "FAFCPJJAIGK": 8.0,
-          "ONIHJPOMNHA": 100.0,
-          "ANPDJHOGAFE": 0.5,
-          "NLPPKPOJEOA": {
+          "modifierName": "",
+          "duration": 8,
+          "elementDurability": 100,
+          "thinkInterval": 0.5,
+          "properties": {
             "Actor_PhysicalSubHurtDelta": "sub_hurt_delta_positive",
             "Actor_FireSubHurtDelta": "sub_hurt_delta_positive",
             "Actor_ElecSubHurtDelta": "sub_hurt_delta_positive",
@@ -382,98 +375,97 @@
             "Actor_WindSubHurtDelta": "sub_hurt_delta_positive",
             "Actor_RockSubHurtDelta": "sub_hurt_delta_positive"
           },
-          "NLFIGALMIPD": [
+          "onAdded": [
             {
               "$type": "SetPoseBool",
-              "CMLNMLEDGPA": "InFlameStorm",
+              "boolID": "InFlameStorm",
               "value": true
             },
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_Monster_Fungus_Trois_Fire_VortexOfFire",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_Monster_Fungus_Trois_Fire_VortexOfFire"
             },
             {
               "$type": "TriggerAttackEvent",
-              "FMDHJHAACGM": {
-                "LOPCJCIFFBE": {
-                  "$type": "IHKJIHKGECH",
+              "attackEvent": {
+                "attackPattern": {
+                  "$type": "ConfigAttackSphere",
                   "triggerType": "TriggerNoRepeat",
-                  "CCNCMOGOFAG": {
-                    "$type": "DELDMCFKBBL",
-                    "FPDJOHEHNDD": true
+                  "born": {
+                    "$type": "ConfigBornBySelf",
+                    "useRotation": true
                   },
-                  "GGEJLLOCJDH": 3.0
+                  "radius": 3
                 },
-                "OIAMOBFMPAB": {
-                  "KNOKCFHALLI": "",
-                  "HOKPLNACNKG": "FireRing",
-                  "ILLFBEHPCJA": "FungusFightV2_Seq1",
-                  "BAPFFKCLDPC": {
-                    "OLLFABADCKH": 0.8999999761581421,
-                    "PDHAKJCMPHB": 0.0,
+                "attackInfo": {
+                  "attackTag": "",
+                  "attenuationTag": "FireRing",
+                  "attenuationGroup": "FungusFightV2_Seq1",
+                  "attackProperty": {
+                    "damagePercentage": 0.9,
+                    "damagePercentageRatio": 0,
                     "elementType": "Fire",
-                    "ONIHJPOMNHA": 25.0,
-                    "FFIIMACIKEA": 15.0,
-                    "ELCPFOMENGK": "Range",
-                    "AEOLDMAMNLM": 0.0
+                    "elementDurability": 25,
+                    "enBreak": 15,
+                    "attackType": "Range",
+                    "__exp_arkhe": 0
                   },
-                  "OCHEEDIDOHI": {
-                    "AIDMNBLLAIJ": "default",
-                    "OEGAJNNFFPO": "LV1"
+                  "hitPattern": {
+                    "onHitEffectName": "default",
+                    "hitImpulseType": "LV1"
                   }
                 }
               },
-              "PFBJAFHFBDE": "Enemy"
+              "targetType": "Enemy"
             }
           ],
-          "NFKOGKMAIIE": [
+          "onRemoved": [
             {
               "$type": "SetPoseBool",
-              "CMLNMLEDGPA": "InFlameStorm"
+              "boolID": "InFlameStorm"
             }
           ],
-          "MDPGEKAIFIM": [
+          "onThinkInterval": [
             {
               "$type": "TriggerAttackEvent",
-              "FMDHJHAACGM": {
-                "LOPCJCIFFBE": {
-                  "$type": "IHKJIHKGECH",
+              "attackEvent": {
+                "attackPattern": {
+                  "$type": "ConfigAttackSphere",
                   "triggerType": "TriggerNoRepeat",
-                  "CCNCMOGOFAG": {
-                    "$type": "DELDMCFKBBL",
-                    "FPDJOHEHNDD": true
+                  "born": {
+                    "$type": "ConfigBornBySelf",
+                    "useRotation": true
                   },
-                  "GGEJLLOCJDH": 3.0
+                  "radius": 3
                 },
-                "OIAMOBFMPAB": {
-                  "KNOKCFHALLI": "",
-                  "HOKPLNACNKG": "FireRing",
-                  "ILLFBEHPCJA": "FungusFightV2_Seq1",
-                  "BAPFFKCLDPC": {
-                    "OLLFABADCKH": 0.8999999761581421,
-                    "PDHAKJCMPHB": 0.0,
+                "attackInfo": {
+                  "attackTag": "",
+                  "attenuationTag": "FireRing",
+                  "attenuationGroup": "FungusFightV2_Seq1",
+                  "attackProperty": {
+                    "damagePercentage": 0.9,
+                    "damagePercentageRatio": 0,
                     "elementType": "Fire",
-                    "ONIHJPOMNHA": 25.0,
-                    "FFIIMACIKEA": 15.0,
-                    "ELCPFOMENGK": "Range",
-                    "AEOLDMAMNLM": 0.0
+                    "elementDurability": 25,
+                    "enBreak": 15,
+                    "attackType": "Range",
+                    "__exp_arkhe": 0
                   },
-                  "OCHEEDIDOHI": {
-                    "AIDMNBLLAIJ": "default",
-                    "OEGAJNNFFPO": "LV1"
+                  "hitPattern": {
+                    "onHitEffectName": "default",
+                    "hitImpulseType": "LV1"
                   }
                 }
               },
-              "PFBJAFHFBDE": "Enemy"
+              "targetType": "Enemy"
             }
           ]
         }
       },
-      "DEOJHLMNLFC": [
+      "onAbilityStart": [
         {
           "$type": "ApplyModifier",
-          "BGIONAIMBCJ": "FlameStorm_State"
+          "modifierName": "FlameStorm_State"
         }
       ]
     }

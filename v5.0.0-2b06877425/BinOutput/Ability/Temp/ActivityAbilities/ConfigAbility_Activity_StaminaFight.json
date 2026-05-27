@@ -1,18 +1,18 @@
 [
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "ActivityAbility_StaminaFight_Level_1",
       "abilityMixins": [
         {
           "$type": "JPPFBGJICKI",
           "key": "SGV_StaminaFight",
           "useLimitRange": true,
-          "param2": 2.0,
-          "repeatTimes": 0.0
+          "maxValue": 2,
+          "minValue": 0
         },
         {
-          "$type": "PHLKCMFKFIN",
+          "$type": "AttachModifierToSelfGlobalValueNoInitMixin",
           "globalValueKey": "SGV_StaminaFight",
           "valueSteps": [
             -0.5,
@@ -28,29 +28,29 @@
           "actionQueues": [
             [
               {
-                "$type": "KNHHAJNCCBI",
-                "param3": "CriticalUp_Lv0",
+                "$type": "SetOverrideMapValue",
+                "value": "CriticalUp_Lv0",
                 "overrideMapKey": "Override_Ratio",
-                "param2": 0.0,
-                "repeatTimes": 0.0
+                "maxValue": 0,
+                "minValue": 0
               }
             ],
             [
               {
-                "$type": "KNHHAJNCCBI",
-                "param3": "CriticalUp_Lv1",
+                "$type": "SetOverrideMapValue",
+                "value": "CriticalUp_Lv1",
                 "overrideMapKey": "Override_Ratio",
-                "param2": 0.0,
-                "repeatTimes": 0.0
+                "maxValue": 0,
+                "minValue": 0
               }
             ],
             [
               {
-                "$type": "KNHHAJNCCBI",
-                "param3": "CriticalUp_Lv2",
+                "$type": "SetOverrideMapValue",
+                "value": "CriticalUp_Lv2",
                 "overrideMapKey": "Override_Ratio",
-                "param2": 0.0,
-                "repeatTimes": 0.0
+                "maxValue": 0,
+                "minValue": 0
               }
             ]
           ],
@@ -58,22 +58,22 @@
         }
       ],
       "abilitySpecials": {
-        "Override_Ratio": 0.0,
-        "Buff_Duration": 0.0,
-        "CriticalUp_Lv0": 0.0,
-        "CriticalUp_Lv1": 0.0,
-        "CriticalUp_Lv2": 0.0,
-        "CDTime": 0.0,
-        "BuffMaxLevel": 0.0
+        "Override_Ratio": 0,
+        "Buff_Duration": 0,
+        "CriticalUp_Lv0": 0,
+        "CriticalUp_Lv1": 0,
+        "CriticalUp_Lv2": 0,
+        "CDTime": 0,
+        "BuffMaxLevel": 0
       },
       "modifiers": {
         "Blank": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0
+          "elementDurability": 100
         },
         "StaminaFight_Level1_Handler_OnTeam": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "EEPKCGMKKJC",
@@ -82,42 +82,42 @@
           ],
           "onAdded": [
             {
-              "$type": "GJCAPCBELPA",
+              "$type": "TriggerAbility",
               "abilityName": "ActivityAbility_StaminaFight_Level_1"
             }
           ]
         },
         "StaminaFight_Level1_Handler_OnAvatar": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
-              "$type": "CLJDJFBAPFM",
+              "$type": "DoActionByEventMixin",
               "onEvent": "HPChange",
               "actions": [
                 {
-                  "$type": "INBCDALOHMP",
-                  "shieldHP": true,
+                  "$type": "Predicated",
+                  "doOffStage": true,
                   "targetPredicates": [
                     {
-                      "$type": "CNGGLKHONAA",
+                      "$type": "ByTargetGlobalValue",
                       "target": "Team",
                       "key": "StaminaFight_Level1_CD",
-                      "param3": 0.0,
+                      "value": 0,
                       "compareType": "NoneOrEqual"
                     }
                   ],
                   "successActions": [
                     {
-                      "$type": "PELJALPANCA",
+                      "$type": "ApplyModifier",
                       "target": "CurLocalAvatar",
-                      "shieldHP": true,
+                      "doOffStage": true,
                       "modifierName": "StaminaFight_Level1_Buff_CriticalUp"
                     },
                     {
-                      "$type": "PELJALPANCA",
+                      "$type": "ApplyModifier",
                       "target": "Team",
-                      "shieldHP": true,
+                      "doOffStage": true,
                       "modifierName": "StaminaFight_Level1_Buff_CD"
                     }
                   ]
@@ -134,16 +134,16 @@
             "maxModifierNumForMultipleType": "BuffMaxLevel"
           },
           "modifierName": "",
-          "elementDurability": "Buff_Duration",
-          "IPFJJJGABPL": 100.0,
+          "duration": "Buff_Duration",
+          "elementDurability": 100,
           "properties": {
             "Actor_CriticalDelta": "Override_Ratio"
           },
           "state": "AttackUp",
           "onAvatarOut": [
             {
-              "$type": "PFKNEFGOHIH",
-              "shieldHP": true,
+              "$type": "RemoveModifier",
+              "doOffStage": true,
               "modifierName": "StaminaFight_Level1_Buff_CriticalUp"
             }
           ],
@@ -151,104 +151,104 @@
         },
         "StaminaFight_Level1_Buff_CD": {
           "modifierName": "",
-          "elementDurability": "CDTime",
-          "IPFJJJGABPL": 100.0,
+          "duration": "CDTime",
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "BOBCOJHOKKD",
+              "$type": "SetGlobalValue",
               "target": "Team",
-              "shieldHP": true,
-              "param3": -1.0,
+              "doOffStage": true,
+              "value": -1,
               "key": "StaminaFight_Level1_CD",
-              "param2": 0.0,
-              "repeatTimes": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ],
           "onRemoved": [
             {
-              "$type": "BOBCOJHOKKD",
+              "$type": "SetGlobalValue",
               "target": "Team",
-              "shieldHP": true,
-              "param3": 0.0,
+              "doOffStage": true,
+              "value": 0,
               "key": "StaminaFight_Level1_CD",
-              "param2": 0.0,
-              "repeatTimes": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         }
       },
       "onAdded": [
         {
-          "$type": "BOBCOJHOKKD",
+          "$type": "SetGlobalValue",
           "target": "Team",
-          "param3": 0.0,
+          "value": 0,
           "key": "StaminaFight_Level1_CD",
-          "param2": 0.0,
-          "repeatTimes": 0.0
+          "maxValue": 0,
+          "minValue": 0
         }
       ],
       "onAbilityStart": [
         {
-          "$type": "INBCDALOHMP",
+          "$type": "Predicated",
           "target": "Team",
           "targetPredicates": [
             {
-              "$type": "CNGGLKHONAA",
+              "$type": "ByTargetGlobalValue",
               "target": "Team",
               "key": "SGV_StaminaFight",
-              "param3": 0.0,
+              "value": 0,
               "compareType": "NoneOrEqual"
             }
           ],
           "successActions": [
             {
-              "$type": "KNHHAJNCCBI",
-              "param3": "CriticalUp_Lv0",
+              "$type": "SetOverrideMapValue",
+              "value": "CriticalUp_Lv0",
               "overrideMapKey": "Override_Ratio",
-              "param2": 0.0,
-              "repeatTimes": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         {
-          "$type": "INBCDALOHMP",
+          "$type": "Predicated",
           "target": "Team",
           "targetPredicates": [
             {
-              "$type": "CNGGLKHONAA",
+              "$type": "ByTargetGlobalValue",
               "target": "Team",
               "key": "SGV_StaminaFight",
-              "param3": 1.0
+              "value": 1
             }
           ],
           "successActions": [
             {
-              "$type": "KNHHAJNCCBI",
-              "param3": "CriticalUp_Lv1",
+              "$type": "SetOverrideMapValue",
+              "value": "CriticalUp_Lv1",
               "overrideMapKey": "Override_Ratio",
-              "param2": 0.0,
-              "repeatTimes": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         {
-          "$type": "INBCDALOHMP",
+          "$type": "Predicated",
           "target": "Team",
           "targetPredicates": [
             {
-              "$type": "CNGGLKHONAA",
+              "$type": "ByTargetGlobalValue",
               "target": "Team",
               "key": "SGV_StaminaFight",
-              "param3": 2.0
+              "value": 2
             }
           ],
           "successActions": [
             {
-              "$type": "KNHHAJNCCBI",
-              "param3": "CriticalUp_Lv2",
+              "$type": "SetOverrideMapValue",
+              "value": "CriticalUp_Lv2",
               "overrideMapKey": "Override_Ratio",
-              "param2": 0.0,
-              "repeatTimes": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         }
@@ -258,18 +258,18 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "ActivityAbility_StaminaFight_Level_2",
       "abilityMixins": [
         {
           "$type": "JPPFBGJICKI",
           "key": "SGV_StaminaFight",
           "useLimitRange": true,
-          "param2": 2.0,
-          "repeatTimes": 0.0
+          "maxValue": 2,
+          "minValue": 0
         },
         {
-          "$type": "PHLKCMFKFIN",
+          "$type": "AttachModifierToSelfGlobalValueNoInitMixin",
           "globalValueKey": "SGV_StaminaFight",
           "valueSteps": [
             -0.5,
@@ -285,29 +285,29 @@
           "actionQueues": [
             [
               {
-                "$type": "KNHHAJNCCBI",
-                "param3": "CJBDamage_Lv0",
+                "$type": "SetOverrideMapValue",
+                "value": "CJBDamage_Lv0",
                 "overrideMapKey": "Override_Ratio",
-                "param2": 0.0,
-                "repeatTimes": 0.0
+                "maxValue": 0,
+                "minValue": 0
               }
             ],
             [
               {
-                "$type": "KNHHAJNCCBI",
-                "param3": "CJBDamage_Lv1",
+                "$type": "SetOverrideMapValue",
+                "value": "CJBDamage_Lv1",
                 "overrideMapKey": "Override_Ratio",
-                "param2": 0.0,
-                "repeatTimes": 0.0
+                "maxValue": 0,
+                "minValue": 0
               }
             ],
             [
               {
-                "$type": "KNHHAJNCCBI",
-                "param3": "CJBDamage_Lv2",
+                "$type": "SetOverrideMapValue",
+                "value": "CJBDamage_Lv2",
                 "overrideMapKey": "Override_Ratio",
-                "param2": 0.0,
-                "repeatTimes": 0.0
+                "maxValue": 0,
+                "minValue": 0
               }
             ]
           ],
@@ -315,21 +315,21 @@
         }
       ],
       "abilitySpecials": {
-        "Override_Ratio": 0.0,
-        "DamageSystemValue": 0.0,
-        "CJBDamage_Lv0": 0.0,
-        "CJBDamage_Lv1": 0.0,
-        "CJBDamage_Lv2": 0.0,
-        "CDTime": 0.0
+        "Override_Ratio": 0,
+        "DamageSystemValue": 0,
+        "CJBDamage_Lv0": 0,
+        "CJBDamage_Lv1": 0,
+        "CJBDamage_Lv2": 0,
+        "CDTime": 0
       },
       "modifiers": {
         "Blank": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0
+          "elementDurability": 100
         },
         "StaminaFight_Level2_Handler_OnTeam": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "EEPKCGMKKJC",
@@ -338,91 +338,86 @@
           ],
           "onAdded": [
             {
-              "$type": "GJCAPCBELPA",
+              "$type": "TriggerAbility",
               "abilityName": "ActivityAbility_StaminaFight_Level_2"
             }
           ]
         },
         "StaminaFight_Level2_Handler_OnAvatar": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "onAttackLanded": [
             {
-              "$type": "INBCDALOHMP",
+              "$type": "Predicated",
               "target": "Other",
-              "shieldHP": true,
+              "doOffStage": true,
               "targetPredicates": [
                 {
-                  "$type": "NIMAPECDNKD",
+                  "$type": "ByEntityTypes",
                   "entityTypes": [
                     "Monster"
                   ]
                 },
                 {
-                  "$type": "NNEHDJHMING",
+                  "$type": "ByAttackTags",
                   "attackTags": [
                     "FallingAttack"
                   ]
                 },
                 {
-                  "$type": "CNGGLKHONAA",
+                  "$type": "ByTargetGlobalValue",
                   "target": "Team",
                   "key": "StaminaFight_Level2_CD",
-                  "param3": 0.0,
+                  "value": 0,
                   "compareType": "NoneOrEqual"
                 }
               ],
               "successActions": [
                 {
-                  "$type": "MPAGCPPAIHJ",
+                  "$type": "SetGlobalPos",
                   "target": "SelfAttackTarget",
-                  "shieldHP": true,
+                  "doOffStage": true,
                   "key": "_StaminaFight_CJB_Pos_Team",
                   "born": {
-                    "$type": "JHEBKCMEMLN",
-                    "offset": {
-                      "KGEPIMHBMOL": 0.0,
-                      "JEBHCGDPFEJ": 0.0,
-                      "LPCHALMFFOD": 0.0
-                    },
+                    "$type": "ConfigBornByTarget",
                     "onGround": true
                   },
                   "setTarget": false
                 },
                 {
-                  "$type": "BEMPFJGAPHG",
-                  "shieldHP": true,
+                  "$type": "CopyGlobalValue",
+                  "doOffStage": true,
                   "srcTarget": "Team",
                   "dstTarget": "Self",
                   "srcKey": "_StaminaFight_CJB_Pos_Team_0",
                   "dstKey": "_StaminaFight_CJB_Pos_Avatar_0"
                 },
                 {
-                  "$type": "BEMPFJGAPHG",
-                  "shieldHP": true,
+                  "$type": "CopyGlobalValue",
+                  "doOffStage": true,
                   "srcTarget": "Team",
                   "dstTarget": "Self",
                   "srcKey": "_StaminaFight_CJB_Pos_Team_1",
                   "dstKey": "_StaminaFight_CJB_Pos_Avatar_1"
                 },
                 {
-                  "$type": "BEMPFJGAPHG",
-                  "shieldHP": true,
+                  "$type": "CopyGlobalValue",
+                  "doOffStage": true,
                   "srcTarget": "Team",
                   "dstTarget": "Self",
                   "srcKey": "_StaminaFight_CJB_Pos_Team_2",
                   "dstKey": "_StaminaFight_CJB_Pos_Avatar_2"
                 },
                 {
-                  "$type": "PELJALPANCA",
+                  "$type": "ApplyModifier",
                   "target": "CurLocalAvatar",
-                  "shieldHP": true,
+                  "doOffStage": true,
                   "modifierName": "StaminaFight_Level2_Handler_Buff_AoeEffect"
                 },
                 {
-                  "$type": "JLDEMMJAMLC",
+                  "$type": "AttachModifier",
                   "target": "Team",
-                  "shieldHP": true,
+                  "doOffStage": true,
                   "modifierName": "StaminaFight_Level2_Handler_Buff_CD"
                 }
               ]
@@ -431,60 +426,59 @@
         },
         "StaminaFight_Level2_Handler_Buff_AoeEffect": {
           "modifierName": "",
-          "elementDurability": 0.10000000149011612,
-          "IPFJJJGABPL": 100.0,
+          "duration": 0.1,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "KBFEIHEAMBM",
-              "rotationDampTime": "Eff_Stages_GainWave_01",
+              "$type": "FireEffect",
+              "effectPattern": "Eff_Stages_GainWave_01",
               "born": {
-                "$type": "ICKMMAHFNIM",
+                "$type": "ConfigBornByGlobalValue",
                 "useRotation": true,
                 "positionKey": "_StaminaFight_CJB_Pos_Avatar",
                 "directionKey": ""
               },
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "scale": 1
             },
             {
-              "$type": "AIFPLABJNMA",
+              "$type": "TriggerAttackEvent",
               "target": "CurLocalAvatar",
-              "shieldHP": true,
+              "doOffStage": true,
               "attackEvent": {
                 "attackPattern": {
-                  "$type": "BELNOFAKNBA",
+                  "$type": "ConfigAttackSphere",
                   "triggerType": "TriggerNoRepeat",
                   "born": {
-                    "$type": "ICKMMAHFNIM",
+                    "$type": "ConfigBornByGlobalValue",
                     "useRotation": true,
                     "positionKey": "_StaminaFight_CJB_Pos_Avatar",
                     "directionKey": ""
                   },
-                  "OAHPDLJIADP": 5.0
+                  "radius": 5
                 },
                 "attackInfo": {
                   "attackTag": "",
                   "attenuationTag": "",
                   "attenuationGroup": "default",
                   "attackProperty": {
-                    "actorWindSubHurtDelta": 0.0,
-                    "IPFJJJGABPL": 0.0,
+                    "damagePercentageRatio": 0,
+                    "elementDurability": 0,
                     "ignoreAttackerProperty": true,
-                    "enBreak": 0.0,
-                    "HMBONGBFIAP": [
+                    "enBreak": 0,
+                    "damageExtra": [
                       "Override_Ratio",
                       "DamageSystemValue",
                       "MUL"
                     ],
                     "trueDamage": true,
                     "ignoreModifyDamage": true,
-                    "GLKMCMDJBIK": 0.0
+                    "__exp_arkhe": 0
                   },
                   "hitPattern": {
                     "onHitEffectName": "default",
-                    "hitImpulseY": "",
+                    "__unk_Q3893899620": "",
                     "hitImpulseType": "LV2",
-                    "hitHaltTimeScale": 0.019999999552965164
+                    "hitHaltTimeScale": 0.02
                   }
                 }
               },
@@ -494,28 +488,28 @@
         },
         "StaminaFight_Level2_Handler_Buff_CD": {
           "modifierName": "",
-          "elementDurability": "CDTime",
-          "IPFJJJGABPL": 100.0,
+          "duration": "CDTime",
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "BOBCOJHOKKD",
+              "$type": "SetGlobalValue",
               "target": "Team",
-              "shieldHP": true,
-              "param3": -1.0,
+              "doOffStage": true,
+              "value": -1,
               "key": "StaminaFight_Level2_CD",
-              "param2": 0.0,
-              "repeatTimes": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ],
           "onRemoved": [
             {
-              "$type": "BOBCOJHOKKD",
+              "$type": "SetGlobalValue",
               "target": "Team",
-              "shieldHP": true,
-              "param3": 0.0,
+              "doOffStage": true,
+              "value": 0,
               "key": "StaminaFight_Level2_CD",
-              "param2": 0.0,
-              "repeatTimes": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         }
@@ -524,79 +518,79 @@
         {
           "$type": "GDHGMAPPGHD",
           "key": "DamageSystemValue",
-          "damageRatio": "ElementLevelCo"
+          "type": "ElementLevelCo"
         },
         {
-          "$type": "BOBCOJHOKKD",
+          "$type": "SetGlobalValue",
           "target": "Team",
-          "param3": 0.0,
+          "value": 0,
           "key": "StaminaFight_Level2_CD",
-          "param2": 0.0,
-          "repeatTimes": 0.0
+          "maxValue": 0,
+          "minValue": 0
         }
       ],
       "onAbilityStart": [
         {
-          "$type": "INBCDALOHMP",
+          "$type": "Predicated",
           "target": "Team",
           "targetPredicates": [
             {
-              "$type": "CNGGLKHONAA",
+              "$type": "ByTargetGlobalValue",
               "target": "Team",
               "key": "SGV_StaminaFight",
-              "param3": 0.0,
+              "value": 0,
               "compareType": "NoneOrEqual"
             }
           ],
           "successActions": [
             {
-              "$type": "KNHHAJNCCBI",
-              "param3": "CJBDamage_Lv0",
+              "$type": "SetOverrideMapValue",
+              "value": "CJBDamage_Lv0",
               "overrideMapKey": "Override_Ratio",
-              "param2": 0.0,
-              "repeatTimes": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         {
-          "$type": "INBCDALOHMP",
+          "$type": "Predicated",
           "target": "Team",
           "targetPredicates": [
             {
-              "$type": "CNGGLKHONAA",
+              "$type": "ByTargetGlobalValue",
               "target": "Team",
               "key": "SGV_StaminaFight",
-              "param3": 1.0
+              "value": 1
             }
           ],
           "successActions": [
             {
-              "$type": "KNHHAJNCCBI",
-              "param3": "CJBDamage_Lv1",
+              "$type": "SetOverrideMapValue",
+              "value": "CJBDamage_Lv1",
               "overrideMapKey": "Override_Ratio",
-              "param2": 0.0,
-              "repeatTimes": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         {
-          "$type": "INBCDALOHMP",
+          "$type": "Predicated",
           "target": "Team",
           "targetPredicates": [
             {
-              "$type": "CNGGLKHONAA",
+              "$type": "ByTargetGlobalValue",
               "target": "Team",
               "key": "SGV_StaminaFight",
-              "param3": 2.0
+              "value": 2
             }
           ],
           "successActions": [
             {
-              "$type": "KNHHAJNCCBI",
-              "param3": "CJBDamage_Lv2",
+              "$type": "SetOverrideMapValue",
+              "value": "CJBDamage_Lv2",
               "overrideMapKey": "Override_Ratio",
-              "param2": 0.0,
-              "repeatTimes": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         }
@@ -606,29 +600,29 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "ActivityAbility_StaminaFight_Level_3",
       "abilitySpecials": {
-        "Override_Ratio": 0.0,
-        "Buff_Duration": 0.0,
-        "DamageUp_Lv0": 0.0,
-        "DamageUp_Lv1": 0.0,
-        "DamageUp_Lv2": 0.0
+        "Override_Ratio": 0,
+        "Buff_Duration": 0,
+        "DamageUp_Lv0": 0,
+        "DamageUp_Lv1": 0,
+        "DamageUp_Lv2": 0
       },
       "modifiers": {
         "StaminaFight_Level3_BuffHandler": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "JPPFBGJICKI",
               "key": "SGV_StaminaFight",
               "useLimitRange": true,
-              "param2": 2.0,
-              "repeatTimes": 0.0
+              "maxValue": 2,
+              "minValue": 0
             },
             {
-              "$type": "PHLKCMFKFIN",
+              "$type": "AttachModifierToSelfGlobalValueNoInitMixin",
               "globalValueKey": "SGV_StaminaFight",
               "valueSteps": [
                 -0.5,
@@ -644,32 +638,32 @@
               "actionQueues": [
                 [
                   {
-                    "$type": "KNHHAJNCCBI",
-                    "shieldHP": true,
-                    "param3": "DamageUp_Lv0",
+                    "$type": "SetOverrideMapValue",
+                    "doOffStage": true,
+                    "value": "DamageUp_Lv0",
                     "overrideMapKey": "Override_Ratio",
-                    "param2": 0.0,
-                    "repeatTimes": 0.0
+                    "maxValue": 0,
+                    "minValue": 0
                   }
                 ],
                 [
                   {
-                    "$type": "KNHHAJNCCBI",
-                    "shieldHP": true,
-                    "param3": "DamageUp_Lv1",
+                    "$type": "SetOverrideMapValue",
+                    "doOffStage": true,
+                    "value": "DamageUp_Lv1",
                     "overrideMapKey": "Override_Ratio",
-                    "param2": 0.0,
-                    "repeatTimes": 0.0
+                    "maxValue": 0,
+                    "minValue": 0
                   }
                 ],
                 [
                   {
-                    "$type": "KNHHAJNCCBI",
-                    "shieldHP": true,
-                    "param3": "DamageUp_Lv2",
+                    "$type": "SetOverrideMapValue",
+                    "doOffStage": true,
+                    "value": "DamageUp_Lv2",
                     "overrideMapKey": "Override_Ratio",
-                    "param2": 0.0,
-                    "repeatTimes": 0.0
+                    "maxValue": 0,
+                    "minValue": 0
                   }
                 ]
               ],
@@ -679,11 +673,11 @@
         },
         "Blank": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0
+          "elementDurability": 100
         },
         "StaminaFight_Level3_Handler_OnTeam": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "EEPKCGMKKJC",
@@ -693,11 +687,11 @@
         },
         "StaminaFight_Level3_Handler_OnAvatar": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
-              "$type": "GEICHMDHPHI",
-              "range": 50.0,
+              "$type": "DoActionByElementReactionMixin",
+              "range": 50,
               "BDLNFKGFEPI": true,
               "entityTypes": [
                 "Monster"
@@ -707,15 +701,15 @@
               ],
               "actions": [
                 {
-                  "$type": "GJCAPCBELPA",
-                  "shieldHP": true,
+                  "$type": "TriggerAbility",
+                  "doOffStage": true,
                   "abilityName": "ActivityAbility_StaminaFight_Level_3"
                 }
               ]
             },
             {
-              "$type": "GEICHMDHPHI",
-              "range": 50.0,
+              "$type": "DoActionByElementReactionMixin",
+              "range": 50,
               "BDLNFKGFEPI": true,
               "entityTypes": [
                 "Monster"
@@ -725,8 +719,8 @@
               ],
               "actions": [
                 {
-                  "$type": "GJCAPCBELPA",
-                  "shieldHP": true,
+                  "$type": "TriggerAbility",
+                  "doOffStage": true,
                   "abilityName": "ActivityAbility_StaminaFight_Level_3"
                 }
               ]
@@ -735,8 +729,8 @@
         },
         "StaminaFight_Level3_Buff_ElementReactionDamageUp": {
           "modifierName": "",
-          "elementDurability": "Buff_Duration",
-          "IPFJJJGABPL": 100.0,
+          "duration": "Buff_Duration",
+          "elementDurability": 100,
           "properties": {
             "Actor_ElemReactSteamDelta": "Override_Ratio",
             "Actor_ElemReactMeltDelta": "Override_Ratio"
@@ -746,80 +740,80 @@
       },
       "onAdded": [
         {
-          "$type": "JLDEMMJAMLC",
+          "$type": "AttachModifier",
           "target": "Team",
-          "shieldHP": true,
+          "doOffStage": true,
           "modifierName": "StaminaFight_Level3_BuffHandler"
         }
       ],
       "onAbilityStart": [
         {
-          "$type": "INBCDALOHMP",
+          "$type": "Predicated",
           "target": "Team",
           "targetPredicates": [
             {
-              "$type": "CNGGLKHONAA",
+              "$type": "ByTargetGlobalValue",
               "target": "Team",
               "key": "SGV_StaminaFight",
-              "param3": 0.0,
+              "value": 0,
               "compareType": "NoneOrEqual"
             }
           ],
           "successActions": [
             {
-              "$type": "KNHHAJNCCBI",
-              "param3": "DamageUp_Lv0",
+              "$type": "SetOverrideMapValue",
+              "value": "DamageUp_Lv0",
               "overrideMapKey": "Override_Ratio",
-              "param2": 0.0,
-              "repeatTimes": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         {
-          "$type": "INBCDALOHMP",
+          "$type": "Predicated",
           "target": "Team",
           "targetPredicates": [
             {
-              "$type": "CNGGLKHONAA",
+              "$type": "ByTargetGlobalValue",
               "target": "Team",
               "key": "SGV_StaminaFight",
-              "param3": 1.0
+              "value": 1
             }
           ],
           "successActions": [
             {
-              "$type": "KNHHAJNCCBI",
-              "param3": "DamageUp_Lv1",
+              "$type": "SetOverrideMapValue",
+              "value": "DamageUp_Lv1",
               "overrideMapKey": "Override_Ratio",
-              "param2": 0.0,
-              "repeatTimes": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         {
-          "$type": "INBCDALOHMP",
+          "$type": "Predicated",
           "target": "Team",
           "targetPredicates": [
             {
-              "$type": "CNGGLKHONAA",
+              "$type": "ByTargetGlobalValue",
               "target": "Team",
               "key": "SGV_StaminaFight",
-              "param3": 2.0
+              "value": 2
             }
           ],
           "successActions": [
             {
-              "$type": "KNHHAJNCCBI",
-              "param3": "DamageUp_Lv2",
+              "$type": "SetOverrideMapValue",
+              "value": "DamageUp_Lv2",
               "overrideMapKey": "Override_Ratio",
-              "param2": 0.0,
-              "repeatTimes": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         {
-          "$type": "PELJALPANCA",
-          "shieldHP": true,
+          "$type": "ApplyModifier",
+          "doOffStage": true,
           "modifierName": "StaminaFight_Level3_Buff_ElementReactionDamageUp"
         }
       ],
@@ -828,18 +822,18 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "ActivityAbility_StaminaFight_Level_4",
       "abilityMixins": [
         {
           "$type": "JPPFBGJICKI",
           "key": "SGV_StaminaFight",
           "useLimitRange": true,
-          "param2": 2.0,
-          "repeatTimes": 0.0
+          "maxValue": 2,
+          "minValue": 0
         },
         {
-          "$type": "PHLKCMFKFIN",
+          "$type": "AttachModifierToSelfGlobalValueNoInitMixin",
           "globalValueKey": "SGV_StaminaFight",
           "valueSteps": [
             -0.5,
@@ -855,29 +849,29 @@
           "actionQueues": [
             [
               {
-                "$type": "KNHHAJNCCBI",
-                "param3": "MasteryUp_Lv0",
+                "$type": "SetOverrideMapValue",
+                "value": "MasteryUp_Lv0",
                 "overrideMapKey": "Override_Ratio",
-                "param2": 0.0,
-                "repeatTimes": 0.0
+                "maxValue": 0,
+                "minValue": 0
               }
             ],
             [
               {
-                "$type": "KNHHAJNCCBI",
-                "param3": "MasteryUp_Lv1",
+                "$type": "SetOverrideMapValue",
+                "value": "MasteryUp_Lv1",
                 "overrideMapKey": "Override_Ratio",
-                "param2": 0.0,
-                "repeatTimes": 0.0
+                "maxValue": 0,
+                "minValue": 0
               }
             ],
             [
               {
-                "$type": "KNHHAJNCCBI",
-                "param3": "MasteryUp_Lv2",
+                "$type": "SetOverrideMapValue",
+                "value": "MasteryUp_Lv2",
                 "overrideMapKey": "Override_Ratio",
-                "param2": 0.0,
-                "repeatTimes": 0.0
+                "maxValue": 0,
+                "minValue": 0
               }
             ]
           ],
@@ -885,20 +879,20 @@
         }
       ],
       "abilitySpecials": {
-        "Override_Ratio": 0.0,
-        "Buff_Duration": 0.0,
-        "MasteryUp_Lv0": 0.0,
-        "MasteryUp_Lv1": 0.0,
-        "MasteryUp_Lv2": 0.0
+        "Override_Ratio": 0,
+        "Buff_Duration": 0,
+        "MasteryUp_Lv0": 0,
+        "MasteryUp_Lv1": 0,
+        "MasteryUp_Lv2": 0
       },
       "modifiers": {
         "Blank": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0
+          "elementDurability": 100
         },
         "StaminaFight_Level4_Handler_OnTeam": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "EEPKCGMKKJC",
@@ -907,59 +901,59 @@
           ],
           "onAdded": [
             {
-              "$type": "GJCAPCBELPA",
+              "$type": "TriggerAbility",
               "abilityName": "ActivityAbility_StaminaFight_Level_4"
             }
           ]
         },
         "StaminaFight_Level4_Handler_OnAvatar": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "onAttackLanded": [
             {
-              "$type": "INBCDALOHMP",
+              "$type": "Predicated",
               "target": "Other",
-              "shieldHP": true,
+              "doOffStage": true,
               "targetPredicates": [
                 {
-                  "$type": "NIMAPECDNKD",
+                  "$type": "ByEntityTypes",
                   "entityTypes": [
                     "Monster"
                   ]
                 },
                 {
-                  "$type": "GAGDDICMFEH",
-                  "damage": 0.0
+                  "$type": "ByHitDamage",
+                  "damage": 0
                 },
                 {
-                  "$type": "HHHMNCNPBDK",
+                  "$type": "ByAny",
                   "predicates": [
                     {
-                      "$type": "PNLEEOAGKLD",
+                      "$type": "ByHitElement",
                       "element": "Fire"
                     },
                     {
-                      "$type": "PNLEEOAGKLD",
+                      "$type": "ByHitElement",
                       "element": "Water"
                     },
                     {
-                      "$type": "PNLEEOAGKLD",
+                      "$type": "ByHitElement",
                       "element": "Electric"
                     },
                     {
-                      "$type": "PNLEEOAGKLD",
+                      "$type": "ByHitElement",
                       "element": "Wind"
                     },
                     {
-                      "$type": "PNLEEOAGKLD",
+                      "$type": "ByHitElement",
                       "element": "Ice"
                     },
                     {
-                      "$type": "PNLEEOAGKLD",
+                      "$type": "ByHitElement",
                       "element": "Rock"
                     },
                     {
-                      "$type": "PNLEEOAGKLD",
+                      "$type": "ByHitElement",
                       "element": "Grass"
                     }
                   ]
@@ -967,15 +961,15 @@
               ],
               "successActions": [
                 {
-                  "$type": "PFKNEFGOHIH",
+                  "$type": "RemoveModifier",
                   "target": "AllPlayerAvatars",
-                  "shieldHP": true,
+                  "doOffStage": true,
                   "modifierName": "StaminaFight_Level4_Buff_MasteryUp"
                 },
                 {
-                  "$type": "PELJALPANCA",
+                  "$type": "ApplyModifier",
                   "target": "AllPlayerAvatars",
-                  "shieldHP": true,
+                  "doOffStage": true,
                   "modifierName": "StaminaFight_Level4_Buff_MasteryUp"
                 }
               ]
@@ -984,8 +978,8 @@
         },
         "StaminaFight_Level4_Buff_MasteryUp": {
           "modifierName": "",
-          "elementDurability": "Buff_Duration",
-          "IPFJJJGABPL": 100.0,
+          "duration": "Buff_Duration",
+          "elementDurability": 100,
           "properties": {
             "Actor_ElemMasteryDelta": "Override_Ratio"
           },
@@ -995,66 +989,66 @@
       },
       "onAbilityStart": [
         {
-          "$type": "INBCDALOHMP",
+          "$type": "Predicated",
           "target": "Team",
           "targetPredicates": [
             {
-              "$type": "CNGGLKHONAA",
+              "$type": "ByTargetGlobalValue",
               "target": "Team",
               "key": "SGV_StaminaFight",
-              "param3": 0.0,
+              "value": 0,
               "compareType": "NoneOrEqual"
             }
           ],
           "successActions": [
             {
-              "$type": "KNHHAJNCCBI",
-              "param3": "MasteryUp_Lv0",
+              "$type": "SetOverrideMapValue",
+              "value": "MasteryUp_Lv0",
               "overrideMapKey": "Override_Ratio",
-              "param2": 0.0,
-              "repeatTimes": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         {
-          "$type": "INBCDALOHMP",
+          "$type": "Predicated",
           "target": "Team",
           "targetPredicates": [
             {
-              "$type": "CNGGLKHONAA",
+              "$type": "ByTargetGlobalValue",
               "target": "Team",
               "key": "SGV_StaminaFight",
-              "param3": 1.0
+              "value": 1
             }
           ],
           "successActions": [
             {
-              "$type": "KNHHAJNCCBI",
-              "param3": "MasteryUp_Lv1",
+              "$type": "SetOverrideMapValue",
+              "value": "MasteryUp_Lv1",
               "overrideMapKey": "Override_Ratio",
-              "param2": 0.0,
-              "repeatTimes": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         {
-          "$type": "INBCDALOHMP",
+          "$type": "Predicated",
           "target": "Team",
           "targetPredicates": [
             {
-              "$type": "CNGGLKHONAA",
+              "$type": "ByTargetGlobalValue",
               "target": "Team",
               "key": "SGV_StaminaFight",
-              "param3": 2.0
+              "value": 2
             }
           ],
           "successActions": [
             {
-              "$type": "KNHHAJNCCBI",
-              "param3": "MasteryUp_Lv2",
+              "$type": "SetOverrideMapValue",
+              "value": "MasteryUp_Lv2",
               "overrideMapKey": "Override_Ratio",
-              "param2": 0.0,
-              "repeatTimes": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         }
@@ -1064,18 +1058,18 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "ActivityAbility_StaminaFight_Level_5",
       "abilityMixins": [
         {
           "$type": "JPPFBGJICKI",
           "key": "SGV_StaminaFight",
           "useLimitRange": true,
-          "param2": 2.0,
-          "repeatTimes": 0.0
+          "maxValue": 2,
+          "minValue": 0
         },
         {
-          "$type": "PHLKCMFKFIN",
+          "$type": "AttachModifierToSelfGlobalValueNoInitMixin",
           "globalValueKey": "SGV_StaminaFight",
           "valueSteps": [
             -0.5,
@@ -1091,29 +1085,29 @@
           "actionQueues": [
             [
               {
-                "$type": "KNHHAJNCCBI",
-                "param3": "MasteryUp_Lv0",
+                "$type": "SetOverrideMapValue",
+                "value": "MasteryUp_Lv0",
                 "overrideMapKey": "Override_Ratio",
-                "param2": 0.0,
-                "repeatTimes": 0.0
+                "maxValue": 0,
+                "minValue": 0
               }
             ],
             [
               {
-                "$type": "KNHHAJNCCBI",
-                "param3": "MasteryUp_Lv1",
+                "$type": "SetOverrideMapValue",
+                "value": "MasteryUp_Lv1",
                 "overrideMapKey": "Override_Ratio",
-                "param2": 0.0,
-                "repeatTimes": 0.0
+                "maxValue": 0,
+                "minValue": 0
               }
             ],
             [
               {
-                "$type": "KNHHAJNCCBI",
-                "param3": "MasteryUp_Lv2",
+                "$type": "SetOverrideMapValue",
+                "value": "MasteryUp_Lv2",
                 "overrideMapKey": "Override_Ratio",
-                "param2": 0.0,
-                "repeatTimes": 0.0
+                "maxValue": 0,
+                "minValue": 0
               }
             ]
           ],
@@ -1121,20 +1115,20 @@
         }
       ],
       "abilitySpecials": {
-        "Override_Ratio": 0.0,
-        "Buff_Duration": 0.0,
-        "MasteryUp_Lv0": 0.0,
-        "MasteryUp_Lv1": 0.0,
-        "MasteryUp_Lv2": 0.0
+        "Override_Ratio": 0,
+        "Buff_Duration": 0,
+        "MasteryUp_Lv0": 0,
+        "MasteryUp_Lv1": 0,
+        "MasteryUp_Lv2": 0
       },
       "modifiers": {
         "Blank": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0
+          "elementDurability": 100
         },
         "StaminaFight_Level5_Handler_OnTeam": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "EEPKCGMKKJC",
@@ -1143,18 +1137,18 @@
           ],
           "onAdded": [
             {
-              "$type": "GJCAPCBELPA",
+              "$type": "TriggerAbility",
               "abilityName": "ActivityAbility_StaminaFight_Level_5"
             }
           ]
         },
         "StaminaFight_Level5_Handler_OnAvatar": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
-              "$type": "GEICHMDHPHI",
-              "range": 50.0,
+              "$type": "DoActionByElementReactionMixin",
+              "range": 50,
               "entityTypes": [
                 "Monster"
               ],
@@ -1169,15 +1163,15 @@
               ],
               "actions": [
                 {
-                  "$type": "PFKNEFGOHIH",
+                  "$type": "RemoveModifier",
                   "target": "AllPlayerAvatars",
-                  "shieldHP": true,
+                  "doOffStage": true,
                   "modifierName": "StaminaFight_Level5_Buff_MasteryUp"
                 },
                 {
-                  "$type": "PELJALPANCA",
+                  "$type": "ApplyModifier",
                   "target": "AllPlayerAvatars",
-                  "shieldHP": true,
+                  "doOffStage": true,
                   "modifierName": "StaminaFight_Level5_Buff_MasteryUp"
                 }
               ]
@@ -1186,8 +1180,8 @@
         },
         "StaminaFight_Level5_Buff_MasteryUp": {
           "modifierName": "",
-          "elementDurability": "Buff_Duration",
-          "IPFJJJGABPL": 100.0,
+          "duration": "Buff_Duration",
+          "elementDurability": 100,
           "properties": {
             "Actor_ElemMasteryDelta": "Override_Ratio"
           },
@@ -1197,66 +1191,66 @@
       },
       "onAbilityStart": [
         {
-          "$type": "INBCDALOHMP",
+          "$type": "Predicated",
           "target": "Team",
           "targetPredicates": [
             {
-              "$type": "CNGGLKHONAA",
+              "$type": "ByTargetGlobalValue",
               "target": "Team",
               "key": "SGV_StaminaFight",
-              "param3": 0.0,
+              "value": 0,
               "compareType": "NoneOrEqual"
             }
           ],
           "successActions": [
             {
-              "$type": "KNHHAJNCCBI",
-              "param3": "MasteryUp_Lv0",
+              "$type": "SetOverrideMapValue",
+              "value": "MasteryUp_Lv0",
               "overrideMapKey": "Override_Ratio",
-              "param2": 0.0,
-              "repeatTimes": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         {
-          "$type": "INBCDALOHMP",
+          "$type": "Predicated",
           "target": "Team",
           "targetPredicates": [
             {
-              "$type": "CNGGLKHONAA",
+              "$type": "ByTargetGlobalValue",
               "target": "Team",
               "key": "SGV_StaminaFight",
-              "param3": 1.0
+              "value": 1
             }
           ],
           "successActions": [
             {
-              "$type": "KNHHAJNCCBI",
-              "param3": "MasteryUp_Lv1",
+              "$type": "SetOverrideMapValue",
+              "value": "MasteryUp_Lv1",
               "overrideMapKey": "Override_Ratio",
-              "param2": 0.0,
-              "repeatTimes": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         {
-          "$type": "INBCDALOHMP",
+          "$type": "Predicated",
           "target": "Team",
           "targetPredicates": [
             {
-              "$type": "CNGGLKHONAA",
+              "$type": "ByTargetGlobalValue",
               "target": "Team",
               "key": "SGV_StaminaFight",
-              "param3": 2.0
+              "value": 2
             }
           ],
           "successActions": [
             {
-              "$type": "KNHHAJNCCBI",
-              "param3": "MasteryUp_Lv2",
+              "$type": "SetOverrideMapValue",
+              "value": "MasteryUp_Lv2",
               "overrideMapKey": "Override_Ratio",
-              "param2": 0.0,
-              "repeatTimes": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         }

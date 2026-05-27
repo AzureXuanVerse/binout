@@ -7,7 +7,7 @@
         {
           "$type": "AttachModifierToSelfGlobalValueMixin",
           "globalValueKey": "_DANGERAREA_StateID",
-          "GVInTalk": -1.0,
+          "defaultGlobalValueOnCreate": -1,
           "valueSteps": [
             -0.5,
             0.5,
@@ -21,7 +21,7 @@
         {
           "$type": "AttachModifierToSelfGlobalValueMixin",
           "globalValueKey": "_DANGERAREA_ActiveEffect",
-          "GVInTalk": 0.0,
+          "defaultGlobalValueOnCreate": 0,
           "valueSteps": [
             0.5,
             1.5
@@ -35,7 +35,7 @@
           "campTargetType": "Enemy",
           "targetPredicates": [
             {
-              "$type": "CACJBJLHLDL",
+              "$type": "ByEntityTypes",
               "entityTypes": [
                 "Avatar"
               ]
@@ -44,43 +44,43 @@
           "onFieldEnter": [
             {
               "$type": "AddGlobalValue",
-              "ratio": 1.0,
+              "value": 1,
               "key": "_DANGERAREA_Avatar_Count",
-              "maxValue": 0.0,
-              "minValue": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ],
           "onFieldExit": [
             {
               "$type": "AddGlobalValue",
-              "ratio": -1.0,
+              "value": -1,
               "key": "_DANGERAREA_Avatar_Count",
-              "maxValue": 0.0,
-              "minValue": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ],
           "simpleCountGlobaValueKey": "",
-          "simpleCountMaxValue": 0.0,
-          "simpleCountMinValue": 0.0
+          "simpleCountMaxValue": 0,
+          "simpleCountMinValue": 0
         }
       ],
       "abilitySpecials": {
-        "RandomLatency": 0.10000000149011612
+        "RandomLatency": 0.1
       },
       "modifiers": {
         "Activity_ChannellerSlab_DangerArea_Active": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
-          "thinkInterval": 0.20000000298023224,
+          "elementDurability": 100,
+          "thinkInterval": 0.2,
           "onThinkInterval": [
             {
               "$type": "AttachModifier",
               "predicates": [
                 {
-                  "$type": "BMLGBKCIOIN",
+                  "$type": "ByTargetGlobalValue",
                   "key": "_DANGERAREA_Avatar_Count",
-                  "ratio": 0.5,
-                  "PODFMDAEAGL": "MoreThan"
+                  "value": 0.5,
+                  "compareType": "MoreThan"
                 }
               ],
               "modifierName": "Activity_ChannellerSlab_CountDown"
@@ -89,10 +89,10 @@
               "$type": "RemoveModifier",
               "predicates": [
                 {
-                  "$type": "BMLGBKCIOIN",
+                  "$type": "ByTargetGlobalValue",
                   "key": "_DANGERAREA_Avatar_Count",
-                  "ratio": 0.5,
-                  "PODFMDAEAGL": "LessAndEqual"
+                  "value": 0.5,
+                  "compareType": "LessAndEqual"
                 }
               ],
               "modifierName": "Activity_ChannellerSlab_CountDown"
@@ -101,37 +101,35 @@
         },
         "Blank": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0
+          "elementDurability": 100
         },
         "Activity_ChannellerSlab_CountDown": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
-          "thinkInterval": 2.0,
+          "elementDurability": 100,
+          "thinkInterval": 2,
           "onAdded": [
             {
               "$type": "AttachEffect",
               "predicates": [
                 {
-                  "$type": "BMLGBKCIOIN",
+                  "$type": "ByTargetGlobalValue",
                   "key": "_ACTIVIITY_ChannellerSlab_DangerArea_EnhancedTag",
-                  "ratio": 0.0,
-                  "PODFMDAEAGL": "NoneOrEqual"
+                  "value": 0,
+                  "compareType": "NoneOrEqual"
                 }
               ],
-              "shieldHP": "Eff_Activity_ChannellerSlab_DangerArea_Alert",
-              "effectTempleteID": -1.0
+              "effectPattern": "Eff_Activity_ChannellerSlab_DangerArea_Alert"
             },
             {
               "$type": "AttachEffect",
               "predicates": [
                 {
-                  "$type": "BMLGBKCIOIN",
+                  "$type": "ByTargetGlobalValue",
                   "key": "_ACTIVIITY_ChannellerSlab_DangerArea_EnhancedTag",
-                  "ratio": 1.0
+                  "value": 1
                 }
               ],
-              "shieldHP": "Eff_Activity_ChannellerSlab_DangerArea_Alert_Enhanced",
-              "effectTempleteID": -1.0
+              "effectPattern": "Eff_Activity_ChannellerSlab_DangerArea_Alert_Enhanced"
             }
           ],
           "onThinkInterval": [
@@ -139,26 +137,21 @@
               "$type": "CreateGadget",
               "predicates": [
                 {
-                  "$type": "HLLFAEKLJGA",
+                  "$type": "ByTargetHPRatio",
                   "target": "Self",
-                  "HCODJCODFCI": 0.0
+                  "HPRatio": 0
                 }
               ],
               "lifeByOwnerIsAlive": true,
               "born": {
-                "$type": "AJCFIBNMGKO",
-                "offset": {
-                  "EMBMLEBGFOI": 0.0,
-                  "NABPJFNICAE": 0.0,
-                  "MLOLIKEJCKB": 0.0
-                },
-                "CMLNNDEJCEF": true,
-                "NLICIODEGDO": {
-                  "$type": "ALKMNEOOPEO",
+                "$type": "ConfigBornBySelf",
+                "onGround": true,
+                "direction": {
+                  "$type": "ConfigDirectionByWorld",
                   "eularAngles": {
-                    "x": 0.10000000149011612,
-                    "y": 0.10000000149011612,
-                    "z": 0.10000000149011612
+                    "x": 0.1,
+                    "y": 0.1,
+                    "z": 0.1
                   }
                 },
                 "PDCEFGKJHIH": true
@@ -168,17 +161,17 @@
             },
             {
               "$type": "SetGlobalValue",
-              "ratio": 0.0,
+              "value": 0,
               "key": "_DANGERAREA_ActiveEffect",
-              "maxValue": 0.0,
-              "minValue": 0.0
+              "maxValue": 0,
+              "minValue": 0
             },
             {
               "$type": "SetGlobalValue",
-              "ratio": 1.0,
+              "value": 1,
               "key": "_DANGERAREA_StateID",
-              "maxValue": 0.0,
-              "minValue": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ],
           "onThinkIntervalIsFixedUpdate": true,
@@ -187,7 +180,7 @@
         "Activity_ChannellerSlab_DangerArea_CoolDown": {
           "modifierName": "",
           "duration": 6.5,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onRemoved": [
             {
               "$type": "ApplyModifier",
@@ -198,34 +191,34 @@
         "Activity_ChannellerSlab_DangerArea_CoolDown_Recover": {
           "modifierName": "",
           "duration": 1.5,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "SetGlobalValue",
-              "ratio": 1.0,
+              "value": 1,
               "key": "_DANGERAREA_ActiveEffect",
-              "maxValue": 0.0,
-              "minValue": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ],
           "onRemoved": [
             {
               "$type": "SetGlobalValue",
-              "ratio": 0.0,
+              "value": 0,
               "key": "_DANGERAREA_StateID",
-              "maxValue": 0.0,
-              "minValue": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         "Activity_ChannellerSlab_DangerArea_ActiveEffect": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "AttachModifierToSelfGlobalValueMixin",
               "globalValueKey": "_ACTIVIITY_ChannellerSlab_DangerArea_EnhancedTag",
-              "GVInTalk": 0.0,
+              "defaultGlobalValueOnCreate": 0,
               "valueSteps": [
                 -0.5,
                 0.5,
@@ -240,23 +233,21 @@
         },
         "DangerArea_ActiveEffect_Normal": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "AttachEffect",
-              "shieldHP": "Eff_Activity_ChannellerSlab_DangerArea_Active",
-              "effectTempleteID": -1.0
+              "effectPattern": "Eff_Activity_ChannellerSlab_DangerArea_Active"
             }
           ]
         },
         "DangerArea_ActiveEffect_Enhanced": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "AttachEffect",
-              "shieldHP": "Eff_Activity_ChannellerSlab_DangerArea_Active_Enhanced",
-              "effectTempleteID": -1.0
+              "effectPattern": "Eff_Activity_ChannellerSlab_DangerArea_Active_Enhanced"
             }
           ]
         }
@@ -276,10 +267,10 @@
       "onAdded": [
         {
           "$type": "SetGlobalValue",
-          "ratio": 1.0,
+          "value": 1,
           "key": "_ACTIVIITY_ChannellerSlab_DangerArea_EnhancedTag",
-          "maxValue": 0.0,
-          "minValue": 0.0
+          "maxValue": 0,
+          "minValue": 0
         }
       ]
     }
@@ -289,117 +280,100 @@
       "$type": "ConfigAbility",
       "abilityName": "Activity_ChannellerSlab_DamageArea_Impulse",
       "abilitySpecials": {
-        "ElementLevelCo": 0.0,
-        "DamageRatio": 0.0,
-        "DamageRatioEnhanced": 0.0
+        "ElementLevelCo": 0,
+        "DamageRatio": 0,
+        "DamageRatioEnhanced": 0
       },
       "modifiers": {
         "ChargeAtk_LatencyGadget": {
           "modifierName": "",
           "duration": 0.5,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "FireEffect",
               "predicates": [
                 {
-                  "$type": "BMLGBKCIOIN",
+                  "$type": "ByTargetGlobalValue",
                   "target": "Owner",
                   "key": "_ACTIVIITY_ChannellerSlab_DangerArea_EnhancedTag",
-                  "ratio": 0.0,
-                  "PODFMDAEAGL": "NoneOrEqual"
+                  "value": 0,
+                  "compareType": "NoneOrEqual"
                 }
               ],
-              "shieldHP": "Eff_Activity_ChannellerSlab_DangerArea_Trigger",
+              "effectPattern": "Eff_Activity_ChannellerSlab_DangerArea_Trigger",
               "born": {
-                "$type": "AJCFIBNMGKO",
-                "offset": {
-                  "EMBMLEBGFOI": 0.0,
-                  "NABPJFNICAE": 0.0,
-                  "MLOLIKEJCKB": 0.0
-                },
-                "CMLNNDEJCEF": true,
-                "NLICIODEGDO": {
-                  "$type": "ALKMNEOOPEO",
+                "$type": "ConfigBornBySelf",
+                "onGround": true,
+                "direction": {
+                  "$type": "ConfigDirectionByWorld",
                   "eularAngles": {
-                    "x": 0.10000000149011612,
-                    "y": 0.10000000149011612,
-                    "z": 0.10000000149011612
+                    "x": 0.1,
+                    "y": 0.1,
+                    "z": 0.1
                   }
                 },
                 "PDCEFGKJHIH": true
-              },
-              "effectTempleteID": -1.0
+              }
             },
             {
               "$type": "FireEffect",
               "predicates": [
                 {
-                  "$type": "BMLGBKCIOIN",
+                  "$type": "ByTargetGlobalValue",
                   "target": "Owner",
                   "key": "_ACTIVIITY_ChannellerSlab_DangerArea_EnhancedTag",
-                  "ratio": 1.0
+                  "value": 1
                 }
               ],
-              "shieldHP": "Eff_Activity_ChannellerSlab_DangerArea_Trigger_Enhanced",
+              "effectPattern": "Eff_Activity_ChannellerSlab_DangerArea_Trigger_Enhanced",
               "born": {
-                "$type": "AJCFIBNMGKO",
-                "offset": {
-                  "EMBMLEBGFOI": 0.0,
-                  "NABPJFNICAE": 0.0,
-                  "MLOLIKEJCKB": 0.0
-                },
-                "CMLNNDEJCEF": true,
-                "NLICIODEGDO": {
-                  "$type": "ALKMNEOOPEO",
+                "$type": "ConfigBornBySelf",
+                "onGround": true,
+                "direction": {
+                  "$type": "ConfigDirectionByWorld",
                   "eularAngles": {
-                    "x": 0.10000000149011612,
-                    "y": 0.10000000149011612,
-                    "z": 0.10000000149011612
+                    "x": 0.1,
+                    "y": 0.1,
+                    "z": 0.1
                   }
                 },
                 "PDCEFGKJHIH": true
-              },
-              "effectTempleteID": -1.0
+              }
             },
             {
               "$type": "TriggerAttackEvent",
               "predicates": [
                 {
-                  "$type": "OHPLACNPNOA",
+                  "$type": "ByEntityIsAlive",
                   "target": "Owner"
                 },
                 {
-                  "$type": "BMLGBKCIOIN",
+                  "$type": "ByTargetGlobalValue",
                   "target": "Owner",
                   "key": "_ACTIVIITY_ChannellerSlab_DangerArea_EnhancedTag",
-                  "ratio": 0.0,
-                  "PODFMDAEAGL": "NoneOrEqual"
+                  "value": 0,
+                  "compareType": "NoneOrEqual"
                 }
               ],
               "attackEvent": {
                 "attackPattern": {
-                  "$type": "FPJICLLGBLO",
+                  "$type": "ConfigAttackCircle",
                   "triggerType": "TriggerNoRepeat",
                   "born": {
-                    "$type": "AJCFIBNMGKO",
-                    "offset": {
-                      "EMBMLEBGFOI": 0.0,
-                      "NABPJFNICAE": 0.0,
-                      "MLOLIKEJCKB": 0.0
-                    }
+                    "$type": "ConfigBornBySelf"
                   },
-                  "height": 20.0,
-                  "DLFACKMBPCH": 7.5
+                  "height": 20,
+                  "radius": 7.5
                 },
                 "attackInfo": {
                   "attackTag": "",
                   "attenuationTag": "",
                   "attenuationGroup": "default",
                   "attackProperty": {
-                    "ACKCDHKEGCK": 0.0,
-                    "JIICGJODDDM": 0.0,
-                    "bonusCriticalHurt": 100.0,
+                    "damagePercentage": 0,
+                    "damagePercentageRatio": 0,
+                    "elementDurability": 100,
                     "ignoreAttackerProperty": true,
                     "strikeType": "Default",
                     "attackType": "Range",
@@ -409,7 +383,7 @@
                       "MUL"
                     ],
                     "trueDamage": true,
-                    "damagePercentage": 0.0
+                    "__exp_arkhe": 0
                   },
                   "hitPattern": {
                     "onHitEffectName": "default",
@@ -418,11 +392,11 @@
                   "forceCameraShake": true,
                   "cameraShake": {
                     "shakeType": "CustomVector",
-                    "shakeRange": 0.11999999731779099,
-                    "shakeTime": 0.11999999731779099,
-                    "shakeDistance": 30.0,
+                    "shakeRange": 0.12,
+                    "shakeTime": 0.12,
+                    "shakeDistance": 30,
                     "shakeDir": {
-                      "z": -1.0
+                      "z": -1
                     }
                   }
                 }
@@ -433,39 +407,34 @@
               "$type": "TriggerAttackEvent",
               "predicates": [
                 {
-                  "$type": "OHPLACNPNOA",
+                  "$type": "ByEntityIsAlive",
                   "target": "Owner"
                 },
                 {
-                  "$type": "BMLGBKCIOIN",
+                  "$type": "ByTargetGlobalValue",
                   "target": "Owner",
                   "key": "_ACTIVIITY_ChannellerSlab_DangerArea_EnhancedTag",
-                  "ratio": 1.0
+                  "value": 1
                 }
               ],
               "attackEvent": {
                 "attackPattern": {
-                  "$type": "FPJICLLGBLO",
+                  "$type": "ConfigAttackCircle",
                   "triggerType": "TriggerNoRepeat",
                   "born": {
-                    "$type": "AJCFIBNMGKO",
-                    "offset": {
-                      "EMBMLEBGFOI": 0.0,
-                      "NABPJFNICAE": 0.0,
-                      "MLOLIKEJCKB": 0.0
-                    }
+                    "$type": "ConfigBornBySelf"
                   },
-                  "height": 20.0,
-                  "DLFACKMBPCH": 10.0
+                  "height": 20,
+                  "radius": 10
                 },
                 "attackInfo": {
                   "attackTag": "",
                   "attenuationTag": "",
                   "attenuationGroup": "default",
                   "attackProperty": {
-                    "ACKCDHKEGCK": 0.0,
-                    "JIICGJODDDM": 0.0,
-                    "bonusCriticalHurt": 100.0,
+                    "damagePercentage": 0,
+                    "damagePercentageRatio": 0,
+                    "elementDurability": 100,
                     "ignoreAttackerProperty": true,
                     "strikeType": "Default",
                     "attackType": "Range",
@@ -475,7 +444,7 @@
                       "MUL"
                     ],
                     "trueDamage": true,
-                    "damagePercentage": 0.0
+                    "__exp_arkhe": 0
                   },
                   "hitPattern": {
                     "onHitEffectName": "default",
@@ -484,11 +453,11 @@
                   "forceCameraShake": true,
                   "cameraShake": {
                     "shakeType": "CustomVector",
-                    "shakeRange": 0.11999999731779099,
-                    "shakeTime": 0.11999999731779099,
-                    "shakeDistance": 30.0,
+                    "shakeRange": 0.12,
+                    "shakeTime": 0.12,
+                    "shakeDistance": 30,
                     "shakeDir": {
-                      "z": -1.0
+                      "z": -1
                     }
                   }
                 }
@@ -516,14 +485,14 @@
       "$type": "ConfigAbility",
       "abilityName": "LevelEntity_ChannellerSlabV2_Monster_HpUp_Lv1",
       "abilitySpecials": {
-        "HPUpRatio": 0.0
+        "HPUpRatio": 0
       },
       "modifiers": {
         "UNIQUE_LevelEntity_ChannellerSlabV2_Monster_HpUp_Lv1": {
           "stacking": "Unique",
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "properties": {
             "Actor_MaxHPRatio": "HPUpRatio"
           },
@@ -544,14 +513,14 @@
       "$type": "ConfigAbility",
       "abilityName": "LevelEntity_ChannellerSlabV2_Monster_HpUp_Lv2",
       "abilitySpecials": {
-        "HPUpRatio": 0.0
+        "HPUpRatio": 0
       },
       "modifiers": {
         "UNIQUE_LevelEntity_ChannellerSlabV2_Monster_HpUp_Lv2": {
           "stacking": "Unique",
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "properties": {
             "Actor_MaxHPRatio": "HPUpRatio"
           },
@@ -572,14 +541,14 @@
       "$type": "ConfigAbility",
       "abilityName": "LevelEntity_ChannellerSlabV2_Monster_HpUp_Lv3",
       "abilitySpecials": {
-        "HPUpRatio": 0.0
+        "HPUpRatio": 0
       },
       "modifiers": {
         "UNIQUE_LevelEntity_ChannellerSlabV2_Monster_HpUp_Lv3": {
           "stacking": "Unique",
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "properties": {
             "Actor_MaxHPRatio": "HPUpRatio"
           },
@@ -600,14 +569,14 @@
       "$type": "ConfigAbility",
       "abilityName": "LevelEntity_ChannellerSlabV2_Monster_AtkUp_Lv1",
       "abilitySpecials": {
-        "AtkUpRatio": 0.0
+        "AtkUpRatio": 0
       },
       "modifiers": {
         "UNIQUE_LevelEntity_ChannellerSlabV2_Monster_AtkUp_Lv1": {
           "stacking": "Unique",
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "properties": {
             "Actor_AttackRatio": "AtkUpRatio"
           },
@@ -628,14 +597,14 @@
       "$type": "ConfigAbility",
       "abilityName": "LevelEntity_ChannellerSlabV2_Avatar_ShieldCostMinusDown",
       "abilitySpecials": {
-        "ShieldCostMinusRatio": 0.0
+        "ShieldCostMinusRatio": 0
       },
       "modifiers": {
         "UNIQUE_LevelEntity_ChannellerSlabV2_Avatar_ShieldCostMinusDown": {
           "stacking": "Unique",
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "properties": {
             "Actor_ShieldCostMinusRatio": "ShieldCostMinusRatio"
           },
@@ -657,14 +626,14 @@
       "$type": "ConfigAbility",
       "abilityName": "LevelEntity_ChannellerSlabV2_Avatar_MoveSpeedDown",
       "abilitySpecials": {
-        "MoveSpeedRatio": 0.0
+        "MoveSpeedRatio": 0
       },
       "modifiers": {
         "UNIQUE_LevelEntity_ChannellerSlabV2_Avatar_MoveSpeedDown": {
           "stacking": "Unique",
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "properties": {
             "Animator_MoveSpeedRatio": "MoveSpeedRatio"
           },
@@ -686,14 +655,14 @@
       "$type": "ConfigAbility",
       "abilityName": "LevelEntity_ChannellerSlabV2_Avatar_DashStaminaUp",
       "abilitySpecials": {
-        "CostStaminaRatio": 0.0
+        "CostStaminaRatio": 0
       },
       "modifiers": {
         "UNIQUE_LevelEntity_ChannellerSlabV2_Avatar_DashStaminaUp": {
           "stacking": "Unique",
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "AttachToStateIDMixin",
@@ -709,7 +678,7 @@
           "stacking": "Unique",
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "properties": {
             "Actor_CostStaminaRatio": "CostStaminaRatio"
           },
@@ -731,14 +700,14 @@
       "$type": "ConfigAbility",
       "abilityName": "LevelEntity_ChannellerSlabV2_Avatar_SkillCDIncrement",
       "abilitySpecials": {
-        "SkillCDMinusRatio": 0.0
+        "SkillCDMinusRatio": 0
       },
       "modifiers": {
         "UNIQUE_LevelEntity_ChannellerSlabV2_Avatar_SkillCDIncrement": {
           "stacking": "Unique",
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "properties": {
             "Actor_SkillCDMinusRatio": "SkillCDMinusRatio"
           },
@@ -749,7 +718,7 @@
         {
           "$type": "AttachModifier",
           "target": "AllPlayerAvatars",
-          "PositionDampTime": true,
+          "doOffStage": true,
           "modifierName": "UNIQUE_LevelEntity_ChannellerSlabV2_Avatar_SkillCDIncrement"
         }
       ],
@@ -761,14 +730,14 @@
       "$type": "ConfigAbility",
       "abilityName": "LevelEntity_ChannellerSlabV2_Avatar_RecoverStaminaRatioDown",
       "abilitySpecials": {
-        "RecoverStaminaRatio": 0.0
+        "RecoverStaminaRatio": 0
       },
       "modifiers": {
         "UNIQUE_LevelEntity_ChannellerSlabV2_Avatar_RecoverStaminaRatioDown": {
           "stacking": "Unique",
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "properties": {
             "Actor_RecoverStaminaRatio": "RecoverStaminaRatio"
           },
@@ -790,18 +759,18 @@
       "$type": "ConfigAbility",
       "abilityName": "LevelEntity_ChannellerSlabV2_Avatar_NoShieldAtkDown",
       "abilitySpecials": {
-        "AttackRatio": 0.0
+        "AttackRatio": 0
       },
       "modifiers": {
         "UNIQUE_EnergyDisk_Lv1_NoShieldAtkDown_Handler_AS": {
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "AttachModifierToSelfGlobalValueMixin",
               "globalValueKey": "_Ability_EnergyDisk_NoShieldAtkDown_Check",
-              "GVInTalk": 0.0,
+              "defaultGlobalValueOnCreate": 0,
               "valueSteps": [
                 -0.5,
                 0.5,
@@ -816,7 +785,7 @@
           "onAdded": [
             {
               "$type": "ApplyModifier",
-              "PositionDampTime": true,
+              "doOffStage": true,
               "modifierName": "UNIQUE_EnergyDisk_Lv1_NoShieldAtkDown_Handler"
             }
           ]
@@ -824,38 +793,38 @@
         "UNIQUE_EnergyDisk_Lv1_NoShieldAtkDown_Handler": {
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
-          "thinkInterval": 1.0,
+          "elementDurability": 100,
+          "thinkInterval": 1,
           "onThinkInterval": [
             {
               "$type": "Predicated",
-              "PositionDampTime": true,
+              "doOffStage": true,
               "targetPredicates": [
                 {
-                  "$type": "CDEILODAOAO",
+                  "$type": "ByHasShield",
                   "type": "All"
                 }
               ],
               "successActions": [
                 {
                   "$type": "AddGlobalValue",
-                  "PositionDampTime": true,
-                  "ratio": 0.0,
+                  "doOffStage": true,
+                  "value": 0,
                   "key": "_Ability_EnergyDisk_NoShieldAtkDown_Check",
                   "useLimitRange": true,
-                  "maxValue": 1.0,
-                  "minValue": 1.0
+                  "maxValue": 1,
+                  "minValue": 1
                 }
               ],
               "failActions": [
                 {
                   "$type": "AddGlobalValue",
-                  "PositionDampTime": true,
-                  "ratio": 0.0,
+                  "doOffStage": true,
+                  "value": 0,
                   "key": "_Ability_EnergyDisk_NoShieldAtkDown_Check",
                   "useLimitRange": true,
-                  "maxValue": 0.0,
-                  "minValue": 0.0
+                  "maxValue": 0,
+                  "minValue": 0
                 }
               ]
             }
@@ -864,11 +833,11 @@
         "UNIQUE_EnergyDisk_Lv1_NoShieldAtkDown_NoDebuff": {
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "RemoveUniqueModifier",
-              "PositionDampTime": true,
+              "doOffStage": true,
               "modifierName": "UNIQUE_EffigyChallenge_NoShieldAtkDown_HasDebuff"
             }
           ]
@@ -876,16 +845,15 @@
         "UNIQUE_EnergyDisk_Lv1_NoShieldAtkDown_HasDebuff": {
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "properties": {
             "Actor_AttackRatio": "AttackRatio"
           },
           "onAdded": [
             {
               "$type": "AttachEffect",
-              "PositionDampTime": true,
-              "shieldHP": "Eff_Avatar_Properties_Attack_Down",
-              "effectTempleteID": -1.0
+              "doOffStage": true,
+              "effectPattern": "Eff_Avatar_Properties_Attack_Down"
             }
           ],
           "isLimitedProperties": true
@@ -912,22 +880,22 @@
         }
       ],
       "abilitySpecials": {
-        "HpRate_P1": 0.0,
-        "AtkRate_P2": 0.0
+        "HpRate_P1": 0,
+        "AtkRate_P2": 0
       },
       "modifiers": {
         "UNIQUE_EnergyDisk_AtkDownLowHP": {
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "AttachModifierToPredicateMixin",
               "onEvent": "HP",
               "predicates": [
                 {
-                  "$type": "HLLFAEKLJGA",
-                  "HCODJCODFCI": "HpRate_P1"
+                  "$type": "ByTargetHPRatio",
+                  "HPRatio": "HpRate_P1"
                 }
               ],
               "modifierName": "UNIQUE_Del_EnergyDisk_AtkDownLowHP_Sub"
@@ -937,9 +905,9 @@
               "onEvent": "HP",
               "predicates": [
                 {
-                  "$type": "HLLFAEKLJGA",
+                  "$type": "ByTargetHPRatio",
                   "logic": "Lesser",
-                  "HCODJCODFCI": "HpRate_P1"
+                  "HPRatio": "HpRate_P1"
                 }
               ],
               "modifierName": "UNIQUE_EnergyDisk_AtkDownLowHP_Sub"
@@ -950,9 +918,9 @@
               "$type": "ApplyModifier",
               "predicates": [
                 {
-                  "$type": "HLLFAEKLJGA",
+                  "$type": "ByTargetHPRatio",
                   "logic": "Lesser",
-                  "HCODJCODFCI": "HpRate_P1"
+                  "HPRatio": "HpRate_P1"
                 }
               ],
               "modifierName": "UNIQUE_EnergyDisk_AtkDownLowHP_Sub"
@@ -962,7 +930,7 @@
         "UNIQUE_Del_EnergyDisk_AtkDownLowHP_Sub": {
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "RemoveModifier",
@@ -973,15 +941,14 @@
         "UNIQUE_EnergyDisk_AtkDownLowHP_Sub": {
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "properties": {
             "Actor_AttackRatio": "AtkRate_P2"
           },
           "onAdded": [
             {
               "$type": "AttachEffect",
-              "shieldHP": "Eff_Avatar_Properties_Attack_Down",
-              "effectTempleteID": -1.0
+              "effectPattern": "Eff_Avatar_Properties_Attack_Down"
             }
           ]
         }
@@ -1006,23 +973,23 @@
         }
       ],
       "abilitySpecials": {
-        "HpRate_P1": 0.0,
-        "MoveSpeedRatio_P2": 0.0
+        "HpRate_P1": 0,
+        "MoveSpeedRatio_P2": 0
       },
       "modifiers": {
         "UNIQUE_EnergyDisk_SpeedDownLowHP": {
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "AttachModifierToPredicateMixin",
               "onEvent": "HP",
               "predicates": [
                 {
-                  "$type": "HLLFAEKLJGA",
+                  "$type": "ByTargetHPRatio",
                   "logic": "GreaterOrEqual",
-                  "HCODJCODFCI": "HpRate_P1"
+                  "HPRatio": "HpRate_P1"
                 }
               ],
               "modifierName": "UNIQUE_Del_EnergyDisk_SpeedDownLowHP_Sub"
@@ -1032,9 +999,9 @@
               "onEvent": "HP",
               "predicates": [
                 {
-                  "$type": "HLLFAEKLJGA",
+                  "$type": "ByTargetHPRatio",
                   "logic": "Lesser",
-                  "HCODJCODFCI": "HpRate_P1"
+                  "HPRatio": "HpRate_P1"
                 }
               ],
               "modifierName": "UNIQUE_EnergyDisk_SpeedDownLowHP_Sub"
@@ -1045,9 +1012,9 @@
               "$type": "ApplyModifier",
               "predicates": [
                 {
-                  "$type": "HLLFAEKLJGA",
+                  "$type": "ByTargetHPRatio",
                   "logic": "LesserOrEqual",
-                  "HCODJCODFCI": "HpRate_P1"
+                  "HPRatio": "HpRate_P1"
                 }
               ],
               "modifierName": "UNIQUE_EnergyDisk_SpeedDownLowHP_Sub"
@@ -1057,7 +1024,7 @@
         "UNIQUE_Del_EnergyDisk_SpeedDownLowHP_Sub": {
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "RemoveModifier",
@@ -1068,15 +1035,14 @@
         "UNIQUE_EnergyDisk_SpeedDownLowHP_Sub": {
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "properties": {
             "Animator_MoveSpeedRatio": "MoveSpeedRatio_P2"
           },
           "onAdded": [
             {
               "$type": "AttachEffect",
-              "shieldHP": "Eff_Avatar_Properties_Attack_Down",
-              "effectTempleteID": -1.0
+              "effectPattern": "Eff_Avatar_Properties_Attack_Down"
             }
           ]
         }
@@ -1095,13 +1061,13 @@
       "$type": "ConfigAbility",
       "abilityName": "LevelEntity_ChannellerSlabV2_Avatar_SprintBeHurtDamageUp",
       "abilitySpecials": {
-        "Duration": 0.0,
-        "SubHurtDelta": 0.0
+        "Duration": 0,
+        "SubHurtDelta": 0
       },
       "modifiers": {
         "LevelEntity_EnergyDisk_Lv3_SprintBeHurtDamageUp_Check": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "AttachToStateIDMixin",
@@ -1116,7 +1082,7 @@
           "stacking": "Unique",
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "ApplyModifier",
@@ -1130,7 +1096,7 @@
           "modifierName": "",
           "isUnique": true,
           "duration": "Duration",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "CurLocalAvatarMixinV2",
@@ -1141,7 +1107,7 @@
         "UNIQUE_EnergyDisk_Lv3_SprintBeHurtDamageUp_Avatar": {
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "properties": {
             "Actor_SubHurtDelta": "SubHurtDelta"
           },
@@ -1169,40 +1135,40 @@
         }
       ],
       "abilitySpecials": {
-        "BuffMaxCount": 0.0,
-        "EnergyDisk_BuffCurCount": 0.0,
-        "EnergyDisk_BeHurtSubHurt": 0.0,
-        "Duration": 0.0
+        "BuffMaxCount": 0,
+        "EnergyDisk_BuffCurCount": 0,
+        "EnergyDisk_BeHurtSubHurt": 0,
+        "Duration": 0
       },
       "modifiers": {
         "UNIQUE_LevelEntity_EnergyDisk_Lv3_BeHurtDamageUpAfterChangeAvatar": {
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAvatarIn": [
             {
               "$type": "AddGlobalValue",
               "target": "Team",
               "predicates": [
                 {
-                  "$type": "DIJCPFPPEED"
+                  "$type": "ByIsCombat"
                 }
               ],
-              "ratio": 1.0,
+              "value": 1,
               "key": "EnergyDisk_BeHurtDamageUpAfterChangeAvatar_BuffLayer",
               "useLimitRange": true,
               "maxValue": "BuffMaxCount",
-              "minValue": -1.0
+              "minValue": -1
             },
             {
               "$type": "Predicated",
               "target": "Team",
               "targetPredicates": [
                 {
-                  "$type": "BMLGBKCIOIN",
+                  "$type": "ByTargetGlobalValue",
                   "key": "EnergyDisk_BeHurtDamageUpAfterChangeAvatar_BuffLayer",
-                  "ratio": 0.0,
-                  "PODFMDAEAGL": "MoreThan"
+                  "value": 0,
+                  "compareType": "MoreThan"
                 }
               ],
               "successActions": [
@@ -1224,7 +1190,7 @@
           "modifierName": "",
           "isUnique": true,
           "duration": "Duration",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "properties": {
             "Actor_SubHurtDelta": [
               "EnergyDisk_BeHurtSubHurt",
@@ -1237,10 +1203,10 @@
             {
               "$type": "SetGlobalValue",
               "target": "Team",
-              "ratio": 0.0,
+              "value": 0,
               "key": "EnergyDisk_BeHurtDamageUpAfterChangeAvatar_BuffLayer",
-              "maxValue": 0.0,
-              "minValue": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ],
           "isLimitedProperties": true
@@ -1249,10 +1215,10 @@
       "onAdded": [
         {
           "$type": "SetGlobalValue",
-          "ratio": 0.0,
+          "value": 0,
           "key": "EnergyDisk_BeHurtDamageUpAfterChangeAvatar_BuffLayer",
-          "maxValue": 0.0,
-          "minValue": 0.0
+          "maxValue": 0,
+          "minValue": 0
         }
       ],
       "isDynamicAbility": true
@@ -1263,16 +1229,16 @@
       "$type": "ConfigAbility",
       "abilityName": "LevelEntity_ChannellerSlabV2_Team_BeHurtDamageUpAfterULT",
       "abilitySpecials": {
-        "BuffMaxCount": 0.0,
-        "EnergyDisk_BuffCurCount": 0.0,
-        "EnergyDisk_BeHurtSubHurt": 0.0,
-        "Duration": 0.0
+        "BuffMaxCount": 0,
+        "EnergyDisk_BuffCurCount": 0,
+        "EnergyDisk_BeHurtSubHurt": 0,
+        "Duration": 0
       },
       "modifiers": {
         "UNIQUE_ChannellerSlabV2_Team_BeHurtDamageUpAfterULT_Manager": {
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "CurLocalAvatarMixin",
@@ -1283,7 +1249,7 @@
         "UNIQUE_LevelEntity_ChannellerSlabV2_Team_BeHurtDamageUpAfterULT_CastDetect": {
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "OnAvatarUseSkillMixin",
@@ -1293,14 +1259,14 @@
                   "target": "Team",
                   "predicates": [
                     {
-                      "$type": "DIJCPFPPEED"
+                      "$type": "ByIsCombat"
                     }
                   ],
-                  "ratio": 1.0,
+                  "value": 1,
                   "key": "EnergyDisk_BeHurtDamageUpAfterULT_BuffLayer",
                   "useLimitRange": true,
                   "maxValue": "BuffMaxCount",
-                  "minValue": -1.0
+                  "minValue": -1
                 },
                 {
                   "$type": "RemoveUniqueModifier",
@@ -1324,7 +1290,7 @@
                   "modifierName": "Reset_CountDown"
                 }
               ],
-              "clearSkillIdDelay": 0.20000000298023224
+              "clearSkillIdDelay": 0.2
             }
           ],
           "onAdded": [
@@ -1333,11 +1299,11 @@
               "target": "CurTeamAvatars",
               "predicates": [
                 {
-                  "$type": "BMLGBKCIOIN",
+                  "$type": "ByTargetGlobalValue",
                   "target": "Caster",
                   "key": "EnergyDisk_BeHurtDamageUpAfterULT_BuffLayer",
-                  "ratio": 0.0,
-                  "PODFMDAEAGL": "MoreThan"
+                  "value": 0,
+                  "compareType": "MoreThan"
                 }
               ],
               "modifierName": "UNIQUE_ChannellerSlabV2_Team_BeHurtDamageUpAfterULT_Effect"
@@ -1349,7 +1315,7 @@
           "modifierName": "",
           "isUnique": true,
           "duration": "Duration",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "properties": {
             "Actor_SubHurtDelta": [
               "EnergyDisk_BeHurtSubHurt",
@@ -1363,15 +1329,15 @@
         "Reset_CountDown": {
           "modifierName": "",
           "duration": "Duration",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "state": "DefenseDown",
           "onRemoved": [
             {
               "$type": "SetGlobalValue",
-              "ratio": 0.0,
+              "value": 0,
               "key": "EnergyDisk_BeHurtDamageUpAfterULT_BuffLayer",
-              "maxValue": 0.0,
-              "minValue": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         }
@@ -1396,30 +1362,30 @@
         }
       ],
       "abilitySpecials": {
-        "HpRate_P1": 0.0,
-        "HpRate_P2": 0.0,
-        "DmgRate_P3": 0.0,
-        "DmgRate_P4": 0.0
+        "HpRate_P1": 0,
+        "HpRate_P2": 0,
+        "DmgRate_P3": 0,
+        "DmgRate_P4": 0
       },
       "modifiers": {
         "UNIQUE_EnergyDisk_Lv2_AtkDownLowHP": {
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "AttachModifierToPredicateMixin",
               "onEvent": "HP",
               "predicates": [
                 {
-                  "$type": "HLLFAEKLJGA",
+                  "$type": "ByTargetHPRatio",
                   "logic": "Lesser",
-                  "HCODJCODFCI": "HpRate_P1"
+                  "HPRatio": "HpRate_P1"
                 },
                 {
-                  "$type": "HLLFAEKLJGA",
+                  "$type": "ByTargetHPRatio",
                   "logic": "GreaterOrEqual",
-                  "HCODJCODFCI": "HpRate_P2"
+                  "HPRatio": "HpRate_P2"
                 }
               ],
               "modifierName": "UNIQUE_EnergyDisk_AtkDownLowHP_Sub1"
@@ -1429,9 +1395,9 @@
               "onEvent": "HP",
               "predicates": [
                 {
-                  "$type": "HLLFAEKLJGA",
+                  "$type": "ByTargetHPRatio",
                   "logic": "Lesser",
-                  "HCODJCODFCI": "HpRate_P2"
+                  "HPRatio": "HpRate_P2"
                 }
               ],
               "modifierName": "UNIQUE_EnergyDisk_AtkDownLowHP_Sub2"
@@ -1441,9 +1407,9 @@
               "onEvent": "HP",
               "predicates": [
                 {
-                  "$type": "HLLFAEKLJGA",
+                  "$type": "ByTargetHPRatio",
                   "logic": "GreaterOrEqual",
-                  "HCODJCODFCI": "HpRate_P1"
+                  "HPRatio": "HpRate_P1"
                 }
               ],
               "modifierName": "UNIQUE_Del_EnergyDisk_AtkDownLowHP_Sub"
@@ -1454,14 +1420,14 @@
               "$type": "ApplyModifier",
               "predicates": [
                 {
-                  "$type": "HLLFAEKLJGA",
+                  "$type": "ByTargetHPRatio",
                   "logic": "Lesser",
-                  "HCODJCODFCI": "HpRate_P1"
+                  "HPRatio": "HpRate_P1"
                 },
                 {
-                  "$type": "HLLFAEKLJGA",
+                  "$type": "ByTargetHPRatio",
                   "logic": "GreaterOrEqual",
-                  "HCODJCODFCI": "HpRate_P2"
+                  "HPRatio": "HpRate_P2"
                 }
               ],
               "modifierName": "UNIQUE_EnergyDisk_AtkDownLowHP_Sub1"
@@ -1470,9 +1436,9 @@
               "$type": "ApplyModifier",
               "predicates": [
                 {
-                  "$type": "HLLFAEKLJGA",
+                  "$type": "ByTargetHPRatio",
                   "logic": "Lesser",
-                  "HCODJCODFCI": "HpRate_P2"
+                  "HPRatio": "HpRate_P2"
                 }
               ],
               "modifierName": "UNIQUE_EnergyDisk_AtkDownLowHP_Sub2"
@@ -1482,7 +1448,7 @@
         "UNIQUE_Del_EnergyDisk_AtkDownLowHP_Sub": {
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "RemoveModifier",
@@ -1497,7 +1463,7 @@
         "UNIQUE_EnergyDisk_AtkDownLowHP_Sub1": {
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "properties": {
             "Actor_AddHurtDelta": "DmgRate_P3"
           },
@@ -1508,15 +1474,14 @@
             },
             {
               "$type": "AttachEffect",
-              "shieldHP": "Eff_Avatar_Properties_Attack_Down",
-              "effectTempleteID": -1.0
+              "effectPattern": "Eff_Avatar_Properties_Attack_Down"
             }
           ]
         },
         "UNIQUE_EnergyDisk_AtkDownLowHP_Sub2": {
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "properties": {
             "Actor_AddHurtDelta": "DmgRate_P4"
           },
@@ -1527,8 +1492,7 @@
             },
             {
               "$type": "AttachEffect",
-              "shieldHP": "Eff_Avatar_Properties_Attack_Down",
-              "effectTempleteID": -1.0
+              "effectPattern": "Eff_Avatar_Properties_Attack_Down"
             }
           ]
         }
@@ -1541,31 +1505,31 @@
       "$type": "ConfigAbility",
       "abilityName": "MonsterAffix_WeakTimeModify_ForChannellerSlabV2",
       "abilitySpecials": {
-        "ModifyRatio": 0.0
+        "ModifyRatio": 0
       },
       "modifiers": {
         "UNIQUE_MonsterAffix_WeakTimeModify_ForChannellerSlabV2": {
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "SetGlobalValue",
-              "ratio": "ModifyRatio",
+              "value": "ModifyRatio",
               "key": "_MONSTER_WeakTime_ExtraRatio",
               "useLimitRange": true,
-              "maxValue": 10.0,
-              "minValue": -1.0
+              "maxValue": 10,
+              "minValue": -1
             }
           ],
           "onRemoved": [
             {
               "$type": "AddGlobalValue",
-              "ratio": "ModifyRatio",
+              "value": "ModifyRatio",
               "key": "_MONSTER_WeakTime_ExtraRatio",
               "useLimitRange": true,
-              "maxValue": 10.0,
-              "minValue": -1.0
+              "maxValue": 10,
+              "minValue": -1
             }
           ]
         }
@@ -1587,7 +1551,7 @@
         {
           "$type": "AttachModifierToSelfGlobalValueMixin",
           "globalValueKey": "_MONSTER_GeneralSkill_WaterEnhance_SelfHeal_Times",
-          "GVInTalk": 0.0,
+          "defaultGlobalValueOnCreate": 0,
           "valueSteps": [
             -0.5,
             0.5,
@@ -1604,19 +1568,19 @@
         }
       ],
       "abilitySpecials": {
-        "SelfHealThreshold": 0.0,
-        "SelfHealLatency": 0.0,
-        "SelfHealRatio": 0.0,
-        "Times": 0.0
+        "SelfHealThreshold": 0,
+        "SelfHealLatency": 0,
+        "SelfHealRatio": 0,
+        "Times": 0
       },
       "modifiers": {
         "Blank": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0
+          "elementDurability": 100
         },
         "GeneralSkill_WaterEnhance_SelfHeal_Manager": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "AttachModifierToHPPercentMixin",
@@ -1632,21 +1596,20 @@
           "onAdded": [
             {
               "$type": "AttachEffect",
-              "shieldHP": "Eff_Monster_GeneralSkill_SelfHeal_FootCircle",
-              "effectTempleteID": -1.0
+              "effectPattern": "Eff_Monster_GeneralSkill_SelfHeal_FootCircle"
             }
           ]
         },
         "GeneralSkill_WaterEnhance_SelfHeal_Trigger": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "ApplyModifier",
               "predicates": [
                 {
-                  "$type": "HLLFAEKLJGA",
-                  "HCODJCODFCI": 0.0
+                  "$type": "ByTargetHPRatio",
+                  "HPRatio": 0
                 }
               ],
               "modifierName": "GeneralSkill_WaterEnhance_SelfHeal_Latency"
@@ -1655,22 +1618,21 @@
           "onRemoved": [
             {
               "$type": "AddGlobalValue",
-              "ratio": 1.0,
+              "value": 1,
               "key": "_MONSTER_GeneralSkill_WaterEnhance_SelfHeal_Times",
-              "maxValue": 0.0,
-              "minValue": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         "GeneralSkill_WaterEnhance_SelfHeal_Latency": {
           "modifierName": "",
           "duration": "SelfHealLatency",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "AttachEffect",
-              "shieldHP": "Eff_Monster_GeneralSkill_SelfHeal_Alert",
-              "effectTempleteID": -1.0
+              "effectPattern": "Eff_Monster_GeneralSkill_SelfHeal_Alert"
             }
           ],
           "onRemoved": [
@@ -1678,21 +1640,20 @@
               "$type": "HealHP",
               "predicates": [
                 {
-                  "$type": "OHPLACNPNOA"
+                  "$type": "ByEntityIsAlive"
                 }
               ],
-              "LBNLJFPDOGO": "SelfHealRatio",
-              "cdRatio": ""
+              "amountByTargetMaxHPRatio": "SelfHealRatio",
+              "__exp_healTag": ""
             },
             {
               "$type": "FireEffect",
               "predicates": [
                 {
-                  "$type": "OHPLACNPNOA"
+                  "$type": "ByEntityIsAlive"
                 }
               ],
-              "shieldHP": "Eff_Monster_GeneralSkill_SelfHeal_HealEffect",
-              "effectTempleteID": -1.0
+              "effectPattern": "Eff_Monster_GeneralSkill_SelfHeal_HealEffect"
             }
           ]
         }
@@ -1715,14 +1676,14 @@
       "$type": "ConfigAbility",
       "abilityName": "LevelEntity_ChannellerSlabV2_Avatar_ChargeEfficiencyDelta",
       "abilitySpecials": {
-        "ChargeEfficiencyDelta": 0.0
+        "ChargeEfficiencyDelta": 0
       },
       "modifiers": {
         "UNIQUE_LevelEntity_ChannellerSlabV2_Avatar_ChargeEfficiencyDelta": {
           "stacking": "Unique",
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "properties": {
             "Actor_ChargeEfficiencyDelta": "ChargeEfficiencyDelta"
           },

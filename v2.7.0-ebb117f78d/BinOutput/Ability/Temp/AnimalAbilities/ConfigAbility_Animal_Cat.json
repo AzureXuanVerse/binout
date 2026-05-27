@@ -3,11 +3,11 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Animal_Cat_SitDown",
-      "HKBHLMNEMKM": [
+      "onAbilityStart": [
         {
           "$type": "SetPoseInt",
           "intID": "ActionState",
-          "weight": 1
+          "value": 1
         }
       ]
     }
@@ -16,11 +16,11 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Animal_Cat_Prone",
-      "HKBHLMNEMKM": [
+      "onAbilityStart": [
         {
           "$type": "SetPoseInt",
           "intID": "ActionState",
-          "weight": 2
+          "value": 2
         }
       ]
     }
@@ -29,7 +29,7 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Animal_Cat_StandUp",
-      "HKBHLMNEMKM": [
+      "onAbilityStart": [
         {
           "$type": "SetPoseInt",
           "intID": "ActionState"
@@ -41,7 +41,7 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Animal_Cat_AIStateInitial",
-      "CHBMMFLIIGH": [
+      "abilityMixins": [
         {
           "$type": "DoActionByPoseIDMixin",
           "poseIDs": [
@@ -137,31 +137,31 @@
           ]
         }
       ],
-      "HNEIEGHMLKH": {
+      "modifiers": {
         "UNIQUE_Invincible": {
-          "GAIGOBCNNEE": "",
-          "IEOFBCGJGEK": true,
-          "elementDurability": 100.0,
+          "modifierName": "",
+          "isUnique": true,
+          "elementDurability": 100,
           "state": "Invincible"
         },
         "DenyLockOn": {
-          "GAIGOBCNNEE": "",
-          "elementDurability": 100.0,
+          "modifierName": "",
+          "elementDurability": 100,
           "state": "DenyLockOn"
         }
       },
-      "KCICDEJLIJD": [
+      "onAdded": [
         {
           "$type": "AttachModifier",
-          "GAIGOBCNNEE": "UNIQUE_Invincible"
+          "modifierName": "UNIQUE_Invincible"
         },
         {
           "$type": "AttachModifier",
-          "GAIGOBCNNEE": "DenyLockOn"
+          "modifierName": "DenyLockOn"
         },
         {
           "$type": "AttachAbilityStateResistance",
-          "KPGAIMMIKDA": 11001
+          "resistanceListID": 11001
         }
       ]
     }
@@ -170,7 +170,7 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Animal_Cat_BeHit",
-      "CHBMMFLIIGH": [
+      "abilityMixins": [
         {
           "$type": "AttachToPoseIDMixin",
           "poseIDs": [
@@ -185,14 +185,14 @@
             12,
             13
           ],
-          "GAIGOBCNNEE": "BeHitCount"
+          "modifierName": "BeHitCount"
         },
         {
           "$type": "AttachToAnimatorStateIDMixin",
           "stateIDs": [
             "Disappear"
           ],
-          "GAIGOBCNNEE": "Disappear"
+          "modifierName": "Disappear"
         },
         {
           "$type": "DoActionByPoseIDMixin",
@@ -203,27 +203,27 @@
           "KELPBOLPMNI": [
             {
               "$type": "ApplyModifier",
-              "GAIGOBCNNEE": "FleeCountDown"
+              "modifierName": "FleeCountDown"
             }
           ]
         }
       ],
-      "HNEIEGHMLKH": {
+      "modifiers": {
         "BeHitCount": {
-          "GAIGOBCNNEE": "",
-          "elementDurability": 100.0,
+          "modifierName": "",
+          "elementDurability": 100,
           "onBeingHit": [
             {
               "$type": "SetAnimatorFloat",
               "floatID": "DodgeWeight",
               "NPDHFAKOCJC": true,
-              "JDGCMDOIDDI": 0.0,
-              "KGAKOONKNAD": 1.0
+              "JDGCMDOIDDI": 0,
+              "KGAKOONKNAD": 1
             },
             {
               "$type": "Predicated",
-              "NPHOOPNDCAC": "Target",
-              "ELDBAFHCOBL": [
+              "target": "Target",
+              "targetPredicates": [
                 {
                   "$type": "ByEntityTypes",
                   "entityTypes": [
@@ -234,21 +234,21 @@
                   ]
                 }
               ],
-              "NCNDEAPMKCP": [
+              "successActions": [
                 {
                   "$type": "SetAnimatorTrigger",
                   "triggerID": "BeHitTrigger"
                 }
               ],
-              "BMIOBLGLPIM": [
+              "failActions": [
                 {
                   "$type": "SetPoseBool",
-                  "HHFIHBEAPAP": "FleeState",
+                  "boolID": "FleeState",
                   "value": true
                 },
                 {
                   "$type": "SetAnimatorBool",
-                  "HHFIHBEAPAP": "FleeState",
+                  "boolID": "FleeState",
                   "value": true
                 }
               ]
@@ -260,16 +260,16 @@
           ]
         },
         "Disappear": {
-          "GAIGOBCNNEE": "",
-          "elementDurability": 100.0,
-          "KCICDEJLIJD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "StartDither",
-              "duration": 3.0
+              "duration": 3
             },
             {
               "$type": "KillSelf",
-              "duration": 2.0,
+              "duration": 2,
               "BEKKIHBPHGD": true,
               "EOIGEKNINFE": true,
               "PGGBJIDIINM": "Disappear"
@@ -277,18 +277,18 @@
           ]
         },
         "FleeCountDown": {
-          "FGJPBKGPNJJ": "Unique",
-          "GAIGOBCNNEE": "",
-          "GMIMMDOGGIO": 30.0,
-          "elementDurability": 100.0,
-          "ILBIENDPCBG": [
+          "stacking": "Unique",
+          "modifierName": "",
+          "duration": 30,
+          "elementDurability": 100,
+          "onRemoved": [
             {
               "$type": "SetPoseBool",
-              "HHFIHBEAPAP": "FleeState"
+              "boolID": "FleeState"
             },
             {
               "$type": "SetAnimatorBool",
-              "HHFIHBEAPAP": "FleeState"
+              "boolID": "FleeState"
             }
           ]
         }
@@ -299,27 +299,27 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Animal_Cat_CautiousRunning",
-      "CHBMMFLIIGH": [
+      "abilityMixins": [
         {
           "$type": "AttachToPoseIDMixin",
           "poseIDs": [
             402
           ],
-          "GAIGOBCNNEE": "CautiousRunSpeedModifier"
+          "modifierName": "CautiousRunSpeedModifier"
         },
         {
           "$type": "AttachToAnimatorStateIDMixin",
           "stateIDs": [
             "Disappear_Cautious"
           ],
-          "GAIGOBCNNEE": "Disappear_Cautious"
+          "modifierName": "Disappear_Cautious"
         }
       ],
-      "HNEIEGHMLKH": {
+      "modifiers": {
         "CautiousRunSpeedModifier": {
-          "GAIGOBCNNEE": "",
-          "elementDurability": 100.0,
-          "KCICDEJLIJD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "SetAnimatorFloat",
               "floatID": "MoveSpeedRatio",
@@ -327,39 +327,39 @@
             },
             {
               "$type": "SetPoseBool",
-              "HHFIHBEAPAP": "FleeState",
+              "boolID": "FleeState",
               "value": true
             },
             {
               "$type": "SetAnimatorBool",
-              "HHFIHBEAPAP": "FleeState",
+              "boolID": "FleeState",
               "value": true
             },
             {
               "$type": "SetAnimatorBool",
-              "HHFIHBEAPAP": "DisappearCautious",
+              "boolID": "DisappearCautious",
               "value": true
             }
           ],
-          "ILBIENDPCBG": [
+          "onRemoved": [
             {
               "$type": "SetAnimatorFloat",
               "floatID": "MoveSpeedRatio",
-              "value": 1.0
+              "value": 1
             }
           ]
         },
         "Disappear_Cautious": {
-          "GAIGOBCNNEE": "",
-          "elementDurability": 100.0,
-          "KCICDEJLIJD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "StartDither",
-              "duration": 5.0
+              "duration": 5
             },
             {
               "$type": "KillSelf",
-              "duration": 1.0,
+              "duration": 1,
               "BEKKIHBPHGD": true,
               "EOIGEKNINFE": true,
               "PGGBJIDIINM": "Disappear"
@@ -373,10 +373,10 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Animal_Cat_TurnToSurround",
-      "HKBHLMNEMKM": [
+      "onAbilityStart": [
         {
           "$type": "SetPoseBool",
-          "HHFIHBEAPAP": "Surround",
+          "boolID": "Surround",
           "value": true
         }
       ]
@@ -386,10 +386,10 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Animal_Cat_OutOfSurround",
-      "HKBHLMNEMKM": [
+      "onAbilityStart": [
         {
           "$type": "SetPoseBool",
-          "HHFIHBEAPAP": "Surround"
+          "boolID": "Surround"
         }
       ]
     }
@@ -398,33 +398,33 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Animal_Cat_CatFeedPointRegister",
-      "CHBMMFLIIGH": [
+      "abilityMixins": [
         {
           "$type": "AttachToStateIDMixin",
           "stateIDs": [
             "HungryAction",
             "HungryAfterAction"
           ],
-          "GAIGOBCNNEE": "CatFeedPointRegister"
+          "modifierName": "CatFeedPointRegister"
         }
       ],
-      "HNEIEGHMLKH": {
+      "modifiers": {
         "CatFeedPointRegister": {
-          "GAIGOBCNNEE": "",
-          "elementDurability": 100.0,
-          "KCICDEJLIJD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "RegisterAIActionPoint",
               "pointType": "CatFeedPoint"
             }
           ],
-          "ILBIENDPCBG": [
+          "onRemoved": [
             {
               "$type": "ReleaseAIActionPoint",
               "pointType": "CatFeedPoint"
             }
           ],
-          "OGFFGLGEOGF": [
+          "onKill": [
             {
               "$type": "ReleaseAIActionPoint",
               "pointType": "CatFeedPoint"

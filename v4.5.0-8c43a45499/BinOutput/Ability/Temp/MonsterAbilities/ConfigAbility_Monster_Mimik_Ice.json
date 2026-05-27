@@ -3,11 +3,11 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Monster_Mimik_Ice_ElementState_On",
-      "DEOJHLMNLFC": [
+      "onAbilityStart": [
         {
           "$type": "SetAnimatorTrigger",
-          "KMGAOOHMCPK": "Caster",
-          "POPKLBPMAJN": "NonetoStage1",
+          "target": "Caster",
+          "triggerID": "NonetoStage1",
           "BFIKMHMNOGK": true
         }
       ]
@@ -17,11 +17,11 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Monster_Mimik_Ice_ElementState_Off",
-      "DEOJHLMNLFC": [
+      "onAbilityStart": [
         {
           "$type": "SetAnimatorTrigger",
-          "KMGAOOHMCPK": "Caster",
-          "POPKLBPMAJN": "Stage1toNone",
+          "target": "Caster",
+          "triggerID": "Stage1toNone",
           "BFIKMHMNOGK": true
         }
       ]
@@ -31,19 +31,19 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Monster_Mimik_Ice_Fruit_Effect",
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "UNIQUE_Mimik_Ice_Fruit_Effect": {
-          "HABNNJHCOCD": "Unique",
-          "BGIONAIMBCJ": "",
-          "defaultDistanceBetweenAvatarAndCamera": true,
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "stacking": "Unique",
+          "modifierName": "",
+          "isUnique": true,
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "EnableHitBoxByName",
               "DFBDHJKDLHI": [
                 "HitBox_Fruit"
               ],
-              "DEHFCFDDEGB": true
+              "setEnable": true
             },
             {
               "$type": "EnableHitBoxByName",
@@ -53,7 +53,7 @@
               ]
             }
           ],
-          "NFKOGKMAIIE": [
+          "onRemoved": [
             {
               "$type": "EnableHitBoxByName",
               "DFBDHJKDLHI": [
@@ -66,15 +66,15 @@
                 "HitBox",
                 "HeadBox"
               ],
-              "DEHFCFDDEGB": true
+              "setEnable": true
             }
           ]
         }
       },
-      "DEOJHLMNLFC": [
+      "onAbilityStart": [
         {
           "$type": "AttachModifier",
-          "BGIONAIMBCJ": "UNIQUE_Mimik_Ice_Fruit_Effect"
+          "modifierName": "UNIQUE_Mimik_Ice_Fruit_Effect"
         }
       ]
     }
@@ -83,40 +83,40 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Monster_Mimik_Ice_AbsorbFruitState",
-      "KBODACCMEFE": [
+      "abilityMixins": [
         {
           "$type": "AttachToStateIDMixin",
-          "FHCHNMKMJJA": [
+          "stateIDs": [
             "AbsorbFruit",
             "AbsorbFruit_Loop",
             "ForwardShoot01",
             "UpperShoot02"
           ],
-          "BGIONAIMBCJ": "AddWeight"
+          "modifierName": "AddWeight"
         },
         {
           "$type": "AttachToStateIDMixin",
-          "FHCHNMKMJJA": [
+          "stateIDs": [
             "AbsorbFruit",
             "AbsorbFruit_Loop",
             "ForwardShoot01",
             "UpperShoot02"
           ],
-          "BGIONAIMBCJ": "ResetFruitSkillCD"
+          "modifierName": "ResetFruitSkillCD"
         }
       ],
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "AddWeight": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLPPKPOJEOA": {
-            "Entity_WeightRatio": 5.0
+          "modifierName": "",
+          "elementDurability": 100,
+          "properties": {
+            "Entity_WeightRatio": 5
           }
         },
         "ResetFruitSkillCD": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NFKOGKMAIIE": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onRemoved": [
             {
               "$type": "ReTriggerAISkillInitialCD",
               "AGAIJDENKJE": [
@@ -134,66 +134,66 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Monster_Mimik_Ice_AbsorbFruit",
-      "KBODACCMEFE": [
+      "abilityMixins": [
         {
           "$type": "AttachToStateIDMixin",
-          "FHCHNMKMJJA": [
+          "stateIDs": [
             "AbsorbFruit_Loop"
           ],
-          "BGIONAIMBCJ": "UNIQUE_Mimik_Ice_Fruit"
+          "modifierName": "UNIQUE_Mimik_Ice_Fruit"
         }
       ],
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "UNIQUE_Mimik_Ice_Fruit": {
-          "HABNNJHCOCD": "Unique",
-          "BGIONAIMBCJ": "",
-          "defaultDistanceBetweenAvatarAndCamera": true,
+          "stacking": "Unique",
+          "modifierName": "",
+          "isUnique": true,
           "elementType": "Frozen",
-          "ONIHJPOMNHA": 50.0,
-          "CLOIGOBCDJK": [
+          "elementDurability": 50,
+          "modifierMixins": [
             {
               "$type": "ShieldBarMixin",
-              "GLBNMILELCH": [
+              "onShieldBroken": [
                 {
                   "$type": "ActCameraShake",
-                  "FCDFPCPCJGO": {
-                    "FIKIBNDMNEF": 0.20000000298023224,
-                    "NCDMOKAIAJD": 0.11999999731779099,
-                    "JOLJAMKOCJL": 30.0,
-                    "LLNFDIKODIM": {
+                  "cameraShake": {
+                    "shakeRange": 0.2,
+                    "shakeTime": 0.12,
+                    "shakeDistance": 30,
+                    "extension": {
                       "IHLFAKGAOPO": true
                     }
                   }
                 },
                 {
                   "$type": "TriggerAbility",
-                  "KMGAOOHMCPK": "Caster",
+                  "target": "Caster",
                   "abilityName": "Monster_Mimik_Ice_DownManager"
                 },
                 {
                   "$type": "SetPoseBool",
-                  "KMGAOOHMCPK": "Caster",
-                  "CMLNMLEDGPA": "Down",
+                  "target": "Caster",
+                  "boolID": "Down",
                   "value": true
                 },
                 {
                   "$type": "SetAnimatorTrigger",
-                  "KMGAOOHMCPK": "Caster",
-                  "POPKLBPMAJN": "DownTrigger",
+                  "target": "Caster",
+                  "triggerID": "DownTrigger",
                   "BFIKMHMNOGK": true
                 }
               ],
-              "BNHNIOIMHDI": ""
+              "showDamageText": ""
             }
           ],
-          "NLFIGALMIPD": [
+          "onAdded": [
             {
               "$type": "AddGlobalValue",
-              "value": 1.0,
-              "NGGCNKPAODB": "_ABILITY_MIMIK_ICE_FRUIT",
-              "AJKBEKOCMKF": true,
-              "LBHGJKHHAKP": 1.0,
-              "EMGNPOKHMNN": 0.0
+              "value": 1,
+              "key": "_ABILITY_MIMIK_ICE_FRUIT",
+              "useLimitRange": true,
+              "maxValue": 1,
+              "minValue": 0
             },
             {
               "$type": "TriggerAbility",
@@ -201,28 +201,27 @@
             },
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_Monster_Mimik_Ice_AbsorbFruit_Loop_01",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_Monster_Mimik_Ice_AbsorbFruit_Loop_01"
             }
           ],
-          "NFKOGKMAIIE": [
+          "onRemoved": [
             {
               "$type": "AddGlobalValue",
-              "value": -1.0,
-              "NGGCNKPAODB": "_ABILITY_MIMIK_ICE_FRUIT",
-              "AJKBEKOCMKF": true,
-              "LBHGJKHHAKP": 1.0,
-              "EMGNPOKHMNN": 0.0
+              "value": -1,
+              "key": "_ABILITY_MIMIK_ICE_FRUIT",
+              "useLimitRange": true,
+              "maxValue": 1,
+              "minValue": 0
             },
             {
               "$type": "RemoveUniqueModifier",
-              "BGIONAIMBCJ": "UNIQUE_Mimik_Ice_Fruit_Effect"
+              "modifierName": "UNIQUE_Mimik_Ice_Fruit_Effect"
             }
           ],
-          "LFBJFECLNGK": [
+          "onKill": [
             {
               "$type": "RemoveUniqueModifier",
-              "BGIONAIMBCJ": "UNIQUE_Mimik_Ice_Fruit"
+              "modifierName": "UNIQUE_Mimik_Ice_Fruit"
             }
           ],
           "MAFAHIIDIDE": true
@@ -234,59 +233,57 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Monster_Mimik_Ice_DownManager",
-      "KBODACCMEFE": [
+      "abilityMixins": [
         {
           "$type": "AttachToAnimatorStateIDMixin",
-          "FHCHNMKMJJA": [
+          "stateIDs": [
             "Down_AS"
           ],
-          "BGIONAIMBCJ": "RecoverManager"
+          "modifierName": "RecoverManager"
         }
       ],
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "UNIQUE_DownTimer": {
-          "BGIONAIMBCJ": "",
-          "defaultDistanceBetweenAvatarAndCamera": true,
-          "FAFCPJJAIGK": 15.0,
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "isUnique": true,
+          "duration": 15,
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_Monster_Mimik_Ice_Down_01",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_Monster_Mimik_Ice_Down_01"
             },
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_Monster_Mimik_Ice_Down_02",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_Monster_Mimik_Ice_Down_02"
             },
             {
               "$type": "SetPoseBool",
-              "CMLNMLEDGPA": "Recover",
+              "boolID": "Recover",
               "value": true
             }
           ],
-          "NFKOGKMAIIE": [
+          "onRemoved": [
             {
               "$type": "SetPoseBool",
-              "CMLNMLEDGPA": "Down"
+              "boolID": "Down"
             },
             {
               "$type": "SetAnimatorTrigger",
-              "POPKLBPMAJN": "RecoverTrigger",
+              "triggerID": "RecoverTrigger",
               "BFIKMHMNOGK": true
             }
           ],
           "MAFAHIIDIDE": true
         },
         "RecoverManager": {
-          "BGIONAIMBCJ": "",
-          "FAFCPJJAIGK": 1.5,
-          "ONIHJPOMNHA": 100.0,
-          "NFKOGKMAIIE": [
+          "modifierName": "",
+          "duration": 1.5,
+          "elementDurability": 100,
+          "onRemoved": [
             {
               "$type": "SetPoseBool",
-              "CMLNMLEDGPA": "Recover"
+              "boolID": "Recover"
             },
             {
               "$type": "ReTriggerAISkillInitialCD",
@@ -300,10 +297,10 @@
           "MAFAHIIDIDE": true
         }
       },
-      "DEOJHLMNLFC": [
+      "onAbilityStart": [
         {
           "$type": "AttachModifier",
-          "BGIONAIMBCJ": "UNIQUE_DownTimer"
+          "modifierName": "UNIQUE_DownTimer"
         }
       ]
     }
@@ -312,35 +309,30 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Mimik_Ice_AbsorbFruit_DoFruitMoveEffect",
-      "KBODACCMEFE": [
+      "abilityMixins": [
         {
           "$type": "AttachToAnimatorStateIDMixin",
-          "FHCHNMKMJJA": [
+          "stateIDs": [
             "AbsorbFruit_BS"
           ],
-          "BGIONAIMBCJ": "Effect"
+          "modifierName": "Effect"
         }
       ],
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "Effect": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "CreateGadget",
-              "CCNCMOGOFAG": {
-                "$type": "IADBHDLMGJB",
-                "offset": {
-                  "NEEHMANEJKM": 0.0,
-                  "KKKLBADAPPB": 0.0,
-                  "GENNNOANKOO": 0.0
-                },
-                "MDPMJPIOGLA": "BulletSource",
-                "JPEOGPAHPDM": "Self"
+              "born": {
+                "$type": "ConfigBornByAttachPoint",
+                "attachPointName": "BulletSource",
+                "attachPointTargetType": "Self"
               },
-              "BLPPFMNOOIO": 42601005,
+              "gadgetID": 42601005,
               "campID": 4001,
-              "CHPLPFBEPDN": "Self"
+              "campTargetType": "Self"
             },
             {
               "$type": "SetPartControlTarget",
@@ -360,11 +352,11 @@
               "enable": true
             }
           ],
-          "NFKOGKMAIIE": [
+          "onRemoved": [
             {
               "$type": "KillGadget",
-              "OFJFNEKHMJB": {
-                "HADIOIIIHBI": 42601005
+              "gadgetInfo": {
+                "configID": 42601005
               }
             },
             {
@@ -384,14 +376,14 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Mimik_AbsorbFruit_FruitMoveTarget",
-      "NLFIGALMIPD": [
+      "onAdded": [
         {
           "$type": "AddGlobalValue",
-          "value": 1.0,
-          "NGGCNKPAODB": "_MONSTER_MIMIK_IS_FRUITMOVETARGET",
-          "AJKBEKOCMKF": true,
-          "LBHGJKHHAKP": 1.0,
-          "EMGNPOKHMNN": 0.0
+          "value": 1,
+          "key": "_MONSTER_MIMIK_IS_FRUITMOVETARGET",
+          "useLimitRange": true,
+          "maxValue": 1,
+          "minValue": 0
         }
       ]
     }
@@ -400,29 +392,28 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Mimik_AbsorbFruit_FruitMoveEffect",
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "Effect": {
-          "BGIONAIMBCJ": "",
-          "FAFCPJJAIGK": 0.75,
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "duration": 0.75,
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_Monster_Mimik_Ice_Fruit_Bullet",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_Monster_Mimik_Ice_Fruit_Bullet"
             }
           ],
-          "NFKOGKMAIIE": [
+          "onRemoved": [
             {
               "$type": "KillSelf"
             }
           ]
         }
       },
-      "NLFIGALMIPD": [
+      "onAdded": [
         {
           "$type": "ApplyModifier",
-          "BGIONAIMBCJ": "Effect"
+          "modifierName": "Effect"
         }
       ]
     }
@@ -431,55 +422,54 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Monster_Mimik_Ice_ForwardShoot01",
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "UNIQUE_ForwardShootTargeting": {
-          "BGIONAIMBCJ": "",
-          "defaultDistanceBetweenAvatarAndCamera": true,
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "isUnique": true,
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "CreateGadget",
-              "CCNCMOGOFAG": {
-                "$type": "DELDMCFKBBL",
+              "born": {
+                "$type": "ConfigBornBySelf",
                 "offset": {
-                  "NEEHMANEJKM": 0.0,
-                  "KKKLBADAPPB": 1.2000000476837158,
-                  "GENNNOANKOO": -3.5
+                  "y": 1.2,
+                  "z": -3.5
                 }
               },
               "LLEKJLJCCGN": true,
-              "BLPPFMNOOIO": 42601005,
+              "gadgetID": 42601005,
               "campID": 4001
             },
             {
               "$type": "SetSelfAttackTarget",
-              "musicSubStates": {
-                "$type": "GNHODBHJPLP",
-                "HADIOIIIHBI": 42601005
+              "otherTargets": {
+                "$type": "SelectTargetsByChildren",
+                "configID": 42601005
               }
             }
           ],
-          "NFKOGKMAIIE": [
+          "onRemoved": [
             {
               "$type": "KillGadget",
-              "OFJFNEKHMJB": {
-                "HADIOIIIHBI": 42601005
+              "gadgetInfo": {
+                "configID": 42601005
               }
             }
           ]
         }
       },
-      "DEOJHLMNLFC": [
+      "onAbilityStart": [
         {
           "$type": "TriggerBullet",
-          "PMOEIMCLPBE": 42601001,
-          "CCNCMOGOFAG": {
-            "$type": "IADBHDLMGJB",
-            "FNHBOFDBNNK": {
-              "$type": "KJNJKKJEMHE",
+          "bulletID": 42601001,
+          "born": {
+            "$type": "ConfigBornByAttachPoint",
+            "direction": {
+              "$type": "ConfigDirectionByAttackTarget",
               "FDLFFILMBNE": ""
             },
-            "MDPMJPIOGLA": "BulletSource"
+            "attachPointName": "BulletSource"
           }
         }
       ]
@@ -489,27 +479,22 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Monster_Mimik_Ice_ForwardShoot02",
-      "CLHBPEHHEJB": {
-        "FruitCount": 0.0
+      "abilitySpecials": {
+        "FruitCount": 0
       },
-      "DEOJHLMNLFC": [
+      "onAbilityStart": [
         {
           "$type": "TriggerBullet",
-          "PMOEIMCLPBE": 42601002,
-          "CCNCMOGOFAG": {
-            "$type": "IADBHDLMGJB",
-            "offset": {
-              "NEEHMANEJKM": 0.0,
-              "KKKLBADAPPB": 0.0,
-              "GENNNOANKOO": 0.0
-            },
-            "FNHBOFDBNNK": {
-              "$type": "KJNJKKJEMHE",
-              "KMOGGODHPNO": "Horizontal",
-              "JFIMKGBCGFD": 15.0,
+          "bulletID": 42601002,
+          "born": {
+            "$type": "ConfigBornByAttachPoint",
+            "direction": {
+              "$type": "ConfigDirectionByAttackTarget",
+              "maxAngleType": "Horizontal",
+              "maxAngle": 15,
               "FDLFFILMBNE": ""
             },
-            "MDPMJPIOGLA": "BulletSource"
+            "attachPointName": "BulletSource"
           }
         }
       ]
@@ -519,20 +504,20 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Monster_Mimik_Ice_UpperShoot01",
-      "CLHBPEHHEJB": {
-        "FruitCount": 0.0
+      "abilitySpecials": {
+        "FruitCount": 0
       },
-      "DEOJHLMNLFC": [
+      "onAbilityStart": [
         {
           "$type": "TriggerBullet",
-          "PMOEIMCLPBE": 42601003,
-          "CCNCMOGOFAG": {
-            "$type": "IADBHDLMGJB",
-            "FNHBOFDBNNK": {
-              "$type": "KJNJKKJEMHE",
+          "bulletID": 42601003,
+          "born": {
+            "$type": "ConfigBornByAttachPoint",
+            "direction": {
+              "$type": "ConfigDirectionByAttackTarget",
               "FDLFFILMBNE": ""
             },
-            "MDPMJPIOGLA": "BulletSource"
+            "attachPointName": "BulletSource"
           }
         }
       ]
@@ -542,24 +527,19 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Monster_Mimik_Ice_UpperShoot02",
-      "DEOJHLMNLFC": [
+      "onAbilityStart": [
         {
           "$type": "TriggerBullet",
-          "PMOEIMCLPBE": 42601004,
-          "CCNCMOGOFAG": {
-            "$type": "IADBHDLMGJB",
-            "offset": {
-              "NEEHMANEJKM": 0.0,
-              "KKKLBADAPPB": 0.0,
-              "GENNNOANKOO": 0.0
-            },
-            "FNHBOFDBNNK": {
-              "$type": "KJNJKKJEMHE",
-              "KMOGGODHPNO": "Horizontal",
-              "JFIMKGBCGFD": 15.0,
+          "bulletID": 42601004,
+          "born": {
+            "$type": "ConfigBornByAttachPoint",
+            "direction": {
+              "$type": "ConfigDirectionByAttackTarget",
+              "maxAngleType": "Horizontal",
+              "maxAngle": 15,
               "FDLFFILMBNE": ""
             },
-            "MDPMJPIOGLA": "BulletSource"
+            "attachPointName": "BulletSource"
           }
         }
       ]
@@ -569,30 +549,29 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Mimik_Ice_ForwardBullet_Loop",
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "UNIQUE_Mimik_Ice_ForwardBullet_Loop": {
-          "BGIONAIMBCJ": "",
-          "defaultDistanceBetweenAvatarAndCamera": true,
+          "modifierName": "",
+          "isUnique": true,
           "elementType": "Frozen",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_Monster_Mimik_Ice_Bullet_01",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_Monster_Mimik_Ice_Bullet_01"
             }
           ],
-          "NFKOGKMAIIE": [
+          "onRemoved": [
             {
               "$type": "KillSelf"
             }
           ]
         }
       },
-      "NLFIGALMIPD": [
+      "onAdded": [
         {
           "$type": "AttachModifier",
-          "BGIONAIMBCJ": "UNIQUE_Mimik_Ice_ForwardBullet_Loop"
+          "modifierName": "UNIQUE_Mimik_Ice_ForwardBullet_Loop"
         }
       ]
     }
@@ -601,61 +580,55 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Mimik_Ice_ForwardBullet_Explode",
-      "DEOJHLMNLFC": [
+      "onAbilityStart": [
         {
           "$type": "FireEffect",
-          "LHHFHDEJOHC": "Eff_Monster_Mimik_Ice_Bullet_01_Hit",
-          "CCNCMOGOFAG": {
-            "$type": "NCCAHOCNGAN"
-          },
-          "PCLAEGHPNHE": -1.0
+          "effectPattern": "Eff_Monster_Mimik_Ice_Bullet_01_Hit",
+          "born": {
+            "$type": "ConfigBornByCollisionPoint"
+          }
         },
         {
           "$type": "RemoveUniqueModifier",
-          "BGIONAIMBCJ": "UNIQUE_Mimik_Ice_ForwardBullet_Loop"
+          "modifierName": "UNIQUE_Mimik_Ice_ForwardBullet_Loop"
         },
         {
           "$type": "TriggerAttackEvent",
-          "FMDHJHAACGM": {
-            "LOPCJCIFFBE": {
-              "$type": "IHKJIHKGECH",
+          "attackEvent": {
+            "attackPattern": {
+              "$type": "ConfigAttackSphere",
               "triggerType": "TriggerNoRepeat",
-              "CCNCMOGOFAG": {
-                "$type": "NCCAHOCNGAN",
-                "offset": {
-                  "NEEHMANEJKM": 0.0,
-                  "KKKLBADAPPB": 0.0,
-                  "GENNNOANKOO": 0.0
-                }
+              "born": {
+                "$type": "ConfigBornByCollisionPoint"
               },
-              "GGEJLLOCJDH": 0.75
+              "radius": 0.75
             },
-            "OIAMOBFMPAB": {
-              "KNOKCFHALLI": "",
-              "HOKPLNACNKG": "",
-              "ILLFBEHPCJA": "default",
-              "BAPFFKCLDPC": {
-                "OLLFABADCKH": 0.20000000298023224,
-                "PDHAKJCMPHB": 0.0,
+            "attackInfo": {
+              "attackTag": "",
+              "attenuationTag": "",
+              "attenuationGroup": "default",
+              "attackProperty": {
+                "damagePercentage": 0.2,
+                "damagePercentageRatio": 0,
                 "elementType": "Ice",
-                "ONIHJPOMNHA": 50.0,
-                "GAOIEGMFFDJ": "Blunt",
-                "FFIIMACIKEA": 12.5,
-                "AEOLDMAMNLM": 0.0
+                "elementDurability": 50,
+                "strikeType": "Blunt",
+                "enBreak": 12.5,
+                "__exp_arkhe": 0
               },
-              "OCHEEDIDOHI": {
-                "AIDMNBLLAIJ": "none",
-                "OEGAJNNFFPO": "LV3",
-                "EPGLCHLENNG": 0.05000000074505806
+              "hitPattern": {
+                "onHitEffectName": "none",
+                "hitImpulseType": "LV3",
+                "hitHaltTimeScale": 0.05
               },
-              "FCDFPCPCJGO": {
-                "FIKIBNDMNEF": 0.05999999865889549,
-                "NCDMOKAIAJD": 0.09000000357627869
+              "cameraShake": {
+                "shakeRange": 0.06,
+                "shakeTime": 0.09
               },
-              "FAAOHGPLAFO": "OriginOwner"
+              "canBeModifiedBy": "OriginOwner"
             }
           },
-          "PFBJAFHFBDE": "Enemy"
+          "targetType": "Enemy"
         }
       ]
     }
@@ -664,24 +637,23 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Monster_Mimik_Ice_FruitReborn_Effect",
-      "KBODACCMEFE": [
+      "abilityMixins": [
         {
           "$type": "AttachToAnimatorStateIDMixin",
-          "FHCHNMKMJJA": [
+          "stateIDs": [
             "FruitReborn_Act"
           ],
-          "BGIONAIMBCJ": "FruitReborn_Effect"
+          "modifierName": "FruitReborn_Effect"
         }
       ],
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "FruitReborn_Effect": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_Monster_Mimik_Ice_FruitReborn_UnderGround",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_Monster_Mimik_Ice_FruitReborn_UnderGround"
             }
           ]
         }
@@ -692,12 +664,12 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Monster_Mimik_Ice_SkillSet",
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "UNIQUE_Mimik_Ice_DefaultSkillSet": {
-          "BGIONAIMBCJ": "",
-          "defaultDistanceBetweenAvatarAndCamera": true,
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "isUnique": true,
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "UseSkillEliteSet",
               "PLPLGDBPOEJ": 1
@@ -705,18 +677,18 @@
           ]
         }
       },
-      "NLFIGALMIPD": [
+      "onAdded": [
         {
           "$type": "ApplyModifier",
-          "FLEEHCIOPKA": [
+          "predicates": [
             {
-              "$type": "OMPKIEPKGPF",
-              "NGGCNKPAODB": "_MONSTERAFFIX_Mimik_Ice_ActivitySummoned",
-              "value": 0.0,
-              "GAGKBNPOCAC": "NoneOrEqual"
+              "$type": "ByTargetGlobalValue",
+              "key": "_MONSTERAFFIX_Mimik_Ice_ActivitySummoned",
+              "value": 0,
+              "compareType": "NoneOrEqual"
             }
           ],
-          "BGIONAIMBCJ": "UNIQUE_Mimik_Ice_DefaultSkillSet"
+          "modifierName": "UNIQUE_Mimik_Ice_DefaultSkillSet"
         }
       ]
     }

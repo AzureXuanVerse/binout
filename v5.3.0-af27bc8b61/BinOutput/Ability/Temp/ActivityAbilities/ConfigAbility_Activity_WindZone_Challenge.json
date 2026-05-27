@@ -1,7 +1,7 @@
 [
   {
     "Default": {
-      "$type": "FGKJODDHNFD",
+      "$type": "ConfigAbility",
       "abilityName": "ActivityAbility_WindField_Challenge_RockJump_FallingDamageUp",
       "abilityMixins": [
         {
@@ -16,11 +16,11 @@
         "UNIQUE_WindField_Challenge_RockJump_FallingDamageUp_Handler": {
           "stacking": "Unique",
           "modifierName": "",
-          "reApplyModifierOnStateChange": true,
-          "DMCLENCALMP": 100.0,
+          "isUnique": true,
+          "elementDurability": 100,
           "modifierMixins": [
             {
-              "$type": "PODOKLJMFJL",
+              "$type": "AttachModifierToGlobalValueMixin",
               "globalValueTarget": "Team",
               "globalValueKey": "SGV_WindField_Buff_2",
               "valueSteps": [
@@ -36,47 +36,47 @@
         "UNIQUE_WindField_Challenge_RockJump_FallingDamageUp": {
           "stacking": "Unique",
           "modifierName": "",
-          "reApplyModifierOnStateChange": true,
-          "DMCLENCALMP": 100.0,
+          "isUnique": true,
+          "elementDurability": 100,
           "modifierMixins": [
             {
-              "$type": "KAEOMMCGJAG",
+              "$type": "ModifyDamageMixin",
               "attackTags": [
                 "FallingAttack"
               ],
-              "actorIceSubHurtDelta": "FallingAttackDamageUpRatio"
+              "damagePercentageRatio": "FallingAttackDamageUpRatio"
             }
           ],
           "onAdded": [
             {
               "$type": "PMEOODPKLNI",
-              "shieldHP": true,
+              "doOffStage": true,
               "canBeHandledOnRecover": true,
-              "damageRatio": "DungeonJump",
+              "type": "DungeonJump",
               "enable": true,
               "extention": {
-                "xzMultiplier": 2.0,
-                "yMultiplier": 3.0
+                "xzMultiplier": 2,
+                "yMultiplier": 3
               }
             }
           ],
           "onRemoved": [
             {
               "$type": "PMEOODPKLNI",
-              "shieldHP": true,
-              "damageRatio": "DungeonJump"
+              "doOffStage": true,
+              "type": "DungeonJump"
             }
           ],
           "onAvatarIn": [
             {
               "$type": "PMEOODPKLNI",
-              "shieldHP": true,
+              "doOffStage": true,
               "canBeHandledOnRecover": true,
-              "damageRatio": "DungeonJump",
+              "type": "DungeonJump",
               "enable": true,
               "extention": {
-                "xzMultiplier": 2.0,
-                "yMultiplier": 3.0
+                "xzMultiplier": 2,
+                "yMultiplier": 3
               }
             }
           ]
@@ -87,7 +87,7 @@
   },
   {
     "Default": {
-      "$type": "FGKJODDHNFD",
+      "$type": "ConfigAbility",
       "abilityName": "ActivityAbility_WindField_Challenge_WindZone",
       "abilityMixins": [
         {
@@ -96,17 +96,17 @@
         }
       ],
       "abilitySpecials": {
-        "WindZone_CD": 4.0
+        "WindZone_CD": 4
       },
       "modifiers": {
         "UNIQUE_WindField_Challenge_WindZone_Handler": {
           "stacking": "Unique",
           "modifierName": "",
-          "reApplyModifierOnStateChange": true,
-          "DMCLENCALMP": 100.0,
+          "isUnique": true,
+          "elementDurability": 100,
           "modifierMixins": [
             {
-              "$type": "PODOKLJMFJL",
+              "$type": "AttachModifierToGlobalValueMixin",
               "globalValueTarget": "Team",
               "globalValueKey": "SGV_WindField_Buff_1",
               "valueSteps": [
@@ -122,21 +122,21 @@
         "UNIQUE_WindField_Challenge_WindZone_Decision_AttackLand": {
           "stacking": "Unique",
           "modifierName": "",
-          "reApplyModifierOnStateChange": true,
-          "DMCLENCALMP": 100.0,
+          "isUnique": true,
+          "elementDurability": 100,
           "onAttackLanded": [
             {
-              "$type": "EPKHDMNNGIM",
+              "$type": "Predicated",
               "target": "Other",
               "predicates": [
                 {
-                  "$type": "HBCOIHCEICM",
+                  "$type": "ByEntityTypes",
                   "entityTypes": [
                     "Monster"
                   ]
                 },
                 {
-                  "$type": "BICJAJCODFH",
+                  "$type": "ByAttackTags",
                   "attackTags": [
                     "NormalAttack_01",
                     "NormalAttack_02",
@@ -153,24 +153,19 @@
                   ]
                 },
                 {
-                  "$type": "HMFPJIKNKAG",
+                  "$type": "ByTargetGlobalValue",
                   "target": "Team",
                   "key": "Wind_CDState",
-                  "ratio": 0.0,
+                  "value": 0,
                   "compareType": "NoneOrEqual"
                 }
               ],
               "successActions": [
                 {
-                  "$type": "COAIAFHKEJN",
+                  "$type": "CreateGadget",
                   "target": "Other",
                   "born": {
-                    "$type": "AHFPPJGKILD",
-                    "offset": {
-                      "EJJHJBGPAKH": 0.0,
-                      "AODIKJMCHNK": 0.0,
-                      "FOCCKFNJAAC": 0.0
-                    },
+                    "$type": "ConfigBornByTarget",
                     "onGround": true,
                     "alongGround": true
                   },
@@ -178,7 +173,7 @@
                   "campID": 1001
                 },
                 {
-                  "$type": "PAEEFDCCFEK",
+                  "$type": "ApplyModifier",
                   "target": "Team",
                   "modifierName": "UNIQUE_WindField_Challenge_WindZone_Action_CD"
                 }
@@ -189,27 +184,27 @@
         "UNIQUE_WindField_Challenge_WindZone_Action_CD": {
           "stacking": "Unique",
           "modifierName": "",
-          "reApplyModifierOnStateChange": true,
-          "OLGDMDBPCIP": "WindZone_CD",
-          "DMCLENCALMP": 100.0,
+          "isUnique": true,
+          "duration": "WindZone_CD",
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "HCBCBBHLDKG",
+              "$type": "SetGlobalValue",
               "target": "Team",
-              "ratio": -1.0,
+              "value": -1,
               "key": "Wind_CDState",
-              "param2": 0.0,
-              "param3": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ],
           "onRemoved": [
             {
-              "$type": "HCBCBBHLDKG",
+              "$type": "SetGlobalValue",
               "target": "Team",
-              "ratio": 0.0,
+              "value": 0,
               "key": "Wind_CDState",
-              "param2": 0.0,
-              "param3": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         }
@@ -219,52 +214,50 @@
   },
   {
     "Default": {
-      "$type": "FGKJODDHNFD",
+      "$type": "ConfigAbility",
       "abilityName": "Activity_WindFiled_Challenge_WindZone_Gadget",
       "abilitySpecials": {
-        "Duration": 4.0
+        "Duration": 4
       },
       "modifiers": {
         "Life_Timer": {
           "modifierName": "",
-          "OLGDMDBPCIP": "Duration",
-          "DMCLENCALMP": 100.0,
+          "duration": "Duration",
+          "elementDurability": 100,
           "onRemoved": [
             {
-              "$type": "ENLCJEPPPCI"
+              "$type": "KillSelf"
             }
           ]
         },
         "WindFiled_Challenge_WindZone": {
           "modifierName": "",
-          "DMCLENCALMP": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
-              "$type": "CBNEHOBLOEG",
+              "$type": "WindZoneMixin",
               "shapeName": "CircleR12",
               "born": {
-                "$type": "FNFCGCHBDDI",
+                "$type": "ConfigBornBySelf",
                 "offset": {
-                  "EJJHJBGPAKH": 0.0,
-                  "AODIKJMCHNK": 0.5,
-                  "FOCCKFNJAAC": 0.0
+                  "y": 0.5
                 }
               },
-              "strength": 5.0,
-              "ICCAKNKKPCH": 0.0,
-              "IEELHLNCKHB": 1.0,
+              "strength": 5,
+              "attenuation": 0,
+              "innerRadius": 1,
               "targetType": "All",
               "predicates": [
                 {
-                  "$type": "HBCOIHCEICM",
+                  "$type": "ByEntityTypes",
                   "entityTypes": [
                     "Monster"
                   ]
                 },
                 {
-                  "$type": "AMPGDFNLJFL",
+                  "$type": "ByTargetWeight",
                   "logic": "Lesser",
-                  "OLGNEDOEBNH": 150.0
+                  "weight": 150
                 }
               ],
               "modifierName": ""
@@ -272,21 +265,20 @@
           ],
           "onAdded": [
             {
-              "$type": "LKDKPDGBEBF",
-              "rotationDampTime": "Eff_Activity_Roguelike_Gadget_Wind_Absorbe",
-              "GNJCLBNGGBN": 1.0,
-              "DAFPKJDDJHF": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_Activity_Roguelike_Gadget_Wind_Absorbe",
+              "scale": 1
             }
           ]
         }
       },
       "onAdded": [
         {
-          "$type": "JNLHJCBOFJB",
+          "$type": "AttachModifier",
           "modifierName": "Life_Timer"
         },
         {
-          "$type": "JNLHJCBOFJB",
+          "$type": "AttachModifier",
           "modifierName": "WindFiled_Challenge_WindZone"
         }
       ]

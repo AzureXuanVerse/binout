@@ -7,7 +7,7 @@
         {
           "$type": "AttachModifierToSelfGlobalValueMixin",
           "globalValueKey": "_GO_CJB_TRIGGER",
-          "defaultGlobalValueOnCreate": 0.0,
+          "defaultGlobalValueOnCreate": 0,
           "valueSteps": [
             -0.5,
             0.5,
@@ -20,20 +20,20 @@
         }
       ],
       "abilitySpecials": {
-        "AvatarBuffDuration": 0.0,
-        "CJBDamageRatio": 0.0,
-        "CJBCD": 0.0,
-        "ChooseCD": 0.0,
-        "MaxCJBNum": 0.0
+        "AvatarBuffDuration": 0,
+        "CJBDamageRatio": 0,
+        "CJBCD": 0,
+        "ChooseCD": 0,
+        "MaxCJBNum": 0
       },
       "modifiers": {
         "No_CJB_Trigger": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0
+          "elementDurability": 100
         },
         "Has_CJB_Trigger": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "ApplyModifier",
@@ -41,10 +41,10 @@
             },
             {
               "$type": "SetGlobalValue",
-              "ratio": 1.0,
+              "value": 1,
               "key": "_CJB_NUM",
-              "maxValue": 0.0,
-              "minValue": 0.0
+              "maxValue": 0,
+              "minValue": 0
             },
             {
               "$type": "ApplyModifier",
@@ -54,44 +54,44 @@
         },
         "Reset_CJB_Value": {
           "modifierName": "",
-          "duration": 0.30000001192092896,
-          "bonusCriticalHurt": 100.0,
+          "duration": 0.3,
+          "elementDurability": 100,
           "onRemoved": [
             {
               "$type": "SetGlobalValue",
-              "ratio": 0.0,
+              "value": 0,
               "key": "_GO_CJB_TRIGGER",
-              "maxValue": 0.0,
-              "minValue": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         "ChooseMonster_CD": {
           "modifierName": "",
           "duration": "ChooseCD",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "SetGlobalValue",
-              "ratio": 1.0,
+              "value": 1,
               "key": "_CHOOSE_IN_CD",
-              "maxValue": 0.0,
-              "minValue": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ],
           "onRemoved": [
             {
               "$type": "SetGlobalValue",
-              "ratio": 0.0,
+              "value": 0,
               "key": "_CHOOSE_IN_CD",
-              "maxValue": 0.0,
-              "minValue": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         "Activity_ActivityTeamChain_AvatarCJBBuff": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "CurLocalAvatarMixinV2",
@@ -102,101 +102,100 @@
         "CJB_DAMAGE_INCD": {
           "modifierName": "",
           "duration": "CJBCD",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "SetGlobalValue",
-              "ratio": 1.0,
+              "value": 1,
               "key": "_CJB_IN_CD",
-              "maxValue": 0.0,
-              "minValue": 0.0
+              "maxValue": 0,
+              "minValue": 0
             },
             {
               "$type": "AddGlobalValue",
-              "ratio": 1.0,
+              "value": 1,
               "key": "_CJB_NUM",
               "useLimitRange": true,
-              "maxValue": 10.0,
-              "minValue": 0.0
+              "maxValue": 10,
+              "minValue": 0
             }
           ],
           "onRemoved": [
             {
               "$type": "SetGlobalValue",
-              "ratio": 0.0,
+              "value": 0,
               "key": "_CJB_IN_CD",
-              "maxValue": 0.0,
-              "minValue": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         "Activity_ActivityTeamChain_AvatarCJBBuff_OnBattle": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAttackLanded": [
             {
               "$type": "Predicated",
               "target": "Other",
               "targetPredicates": [
                 {
-                  "$type": "AHEJBDFBPMH",
+                  "$type": "ByEntityTypes",
                   "entityTypes": [
                     "Monster"
                   ]
                 },
                 {
-                  "$type": "GAJFNLEHCIP",
+                  "$type": "ByTargetGlobalValue",
                   "target": "Team",
                   "key": "_CJB_IN_CD",
-                  "ratio": 0.0,
-                  "COJNFMPPGEF": "NoneOrEqual"
+                  "value": 0,
+                  "compareType": "NoneOrEqual"
                 },
                 {
-                  "$type": "GAJFNLEHCIP",
+                  "$type": "ByTargetGlobalValue",
                   "target": "Team",
                   "key": "_CJB_NUM",
-                  "ratio": "MaxCJBNum",
-                  "COJNFMPPGEF": "LessAndEqual"
+                  "value": "MaxCJBNum",
+                  "compareType": "LessAndEqual"
                 },
                 {
-                  "$type": "GAJFNLEHCIP",
+                  "$type": "ByTargetGlobalValue",
                   "target": "Team",
                   "key": "_CHOOSE_IN_CD",
-                  "ratio": 1.0
+                  "value": 1
                 }
               ],
               "successActions": [
                 {
                   "$type": "FireEffect",
                   "target": "Other",
-                  "healLimitedByCasterMaxHPRatio": "Eff_EnergyDisk_ElementalBurst_Wave_R40",
+                  "effectPattern": "Eff_EnergyDisk_ElementalBurst_Wave_R40",
                   "born": {
-                    "$type": "OPOAHPBLGFG"
-                  },
-                  "IKGGKJEGMFO": -1.0
+                    "$type": "ConfigBornByTarget"
+                  }
                 },
                 {
                   "$type": "TriggerAttackEvent",
                   "target": "CurLocalAvatar",
-                  "RotationDampTime": false,
+                  "doOffStage": false,
                   "attackEvent": {
                     "attackPattern": {
-                      "$type": "GLPECNPHIEF",
+                      "$type": "ConfigAttackSphere",
                       "triggerType": "TriggerNoRepeat",
                       "born": {
-                        "$type": "KAMDLAJJPPD"
+                        "$type": "ConfigBornByHitPoint"
                       },
-                      "EFKOBJIIIFC": 4.0
+                      "radius": 4
                     },
                     "attackInfo": {
                       "attackTag": "",
                       "attenuationTag": "",
                       "attenuationGroup": "default",
                       "attackProperty": {
-                        "KCNHHOEGDKO": 0.0,
-                        "bonusCriticalHurt": 0.0,
+                        "damagePercentageRatio": 0,
+                        "elementDurability": 0,
                         "ignoreAttackerProperty": true,
-                        "enBreak": 25.0,
+                        "enBreak": 25,
                         "attackType": "Melee",
                         "damageExtra": [
                           "CJBDamageRatio",
@@ -209,7 +208,7 @@
                       "hitPattern": {
                         "onHitEffectName": "default",
                         "hitImpulseType": "LV2",
-                        "hitHaltTimeScale": 0.019999999552965164
+                        "hitHaltTimeScale": 0.02
                       }
                     }
                   },
@@ -261,21 +260,21 @@
           "$type": "ServerUpdateGlobalValueMixin",
           "key": "_IN_HIGH_TIDE_V3.4",
           "useLimitRange": true,
-          "maxValue": 1.0,
-          "minValue": 0.0
+          "maxValue": 1,
+          "minValue": 0
         }
       ],
       "abilitySpecials": {
-        "DamageUp": 0.0
+        "DamageUp": 0
       },
       "modifiers": {
         "Crazy_In_Peace": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0
+          "elementDurability": 100
         },
         "Crazy_DamageUp": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "CurLocalAvatarMixinV2",
@@ -292,7 +291,7 @@
         },
         "Crazy_DamageUp_TeamChainV3.4": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "properties": {
             "Actor_FireAddHurtDelta": "DamageUp",
             "Actor_ElecAddHurtDelta": "DamageUp",
@@ -307,16 +306,16 @@
         },
         "Crazy_DamageUp_TeamChainV3.4_Eff": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0
+          "elementDurability": 100
         }
       },
       "onAdded": [
         {
           "$type": "SetGlobalValue",
-          "ratio": 0.0,
+          "value": 0,
           "key": "_IN_HIGH_TIDE_V3.4",
-          "maxValue": 0.0,
-          "minValue": 0.0
+          "maxValue": 0,
+          "minValue": 0
         }
       ],
       "isDynamicAbility": true
@@ -327,20 +326,20 @@
       "$type": "ConfigAbility",
       "abilityName": "Activity_TeamChain_LockedAvatar",
       "abilitySpecials": {
-        "DamageUpRatio": 0.0,
-        "OffStageInterval": 0.0,
-        "Energy": 0.0
+        "DamageUpRatio": 0,
+        "OffStageInterval": 0,
+        "Energy": 0
       },
       "modifiers": {
         "UNIQUE_TeamChain_LockedAvatar": {
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "ModifyDamageMixin",
               "ignoreEventInfo": true,
-              "KCNHHOEGDKO": "DamageUpRatio"
+              "damagePercentageRatio": "DamageUpRatio"
             }
           ]
         },
@@ -348,32 +347,32 @@
           "stacking": "Unique",
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "thinkInterval": "OffStageInterval",
           "onThinkInterval": [
             {
               "$type": "Predicated",
-              "RotationDampTime": true,
+              "doOffStage": true,
               "targetPredicates": [
                 {
-                  "$type": "CCFLODFGMCD"
+                  "$type": "ByIsCombat"
                 }
               ],
               "successActions": [
                 {
                   "$type": "Predicated",
-                  "RotationDampTime": true,
+                  "doOffStage": true,
                   "targetPredicates": [
                     {
-                      "$type": "IALOFFLLFEE",
+                      "$type": "ByIsLocalAvatar",
                       "target": "Self"
                     }
                   ],
                   "failActions": [
                     {
                       "$type": "ReviveElemEnergy",
-                      "RotationDampTime": true,
-                      "ratio": "Energy"
+                      "doOffStage": true,
+                      "value": "Energy"
                     }
                   ]
                 }
@@ -389,7 +388,7 @@
         },
         {
           "$type": "AttachModifier",
-          "RotationDampTime": true,
+          "doOffStage": true,
           "modifierName": "UNIQUE_TeamChain_LockedAvatar_OffStage"
         }
       ],
@@ -401,14 +400,14 @@
       "$type": "ConfigAbility",
       "abilityName": "Activity_TeamChain_ElementAddHurt_Swirl",
       "abilitySpecials": {
-        "ElementAddHurt_Swirl": 0.0
+        "ElementAddHurt_Swirl": 0
       },
       "modifiers": {
         "UNIQUE_TeamChain_ElementAddHurt_Swirl": {
           "stacking": "Unique",
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "properties": {
             "Actor_ElemReactSwirlFireDelta": "ElementAddHurt_Swirl",
             "Actor_ElemReactSwirlWaterDelta": "ElementAddHurt_Swirl",
@@ -432,20 +431,20 @@
       "$type": "ConfigAbility",
       "abilityName": "Activity_TeamChain_Frozen_PercentageRatio",
       "abilitySpecials": {
-        "damagePercentageRatio": 0.0
+        "damagePercentageRatio": 0
       },
       "modifiers": {
         "Activity_TeamChain_Frozen_PercentageRatio": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "ModifyDamageMixin",
               "ignoreEventInfo": true,
-              "KCNHHOEGDKO": "damagePercentageRatio",
+              "damagePercentageRatio": "damagePercentageRatio",
               "predicates": [
                 {
-                  "$type": "AMOPFHKIJBP",
+                  "$type": "ByHasAbilityState",
                   "abilityState": "ElementFrozen"
                 }
               ]
@@ -467,21 +466,21 @@
       "$type": "ConfigAbility",
       "abilityName": "Activity_TeamChain_BurstDamageUp_ReduceCD",
       "abilitySpecials": {
-        "ElementalBurst_Rate": 0.0,
-        "Actor_SkillCDMinusRatio": 0.0
+        "ElementalBurst_Rate": 0,
+        "Actor_SkillCDMinusRatio": 0
       },
       "modifiers": {
         "UNIQUE_TeamChain_BurstDamageUp_ReduceCD": {
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "ModifyDamageMixin",
               "attackTags": [
                 "Elemental_Burst"
               ],
-              "KCNHHOEGDKO": "ElementalBurst_Rate"
+              "damagePercentageRatio": "ElementalBurst_Rate"
             }
           ],
           "properties": {
@@ -503,26 +502,26 @@
       "$type": "ConfigAbility",
       "abilityName": "Activity_TeamChain_UltGainEnergy",
       "abilitySpecials": {
-        "Duration": 0.0,
-        "Interval": 0.0,
-        "Energy": 0.0
+        "Duration": 0,
+        "Interval": 0,
+        "Energy": 0
       },
       "modifiers": {
         "UNIQUE_Activity_TeamChain_UltGainEnergy_Handler": {
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "OnAvatarUseSkillMixin",
               "onTriggerUltimateSkill": [
                 {
                   "$type": "ApplyModifier",
-                  "RotationDampTime": true,
+                  "doOffStage": true,
                   "modifierName": "UNIQUE_Activity_TeamChain_UltGainEnergy_Effect"
                 }
               ],
-              "GFKADFGOBDN": 0.20000000298023224
+              "clearSkillIdDelay": 0.2
             }
           ]
         },
@@ -530,13 +529,13 @@
           "modifierName": "",
           "isUnique": true,
           "duration": "Duration",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "thinkInterval": "Interval",
           "onThinkInterval": [
             {
               "$type": "ReviveElemEnergy",
-              "RotationDampTime": true,
-              "ratio": "Energy"
+              "doOffStage": true,
+              "value": "Energy"
             }
           ]
         }
@@ -544,7 +543,7 @@
       "onAdded": [
         {
           "$type": "AttachModifier",
-          "RotationDampTime": true,
+          "doOffStage": true,
           "modifierName": "UNIQUE_Activity_TeamChain_UltGainEnergy_Handler"
         }
       ],
@@ -556,16 +555,16 @@
       "$type": "ConfigAbility",
       "abilityName": "Activity_TeamChain_GrassReaction_ElemMasteryDelta",
       "abilitySpecials": {
-        "GrassReaction_ElemMasteryDelta": 0.0,
-        "BuffTime": 0.0,
-        "BuffMaxLevel": 0.0,
-        "Multiple_CdTime": 0.0
+        "GrassReaction_ElemMasteryDelta": 0,
+        "BuffTime": 0,
+        "BuffMaxLevel": 0,
+        "Multiple_CdTime": 0
       },
       "modifiers": {
         "UNIQUE_TeamChain_GrassReaction_ElemMasteryDelta_Handler": {
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "DoActionByElementReactionMixin",
@@ -585,7 +584,7 @@
                 {
                   "$type": "ApplyModifier",
                   "target": "Team",
-                  "RotationDampTime": true,
+                  "doOffStage": true,
                   "modifierName": "UNIQUE_TeamChain_GrassReaction_ElemMasteryDelta_Multiple_Handler"
                 }
               ]
@@ -597,12 +596,12 @@
           "modifierName": "",
           "isUnique": true,
           "duration": "Multiple_CdTime",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "ApplyModifier",
               "target": "CurTeamAvatars",
-              "RotationDampTime": true,
+              "doOffStage": true,
               "modifierName": "UNIQUE_TeamChain_GrassReaction_ElemMasteryDelta_MultipleEffect"
             }
           ]
@@ -617,7 +616,7 @@
           "modifierName": "",
           "isUnique": true,
           "duration": "BuffTime",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "properties": {
             "Actor_ElemMasteryDelta": "GrassReaction_ElemMasteryDelta"
           },
@@ -627,7 +626,7 @@
       "onAdded": [
         {
           "$type": "AttachModifier",
-          "RotationDampTime": true,
+          "doOffStage": true,
           "modifierName": "UNIQUE_TeamChain_GrassReaction_ElemMasteryDelta_Handler"
         }
       ],
@@ -639,14 +638,14 @@
       "$type": "ConfigAbility",
       "abilityName": "Activity_TeamChain_NormalAttackAndElementalArt_DamageUp",
       "abilitySpecials": {
-        "NormalAttackRate": 0.0,
-        "ElementalArtRate": 0.0
+        "NormalAttackRate": 0,
+        "ElementalArtRate": 0
       },
       "modifiers": {
         "UNIQUE_TeamChain_NormalAttackAndElementalArt_DamageUp": {
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "ModifyDamageMixin",
@@ -658,7 +657,7 @@
                 "NormalAttack_05",
                 "NormalAttack_06"
               ],
-              "KCNHHOEGDKO": "NormalAttackRate"
+              "damagePercentageRatio": "NormalAttackRate"
             },
             {
               "$type": "ModifyDamageMixin",
@@ -667,7 +666,7 @@
                 "Elemental_Art_Hold",
                 "Elemental_Art_Extra"
               ],
-              "KCNHHOEGDKO": "ElementalArtRate"
+              "damagePercentageRatio": "ElementalArtRate"
             }
           ]
         }
@@ -686,21 +685,21 @@
       "$type": "ConfigAbility",
       "abilityName": "Activity_TeamChain_FallingWindZone",
       "abilitySpecials": {
-        "FallingDamageUp": 0.0,
-        "WindZone_CD": 0.0
+        "FallingDamageUp": 0,
+        "WindZone_CD": 0
       },
       "modifiers": {
         "UNIQUE_TeamChain_FallingWindZone_Handler": {
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "ModifyDamageMixin",
               "attackTags": [
                 "FallingAttack"
               ],
-              "KCNHHOEGDKO": "FallingDamageUp"
+              "damagePercentageRatio": "FallingDamageUp"
             }
           ],
           "onAttackLanded": [
@@ -709,20 +708,20 @@
               "target": "Other",
               "targetPredicates": [
                 {
-                  "$type": "AHEJBDFBPMH",
+                  "$type": "ByEntityTypes",
                   "entityTypes": [
                     "Monster"
                   ]
                 },
                 {
-                  "$type": "GAJFNLEHCIP",
+                  "$type": "ByTargetGlobalValue",
                   "target": "Team",
                   "key": "RogueV2_FallingWindZone_CD",
-                  "ratio": 0.0,
-                  "COJNFMPPGEF": "NoneOrEqual"
+                  "value": 0,
+                  "compareType": "NoneOrEqual"
                 },
                 {
-                  "$type": "PPCNNOLOBJB",
+                  "$type": "ByAttackTags",
                   "target": "Self",
                   "attackTags": [
                     "FallingAttack"
@@ -732,7 +731,7 @@
               "successActions": [
                 {
                   "$type": "ApplyModifier",
-                  "RotationDampTime": true,
+                  "doOffStage": true,
                   "modifierName": "TeamChain_FallingWindZone_WindZoneEffect"
                 }
               ]
@@ -741,20 +740,18 @@
         },
         "TeamChain_FallingWindZone_WindZoneEffect": {
           "modifierName": "",
-          "duration": 0.20000000298023224,
-          "bonusCriticalHurt": 100.0,
+          "duration": 0.2,
+          "elementDurability": 100,
           "onRemoved": [
             {
               "$type": "CreateGadget",
-              "RotationDampTime": true,
+              "doOffStage": true,
               "born": {
-                "$type": "OCBPONGOAGA",
+                "$type": "ConfigBornBySelf",
                 "offset": {
-                  "JLPLBJEDLIJ": 0.0,
-                  "JAEOEBKKIHF": 0.5,
-                  "GHNJCMBDCCH": 0.0
+                  "y": 0.5
                 },
-                "PBMFIJEEIKE": true
+                "useRotation": true
               },
               "gadgetID": 44000428,
               "campID": 1001,
@@ -763,7 +760,7 @@
             {
               "$type": "ApplyModifier",
               "target": "Team",
-              "RotationDampTime": true,
+              "doOffStage": true,
               "modifierName": "UNIQUE_TeamChain_FallingWindZone_WindZone_CD"
             }
           ]
@@ -773,23 +770,23 @@
           "modifierName": "",
           "isUnique": true,
           "duration": "WindZone_CD",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "SetGlobalValue",
-              "ratio": -1.0,
+              "value": -1,
               "key": "RogueV2_FallingWindZone_CD",
-              "maxValue": 0.0,
-              "minValue": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ],
           "onRemoved": [
             {
               "$type": "SetGlobalValue",
-              "ratio": 0.0,
+              "value": 0,
               "key": "RogueV2_FallingWindZone_CD",
-              "maxValue": 0.0,
-              "minValue": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         }
@@ -808,14 +805,14 @@
       "$type": "ConfigAbility",
       "abilityName": "Activity_TeamChain_Mastery_DamageUp",
       "abilitySpecials": {
-        "DamageUpTime": 0.0,
-        "DamageUpRatio": 0.0
+        "DamageUpTime": 0,
+        "DamageUpRatio": 0
       },
       "modifiers": {
         "UNIQUE_TeamChain_Mastery_DamageUp": {
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "DoActionByElementReactionMixin",
@@ -832,7 +829,7 @@
                 {
                   "$type": "AttachModifier",
                   "target": "CurTeamAvatars",
-                  "RotationDampTime": true,
+                  "doOffStage": true,
                   "modifierName": "TeamChain_Mastery_BuffEffect"
                 }
               ]
@@ -842,12 +839,12 @@
         "TeamChain_Mastery_BuffEffect": {
           "modifierName": "",
           "duration": "DamageUpTime",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "ModifyDamageMixin",
               "ignoreEventInfo": true,
-              "KCNHHOEGDKO": "DamageUpRatio"
+              "damagePercentageRatio": "DamageUpRatio"
             }
           ]
         }
@@ -855,7 +852,7 @@
       "onAdded": [
         {
           "$type": "AttachModifier",
-          "RotationDampTime": true,
+          "doOffStage": true,
           "modifierName": "UNIQUE_TeamChain_Mastery_DamageUp"
         }
       ],
@@ -867,15 +864,15 @@
       "$type": "ConfigAbility",
       "abilityName": "Activity_TeamChain_AttackSpeedRatio",
       "abilitySpecials": {
-        "AttackSpeedRatio": 0.0,
-        "CriticalUpValue": 0.0
+        "AttackSpeedRatio": 0,
+        "CriticalUpValue": 0
       },
       "modifiers": {
         "UNIQUE_Activity_TeamChain_AttackSpeedRatio": {
           "stacking": "Unique",
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "ModifyDamageMixin",
@@ -887,8 +884,8 @@
                 "NormalAttack_05",
                 "NormalAttack_06"
               ],
-              "KCNHHOEGDKO": 0.0,
-              "FDJKBLGIPKJ": "CriticalUpValue"
+              "damagePercentageRatio": 0,
+              "bonusCritical": "CriticalUpValue"
             }
           ],
           "properties": {
@@ -911,13 +908,13 @@
       "$type": "ConfigAbility",
       "abilityName": "Activity_TeamChain_NormalAttackDamageUp",
       "abilitySpecials": {
-        "Rate": 0.0
+        "Rate": 0
       },
       "modifiers": {
         "UNIQUE_TeamChain_NormalAttackDamageUp": {
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "ModifyDamageMixin",
@@ -929,7 +926,7 @@
                 "NormalAttack_05",
                 "NormalAttack_06"
               ],
-              "KCNHHOEGDKO": "Rate"
+              "damagePercentageRatio": "Rate"
             }
           ]
         }
@@ -948,14 +945,14 @@
       "$type": "ConfigAbility",
       "abilityName": "Activity_TeamChain_AttackRatio",
       "abilitySpecials": {
-        "AttackRatio": 0.0
+        "AttackRatio": 0
       },
       "modifiers": {
         "UNIQUE_Activity_TeamChain_AttackRatio": {
           "stacking": "Unique",
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "properties": {
             "Actor_AttackRatio": "AttackRatio"
           },
@@ -976,14 +973,14 @@
       "$type": "ConfigAbility",
       "abilityName": "Activity_TeamChain_CriticalHurtDelta",
       "abilitySpecials": {
-        "CriticalHurt": 0.0
+        "CriticalHurt": 0
       },
       "modifiers": {
         "UNIQUE_Activity_TeamChain_CriticalHurtDelta": {
           "stacking": "Unique",
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "properties": {
             "Actor_CriticalHurtDelta": "CriticalHurt"
           },
@@ -1004,14 +1001,14 @@
       "$type": "ConfigAbility",
       "abilityName": "Activity_TeamChain_ElemMasteryDeltaUp",
       "abilitySpecials": {
-        "ElemMasteryDelta": 0.0
+        "ElemMasteryDelta": 0
       },
       "modifiers": {
         "UNIQUE_Activity_TeamChain_ElemMasteryDeltaUp": {
           "stacking": "Unique",
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "properties": {
             "Actor_ElemMasteryDelta": "ElemMasteryDelta"
           },
@@ -1032,20 +1029,20 @@
       "$type": "ConfigAbility",
       "abilityName": "Activity_TeamChain_BurstDamageUp",
       "abilitySpecials": {
-        "Rate": 0.0
+        "Rate": 0
       },
       "modifiers": {
         "UNIQUE_TeamChain_BurstDamageUp": {
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "ModifyDamageMixin",
               "attackTags": [
                 "Elemental_Burst"
               ],
-              "KCNHHOEGDKO": "Rate"
+              "damagePercentageRatio": "Rate"
             }
           ]
         }
@@ -1064,14 +1061,14 @@
       "$type": "ConfigAbility",
       "abilityName": "Activity_TeamChain_ElementAddHurt_Wind",
       "abilitySpecials": {
-        "ElementAddHurt": 0.0
+        "ElementAddHurt": 0
       },
       "modifiers": {
         "UNIQUE_Activity_TeamChain_ElementAddHurt_Wind": {
           "stacking": "Unique",
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "properties": {
             "Actor_WindAddHurtDelta": "ElementAddHurt"
           },
@@ -1092,14 +1089,14 @@
       "$type": "ConfigAbility",
       "abilityName": "Activity_TeamChain_ElementAddHurt_Fire",
       "abilitySpecials": {
-        "ElementAddHurt": 0.0
+        "ElementAddHurt": 0
       },
       "modifiers": {
         "UNIQUE_Activity_TeamChain_ElementAddHurt_Fire": {
           "stacking": "Unique",
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "properties": {
             "Actor_FireAddHurtDelta": "ElementAddHurt"
           },
@@ -1120,14 +1117,14 @@
       "$type": "ConfigAbility",
       "abilityName": "Activity_TeamChain_ElementAddHurt_Elec",
       "abilitySpecials": {
-        "ElementAddHurt": 0.0
+        "ElementAddHurt": 0
       },
       "modifiers": {
         "UNIQUE_Activity_TeamChain_ElementAddHurt_Elec": {
           "stacking": "Unique",
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "properties": {
             "Actor_ElecAddHurtDelta": "ElementAddHurt"
           },
@@ -1148,14 +1145,14 @@
       "$type": "ConfigAbility",
       "abilityName": "Activity_TeamChain_ElementAddHurt_Water",
       "abilitySpecials": {
-        "ElementAddHurt": 0.0
+        "ElementAddHurt": 0
       },
       "modifiers": {
         "UNIQUE_Activity_TeamChain_ElementAddHurt_Water": {
           "stacking": "Unique",
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "properties": {
             "Actor_WaterAddHurtDelta": "ElementAddHurt"
           },
@@ -1176,14 +1173,14 @@
       "$type": "ConfigAbility",
       "abilityName": "Activity_TeamChain_ElementAddHurt_Grass",
       "abilitySpecials": {
-        "ElementAddHurt": 0.0
+        "ElementAddHurt": 0
       },
       "modifiers": {
         "UNIQUE_Activity_TeamChain_ElementAddHurt_Grass": {
           "stacking": "Unique",
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "properties": {
             "Actor_GrassAddHurtDelta": "ElementAddHurt"
           },
@@ -1204,14 +1201,14 @@
       "$type": "ConfigAbility",
       "abilityName": "Activity_TeamChain_ElementAddHurt_Ice",
       "abilitySpecials": {
-        "ElementAddHurt": 0.0
+        "ElementAddHurt": 0
       },
       "modifiers": {
         "UNIQUE_Activity_TeamChain_ElementAddHurt_Ice": {
           "stacking": "Unique",
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "properties": {
             "Actor_IceAddHurtDelta": "ElementAddHurt"
           },

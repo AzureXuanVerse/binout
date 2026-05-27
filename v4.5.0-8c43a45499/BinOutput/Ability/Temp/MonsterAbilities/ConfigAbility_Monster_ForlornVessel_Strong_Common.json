@@ -3,32 +3,32 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Monster_ForlornVessel_EndureDelta_Add",
-      "CLHBPEHHEJB": {
+      "abilitySpecials": {
         "ForlornVessel_Endure": 0.5
       },
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "UNIQUE_ForlornVessel_EndureDelta": {
-          "HABNNJHCOCD": "Unique",
-          "BGIONAIMBCJ": "",
-          "defaultDistanceBetweenAvatarAndCamera": true,
-          "ONIHJPOMNHA": 100.0,
-          "NLPPKPOJEOA": {
+          "stacking": "Unique",
+          "modifierName": "",
+          "isUnique": true,
+          "elementDurability": 100,
+          "properties": {
             "Actor_EndureDelta": "ForlornVessel_Endure"
           }
         }
       },
-      "DEOJHLMNLFC": [
+      "onAbilityStart": [
         {
           "$type": "ApplyModifier",
-          "FLEEHCIOPKA": [
+          "predicates": [
             {
-              "$type": "OMPKIEPKGPF",
-              "NGGCNKPAODB": "ForlornVessel_ElementShield",
-              "value": 0.0,
-              "GAGKBNPOCAC": "NoneOrEqual"
+              "$type": "ByTargetGlobalValue",
+              "key": "ForlornVessel_ElementShield",
+              "value": 0,
+              "compareType": "NoneOrEqual"
             }
           ],
-          "BGIONAIMBCJ": "UNIQUE_ForlornVessel_EndureDelta"
+          "modifierName": "UNIQUE_ForlornVessel_EndureDelta"
         }
       ]
     }
@@ -37,10 +37,10 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Monster_ForlornVessel_EndureDelta_Remove",
-      "DEOJHLMNLFC": [
+      "onAbilityStart": [
         {
           "$type": "RemoveUniqueModifier",
-          "BGIONAIMBCJ": "UNIQUE_ForlornVessel_EndureDelta"
+          "modifierName": "UNIQUE_ForlornVessel_EndureDelta"
         }
       ]
     }
@@ -49,20 +49,20 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Monster_ForlornVessel_BeHitThrow",
-      "KBODACCMEFE": [
+      "abilityMixins": [
         {
           "$type": "AttachToStateIDMixin",
-          "FHCHNMKMJJA": [
+          "stateIDs": [
             "BeHitThrow"
           ],
-          "BGIONAIMBCJ": "ForlornVessel_HitThrowHandler"
+          "modifierName": "ForlornVessel_HitThrowHandler"
         }
       ],
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "ForlornVessel_HitThrowHandler": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "ClearEndura"
             },
@@ -81,13 +81,13 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Monster_ForlornVessel_BeHeal",
-      "NLFIGALMIPD": [
+      "onAdded": [
         {
           "$type": "SetGlobalValue",
-          "value": 0.0,
-          "NGGCNKPAODB": "ForlornVessel_Lance_Heal",
-          "LBHGJKHHAKP": 0.0,
-          "EMGNPOKHMNN": 0.0
+          "value": 0,
+          "key": "ForlornVessel_Lance_Heal",
+          "maxValue": 0,
+          "minValue": 0
         }
       ]
     }
@@ -96,28 +96,28 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Monster_ForlornVessel_Strong_Salute",
-      "KBODACCMEFE": [
+      "abilityMixins": [
         {
           "$type": "AttachToPoseIDMixin",
           "OLJKDPFLMCF": [
             9001
           ],
-          "BGIONAIMBCJ": "ForlornVessel_Strong_Salute_Detect"
+          "modifierName": "ForlornVessel_Strong_Salute_Detect"
         },
         {
           "$type": "AttachToStateIDMixin",
-          "FHCHNMKMJJA": [
+          "stateIDs": [
             "Salute"
           ],
-          "BGIONAIMBCJ": "ForlornVessel_Strong_Salute"
+          "modifierName": "ForlornVessel_Strong_Salute"
         },
         {
           "$type": "SteerAttackMixin",
           "LMMLIKMOKHL": [
             "Salute"
           ],
-          "GGMOCFABGPD": 0.20000000298023224,
-          "KNPBDOFJKKB": 180.0,
+          "GGMOCFABGPD": 0.2,
+          "angularSpeed": 180,
           "APILILGPPAD": "",
           "EBDKEMJHLGP": false,
           "JJCHNIGEGGG": [
@@ -125,31 +125,31 @@
           ]
         }
       ],
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "ForlornVessel_Strong_Salute_Detect": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "ANPDJHOGAFE": 15.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "thinkInterval": 15,
+          "onAdded": [
             {
               "$type": "Predicated",
-              "musicSubStates": {
-                "$type": "HGNAFICLGFP",
-                "HDBBMLMCMKE": "Nearest",
-                "IBPOJODNMHO": "CircleR10",
-                "CHPLPFBEPDN": "Alliance",
-                "CHGLFBPDMKF": 1.0
+              "otherTargets": {
+                "$type": "SelectTargetsByShape",
+                "sortType": "Nearest",
+                "shapeName": "CircleR10",
+                "campTargetType": "Alliance",
+                "sizeRatio": 1
               },
-              "EGMDPEHBAOA": [
+              "targetPredicates": [
                 {
-                  "$type": "FAGBAHBLACH",
-                  "MALHNOJHHDJ": [
+                  "$type": "ByEntityTypes",
+                  "entityTypes": [
                     "Monster"
                   ]
                 },
                 {
-                  "$type": "KHPPMJAPEJL",
-                  "HKBHMGGLBHI": [
+                  "$type": "ByHasFeatureTag",
+                  "featureTagIDs": [
                     4014
                   ]
                 }
@@ -157,38 +157,38 @@
               "successActions": [
                 {
                   "$type": "SetGlobalValue",
-                  "value": 1.0,
-                  "NGGCNKPAODB": "ForlornVessel_Salute",
-                  "LBHGJKHHAKP": 0.0,
-                  "EMGNPOKHMNN": 0.0
+                  "value": 1,
+                  "key": "ForlornVessel_Salute",
+                  "maxValue": 0,
+                  "minValue": 0
                 },
                 {
                   "$type": "ApplyModifier",
-                  "BGIONAIMBCJ": "ForlornVessel_Strong_Salute_Wait"
+                  "modifierName": "ForlornVessel_Strong_Salute_Wait"
                 }
               ]
             }
           ],
-          "MDPGEKAIFIM": [
+          "onThinkInterval": [
             {
               "$type": "Predicated",
-              "musicSubStates": {
-                "$type": "HGNAFICLGFP",
-                "HDBBMLMCMKE": "Nearest",
-                "IBPOJODNMHO": "CircleR10",
-                "CHPLPFBEPDN": "Alliance",
-                "CHGLFBPDMKF": 1.0
+              "otherTargets": {
+                "$type": "SelectTargetsByShape",
+                "sortType": "Nearest",
+                "shapeName": "CircleR10",
+                "campTargetType": "Alliance",
+                "sizeRatio": 1
               },
-              "EGMDPEHBAOA": [
+              "targetPredicates": [
                 {
-                  "$type": "FAGBAHBLACH",
-                  "MALHNOJHHDJ": [
+                  "$type": "ByEntityTypes",
+                  "entityTypes": [
                     "Monster"
                   ]
                 },
                 {
-                  "$type": "KHPPMJAPEJL",
-                  "HKBHMGGLBHI": [
+                  "$type": "ByHasFeatureTag",
+                  "featureTagIDs": [
                     4014
                   ]
                 }
@@ -196,56 +196,56 @@
               "successActions": [
                 {
                   "$type": "SetGlobalValue",
-                  "value": 1.0,
-                  "NGGCNKPAODB": "ForlornVessel_Salute",
-                  "LBHGJKHHAKP": 0.0,
-                  "EMGNPOKHMNN": 0.0
+                  "value": 1,
+                  "key": "ForlornVessel_Salute",
+                  "maxValue": 0,
+                  "minValue": 0
                 },
                 {
                   "$type": "ApplyModifier",
-                  "BGIONAIMBCJ": "ForlornVessel_Strong_Salute_Wait"
+                  "modifierName": "ForlornVessel_Strong_Salute_Wait"
                 }
               ]
             }
           ]
         },
         "ForlornVessel_Strong_Salute_Wait": {
-          "BGIONAIMBCJ": "",
-          "FAFCPJJAIGK": 1.0,
-          "ONIHJPOMNHA": 100.0,
-          "NFKOGKMAIIE": [
+          "modifierName": "",
+          "duration": 1,
+          "elementDurability": 100,
+          "onRemoved": [
             {
               "$type": "SetGlobalValue",
-              "value": 0.0,
-              "NGGCNKPAODB": "ForlornVessel_Salute",
-              "LBHGJKHHAKP": 0.0,
-              "EMGNPOKHMNN": 0.0
+              "value": 0,
+              "key": "ForlornVessel_Salute",
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         "ForlornVessel_Strong_Salute": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "Predicated",
-              "musicSubStates": {
-                "$type": "HGNAFICLGFP",
-                "HDBBMLMCMKE": "Nearest",
-                "IBPOJODNMHO": "CircleR15",
-                "CHPLPFBEPDN": "Alliance",
-                "CHGLFBPDMKF": 1.0
+              "otherTargets": {
+                "$type": "SelectTargetsByShape",
+                "sortType": "Nearest",
+                "shapeName": "CircleR15",
+                "campTargetType": "Alliance",
+                "sizeRatio": 1
               },
-              "EGMDPEHBAOA": [
+              "targetPredicates": [
                 {
-                  "$type": "FAGBAHBLACH",
-                  "MALHNOJHHDJ": [
+                  "$type": "ByEntityTypes",
+                  "entityTypes": [
                     "Monster"
                   ]
                 },
                 {
-                  "$type": "KHPPMJAPEJL",
-                  "HKBHMGGLBHI": [
+                  "$type": "ByHasFeatureTag",
+                  "featureTagIDs": [
                     4014
                   ]
                 }
@@ -253,19 +253,19 @@
               "successActions": [
                 {
                   "$type": "ApplyModifier",
-                  "KMGAOOHMCPK": "Target",
-                  "BGIONAIMBCJ": "ForlornVessel_Strong_Salute_Command"
+                  "target": "Target",
+                  "modifierName": "ForlornVessel_Strong_Salute_Command"
                 }
               ]
             }
           ]
         },
         "ForlornVessel_Strong_Salute_Command": {
-          "HABNNJHCOCD": "Unique",
-          "BGIONAIMBCJ": "",
-          "FAFCPJJAIGK": 5.0,
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "stacking": "Unique",
+          "modifierName": "",
+          "duration": 5,
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "SetAISkillCDAvailableNow",
               "AGAIJDENKJE": [
@@ -274,10 +274,10 @@
             },
             {
               "$type": "SetGlobalValue",
-              "value": 1.0,
-              "NGGCNKPAODB": "Darkwraith_Salute",
-              "LBHGJKHHAKP": 0.0,
-              "EMGNPOKHMNN": 0.0
+              "value": 1,
+              "key": "Darkwraith_Salute",
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         }

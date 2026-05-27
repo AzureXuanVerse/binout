@@ -1,7 +1,7 @@
 [
   {
     "Default": {
-      "$type": "MoleMole.Config.ConfigAbility",
+      "$type": "ConfigAbility",
       "abilityName": "ActivityAbility_WindField_Challenge_RockJump_FallingDamageUp",
       "abilityMixins": [
         {
@@ -17,10 +17,10 @@
           "stacking": "Unique",
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
-              "$type": "MoleMole.Config.AttachModifierToGlobalValueMixin",
+              "$type": "AttachModifierToGlobalValueMixin",
               "globalValueTarget": "Team",
               "globalValueKey": "SGV_WindField_Buff_2",
               "valueSteps": [
@@ -37,46 +37,46 @@
           "stacking": "Unique",
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
-              "$type": "MoleMole.Config.ModifyDamageMixin",
+              "$type": "ModifyDamageMixin",
               "attackTags": [
                 "FallingAttack"
               ],
-              "AILJJDMKONE": "FallingAttackDamageUpRatio"
+              "damagePercentageRatio": "FallingAttackDamageUpRatio"
             }
           ],
           "onAdded": [
             {
               "$type": "MoleMole.Config.EnableRocketJump",
-              "temperature": true,
+              "doOffStage": true,
               "canBeHandledOnRecover": true,
-              "damageRatio": "DungeonJump",
+              "type": "DungeonJump",
               "enable": true,
               "extention": {
-                "xzMultiplier": 2.0,
-                "yMultiplier": 3.0
+                "xzMultiplier": 2,
+                "yMultiplier": 3
               }
             }
           ],
           "onRemoved": [
             {
               "$type": "MoleMole.Config.EnableRocketJump",
-              "temperature": true,
-              "damageRatio": "DungeonJump"
+              "doOffStage": true,
+              "type": "DungeonJump"
             }
           ],
           "onAvatarIn": [
             {
               "$type": "MoleMole.Config.EnableRocketJump",
-              "temperature": true,
+              "doOffStage": true,
               "canBeHandledOnRecover": true,
-              "damageRatio": "DungeonJump",
+              "type": "DungeonJump",
               "enable": true,
               "extention": {
-                "xzMultiplier": 2.0,
-                "yMultiplier": 3.0
+                "xzMultiplier": 2,
+                "yMultiplier": 3
               }
             }
           ]
@@ -87,7 +87,7 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.ConfigAbility",
+      "$type": "ConfigAbility",
       "abilityName": "ActivityAbility_WindField_Challenge_WindZone",
       "abilityMixins": [
         {
@@ -96,17 +96,17 @@
         }
       ],
       "abilitySpecials": {
-        "WindZone_CD": 4.0
+        "WindZone_CD": 4
       },
       "modifiers": {
         "UNIQUE_WindField_Challenge_WindZone_Handler": {
           "stacking": "Unique",
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
-              "$type": "MoleMole.Config.AttachModifierToGlobalValueMixin",
+              "$type": "AttachModifierToGlobalValueMixin",
               "globalValueTarget": "Team",
               "globalValueKey": "SGV_WindField_Buff_1",
               "valueSteps": [
@@ -123,20 +123,20 @@
           "stacking": "Unique",
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAttackLanded": [
             {
-              "$type": "MoleMole.Config.Predicated",
+              "$type": "Predicated",
               "target": "Other",
               "predicates": [
                 {
-                  "$type": "BBBFIPNGHGH",
+                  "$type": "ByEntityTypes",
                   "entityTypes": [
                     "Monster"
                   ]
                 },
                 {
-                  "$type": "IPJIAJLNIKC",
+                  "$type": "ByAttackTags",
                   "attackTags": [
                     "NormalAttack_01",
                     "NormalAttack_02",
@@ -153,24 +153,19 @@
                   ]
                 },
                 {
-                  "$type": "POOFKGMBLNA",
+                  "$type": "ByTargetGlobalValue",
                   "target": "Team",
                   "key": "Wind_CDState",
-                  "param3": 0.0,
+                  "value": 0,
                   "compareType": "NoneOrEqual"
                 }
               ],
               "successActions": [
                 {
-                  "$type": "MoleMole.Config.CreateGadget",
+                  "$type": "CreateGadget",
                   "target": "Other",
                   "born": {
-                    "$type": "CGJIFGJJOJA",
-                    "offset": {
-                      "AOFNOGLCGMP": 0.0,
-                      "CHEGDAPFFHA": 0.0,
-                      "JEGKAACFHJK": 0.0
-                    },
+                    "$type": "ConfigBornByTarget",
                     "onGround": true,
                     "alongGround": true
                   },
@@ -178,7 +173,7 @@
                   "campID": 1001
                 },
                 {
-                  "$type": "MoleMole.Config.ApplyModifier",
+                  "$type": "ApplyModifier",
                   "target": "Team",
                   "modifierName": "UNIQUE_WindField_Challenge_WindZone_Action_CD"
                 }
@@ -190,26 +185,26 @@
           "stacking": "Unique",
           "modifierName": "",
           "isUnique": true,
-          "elementDurability": "WindZone_CD",
-          "bonusCriticalHurt": 100.0,
+          "duration": "WindZone_CD",
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "MoleMole.Config.SetGlobalValue",
+              "$type": "SetGlobalValue",
               "target": "Team",
-              "param3": -1.0,
+              "value": -1,
               "key": "Wind_CDState",
-              "param2": 0.0,
-              "triggerID": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ],
           "onRemoved": [
             {
-              "$type": "MoleMole.Config.SetGlobalValue",
+              "$type": "SetGlobalValue",
               "target": "Team",
-              "param3": 0.0,
+              "value": 0,
               "key": "Wind_CDState",
-              "param2": 0.0,
-              "triggerID": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         }
@@ -219,52 +214,50 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.ConfigAbility",
+      "$type": "ConfigAbility",
       "abilityName": "Activity_WindFiled_Challenge_WindZone_Gadget",
       "abilitySpecials": {
-        "Duration": 4.0
+        "Duration": 4
       },
       "modifiers": {
         "Life_Timer": {
           "modifierName": "",
-          "elementDurability": "Duration",
-          "bonusCriticalHurt": 100.0,
+          "duration": "Duration",
+          "elementDurability": 100,
           "onRemoved": [
             {
-              "$type": "MoleMole.Config.KillSelf"
+              "$type": "KillSelf"
             }
           ]
         },
         "WindFiled_Challenge_WindZone": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
-              "$type": "MoleMole.Config.WindZoneMixin",
+              "$type": "WindZoneMixin",
               "shapeName": "CircleR12",
               "born": {
-                "$type": "AHBFOPDDMPB",
+                "$type": "ConfigBornBySelf",
                 "offset": {
-                  "AOFNOGLCGMP": 0.0,
-                  "CHEGDAPFFHA": 0.5,
-                  "JEGKAACFHJK": 0.0
+                  "y": 0.5
                 }
               },
-              "strength": 5.0,
-              "IMCHCGEMGNL": 0.0,
-              "BKCGFGDBNGH": 1.0,
+              "strength": 5,
+              "attenuation": 0,
+              "innerRadius": 1,
               "targetType": "All",
               "predicates": [
                 {
-                  "$type": "BBBFIPNGHGH",
+                  "$type": "ByEntityTypes",
                   "entityTypes": [
                     "Monster"
                   ]
                 },
                 {
-                  "$type": "COJEAIPOLAE",
+                  "$type": "ByTargetWeight",
                   "logic": "Lesser",
-                  "GMNIOIPEFOM": 150.0
+                  "weight": 150
                 }
               ],
               "modifierName": ""
@@ -272,20 +265,19 @@
           ],
           "onAdded": [
             {
-              "$type": "MoleMole.Config.AttachEffect",
-              "rotationDampTime": "Eff_Activity_Roguelike_Gadget_Wind_Absorbe",
-              "NHGDGLICLFB": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_Activity_Roguelike_Gadget_Wind_Absorbe"
             }
           ]
         }
       },
       "onAdded": [
         {
-          "$type": "MoleMole.Config.AttachModifier",
+          "$type": "AttachModifier",
           "modifierName": "Life_Timer"
         },
         {
-          "$type": "MoleMole.Config.AttachModifier",
+          "$type": "AttachModifier",
           "modifierName": "WindFiled_Challenge_WindZone"
         }
       ]

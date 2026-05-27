@@ -7,11 +7,11 @@
         {
           "$type": "SetGlobalValue",
           "target": "Team",
-          "PositionDampTime": true,
-          "ratio": 0.0,
+          "doOffStage": true,
+          "value": 0,
           "key": "_ABILITY_MagicWave_State",
-          "maxValue": 0.0,
-          "minValue": 0.0
+          "maxValue": 0,
+          "minValue": 0
         }
       ],
       "isDynamicAbility": true
@@ -25,9 +25,9 @@
         {
           "$type": "ButtonHoldChargeMixin",
           "skillID": 20067,
-          "chargeTime": 0.20000000298023224,
-          "secondChargeTime": 999999.0,
-          "OnBeginUncharged": [
+          "chargeTime": 0.2,
+          "secondChargeTime": 999999,
+          "onBeginUncharged": [
             {
               "$type": "ResetAnimatorTrigger",
               "triggerID": "StartChannelTrigger"
@@ -37,13 +37,13 @@
               "modifierName": "SetTrigger"
             }
           ],
-          "OnBeginCharged": [
+          "onBeginCharged": [
             {
               "$type": "SetAnimatorTrigger",
               "triggerID": "StartChannelTrigger"
             }
           ],
-          "OnReleaseCharged": [
+          "onReleaseCharged": [
             {
               "$type": "SetAnimatorTrigger",
               "triggerID": "EndChannelTrigger"
@@ -75,12 +75,12 @@
       "modifiers": {
         "Activity_MagicWave_Team_Switch": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "AttachModifierToSelfGlobalValueMixin",
               "globalValueKey": "_ABILITY_MagicWave_State",
-              "GVInTalk": 0.0,
+              "defaultGlobalValueOnCreate": 0,
               "valueSteps": [
                 -0.5,
                 0.5,
@@ -95,11 +95,11 @@
         },
         "Empty": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0
+          "elementDurability": 100
         },
         "Activity_MagicWave_Team": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "CurLocalAvatarMixinV2",
@@ -109,32 +109,32 @@
         },
         "Activity_MagicWave_Avatar": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "ShowExtraAbility",
-              "PositionDampTime": true,
+              "doOffStage": true,
               "skillID": 20062
             },
             {
               "$type": "AddAvatarSkillInfo",
-              "PositionDampTime": true,
+              "doOffStage": true,
               "skillID": 20067
             },
             {
               "$type": "AttachModifier",
-              "PositionDampTime": true,
+              "doOffStage": true,
               "modifierName": "MagicWave_SwitchSkill_Handler"
             }
           ],
           "onRemoved": [
             {
               "$type": "ShowExtraAbility",
-              "PositionDampTime": true
+              "doOffStage": true
             },
             {
               "$type": "RemoveAvatarSkillInfo",
-              "PositionDampTime": true,
+              "doOffStage": true,
               "skillID": 20067,
               "refreshAfterRemove": true
             }
@@ -142,14 +142,14 @@
           "onAvatarIn": [
             {
               "$type": "ShowExtraAbility",
-              "PositionDampTime": true,
+              "doOffStage": true,
               "skillID": 20062
             }
           ]
         },
         "MagicWave_SwitchSkill_Handler": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "SwitchSkillIDMixin",
@@ -161,8 +161,8 @@
         },
         "SetTrigger": {
           "modifierName": "",
-          "duration": 0.15000000596046448,
-          "bonusCriticalHurt": 100.0,
+          "duration": 0.15,
+          "elementDurability": 100,
           "onRemoved": [
             {
               "$type": "SetAnimatorTrigger",
@@ -172,8 +172,8 @@
         },
         "Focus": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
-          "thinkInterval": 0.20000000298023224,
+          "elementDurability": 100,
+          "thinkInterval": 0.2,
           "modifierMixins": [
             {
               "$type": "DoActionByAimMixin",
@@ -182,14 +182,14 @@
                 "Gadget"
               ],
               "EGCNKKPIFDG": "PRIVATE_RayCast",
-              "LOBGCKPMNNE": -1.0,
+              "LOBGCKPMNNE": -1,
               "actionQueue": [
                 {
                   "$type": "SetSelfAttackTarget",
                   "target": "Target",
                   "predicates": [
                     {
-                      "$type": "OCBHACLGALE",
+                      "$type": "ByEntityTypes",
                       "entityTypes": [
                         "Monster",
                         "Gadget"
@@ -200,16 +200,16 @@
                       "tag": "WaterGunTarget"
                     },
                     {
-                      "$type": "HDDHHAGMLJK",
+                      "$type": "ByTargetGlobalValue",
                       "key": "_ANIMAL_ENTITY_TYPE",
-                      "ratio": 0.0,
-                      "NHIKJLNOOBG": "NoneOrEqual"
+                      "value": 0,
+                      "compareType": "NoneOrEqual"
                     },
                     {
-                      "$type": "DMKIHIEKBCM",
+                      "$type": "ByNot",
                       "predicates": [
                         {
-                          "$type": "JNGLDALJEIO"
+                          "$type": "ByTargetIsGhostToEnemy"
                         }
                       ]
                     }
@@ -218,25 +218,25 @@
                 {
                   "$type": "SetTargetToTargetKey",
                   "target": "SelfAttackTarget",
-                  "OCIECGELBCM": "_TempTarget"
+                  "targetKey": "_TempTarget"
                 },
                 {
                   "$type": "SetGlobalValue",
                   "target": "Target",
-                  "PositionDampTime": true,
-                  "ratio": 1.0,
+                  "doOffStage": true,
+                  "value": 1,
                   "key": "gv_ConnectPoint",
-                  "maxValue": 0.0,
-                  "minValue": 0.0
+                  "maxValue": 0,
+                  "minValue": 0
                 },
                 {
                   "$type": "SetGlobalValue",
                   "target": "Target",
-                  "PositionDampTime": true,
-                  "ratio": 2.0,
+                  "doOffStage": true,
+                  "value": 2,
                   "key": "gv_ConnectPoint",
-                  "maxValue": 0.0,
-                  "minValue": 0.0
+                  "maxValue": 0,
+                  "minValue": 0
                 }
               ],
               "GNONLAPLNLC": [
@@ -259,7 +259,7 @@
               "$type": "Predicated",
               "targetPredicates": [
                 {
-                  "$type": "DGBCFFBLPKA",
+                  "$type": "ByHasFeatureTag",
                   "featureTagIDs": [
                     1044
                   ]
@@ -269,20 +269,18 @@
                 {
                   "$type": "AvatarEnterFocus",
                   "cameraFollowLower": {
-                    "x": 1.100000023841858,
-                    "y": -0.10000000149011612,
-                    "z": -1.600000023841858
+                    "x": 1.1,
+                    "y": -0.1,
+                    "z": -1.6
                   },
                   "cameraFollowUpper": {
-                    "x": 1.100000023841858,
-                    "y": -0.10000000149011612,
-                    "z": -1.2000000476837158
+                    "x": 1.1,
+                    "y": -0.1,
+                    "z": -1.2
                   },
                   "cameraFastFocusMode": true,
                   "dragButtonName": "Skill2",
                   "assistance": {
-                    "ps4": {},
-                    "ps5": {},
                     "other": {
                       "useGyro": true
                     }
@@ -296,7 +294,7 @@
               "$type": "Predicated",
               "targetPredicates": [
                 {
-                  "$type": "DGBCFFBLPKA",
+                  "$type": "ByHasFeatureTag",
                   "featureTagIDs": [
                     1043
                   ]
@@ -306,20 +304,18 @@
                 {
                   "$type": "AvatarEnterFocus",
                   "cameraFollowLower": {
-                    "x": 1.100000023841858,
-                    "y": 0.10000000149011612,
-                    "z": -1.600000023841858
+                    "x": 1.1,
+                    "y": 0.1,
+                    "z": -1.6
                   },
                   "cameraFollowUpper": {
-                    "x": 1.100000023841858,
-                    "y": 0.10000000149011612,
-                    "z": -1.2000000476837158
+                    "x": 1.1,
+                    "y": 0.1,
+                    "z": -1.2
                   },
                   "cameraFastFocusMode": true,
                   "dragButtonName": "Skill2",
                   "assistance": {
-                    "ps4": {},
-                    "ps5": {},
                     "other": {
                       "useGyro": true
                     }
@@ -333,7 +329,7 @@
               "$type": "Predicated",
               "targetPredicates": [
                 {
-                  "$type": "DGBCFFBLPKA",
+                  "$type": "ByHasFeatureTag",
                   "featureTagIDs": [
                     1042
                   ]
@@ -343,20 +339,18 @@
                 {
                   "$type": "AvatarEnterFocus",
                   "cameraFollowLower": {
-                    "x": 1.100000023841858,
-                    "y": 0.05000000074505806,
+                    "x": 1.1,
+                    "y": 0.05,
                     "z": -1.5
                   },
                   "cameraFollowUpper": {
-                    "x": 1.100000023841858,
-                    "y": 0.05000000074505806,
-                    "z": -1.100000023841858
+                    "x": 1.1,
+                    "y": 0.05,
+                    "z": -1.1
                   },
                   "cameraFastFocusMode": true,
                   "dragButtonName": "Skill2",
                   "assistance": {
-                    "ps4": {},
-                    "ps5": {},
                     "other": {
                       "useGyro": true
                     }
@@ -370,7 +364,7 @@
               "$type": "Predicated",
               "targetPredicates": [
                 {
-                  "$type": "DGBCFFBLPKA",
+                  "$type": "ByHasFeatureTag",
                   "featureTagIDs": [
                     1041
                   ]
@@ -380,20 +374,18 @@
                 {
                   "$type": "AvatarEnterFocus",
                   "cameraFollowLower": {
-                    "x": 1.100000023841858,
+                    "x": 1.1,
                     "y": 0.25,
-                    "z": -1.600000023841858
+                    "z": -1.6
                   },
                   "cameraFollowUpper": {
-                    "x": 1.100000023841858,
+                    "x": 1.1,
                     "y": 0.25,
-                    "z": -1.2000000476837158
+                    "z": -1.2
                   },
                   "cameraFastFocusMode": true,
                   "dragButtonName": "Skill2",
                   "assistance": {
-                    "ps4": {},
-                    "ps5": {},
                     "other": {
                       "useGyro": true
                     }
@@ -407,7 +399,7 @@
               "$type": "Predicated",
               "targetPredicates": [
                 {
-                  "$type": "DGBCFFBLPKA",
+                  "$type": "ByHasFeatureTag",
                   "featureTagIDs": [
                     1045
                   ]
@@ -417,20 +409,18 @@
                 {
                   "$type": "AvatarEnterFocus",
                   "cameraFollowLower": {
-                    "x": 1.100000023841858,
-                    "y": -0.30000001192092896,
-                    "z": -1.600000023841858
+                    "x": 1.1,
+                    "y": -0.3,
+                    "z": -1.6
                   },
                   "cameraFollowUpper": {
-                    "x": 1.100000023841858,
-                    "y": -0.30000001192092896,
-                    "z": -1.2000000476837158
+                    "x": 1.1,
+                    "y": -0.3,
+                    "z": -1.2
                   },
                   "cameraFastFocusMode": true,
                   "dragButtonName": "Skill2",
                   "assistance": {
-                    "ps4": {},
-                    "ps5": {},
                     "other": {
                       "useGyro": true
                     }
@@ -467,18 +457,18 @@
                 "attenuationTag": "",
                 "attenuationGroup": "default",
                 "attackProperty": {
-                  "GNBHKEABDNL": 0.20000000298023224,
-                  "JKNJLKBGFJK": 0.0,
-                  "bonusCriticalHurt": 0.0,
+                  "damagePercentage": 0.2,
+                  "damagePercentageRatio": 0,
+                  "elementDurability": 0,
                   "strikeType": "Default",
-                  "damageExtra": 0.0,
+                  "damageExtra": 0,
                   "trueDamage": true,
-                  "damagePercentage": 0.0
+                  "__exp_arkhe": 0
                 },
                 "hitPattern": {
                   "onHitEffectName": "default",
                   "hitImpulseType": "LV1",
-                  "hitHaltTimeScale": 0.05000000074505806
+                  "hitHaltTimeScale": 0.05
                 }
               }
             }
@@ -486,43 +476,41 @@
         },
         "Lock_Eff": {
           "modifierName": "",
-          "duration": 10.0,
-          "bonusCriticalHurt": 100.0,
+          "duration": 10,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "AttachEffect",
-              "shieldHP": "Eff_Avatar_Diving_Absorb_Lock",
-              "effectTempleteID": -1.0
+              "effectPattern": "Eff_Avatar_Diving_Absorb_Lock"
             }
           ]
         },
         "CaptureBeam": {
           "modifierName": "",
           "duration": 0.5,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "SetGlobalValue",
-              "PositionDampTime": true,
-              "ratio": 1.0,
+              "doOffStage": true,
+              "value": 1,
               "key": "_ABILITY_Avatar_MagicWave_IsConnecting",
-              "maxValue": 0.0,
-              "minValue": 0.0
+              "maxValue": 0,
+              "minValue": 0
             },
             {
               "$type": "AttachEffect",
               "target": "Applier",
               "predicates": [
                 {
-                  "$type": "HDDHHAGMLJK",
+                  "$type": "ByTargetGlobalValue",
                   "target": "Self",
                   "key": "gv_ConnectPoint",
-                  "ratio": 1.0,
-                  "DLFHFMCJICH": true
+                  "value": 1,
+                  "forceByCaster": true
                 }
               ],
-              "shieldHP": "Eff_Avatar_Diving_SprayGun_Bullet",
-              "effectTempleteID": -1.0,
+              "effectPattern": "Eff_Avatar_Diving_SprayGun_Bullet",
               "setSelfAsEffectPluginTarget": true
             },
             {
@@ -530,38 +518,37 @@
               "target": "Applier",
               "predicates": [
                 {
-                  "$type": "HDDHHAGMLJK",
+                  "$type": "ByTargetGlobalValue",
                   "target": "Self",
                   "key": "gv_ConnectPoint",
-                  "ratio": 2.0,
-                  "DLFHFMCJICH": true
+                  "value": 2,
+                  "forceByCaster": true
                 }
               ],
-              "shieldHP": "Eff_Avatar_Diving_SprayGun_Bullet_1",
-              "effectTempleteID": -1.0,
+              "effectPattern": "Eff_Avatar_Diving_SprayGun_Bullet_1",
               "setSelfAsEffectPluginTarget": true
             }
           ],
           "onRemoved": [
             {
               "$type": "SetGlobalValue",
-              "PositionDampTime": true,
-              "ratio": 0.0,
+              "doOffStage": true,
+              "value": 0,
               "key": "_ABILITY_Avatar_MagicWave_IsConnecting",
-              "maxValue": 0.0,
-              "minValue": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         "Bullet": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
-          "thinkInterval": 0.20000000298023224,
+          "elementDurability": 100,
+          "thinkInterval": 0.2,
           "onAdded": [
             {
               "$type": "SetTargetToTargetKey",
               "target": "SelfAttackTarget",
-              "OCIECGELBCM": "_TempTarget"
+              "targetKey": "_TempTarget"
             },
             {
               "$type": "ApplyModifier",
@@ -582,18 +569,18 @@
                 "attenuationTag": "",
                 "attenuationGroup": "default",
                 "attackProperty": {
-                  "GNBHKEABDNL": 0.20000000298023224,
-                  "JKNJLKBGFJK": 0.0,
-                  "bonusCriticalHurt": 0.0,
+                  "damagePercentage": 0.2,
+                  "damagePercentageRatio": 0,
+                  "elementDurability": 0,
                   "strikeType": "Default",
-                  "damageExtra": 0.0,
+                  "damageExtra": 0,
                   "trueDamage": true,
-                  "damagePercentage": 0.0
+                  "__exp_arkhe": 0
                 },
                 "hitPattern": {
                   "onHitEffectName": "default",
                   "hitImpulseType": "LV1",
-                  "hitHaltTimeScale": 0.05000000074505806
+                  "hitHaltTimeScale": 0.05
                 }
               }
             }
@@ -609,7 +596,7 @@
             {
               "$type": "KillSelf",
               "otherTargets": {
-                "$type": "CMIMADHJDHK",
+                "$type": "SelectTargetsByChildren",
                 "configID": 40034201
               }
             }
@@ -618,7 +605,7 @@
             {
               "$type": "SetTargetToTargetKey",
               "target": "SelfAttackTarget",
-              "OCIECGELBCM": "_TempTarget"
+              "targetKey": "_TempTarget"
             },
             {
               "$type": "ApplyModifier",
@@ -639,18 +626,18 @@
                 "attenuationTag": "",
                 "attenuationGroup": "default",
                 "attackProperty": {
-                  "GNBHKEABDNL": 0.20000000298023224,
-                  "JKNJLKBGFJK": 0.0,
-                  "bonusCriticalHurt": 0.0,
+                  "damagePercentage": 0.2,
+                  "damagePercentageRatio": 0,
+                  "elementDurability": 0,
                   "strikeType": "Default",
-                  "damageExtra": 0.0,
+                  "damageExtra": 0,
                   "trueDamage": true,
-                  "damagePercentage": 0.0
+                  "__exp_arkhe": 0
                 },
                 "hitPattern": {
                   "onHitEffectName": "default",
                   "hitImpulseType": "LV1",
-                  "hitHaltTimeScale": 0.05000000074505806
+                  "hitHaltTimeScale": 0.05
                 }
               }
             }
@@ -661,16 +648,16 @@
         {
           "$type": "SetGlobalValue",
           "target": "Team",
-          "PositionDampTime": true,
-          "ratio": 0.0,
+          "doOffStage": true,
+          "value": 0,
           "key": "_ABILITY_MagicWave_State",
-          "maxValue": 0.0,
-          "minValue": 0.0
+          "maxValue": 0,
+          "minValue": 0
         },
         {
           "$type": "AttachModifier",
           "target": "Team",
-          "PositionDampTime": true,
+          "doOffStage": true,
           "modifierName": "Activity_MagicWave_Team_Switch"
         }
       ],

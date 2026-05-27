@@ -1,22 +1,22 @@
 [
   {
     "Default": {
-      "$type": "ECIJFKLDIPB",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_DirectAttackSandWorm_Sand_01",
       "abilitySpecials": {
-        "LevelEntity_AvatarDot_SystemValue": 1.0,
+        "LevelEntity_AvatarDot_SystemValue": 1,
         "Damage_Coefficient_Monster": 1.5,
         "Damage_Coefficient_Player": 1.5,
-        "max_attack_times": 5.0,
-        "Attack_Times": 0.0
+        "max_attack_times": 5,
+        "Attack_Times": 0
       },
       "modifiers": {
         "SandwormAttackController": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
-              "$type": "OAEHDKPAFID",
+              "$type": "AttachModifierToGlobalValueMixin",
               "globalValueKey": "_attack_times",
               "valueSteps": [
                 -0.5,
@@ -49,11 +49,11 @@
           ],
           "onHittingOther": [
             {
-              "$type": "OIDAEPDOMEP",
+              "$type": "Predicated",
               "target": "Other",
               "targetPredicates": [
                 {
-                  "$type": "AEHBHLJCPJK",
+                  "$type": "ByEntityTypes",
                   "entityTypes": [
                     "Avatar"
                   ]
@@ -67,34 +67,34 @@
         },
         "attack_phase": {
           "modifierName": "",
-          "elementDurability": 3.0999999046325684,
-          "MCCELHKGPOP": 100.0,
+          "duration": 3.1,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "OIDAEPDOMEP",
+              "$type": "Predicated",
               "targetPredicates": [
                 {
-                  "$type": "HBBHADONLIE",
+                  "$type": "ByTargetGlobalValue",
                   "key": "SGV_Target_Stragety",
-                  "repeatTimes": 1.0
+                  "value": 1
                 }
               ],
               "successActions": [
                 {
-                  "$type": "EKEOKGEKGOG",
+                  "$type": "SetSelfAttackTarget",
                   "otherTargets": {
-                    "$type": "JLNICGPAKAA",
+                    "$type": "SelectTargetsByShape",
                     "topLimit": 1,
                     "entityTypePriority": [
                       "Avatar"
                     ],
                     "shapeName": "CircleR140",
                     "campTargetType": "All",
-                    "doOffStage": 1.0
+                    "sizeRatio": 1
                   },
                   "predicates": [
                     {
-                      "$type": "AEHBHLJCPJK",
+                      "$type": "ByEntityTypes",
                       "entityTypes": [
                         "Avatar"
                       ]
@@ -107,16 +107,16 @@
               ],
               "failActions": [
                 {
-                  "$type": "EKEOKGEKGOG"
+                  "$type": "SetSelfAttackTarget"
                 }
               ]
             },
             {
-              "$type": "INPLALHENKA",
+              "$type": "SetGlobalPos",
               "target": "SelfAttackTarget",
               "key": "_target_pos",
               "born": {
-                "$type": "GNIAPFBHMIK",
+                "$type": "ConfigBornByTarget",
                 "onGround": true,
                 "onGroundIgnoreWater": true,
                 "alongGround": true
@@ -124,11 +124,11 @@
               "setTarget": false
             },
             {
-              "$type": "DKABOJNNDAD",
+              "$type": "SetGlobalDir",
               "target": "SelfAttackTarget",
               "key": "_target_dir",
               "born": {
-                "$type": "GNIAPFBHMIK",
+                "$type": "ConfigBornByTarget",
                 "onGroundIgnoreWater": true,
                 "direction": {
                   "$type": "EAJKEIMIEEH",
@@ -140,30 +140,29 @@
               "setTarget": false
             },
             {
-              "$type": "OIDAEPDOMEP",
+              "$type": "Predicated",
               "targetPredicates": [
                 {
                   "$type": "MKAAOBHIMLI",
                   "target": "Self",
                   "logic": "Lesser",
                   "globalPos": "_target_pos",
-                  "toGroundHeight": 11.0
+                  "toGroundHeight": 11
                 }
               ],
               "successActions": [
                 {
-                  "$type": "EHPLOGLPPAC",
-                  "rotationDampTime": "Eff_Property_Prop_SandwormAttack_PreAttack_Activity",
+                  "$type": "FireEffect",
+                  "effectPattern": "Eff_Property_Prop_SandwormAttack_PreAttack_Activity",
                   "born": {
-                    "$type": "BGKKAEIIDIA",
+                    "$type": "ConfigBornByGlobalValue",
                     "positionKey": "_target_pos",
                     "directionKey": "_target_dir"
                   },
-                  "FKNFFAHLCHH": 1.0,
-                  "GDNGPLIHABI": -1.0
+                  "scale": 1
                 },
                 {
-                  "$type": "AHHAGLJGKDD",
+                  "$type": "ApplyModifier",
                   "modifierName": "attack_delayed"
                 }
               ]
@@ -171,64 +170,62 @@
           ],
           "onRemoved": [
             {
-              "$type": "OIDAEPDOMEP",
+              "$type": "Predicated",
               "targetPredicates": [
                 {
                   "$type": "MKAAOBHIMLI",
                   "target": "Self",
                   "logic": "Lesser",
                   "globalPos": "_target_pos",
-                  "toGroundHeight": 11.0
+                  "toGroundHeight": 11
                 }
               ],
               "successActions": [
                 {
                   "$type": "BJGOCBBDMHK",
                   "key": "LevelEntity_AvatarDot_SystemValue",
-                  "damageRatio": "ElementLevelCo"
+                  "type": "ElementLevelCo"
                 },
                 {
-                  "$type": "KIBGAKKBNCL",
+                  "$type": "TriggerAttackEvent",
                   "attackEvent": {
                     "attackPattern": {
-                      "$type": "DCBLBBGDIAN",
+                      "$type": "ConfigAttackCircle",
                       "triggerType": "TriggerNoRepeat",
                       "ignoreMassive": true,
                       "born": {
-                        "$type": "BGKKAEIIDIA",
+                        "$type": "ConfigBornByGlobalValue",
                         "offset": {
-                          "EPAKBMBAOKK": 0.0,
-                          "LNOGCFLGIJI": -5.0,
-                          "MEJNCDENBNH": 0.0
+                          "y": -5
                         },
                         "positionKey": "_target_pos",
                         "directionKey": "_target_dir"
                       },
-                      "height": 9.0,
-                      "DCBIMHFGHEJ": 3.0
+                      "height": 9,
+                      "radius": 3
                     },
                     "attackInfo": {
                       "attackTag": "SandwormAttack",
                       "attenuationTag": "",
                       "attenuationGroup": "default",
                       "attackProperty": {
-                        "actorGrassSubHurtDelta": 0.0,
-                        "actorWaterSubHurtDelta": 0.0,
-                        "MCCELHKGPOP": 0.0,
+                        "damagePercentage": 0,
+                        "damagePercentageRatio": 0,
+                        "elementDurability": 0,
                         "ignoreAttackerProperty": true,
                         "strikeType": "Blunt",
-                        "enBreak": 350.0,
-                        "DGPOFOAJEFP": [
+                        "enBreak": 350,
+                        "damageExtra": [
                           "LevelEntity_AvatarDot_SystemValue",
                           "Damage_Coefficient_Monster",
                           "MUL"
                         ],
                         "trueDamage": true,
-                        "KLIMCEGLPLG": 0.0
+                        "__exp_arkhe": 0
                       },
                       "hitPattern": {
                         "onHitEffectName": "",
-                        "hitImpulseY": "",
+                        "__unk_Q3893899620": "",
                         "hitImpulseType": "LV6"
                       }
                     }
@@ -236,47 +233,45 @@
                   "targetType": "Enemy"
                 },
                 {
-                  "$type": "KIBGAKKBNCL",
+                  "$type": "TriggerAttackEvent",
                   "attackEvent": {
                     "attackPattern": {
-                      "$type": "DCBLBBGDIAN",
+                      "$type": "ConfigAttackCircle",
                       "triggerType": "TriggerNoRepeat",
                       "ignoreMassive": true,
                       "born": {
-                        "$type": "BGKKAEIIDIA",
+                        "$type": "ConfigBornByGlobalValue",
                         "offset": {
-                          "EPAKBMBAOKK": 0.0,
-                          "LNOGCFLGIJI": -5.0,
-                          "MEJNCDENBNH": 0.0
+                          "y": -5
                         },
                         "positionKey": "_target_pos",
                         "directionKey": "_target_dir"
                       },
-                      "height": 9.0,
-                      "DCBIMHFGHEJ": 3.0
+                      "height": 9,
+                      "radius": 3
                     },
                     "attackInfo": {
                       "attackTag": "SandwormAttack",
                       "attenuationTag": "",
                       "attenuationGroup": "default",
                       "attackProperty": {
-                        "actorGrassSubHurtDelta": 0.0,
-                        "actorWaterSubHurtDelta": 0.0,
-                        "MCCELHKGPOP": 0.0,
+                        "damagePercentage": 0,
+                        "damagePercentageRatio": 0,
+                        "elementDurability": 0,
                         "ignoreAttackerProperty": true,
                         "strikeType": "Blunt",
-                        "enBreak": 350.0,
-                        "DGPOFOAJEFP": [
+                        "enBreak": 350,
+                        "damageExtra": [
                           "LevelEntity_AvatarDot_SystemValue",
                           "Damage_Coefficient_Monster",
                           "MUL"
                         ],
                         "trueDamage": true,
-                        "KLIMCEGLPLG": 0.0
+                        "__exp_arkhe": 0
                       },
                       "hitPattern": {
                         "onHitEffectName": "",
-                        "hitImpulseY": "",
+                        "__unk_Q3893899620": "",
                         "hitImpulseType": "LV6"
                       }
                     }
@@ -286,79 +281,78 @@
               ]
             },
             {
-              "$type": "ACPEIOBJLKD",
-              "repeatTimes": 1.0,
+              "$type": "AddGlobalValue",
+              "value": 1,
               "key": "_attack_times",
-              "param2": 0.0,
-              "triggerID": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         "attack_wait_phase": {
           "modifierName": "",
-          "elementDurability": 3.0,
-          "MCCELHKGPOP": 100.0,
+          "duration": 3,
+          "elementDurability": 100,
           "onRemoved": [
             {
-              "$type": "ACPEIOBJLKD",
-              "repeatTimes": 1.0,
+              "$type": "AddGlobalValue",
+              "value": 1,
               "key": "_attack_times",
-              "param2": 0.0,
-              "triggerID": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         "attack_end": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "ACAJCCHJEDG"
+              "$type": "KillSelf"
             }
           ]
         },
         "attack_delayed": {
           "modifierName": "",
-          "elementDurability": 2.0,
-          "MCCELHKGPOP": 100.0,
+          "duration": 2,
+          "elementDurability": 100,
           "onRemoved": [
             {
-              "$type": "EHPLOGLPPAC",
-              "rotationDampTime": "Eff_Property_Prop_SandwormAttack_Attack",
+              "$type": "FireEffect",
+              "effectPattern": "Eff_Property_Prop_SandwormAttack_Attack",
               "born": {
-                "$type": "BGKKAEIIDIA",
+                "$type": "ConfigBornByGlobalValue",
                 "positionKey": "_target_pos",
                 "directionKey": "_target_dir"
               },
-              "FKNFFAHLCHH": 1.0,
-              "GDNGPLIHABI": -1.0
+              "scale": 1
             }
           ]
         }
       },
       "onAdded": [
         {
-          "$type": "DBGFNDFDIBF",
+          "$type": "SetGlobalValueToOverrideMap",
           "globalValueKey": "SGV_Attack_Times",
           "overrideMapKey": "Attack_Times"
         },
         {
-          "$type": "HLHAODOBHPK",
-          "repeatTimes": [
+          "$type": "SetGlobalValue",
+          "value": [
             "max_attack_times",
-            2.0,
+            2,
             "MUL",
             "Attack_Times",
-            2.0,
+            2,
             "MUL",
             "SUB"
           ],
           "key": "_attack_times",
-          "param2": 0.0,
-          "triggerID": 0.0
+          "maxValue": 0,
+          "minValue": 0
         },
         {
-          "$type": "GNLJNLOMNGD",
+          "$type": "AttachModifier",
           "modifierName": "SandwormAttackController"
         }
       ]
@@ -366,7 +360,7 @@
   },
   {
     "Default": {
-      "$type": "ECIJFKLDIPB",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_ChargingStation_Sand_01",
       "abilityMixins": [
         {
@@ -387,7 +381,7 @@
       "modifiers": {
         "None": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "MJKBAAMFJHF",
@@ -403,51 +397,48 @@
               "setEnable": true
             },
             {
-              "$type": "ENDHKAOAKJH",
-              "rotationDampTime": "Eff_Item_SpecialTreasureBox_LockIdle",
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_Item_SpecialTreasureBox_LockIdle",
               "born": {
-                "$type": "EIIDFNOJEFD",
+                "$type": "ConfigBornByAttachPoint",
                 "useRotation": true,
                 "attachPointName": "AttachPoint"
               },
-              "FKNFFAHLCHH": 1.0,
-              "GDNGPLIHABI": -1.0
+              "scale": 1
             }
           ],
           "onRemoved": [
             {
-              "$type": "EHPLOGLPPAC",
-              "rotationDampTime": "Eff_Item_SpecialTreasureBox_Unlock",
+              "$type": "FireEffect",
+              "effectPattern": "Eff_Item_SpecialTreasureBox_Unlock",
               "born": {
-                "$type": "EIIDFNOJEFD",
+                "$type": "ConfigBornByAttachPoint",
                 "useRotation": true,
                 "attachPointName": "AttachPoint"
               },
-              "FKNFFAHLCHH": 1.0,
-              "GDNGPLIHABI": -1.0
+              "scale": 1
             }
           ]
         },
         "Build": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0,
+          "elementDurability": 100,
           "onRemoved": [
             {
-              "$type": "EHPLOGLPPAC",
-              "rotationDampTime": "Eff_SceneObj_ChargingStation_01_Building",
+              "$type": "FireEffect",
+              "effectPattern": "Eff_SceneObj_ChargingStation_01_Building",
               "born": {
-                "$type": "EIIDFNOJEFD",
+                "$type": "ConfigBornByAttachPoint",
                 "useRotation": true,
                 "attachPointName": "RootNode"
               },
-              "FKNFFAHLCHH": 1.0,
-              "GDNGPLIHABI": -1.0
+              "scale": 1
             }
           ]
         },
         "Ready": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "MJKBAAMFJHF",
@@ -469,7 +460,7 @@
   },
   {
     "Default": {
-      "$type": "ECIJFKLDIPB",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_ChargingStation_Sand_02",
       "abilityMixins": [
         {
@@ -490,67 +481,64 @@
       "modifiers": {
         "Charging": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "ANEGGLOPIGK",
+              "$type": "SetAnimatorInt",
               "intID": "State",
-              "repeatTimes": 201.0
+              "value": 201
             },
             {
-              "$type": "ENDHKAOAKJH",
-              "rotationDampTime": "Eff_SceneObj_ChargingStation_01_Charge",
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_ChargingStation_01_Charge",
               "born": {
-                "$type": "EIIDFNOJEFD",
+                "$type": "ConfigBornByAttachPoint",
                 "useRotation": true,
                 "attachPointName": "AttachPoint"
               },
-              "FKNFFAHLCHH": 1.0,
-              "GDNGPLIHABI": -1.0
+              "scale": 1
             }
           ]
         },
         "Ready": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "ANEGGLOPIGK",
+              "$type": "SetAnimatorInt",
               "intID": "State",
-              "repeatTimes": 202.0
+              "value": 202
             },
             {
-              "$type": "ENDHKAOAKJH",
-              "rotationDampTime": "Eff_SceneObj_ChargingStation_01_Finish",
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_ChargingStation_01_Finish",
               "born": {
-                "$type": "EIIDFNOJEFD",
+                "$type": "ConfigBornByAttachPoint",
                 "useRotation": true,
                 "attachPointName": "AttachPoint"
               },
-              "FKNFFAHLCHH": 1.0,
-              "GDNGPLIHABI": -1.0
+              "scale": 1
             }
           ]
         },
         "Destory": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "ANEGGLOPIGK",
+              "$type": "SetAnimatorInt",
               "intID": "State",
-              "repeatTimes": 901.0
+              "value": 901
             },
             {
-              "$type": "ENDHKAOAKJH",
-              "rotationDampTime": "Eff_SceneObj_ChargingStation_01_Die",
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_ChargingStation_01_Die",
               "born": {
-                "$type": "EIIDFNOJEFD",
+                "$type": "ConfigBornByAttachPoint",
                 "useRotation": true,
                 "attachPointName": "AttachPoint"
               },
-              "FKNFFAHLCHH": 1.0,
-              "GDNGPLIHABI": -1.0
+              "scale": 1
             }
           ]
         }
@@ -559,7 +547,7 @@
   },
   {
     "Default": {
-      "$type": "ECIJFKLDIPB",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_ChargingStationHpBar_01",
       "abilityMixins": [
         {
@@ -575,61 +563,61 @@
       "modifiers": {
         "SneerMonster": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0,
-          "thinkInterval": 2.0,
+          "elementDurability": 100,
+          "thinkInterval": 2,
           "onThinkInterval": [
             {
-              "$type": "GKKFCPNKPCL",
+              "$type": "TriggerTaunt",
               "otherTargets": {
-                "$type": "JLNICGPAKAA",
+                "$type": "SelectTargetsByShape",
                 "shapeName": "CircleR25",
                 "campTargetType": "Enemy",
-                "doOffStage": 1.0
+                "sizeRatio": 1
               },
               "predicates": [
                 {
-                  "$type": "AEHBHLJCPJK",
+                  "$type": "ByEntityTypes",
                   "entityTypes": [
                     "Monster"
                   ]
                 }
               ],
-              "careValue": 30.0
+              "careValue": 30
             }
           ]
         },
         "Base": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0
+          "elementDurability": 100
         },
         "Invincible": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0,
+          "elementDurability": 100,
           "state": "LockHP"
         }
       },
       "onAdded": [
         {
-          "$type": "AHHAGLJGKDD",
+          "$type": "ApplyModifier",
           "modifierName": "SneerMonster"
         },
         {
-          "$type": "HCPCNNBJEMK",
+          "$type": "AttachAbilityStateResistance",
           "resistanceListID": 11002
         },
         {
-          "$type": "HLHAODOBHPK",
-          "repeatTimes": 1.0,
+          "$type": "SetGlobalValue",
+          "value": 1,
           "key": "_SCENEOBJ_PROTECTTARGET",
-          "param2": 0.0,
-          "triggerID": 0.0
+          "maxValue": 0,
+          "minValue": 0
         }
       ]
     }
   },
   {
     "Default": {
-      "$type": "ECIJFKLDIPB",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_WormCannon_Sand_01",
       "abilityMixins": [
         {
@@ -650,18 +638,17 @@
       "modifiers": {
         "None": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "ENDHKAOAKJH",
-              "rotationDampTime": "Eff_Item_SpecialTreasureBox_LockIdle",
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_Item_SpecialTreasureBox_LockIdle",
               "born": {
-                "$type": "EIIDFNOJEFD",
+                "$type": "ConfigBornByAttachPoint",
                 "useRotation": true,
                 "attachPointName": "AttachPoint"
               },
-              "FKNFFAHLCHH": 1.0,
-              "GDNGPLIHABI": -1.0
+              "scale": 1
             },
             {
               "$type": "MJKBAAMFJHF",
@@ -679,38 +666,36 @@
           ],
           "onRemoved": [
             {
-              "$type": "EHPLOGLPPAC",
-              "rotationDampTime": "Eff_Item_SpecialTreasureBox_Unlock",
+              "$type": "FireEffect",
+              "effectPattern": "Eff_Item_SpecialTreasureBox_Unlock",
               "born": {
-                "$type": "EIIDFNOJEFD",
+                "$type": "ConfigBornByAttachPoint",
                 "useRotation": true,
                 "attachPointName": "AttachPoint"
               },
-              "FKNFFAHLCHH": 1.0,
-              "GDNGPLIHABI": -1.0
+              "scale": 1
             }
           ]
         },
         "Build": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0,
+          "elementDurability": 100,
           "onRemoved": [
             {
-              "$type": "EHPLOGLPPAC",
-              "rotationDampTime": "Eff_SceneObj_WormCannon_01_Building",
+              "$type": "FireEffect",
+              "effectPattern": "Eff_SceneObj_WormCannon_01_Building",
               "born": {
-                "$type": "EIIDFNOJEFD",
+                "$type": "ConfigBornByAttachPoint",
                 "useRotation": true,
                 "attachPointName": "RootNode"
               },
-              "FKNFFAHLCHH": 1.0,
-              "GDNGPLIHABI": -1.0
+              "scale": 1
             }
           ]
         },
         "Ready": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "MJKBAAMFJHF",
@@ -732,7 +717,7 @@
   },
   {
     "Default": {
-      "$type": "ECIJFKLDIPB",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_WormCannon_Sand_02",
       "abilityMixins": [
         {
@@ -758,92 +743,89 @@
       "modifiers": {
         "Cannon_Charging": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "HEIMMLNJBHJ",
               "canBeHandledOnRecover": true,
               "matName": "Mat1",
               "CMJKNPEADIP": "_EmissionStrength",
-              "repeatTimes": 1.5
+              "value": 1.5
             },
             {
               "$type": "HEIMMLNJBHJ",
               "canBeHandledOnRecover": true,
               "matName": "Mat2",
               "CMJKNPEADIP": "_EmissionStrength",
-              "repeatTimes": 1.5
+              "value": 1.5
             },
             {
-              "$type": "ENDHKAOAKJH",
-              "rotationDampTime": "Eff_SceneObj_WormCannon_01_Charge",
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_WormCannon_01_Charge",
               "born": {
-                "$type": "EIIDFNOJEFD",
+                "$type": "ConfigBornByAttachPoint",
                 "useRotation": true,
                 "attachPointName": "AttachPoint"
               },
-              "FKNFFAHLCHH": 1.0,
-              "GDNGPLIHABI": -1.0
+              "scale": 1
             }
           ]
         },
         "Cannon_Ready": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "HEIMMLNJBHJ",
               "canBeHandledOnRecover": true,
               "matName": "Mat1",
               "CMJKNPEADIP": "_EmissionStrength",
-              "repeatTimes": 5.0
+              "value": 5
             },
             {
               "$type": "HEIMMLNJBHJ",
               "canBeHandledOnRecover": true,
               "matName": "Mat2",
               "CMJKNPEADIP": "_EmissionStrength",
-              "repeatTimes": 5.0
+              "value": 5
             },
             {
-              "$type": "ENDHKAOAKJH",
-              "rotationDampTime": "Eff_SceneObj_WormCannon_Finished",
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_WormCannon_Finished",
               "born": {
-                "$type": "EIIDFNOJEFD",
+                "$type": "ConfigBornByAttachPoint",
                 "useRotation": true,
                 "attachPointName": "AttachPoint"
               },
-              "FKNFFAHLCHH": 1.0,
-              "GDNGPLIHABI": -1.0
+              "scale": 1
             }
           ]
         },
         "Cannon_Accumulation": {
           "modifierName": "",
-          "elementDurability": 2.5,
-          "MCCELHKGPOP": 100.0,
+          "duration": 2.5,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "ENDHKAOAKJH",
-              "rotationDampTime": "Eff_SceneObj_WormCannon_Cast",
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_WormCannon_Cast",
               "born": {
-                "$type": "EIIDFNOJEFD",
+                "$type": "ConfigBornByAttachPoint",
                 "useRotation": true,
                 "attachPointName": "PaokouEffPoint"
               },
-              "FKNFFAHLCHH": 1.0,
-              "GDNGPLIHABI": -1.0
+              "scale": 1
             },
             {
-              "$type": "HLHAODOBHPK",
+              "$type": "SetGlobalValue",
               "otherTargets": {
                 "$type": "DJCKGHPFLIH",
                 "tag": "IS_DieSandworm"
               },
-              "repeatTimes": 1.0,
+              "value": 1,
               "key": "DieSandworm_IsInCutscene",
-              "param2": 0.0,
-              "triggerID": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ],
           "onRemoved": [
@@ -855,30 +837,29 @@
         },
         "Cannon_Fire": {
           "modifierName": "",
-          "elementDurability": 2.0,
-          "MCCELHKGPOP": 100.0,
+          "duration": 2,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "ENDHKAOAKJH",
+              "$type": "AttachEffect",
               "otherTargets": {
                 "$type": "DJCKGHPFLIH",
                 "tag": "IS_DieSandworm_PartcontrolTarget"
               },
-              "rotationDampTime": "Eff_SceneObj_WormCannon_Laser",
-              "FKNFFAHLCHH": 1.0,
-              "GDNGPLIHABI": -1.0,
+              "effectPattern": "Eff_SceneObj_WormCannon_Laser",
+              "scale": 1,
               "setSelfAsEffectPluginTarget": true
             },
             {
-              "$type": "GNLJNLOMNGD",
+              "$type": "AttachModifier",
               "modifierName": "SandWrom_Hit"
             },
             {
-              "$type": "GNLJNLOMNGD",
+              "$type": "AttachModifier",
               "modifierName": "PaokouFire"
             },
             {
-              "$type": "AHHAGLJGKDD",
+              "$type": "ApplyModifier",
               "otherTargets": {
                 "$type": "DJCKGHPFLIH",
                 "tag": "IS_DieSandworm"
@@ -888,84 +869,82 @@
           ],
           "onRemoved": [
             {
-              "$type": "GNLJNLOMNGD",
+              "$type": "AttachModifier",
               "modifierName": "Notify_SandWorm"
             }
           ]
         },
         "SandWrom_Hit": {
           "modifierName": "",
-          "elementDurability": 2.0,
-          "MCCELHKGPOP": 100.0,
+          "duration": 2,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "ENDHKAOAKJH",
+              "$type": "AttachEffect",
               "otherTargets": {
                 "$type": "DJCKGHPFLIH",
                 "tag": "IS_DieSandworm_PartcontrolTarget"
               },
-              "rotationDampTime": "Eff_SceneObj_WormCannon_Hit",
-              "FKNFFAHLCHH": 1.0,
-              "GDNGPLIHABI": -1.0
+              "effectPattern": "Eff_SceneObj_WormCannon_Hit",
+              "scale": 1
             }
           ]
         },
         "PaokouFire": {
           "modifierName": "",
-          "elementDurability": 1.5,
-          "MCCELHKGPOP": 100.0,
+          "duration": 1.5,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "ENDHKAOAKJH",
-              "rotationDampTime": "Eff_SceneObj_WormCannon_Fire",
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_WormCannon_Fire",
               "born": {
-                "$type": "EIIDFNOJEFD",
+                "$type": "ConfigBornByAttachPoint",
                 "useRotation": true,
                 "attachPointName": "PaokouEffPoint"
               },
-              "FKNFFAHLCHH": 1.0,
-              "GDNGPLIHABI": -1.0
+              "scale": 1
             }
           ]
         },
         "Notify_SandWorm": {
           "modifierName": "",
-          "elementDurability": 2.0,
-          "MCCELHKGPOP": 100.0,
+          "duration": 2,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "OIDAEPDOMEP",
+              "$type": "Predicated",
               "otherTargets": {
                 "$type": "DJCKGHPFLIH",
                 "tag": "IS_DieSandworm"
               },
               "successActions": [
                 {
-                  "$type": "HLHAODOBHPK",
+                  "$type": "SetGlobalValue",
                   "target": "Other",
-                  "repeatTimes": 1.0,
+                  "value": 1,
                   "key": "DIESANDWORM_PLAYDIE",
-                  "param2": 0.0,
-                  "triggerID": 0.0
+                  "maxValue": 0,
+                  "minValue": 0
                 }
               ]
             }
           ],
           "onRemoved": [
             {
-              "$type": "OIDAEPDOMEP",
+              "$type": "Predicated",
               "otherTargets": {
                 "$type": "DJCKGHPFLIH",
                 "tag": "IS_DieSandworm"
               },
               "successActions": [
                 {
-                  "$type": "HLHAODOBHPK",
+                  "$type": "SetGlobalValue",
                   "target": "Other",
-                  "repeatTimes": 1.0,
+                  "value": 1,
                   "key": "DIESANDWORM_PLAYDIE",
-                  "param2": 0.0,
-                  "triggerID": 0.0
+                  "maxValue": 0,
+                  "minValue": 0
                 }
               ]
             }
@@ -973,13 +952,13 @@
         },
         "Lose_HP": {
           "modifierName": "",
-          "elementDurability": 2.299999952316284,
-          "MCCELHKGPOP": 100.0,
-          "thinkInterval": 0.30000001192092896,
+          "duration": 2.3,
+          "elementDurability": 100,
+          "thinkInterval": 0.3,
           "onThinkInterval": [
             {
-              "$type": "LIIFHLEPMAJ",
-              "PLKMGPJIHFH": 0.20000000298023224,
+              "$type": "LoseHP",
+              "amountByTargetMaxHPRatio": 0.2,
               "MIJGKFOAEPN": ""
             }
           ],
@@ -990,7 +969,7 @@
   },
   {
     "Default": {
-      "$type": "ECIJFKLDIPB",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_WormBattleBuff_01",
       "abilityMixins": [
         {
@@ -1006,38 +985,36 @@
       "modifiers": {
         "Buff_Ball_Stay": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "ENDHKAOAKJH",
-              "rotationDampTime": "Eff_Tower_Ball_AttackUp_01",
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_Tower_Ball_AttackUp_01",
               "born": {
-                "$type": "EIIDFNOJEFD",
+                "$type": "ConfigBornByAttachPoint",
                 "useRotation": true,
                 "attachPointName": "AttachPoint"
               },
-              "FKNFFAHLCHH": 1.0,
-              "GDNGPLIHABI": -1.0
+              "scale": 1
             }
           ]
         },
         "Buff_Ball_Disappear": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "EHPLOGLPPAC",
-              "rotationDampTime": "Eff_Tower_Ball_Active_01",
+              "$type": "FireEffect",
+              "effectPattern": "Eff_Tower_Ball_Active_01",
               "born": {
-                "$type": "EIIDFNOJEFD",
+                "$type": "ConfigBornByAttachPoint",
                 "useRotation": true,
                 "attachPointName": "AttachPoint"
               },
-              "FKNFFAHLCHH": 1.0,
-              "GDNGPLIHABI": -1.0
+              "scale": 1
             },
             {
-              "$type": "AHHAGLJGKDD",
+              "$type": "ApplyModifier",
               "target": "Team",
               "modifierName": "UNIQUE_SuperSandWorm_BuffBall_Controller"
             }
@@ -1046,29 +1023,29 @@
         "UNIQUE_SuperSandWorm_BuffBall_Controller": {
           "stacking": "RefreshUniqueDurability",
           "modifierName": "",
-          "forceTriggerWhenChangeAuthority": true,
-          "elementDurability": 5.0,
-          "MCCELHKGPOP": 100.0,
+          "isUnique": true,
+          "duration": 5,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "HLHAODOBHPK",
+              "$type": "SetGlobalValue",
               "target": "Team",
-              "repeatTimes": 1.0,
+              "value": 1,
               "key": "_HAS_FallingAttack",
               "useLimitRange": true,
-              "param2": 2.0,
-              "triggerID": 0.0
+              "maxValue": 2,
+              "minValue": 0
             }
           ],
           "onRemoved": [
             {
-              "$type": "HLHAODOBHPK",
+              "$type": "SetGlobalValue",
               "target": "Team",
-              "repeatTimes": 0.0,
+              "value": 0,
               "key": "_HAS_FallingAttack",
               "useLimitRange": true,
-              "param2": 2.0,
-              "triggerID": 0.0
+              "maxValue": 2,
+              "minValue": 0
             }
           ]
         }
@@ -1083,7 +1060,7 @@
   },
   {
     "Default": {
-      "$type": "ECIJFKLDIPB",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_ChargingBuff_01",
       "abilityMixins": [
         {
@@ -1099,24 +1076,24 @@
       "modifiers": {
         "Buff_Ball_Stay": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0,
+          "elementDurability": 100,
           "onRemoved": [
             {
               "$type": "MGDIMGIKFKK",
               "luaCallType": "FromGroup",
               "sourceName": "ChargingBall_Charging",
-              "param1": 0.0,
-              "BMDDJMILHBO": 0.0,
-              "HILLBLDAAKP": 0.0
+              "param1": 0,
+              "BMDDJMILHBO": 0,
+              "HILLBLDAAKP": 0
             }
           ]
         },
         "Buff_Ball_Disappear": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "ACAJCCHJEDG"
+              "$type": "KillSelf"
             }
           ]
         }
@@ -1131,7 +1108,7 @@
   },
   {
     "Default": {
-      "$type": "ECIJFKLDIPB",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_ChargingBuff_03",
       "abilityMixins": [
         {
@@ -1147,29 +1124,27 @@
       "modifiers": {
         "Buff_Ball_Stay": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "EHPLOGLPPAC",
-              "rotationDampTime": "Eff_SceneObj_ChargingBuff_02_Create",
+              "$type": "FireEffect",
+              "effectPattern": "Eff_SceneObj_ChargingBuff_02_Create",
               "born": {
-                "$type": "EIIDFNOJEFD",
+                "$type": "ConfigBornByAttachPoint",
                 "useRotation": true,
                 "attachPointName": "AttachPoint"
               },
-              "FKNFFAHLCHH": 1.0,
-              "GDNGPLIHABI": -1.0
+              "scale": 1
             },
             {
-              "$type": "ENDHKAOAKJH",
-              "rotationDampTime": "Eff_SceneObj_ChargingBuff_02_Self",
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_ChargingBuff_02_Self",
               "born": {
-                "$type": "EIIDFNOJEFD",
+                "$type": "ConfigBornByAttachPoint",
                 "useRotation": true,
                 "attachPointName": "AttachPoint"
               },
-              "FKNFFAHLCHH": 1.0,
-              "GDNGPLIHABI": -1.0
+              "scale": 1
             }
           ],
           "onRemoved": [
@@ -1177,29 +1152,28 @@
               "$type": "MGDIMGIKFKK",
               "luaCallType": "FromGroup",
               "sourceName": "ChargingBall_Charging_Big",
-              "param1": 0.0,
-              "BMDDJMILHBO": 0.0,
-              "HILLBLDAAKP": 0.0
+              "param1": 0,
+              "BMDDJMILHBO": 0,
+              "HILLBLDAAKP": 0
             },
             {
-              "$type": "EHPLOGLPPAC",
-              "rotationDampTime": "Eff_SceneObj_ChargingBuff_02_Die",
+              "$type": "FireEffect",
+              "effectPattern": "Eff_SceneObj_ChargingBuff_02_Die",
               "born": {
-                "$type": "EIIDFNOJEFD",
+                "$type": "ConfigBornByAttachPoint",
                 "useRotation": true,
                 "attachPointName": "AttachPoint"
               },
-              "FKNFFAHLCHH": 1.0,
-              "GDNGPLIHABI": -1.0
+              "scale": 1
             }
           ]
         },
         "Buff_Ball_Disappear": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "ACAJCCHJEDG"
+              "$type": "KillSelf"
             }
           ]
         }
@@ -1210,74 +1184,70 @@
           "state": 201
         },
         {
-          "$type": "GAHLGCADCKO",
+          "$type": "ReviveStamina",
           "target": "CurLocalAvatar",
-          "shieldHP": true,
-          "repeatTimes": 1000.0
+          "doOffStage": true,
+          "value": 1000
         }
       ]
     }
   },
   {
     "Default": {
-      "$type": "ECIJFKLDIPB",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_WormSandPile_Sand_01",
       "modifiers": {
         "SandwormStoneHit": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "ENDHKAOAKJH",
-              "rotationDampTime": "Eff_Item_Hint",
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_Item_Hint",
               "born": {
-                "$type": "EIIDFNOJEFD",
+                "$type": "ConfigBornByAttachPoint",
                 "useRotation": true,
                 "attachPointName": "Point1"
               },
-              "FKNFFAHLCHH": 1.0,
-              "GDNGPLIHABI": -1.0
+              "scale": 1
             },
             {
-              "$type": "ENDHKAOAKJH",
-              "rotationDampTime": "Eff_Item_Hint",
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_Item_Hint",
               "born": {
-                "$type": "EIIDFNOJEFD",
+                "$type": "ConfigBornByAttachPoint",
                 "useRotation": true,
                 "attachPointName": "Point2"
               },
-              "FKNFFAHLCHH": 1.0,
-              "GDNGPLIHABI": -1.0
+              "scale": 1
             },
             {
-              "$type": "ENDHKAOAKJH",
-              "rotationDampTime": "Eff_Item_Hint",
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_Item_Hint",
               "born": {
-                "$type": "EIIDFNOJEFD",
+                "$type": "ConfigBornByAttachPoint",
                 "useRotation": true,
                 "attachPointName": "Point3"
               },
-              "FKNFFAHLCHH": 1.0,
-              "GDNGPLIHABI": -1.0
+              "scale": 1
             },
             {
-              "$type": "ENDHKAOAKJH",
-              "rotationDampTime": "Eff_Item_Hint",
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_Item_Hint",
               "born": {
-                "$type": "EIIDFNOJEFD",
+                "$type": "ConfigBornByAttachPoint",
                 "useRotation": true,
                 "attachPointName": "Point4"
               },
-              "FKNFFAHLCHH": 1.0,
-              "GDNGPLIHABI": -1.0
+              "scale": 1
             }
           ],
           "onBeingHit": [
             {
-              "$type": "OIDAEPDOMEP",
+              "$type": "Predicated",
               "targetPredicates": [
                 {
-                  "$type": "EBMBJLDAEDL",
+                  "$type": "ByAttackTags",
                   "attackTags": [
                     "SandwormAttack"
                   ]
@@ -1285,7 +1255,7 @@
               ],
               "successActions": [
                 {
-                  "$type": "ACAJCCHJEDG"
+                  "$type": "KillSelf"
                 }
               ]
             }
@@ -1294,7 +1264,7 @@
       },
       "onAdded": [
         {
-          "$type": "GNLJNLOMNGD",
+          "$type": "AttachModifier",
           "modifierName": "SandwormStoneHit"
         }
       ]
@@ -1302,30 +1272,29 @@
   },
   {
     "Default": {
-      "$type": "ECIJFKLDIPB",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_SandWormAirWall_Sand_01",
       "modifiers": {
         "AttachAirWall": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "ENDHKAOAKJH",
-              "rotationDampTime": "Eff_SceneObj_SandstormWall_01",
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_SandstormWall_01",
               "born": {
-                "$type": "EIIDFNOJEFD",
+                "$type": "ConfigBornByAttachPoint",
                 "useRotation": true,
                 "attachPointName": "RootNode"
               },
-              "FKNFFAHLCHH": 1.0,
-              "GDNGPLIHABI": -1.0
+              "scale": 1
             }
           ]
         }
       },
       "onAdded": [
         {
-          "$type": "GNLJNLOMNGD",
+          "$type": "AttachModifier",
           "modifierName": "AttachAirWall"
         }
       ]
@@ -1333,7 +1302,7 @@
   },
   {
     "Default": {
-      "$type": "ECIJFKLDIPB",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_SandWorm_SetEndState",
       "onAbilityStart": [
         {
@@ -1345,7 +1314,7 @@
   },
   {
     "Default": {
-      "$type": "ECIJFKLDIPB",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_SmashSandWorm_SetKilledEndState",
       "onAbilityStart": [
         {
@@ -1357,7 +1326,7 @@
   },
   {
     "Default": {
-      "$type": "ECIJFKLDIPB",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_AbilitySandWorm_Sand_01_Steer",
       "abilityMixins": [
         {
@@ -1366,26 +1335,26 @@
             "Skill01"
           ],
           "startNormalizedTime": 0.5,
-          "angularSpeed": 720.0,
+          "angularSpeed": 720,
           "attackTrigger": "",
-          "JGGNBGHKMJG": ""
+          "__unk_Q2081332355": ""
         },
         {
           "$type": "NPDPAAIDHNB",
           "steerStateIDs": [
             "Skill02"
           ],
-          "endNormalizedTime": 0.44999998807907104,
-          "angularSpeed": 120.0,
+          "endNormalizedTime": 0.45,
+          "angularSpeed": 120,
           "attackTrigger": "",
-          "JGGNBGHKMJG": ""
+          "__unk_Q2081332355": ""
         }
       ]
     }
   },
   {
     "Default": {
-      "$type": "ECIJFKLDIPB",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_AbilitySandWorm_Sand_01",
       "abilityMixins": [
         {
@@ -1401,51 +1370,51 @@
       "modifiers": {
         "Skill": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "AHHAGLJGKDD",
+              "$type": "ApplyModifier",
               "modifierName": "AbilitySandworm_01_EndTimer"
             }
           ]
         },
         "End": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0,
-          "thinkInterval": 1.0,
+          "elementDurability": 100,
+          "thinkInterval": 1,
           "onAdded": [
             {
-              "$type": "FKNNJLHBIOD",
+              "$type": "RemoveUniqueModifier",
               "modifierName": "UNIQUE_AbilitySandWormScreenEffect"
             },
             {
               "$type": "MGDIMGIKFKK",
               "luaCallType": "FromGroup",
               "sourceName": "AbilitySandWorm_Sand_End",
-              "param1": 0.0,
-              "BMDDJMILHBO": 0.0,
-              "HILLBLDAAKP": 0.0
+              "param1": 0,
+              "BMDDJMILHBO": 0,
+              "HILLBLDAAKP": 0
             }
           ],
           "onThinkInterval": [
             {
-              "$type": "FKNNJLHBIOD",
+              "$type": "RemoveUniqueModifier",
               "modifierName": "UNIQUE_AbilitySandWormScreenEffect"
             },
             {
               "$type": "MGDIMGIKFKK",
               "luaCallType": "FromGroup",
               "sourceName": "AbilitySandWorm_Sand_End",
-              "param1": 0.0,
-              "BMDDJMILHBO": 0.0,
-              "HILLBLDAAKP": 0.0
+              "param1": 0,
+              "BMDDJMILHBO": 0,
+              "HILLBLDAAKP": 0
             }
           ]
         },
         "AbilitySandworm_01_EndTimer": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0,
-          "thinkInterval": 32.0,
+          "elementDurability": 100,
+          "thinkInterval": 32,
           "onThinkInterval": [
             {
               "$type": "GDPEKEDGDLC",
@@ -1458,7 +1427,7 @@
   },
   {
     "Default": {
-      "$type": "ECIJFKLDIPB",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_AbilitySandWorm_Sand_02",
       "abilityMixins": [
         {
@@ -1474,51 +1443,51 @@
       "modifiers": {
         "Skill": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "AHHAGLJGKDD",
+              "$type": "ApplyModifier",
               "modifierName": "AbilitySandworm_02_EndTimer"
             }
           ]
         },
         "End": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0,
-          "thinkInterval": 1.0,
+          "elementDurability": 100,
+          "thinkInterval": 1,
           "onAdded": [
             {
-              "$type": "FKNNJLHBIOD",
+              "$type": "RemoveUniqueModifier",
               "modifierName": "UNIQUE_AbilitySandWormScreenEffect"
             },
             {
               "$type": "MGDIMGIKFKK",
               "luaCallType": "FromGroup",
               "sourceName": "AbilitySandWorm_Sand_End",
-              "param1": 0.0,
-              "BMDDJMILHBO": 0.0,
-              "HILLBLDAAKP": 0.0
+              "param1": 0,
+              "BMDDJMILHBO": 0,
+              "HILLBLDAAKP": 0
             }
           ],
           "onThinkInterval": [
             {
-              "$type": "FKNNJLHBIOD",
+              "$type": "RemoveUniqueModifier",
               "modifierName": "UNIQUE_AbilitySandWormScreenEffect"
             },
             {
               "$type": "MGDIMGIKFKK",
               "luaCallType": "FromGroup",
               "sourceName": "AbilitySandWorm_Sand_End",
-              "param1": 0.0,
-              "BMDDJMILHBO": 0.0,
-              "HILLBLDAAKP": 0.0
+              "param1": 0,
+              "BMDDJMILHBO": 0,
+              "HILLBLDAAKP": 0
             }
           ]
         },
         "AbilitySandworm_02_EndTimer": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0,
-          "thinkInterval": 32.0,
+          "elementDurability": 100,
+          "thinkInterval": 32,
           "onThinkInterval": [
             {
               "$type": "GDPEKEDGDLC",
@@ -1531,7 +1500,7 @@
   },
   {
     "Default": {
-      "$type": "ECIJFKLDIPB",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_AbilitySandWorm_Sand_03",
       "abilityMixins": [
         {
@@ -1547,51 +1516,51 @@
       "modifiers": {
         "Skill": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "AHHAGLJGKDD",
+              "$type": "ApplyModifier",
               "modifierName": "AbilitySandworm_03_EndTimer"
             }
           ]
         },
         "End": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0,
-          "thinkInterval": 1.0,
+          "elementDurability": 100,
+          "thinkInterval": 1,
           "onAdded": [
             {
-              "$type": "FKNNJLHBIOD",
+              "$type": "RemoveUniqueModifier",
               "modifierName": "UNIQUE_AbilitySandWormScreenEffect"
             },
             {
               "$type": "MGDIMGIKFKK",
               "luaCallType": "FromGroup",
               "sourceName": "AbilitySandWorm_Sand_End",
-              "param1": 0.0,
-              "BMDDJMILHBO": 0.0,
-              "HILLBLDAAKP": 0.0
+              "param1": 0,
+              "BMDDJMILHBO": 0,
+              "HILLBLDAAKP": 0
             }
           ],
           "onThinkInterval": [
             {
-              "$type": "FKNNJLHBIOD",
+              "$type": "RemoveUniqueModifier",
               "modifierName": "UNIQUE_AbilitySandWormScreenEffect"
             },
             {
               "$type": "MGDIMGIKFKK",
               "luaCallType": "FromGroup",
               "sourceName": "AbilitySandWorm_Sand_End",
-              "param1": 0.0,
-              "BMDDJMILHBO": 0.0,
-              "HILLBLDAAKP": 0.0
+              "param1": 0,
+              "BMDDJMILHBO": 0,
+              "HILLBLDAAKP": 0
             }
           ]
         },
         "AbilitySandworm_03_EndTimer": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0,
-          "thinkInterval": 32.0,
+          "elementDurability": 100,
+          "thinkInterval": 32,
           "onThinkInterval": [
             {
               "$type": "GDPEKEDGDLC",
@@ -1604,28 +1573,23 @@
   },
   {
     "Default": {
-      "$type": "ECIJFKLDIPB",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_AbilitySandWorm_Sand_01_ShootAttack",
       "onAbilityStart": [
         {
-          "$type": "DIADBHNCPGO",
+          "$type": "CreateGadget",
           "target": "CurLocalAvatar",
           "predicates": [
             {
-              "$type": "HBBHADONLIE",
+              "$type": "ByTargetGlobalValue",
               "target": "Self",
               "key": "DieSandworm_IsInCutscene",
-              "repeatTimes": 0.0,
+              "value": 0,
               "compareType": "NoneOrEqual"
             }
           ],
           "born": {
             "$type": "HNLNOMCGNNJ",
-            "offset": {
-              "EPAKBMBAOKK": 0.0,
-              "LNOGCFLGIJI": 0.0,
-              "MEJNCDENBNH": 0.0
-            },
             "onGround": true
           },
           "lifeByOwnerV2": true,
@@ -1637,46 +1601,46 @@
   },
   {
     "Default": {
-      "$type": "ECIJFKLDIPB",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_AbilitySandWorm_Sand_01_ShootAttack_Attack",
       "onAbilityStart": [
         {
-          "$type": "NLFNDLFMJHG",
-          "rotationDampTime": "Eff_Monster_Sandworm_01_Stage02_FlyingAttack_MultiBullet_Hit_Dungeon",
+          "$type": "FireSubEmitterEffect",
+          "effectPattern": "Eff_Monster_Sandworm_01_Stage02_FlyingAttack_MultiBullet_Hit_Dungeon",
           "born": {
-            "$type": "LPEJICOBGCF"
+            "$type": "ConfigBornByCollisionPoint"
           }
         },
         {
-          "$type": "KIBGAKKBNCL",
+          "$type": "TriggerAttackEvent",
           "attackEvent": {
             "attackPattern": {
-              "$type": "KHBCMELAIKO",
+              "$type": "ConfigAttackSphere",
               "triggerType": "TriggerNoRepeat",
               "born": {
-                "$type": "LPEJICOBGCF"
+                "$type": "ConfigBornByCollisionPoint"
               },
-              "DCBIMHFGHEJ": 3.0
+              "radius": 3
             },
             "attackInfo": {
               "attackTag": "SandwormAttack",
               "attenuationTag": "Sandworm_Stage02_FlyingAttackBullet",
               "attenuationGroup": "Sandworm_Stage02_FlyingAttackBullet",
               "attackProperty": {
-                "actorGrassSubHurtDelta": 1.0,
-                "actorWaterSubHurtDelta": 0.0,
+                "damagePercentage": 1,
+                "damagePercentageRatio": 0,
                 "elementType": "Wind",
-                "MCCELHKGPOP": 100.0,
+                "elementDurability": 100,
                 "strikeType": "Blunt",
-                "enBreak": 50.0,
+                "enBreak": 50,
                 "attackType": "Range",
-                "KLIMCEGLPLG": 0.0
+                "__exp_arkhe": 0
               },
               "hitPattern": {
                 "onHitEffectName": "default",
-                "hitImpulseY": "",
+                "__unk_Q3893899620": "",
                 "hitImpulseType": "LV3",
-                "hitHaltTimeScale": 0.05000000074505806
+                "hitHaltTimeScale": 0.05
               }
             }
           },
@@ -1687,36 +1651,36 @@
   },
   {
     "Default": {
-      "$type": "ECIJFKLDIPB",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_AbilitySandWorm_Sand_02_ShootAttack",
       "modifiers": {
         "Bullet_Launcher": {
           "modifierName": "",
-          "elementDurability": 5.0,
-          "MCCELHKGPOP": 100.0,
-          "thinkInterval": 1.0,
+          "duration": 5,
+          "elementDurability": 100,
+          "thinkInterval": 1,
           "onAdded": [
             {
-              "$type": "DIADBHNCPGO",
+              "$type": "CreateGadget",
               "target": "CurLocalAvatar",
               "predicates": [
                 {
-                  "$type": "HBBHADONLIE",
+                  "$type": "ByTargetGlobalValue",
                   "target": "Self",
                   "key": "DieSandworm_IsInCutscene",
-                  "repeatTimes": 0.0,
+                  "value": 0,
                   "compareType": "NoneOrEqual"
                 }
               ],
               "born": {
                 "$type": "HNLNOMCGNNJ",
                 "bornRandom": {
-                  "$type": "MCBMECLAJBB",
-                  "minRandomRange": 0.0,
-                  "maxRandomRange": 0.0
+                  "$type": "BornRandomFromCenter",
+                  "minRandomRange": 0,
+                  "maxRandomRange": 0
                 },
                 "onGround": true,
-                "onGroundRaycastUpDist": 0.20000000298023224
+                "onGroundRaycastUpDist": 0.2
               },
               "lifeByOwnerV2": true,
               "gadgetID": 70290941,
@@ -1725,26 +1689,26 @@
           ],
           "onThinkInterval": [
             {
-              "$type": "DIADBHNCPGO",
+              "$type": "CreateGadget",
               "target": "CurLocalAvatar",
               "predicates": [
                 {
-                  "$type": "HBBHADONLIE",
+                  "$type": "ByTargetGlobalValue",
                   "target": "Self",
                   "key": "DieSandworm_IsInCutscene",
-                  "repeatTimes": 0.0,
+                  "value": 0,
                   "compareType": "NoneOrEqual"
                 }
               ],
               "born": {
                 "$type": "HNLNOMCGNNJ",
                 "bornRandom": {
-                  "$type": "MCBMECLAJBB",
-                  "minRandomRange": 0.0,
-                  "maxRandomRange": 0.0
+                  "$type": "BornRandomFromCenter",
+                  "minRandomRange": 0,
+                  "maxRandomRange": 0
                 },
                 "onGround": true,
-                "onGroundRaycastUpDist": 0.20000000298023224
+                "onGroundRaycastUpDist": 0.2
               },
               "lifeByOwnerV2": true,
               "gadgetID": 70290941,
@@ -1755,12 +1719,12 @@
       },
       "onAbilityStart": [
         {
-          "$type": "AHHAGLJGKDD",
+          "$type": "ApplyModifier",
           "predicates": [
             {
-              "$type": "HBBHADONLIE",
+              "$type": "ByTargetGlobalValue",
               "key": "DieSandworm_IsInCutscene",
-              "repeatTimes": 0.0,
+              "value": 0,
               "compareType": "NoneOrEqual"
             }
           ],
@@ -1771,67 +1735,66 @@
   },
   {
     "Default": {
-      "$type": "ECIJFKLDIPB",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_AbilitySandWorm_Sand_03_ShootAttack",
       "abilityMixins": [
         {
-          "$type": "KKKMAAMBHMO",
+          "$type": "AttachToNormalizedTimeMixin",
           "stateID": "Skill02",
           "modifierName": "Alert",
-          "normalizeEnd": 0.5299999713897705,
-          "JGGNBGHKMJG": ""
+          "normalizeEnd": 0.53,
+          "__unk_Q2081332355": ""
         },
         {
-          "$type": "KKKMAAMBHMO",
+          "$type": "AttachToNormalizedTimeMixin",
           "stateID": "Skill03",
           "modifierName": "Alert",
-          "normalizeEnd": 0.5299999713897705,
-          "JGGNBGHKMJG": ""
+          "normalizeEnd": 0.53,
+          "__unk_Q2081332355": ""
         },
         {
-          "$type": "KKKMAAMBHMO",
+          "$type": "AttachToNormalizedTimeMixin",
           "stateID": "Skill04",
           "modifierName": "Alert",
-          "normalizeEnd": 0.5299999713897705,
-          "JGGNBGHKMJG": ""
+          "normalizeEnd": 0.53,
+          "__unk_Q2081332355": ""
         }
       ],
       "modifiers": {
         "Alert": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "ENDHKAOAKJH",
+              "$type": "AttachEffect",
               "predicates": [
                 {
-                  "$type": "HBBHADONLIE",
+                  "$type": "ByTargetGlobalValue",
                   "key": "DieSandworm_IsInCutscene",
-                  "repeatTimes": 0.0,
+                  "value": 0,
                   "compareType": "NoneOrEqual"
                 }
               ],
-              "rotationDampTime": "Eff_Monster_Sandworm_01_ActivityGadget_ShootAttack_02_Alert",
-              "FKNFFAHLCHH": 1.0,
-              "GDNGPLIHABI": -1.0
+              "effectPattern": "Eff_Monster_Sandworm_01_ActivityGadget_ShootAttack_02_Alert",
+              "scale": 1
             }
           ]
         }
       },
       "onAbilityStart": [
         {
-          "$type": "PDGILBJBOOA",
+          "$type": "TriggerBullet",
           "predicates": [
             {
-              "$type": "HBBHADONLIE",
+              "$type": "ByTargetGlobalValue",
               "key": "DieSandworm_IsInCutscene",
-              "repeatTimes": 0.0,
+              "value": 0,
               "compareType": "NoneOrEqual"
             }
           ],
           "bulletID": 70290942,
           "born": {
-            "$type": "EIIDFNOJEFD",
+            "$type": "ConfigBornByAttachPoint",
             "useRotation": true,
             "attachPointName": "TailBulletSource_Fixed"
           },
@@ -1842,60 +1805,59 @@
   },
   {
     "Default": {
-      "$type": "ECIJFKLDIPB",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_DieSandworm_03_ShootAttack",
       "abilityMixins": [
         {
-          "$type": "KKKMAAMBHMO",
+          "$type": "AttachToNormalizedTimeMixin",
           "stateID": "Skill03_02",
           "modifierName": "Alert",
-          "normalizeEnd": 0.5299999713897705,
-          "JGGNBGHKMJG": ""
+          "normalizeEnd": 0.53,
+          "__unk_Q2081332355": ""
         },
         {
-          "$type": "KKKMAAMBHMO",
+          "$type": "AttachToNormalizedTimeMixin",
           "stateID": "Skill03_03",
           "modifierName": "Alert",
-          "normalizeEnd": 0.5299999713897705,
-          "JGGNBGHKMJG": ""
+          "normalizeEnd": 0.53,
+          "__unk_Q2081332355": ""
         }
       ],
       "modifiers": {
         "Alert": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "ENDHKAOAKJH",
+              "$type": "AttachEffect",
               "predicates": [
                 {
-                  "$type": "HBBHADONLIE",
+                  "$type": "ByTargetGlobalValue",
                   "key": "DieSandworm_IsInCutscene",
-                  "repeatTimes": 0.0,
+                  "value": 0,
                   "compareType": "NoneOrEqual"
                 }
               ],
-              "rotationDampTime": "Eff_Monster_Sandworm_01_ActivityGadget_ShootAttack_02_Alert",
-              "FKNFFAHLCHH": 1.0,
-              "GDNGPLIHABI": -1.0
+              "effectPattern": "Eff_Monster_Sandworm_01_ActivityGadget_ShootAttack_02_Alert",
+              "scale": 1
             }
           ]
         }
       },
       "onAbilityStart": [
         {
-          "$type": "PDGILBJBOOA",
+          "$type": "TriggerBullet",
           "predicates": [
             {
-              "$type": "HBBHADONLIE",
+              "$type": "ByTargetGlobalValue",
               "key": "DieSandworm_IsInCutscene",
-              "repeatTimes": 0.0,
+              "value": 0,
               "compareType": "NoneOrEqual"
             }
           ],
           "bulletID": 70290942,
           "born": {
-            "$type": "EIIDFNOJEFD",
+            "$type": "ConfigBornByAttachPoint",
             "useRotation": true,
             "attachPointName": "TailBulletSource_Fixed"
           },
@@ -1906,26 +1868,25 @@
   },
   {
     "Default": {
-      "$type": "ECIJFKLDIPB",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_AbilitySandWorm_Sand_02_ShootAttack_Bullet_Loop",
       "modifiers": {
         "UNIQUE_Bullet_Loop": {
           "modifierName": "",
-          "forceTriggerWhenChangeAuthority": true,
-          "MCCELHKGPOP": 100.0,
+          "isUnique": true,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "ENDHKAOAKJH",
-              "rotationDampTime": "Eff_Monster_Sandworm_01_Stage02_DrillRushAttack_Bullet_Activity",
-              "FKNFFAHLCHH": 1.0,
-              "GDNGPLIHABI": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_Monster_Sandworm_01_Stage02_DrillRushAttack_Bullet_Activity",
+              "scale": 1
             }
           ]
         }
       },
       "onAdded": [
         {
-          "$type": "GNLJNLOMNGD",
+          "$type": "AttachModifier",
           "modifierName": "UNIQUE_Bullet_Loop"
         }
       ]
@@ -1933,67 +1894,56 @@
   },
   {
     "Default": {
-      "$type": "ECIJFKLDIPB",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_AbilitySandWorm_Sand_02_ShootAttack_Bullet_Explode",
       "onAbilityStart": [
         {
-          "$type": "EHPLOGLPPAC",
-          "rotationDampTime": "Eff_Monster_Sandworm_01_Stage02_DrillRushAttack_Bullet_Hit_Activity",
+          "$type": "FireEffect",
+          "effectPattern": "Eff_Monster_Sandworm_01_Stage02_DrillRushAttack_Bullet_Hit_Activity",
           "born": {
-            "$type": "DCIDKNMJCLI",
-            "offset": {
-              "EPAKBMBAOKK": 0.0,
-              "LNOGCFLGIJI": 0.0,
-              "MEJNCDENBNH": 0.0
-            },
+            "$type": "ConfigBornBySelf",
             "onGround": true,
             "alongGround": true,
             "useRotation": true
           },
-          "FKNFFAHLCHH": 1.0,
-          "GDNGPLIHABI": -1.0
+          "scale": 1
         },
         {
-          "$type": "KIBGAKKBNCL",
+          "$type": "TriggerAttackEvent",
           "attackEvent": {
             "attackPattern": {
-              "$type": "KHBCMELAIKO",
+              "$type": "ConfigAttackSphere",
               "triggerType": "TriggerNoRepeat",
               "born": {
-                "$type": "DCIDKNMJCLI",
-                "offset": {
-                  "EPAKBMBAOKK": 0.0,
-                  "LNOGCFLGIJI": 0.0,
-                  "MEJNCDENBNH": 0.0
-                },
+                "$type": "ConfigBornBySelf",
                 "onGround": true,
                 "alongGround": true,
                 "useRotation": true
               },
-              "DCBIMHFGHEJ": 3.0
+              "radius": 3
             },
             "attackInfo": {
               "attackTag": "SandwormAttack",
               "attenuationTag": "",
               "attenuationGroup": "default",
               "attackProperty": {
-                "actorGrassSubHurtDelta": 2.5,
-                "actorWaterSubHurtDelta": 0.0,
+                "damagePercentage": 2.5,
+                "damagePercentageRatio": 0,
                 "elementType": "Wind",
-                "MCCELHKGPOP": 50.0,
+                "elementDurability": 50,
                 "strikeType": "Blunt",
-                "enBreak": 25.0,
-                "KLIMCEGLPLG": 0.0
+                "enBreak": 25,
+                "__exp_arkhe": 0
               },
               "hitPattern": {
                 "onHitEffectName": "none",
-                "hitImpulseY": "",
+                "__unk_Q3893899620": "",
                 "hitImpulseType": "LV3",
-                "hitHaltTimeScale": 0.05000000074505806
+                "hitHaltTimeScale": 0.05
               },
               "cameraShake": {
-                "shakeRange": 0.05999999865889549,
-                "shakeTime": 0.09000000357627869
+                "shakeRange": 0.06,
+                "shakeTime": 0.09
               },
               "canBeModifiedBy": "OriginOwner"
             }
@@ -2005,19 +1955,19 @@
   },
   {
     "Default": {
-      "$type": "ECIJFKLDIPB",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_AbilitySandWorm_Sand_03_ShootAttack_Attack",
       "modifiers": {
         "Damage_Timer": {
           "modifierName": "",
-          "elementDurability": 2.5,
-          "MCCELHKGPOP": 100.0,
+          "duration": 2.5,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "NLFNDLFMJHG",
-              "rotationDampTime": "Eff_Monster_Sandworm_01_Stage02_Bullet_Alert_Activity",
+              "$type": "FireSubEmitterEffect",
+              "effectPattern": "Eff_Monster_Sandworm_01_Stage02_Bullet_Alert_Activity",
               "born": {
-                "$type": "GNIAPFBHMIK",
+                "$type": "ConfigBornByTarget",
                 "onGround": true,
                 "alongGround": true
               }
@@ -2025,67 +1975,64 @@
           ],
           "onRemoved": [
             {
-              "$type": "KJEGDOKGCML",
+              "$type": "TriggerAudio",
               "operation": {
-                "$type": "ONGGIEBEGDM",
+                "$type": "ConfigAudioEventOp",
                 "operation": {
                   "text": "Play_sfx_monster_effigy_ice_vfx_spikeStrike_attack"
                 }
               }
             },
             {
-              "$type": "AHHAGLJGKDD",
+              "$type": "ApplyModifier",
               "modifierName": "SingleDamage"
             }
           ]
         },
         "SingleDamage": {
           "modifierName": "",
-          "elementDurability": 0.5,
-          "MCCELHKGPOP": 100.0,
+          "duration": 0.5,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "EHPLOGLPPAC",
-              "rotationDampTime": "Eff_Monster_Sandworm_01_Stage02_Bullet_Hit_Activity",
+              "$type": "FireEffect",
+              "effectPattern": "Eff_Monster_Sandworm_01_Stage02_Bullet_Hit_Activity",
               "born": {
-                "$type": "GNIAPFBHMIK",
+                "$type": "ConfigBornByTarget",
                 "onGround": true,
                 "alongGround": true
               },
-              "FKNFFAHLCHH": 1.0,
-              "GDNGPLIHABI": -1.0
+              "scale": 1
             },
             {
-              "$type": "KIBGAKKBNCL",
+              "$type": "TriggerAttackEvent",
               "attackEvent": {
                 "attackPattern": {
-                  "$type": "DCBLBBGDIAN",
+                  "$type": "ConfigAttackCircle",
                   "triggerType": "TriggerNoRepeat",
                   "born": {
-                    "$type": "DCIDKNMJCLI",
+                    "$type": "ConfigBornBySelf",
                     "offset": {
-                      "EPAKBMBAOKK": 0.0,
-                      "LNOGCFLGIJI": -0.125,
-                      "MEJNCDENBNH": 0.0
+                      "y": -0.125
                     },
                     "onGround": true,
                     "useRotation": true
                   },
-                  "height": 2.0,
-                  "DCBIMHFGHEJ": 3.0
+                  "height": 2,
+                  "radius": 3
                 },
                 "attackInfo": {
                   "attackTag": "SandwormAttack",
                   "attenuationTag": "",
                   "attenuationGroup": "default",
                   "attackProperty": {
-                    "actorGrassSubHurtDelta": 1.0,
-                    "actorWaterSubHurtDelta": 0.0,
+                    "damagePercentage": 1,
+                    "damagePercentageRatio": 0,
                     "elementType": "Wind",
-                    "MCCELHKGPOP": 100.0,
+                    "elementDurability": 100,
                     "strikeType": "Blunt",
-                    "enBreak": 0.0,
-                    "KLIMCEGLPLG": 0.0
+                    "enBreak": 0,
+                    "__exp_arkhe": 0
                   }
                 }
               },
@@ -2096,16 +2043,16 @@
       },
       "onAdded": [
         {
-          "$type": "AHHAGLJGKDD",
+          "$type": "ApplyModifier",
           "modifierName": "Damage_Timer"
         }
       ],
       "onAbilityStart": [
         {
-          "$type": "ACAJCCHJEDG",
+          "$type": "KillSelf",
           "predicates": [
             {
-              "$type": "KIMAKBDKABN",
+              "$type": "ByHasModifier",
               "modifierName": "Damage_Timer"
             }
           ]
@@ -2115,7 +2062,7 @@
   },
   {
     "Default": {
-      "$type": "ECIJFKLDIPB",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_AbilitySandWorm_PartControl_Start",
       "onAdded": [
         {
@@ -2152,7 +2099,7 @@
   },
   {
     "Default": {
-      "$type": "ECIJFKLDIPB",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_AbilitySandWorm_PartControl_End",
       "onAbilityStart": [
         {
@@ -2166,14 +2113,14 @@
   },
   {
     "Default": {
-      "$type": "ECIJFKLDIPB",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_AbilitySandWorm_DoEarthQuake",
       "modifiers": {
         "UNIQUE_AbilitySandWormBillboardAsh": {
           "modifierName": "",
-          "forceTriggerWhenChangeAuthority": true,
-          "elementDurability": 1.0,
-          "MCCELHKGPOP": 100.0,
+          "isUnique": true,
+          "duration": 1,
+          "elementDurability": 100,
           "onRemoved": [
             {
               "$type": "AKOECFNBMBC"
@@ -2182,50 +2129,50 @@
         },
         "UNIQUE_AbilitySandWormScreenEffect": {
           "modifierName": "",
-          "forceTriggerWhenChangeAuthority": true,
-          "MCCELHKGPOP": 100.0,
+          "isUnique": true,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "HLHAODOBHPK",
+              "$type": "SetGlobalValue",
               "target": "Team",
-              "repeatTimes": 1.0,
+              "value": 1,
               "key": "_HAS_SandWorm_ScreenEffect",
-              "param2": 0.0,
-              "triggerID": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ],
           "onRemoved": [
             {
-              "$type": "HLHAODOBHPK",
+              "$type": "SetGlobalValue",
               "target": "Team",
-              "repeatTimes": 0.0,
+              "value": 0,
               "key": "_HAS_SandWorm_ScreenEffect",
-              "param2": 0.0,
-              "triggerID": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ],
           "onKill": [
             {
-              "$type": "HLHAODOBHPK",
+              "$type": "SetGlobalValue",
               "target": "Team",
-              "repeatTimes": 0.0,
+              "value": 0,
               "key": "_HAS_SandWorm_ScreenEffect",
-              "param2": 0.0,
-              "triggerID": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         "UNIQUE_AbilitySandWormCameraRadialBlur": {
           "modifierName": "",
-          "forceTriggerWhenChangeAuthority": true,
-          "elementDurability": 4.0,
-          "MCCELHKGPOP": 100.0,
+          "isUnique": true,
+          "duration": 4,
+          "elementDurability": 100,
           "modifierMixins": [
             {
-              "$type": "IFCNAOFGNGG",
+              "$type": "CameraBlurMixin",
               "cameraRadialBlur": {
-                "power": 0.6000000238418579,
-                "fadeTime": 0.15000000596046448
+                "power": 0.6,
+                "fadeTime": 0.15
               }
             }
           ]
@@ -2244,28 +2191,28 @@
       ],
       "onAbilityStart": [
         {
-          "$type": "KIBGAKKBNCL",
+          "$type": "TriggerAttackEvent",
           "predicates": [
             {
-              "$type": "HBBHADONLIE",
+              "$type": "ByTargetGlobalValue",
               "key": "SGV_Sandworm_LevelFive",
-              "repeatTimes": 0.0,
+              "value": 0,
               "compareType": "NoneOrEqual"
             }
           ],
           "attackEvent": {
             "attackPattern": {
-              "$type": "MFBGHKHFOPA",
+              "$type": "ConfigAttackBox",
               "triggerType": "TriggerNoRepeat",
               "ignoreMassive": true,
               "born": {
-                "$type": "DCIDKNMJCLI",
+                "$type": "ConfigBornBySelf",
                 "useRotation": true
               },
               "size": {
-                "EPAKBMBAOKK": 0.10000000149011612,
-                "LNOGCFLGIJI": 0.10000000149011612,
-                "MEJNCDENBNH": 0.10000000149011612
+                "x": 0.1,
+                "y": 0.1,
+                "z": 0.1
               }
             },
             "attackInfo": {
@@ -2273,31 +2220,31 @@
               "attenuationTag": "",
               "attenuationGroup": "default",
               "attackProperty": {
-                "actorGrassSubHurtDelta": 0.0,
-                "actorWaterSubHurtDelta": 0.0,
-                "MCCELHKGPOP": 100.0,
-                "KLIMCEGLPLG": 0.0
+                "damagePercentage": 0,
+                "damagePercentageRatio": 0,
+                "elementDurability": 100,
+                "__exp_arkhe": 0
               },
               "hitPattern": {
                 "onHitEffectName": "none",
-                "hitImpulseY": "",
+                "__unk_Q3893899620": "",
                 "hitImpulseType": "LV0",
-                "hitHaltTimeScale": 0.05000000074505806
+                "hitHaltTimeScale": 0.05
               },
               "forceCameraShake": true,
               "cameraShake": {
                 "shakeType": "CustomVector",
                 "shakeRange": 0.125,
-                "shakeTime": 3.0,
-                "shakeDistance": 35.0,
+                "shakeTime": 3,
+                "shakeDistance": 35,
                 "shakeDir": {
-                  "y": -1.0
+                  "y": -1
                 },
                 "extension": {
                   "baseOnCamera": true,
-                  "baseCycle": 0.20000000298023224,
-                  "cycleDamping": 0.0,
-                  "rangeAttenuation": 1.0
+                  "baseCycle": 0.2,
+                  "cycleDamping": 0,
+                  "rangeAttenuation": 1
                 }
               }
             }
@@ -2308,33 +2255,33 @@
           "$type": "MGDIMGIKFKK",
           "luaCallType": "FromGroup",
           "sourceName": "AbilitySandWorm_Monster_Die",
-          "param1": 0.0,
-          "BMDDJMILHBO": 0.0,
-          "HILLBLDAAKP": 0.0
+          "param1": 0,
+          "BMDDJMILHBO": 0,
+          "HILLBLDAAKP": 0
         },
         {
-          "$type": "AHHAGLJGKDD",
+          "$type": "ApplyModifier",
           "modifierName": "UNIQUE_AbilitySandWormBillboardAsh"
         },
         {
-          "$type": "AHHAGLJGKDD",
+          "$type": "ApplyModifier",
           "predicates": [
             {
-              "$type": "HBBHADONLIE",
+              "$type": "ByTargetGlobalValue",
               "key": "SGV_Sandworm_LevelFive",
-              "repeatTimes": 0.0,
+              "value": 0,
               "compareType": "NoneOrEqual"
             }
           ],
           "modifierName": "UNIQUE_AbilitySandWormScreenEffect"
         },
         {
-          "$type": "AHHAGLJGKDD",
+          "$type": "ApplyModifier",
           "predicates": [
             {
-              "$type": "HBBHADONLIE",
+              "$type": "ByTargetGlobalValue",
               "key": "SGV_Sandworm_LevelFive",
-              "repeatTimes": 0.0,
+              "value": 0,
               "compareType": "NoneOrEqual"
             }
           ],
@@ -2345,20 +2292,20 @@
   },
   {
     "Default": {
-      "$type": "ECIJFKLDIPB",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_DieSandWorm_DoEarthQuake",
       "modifiers": {
         "UNIQUE_DieSandWormCameraRadialBlur": {
           "modifierName": "",
-          "forceTriggerWhenChangeAuthority": true,
-          "elementDurability": 4.0,
-          "MCCELHKGPOP": 100.0,
+          "isUnique": true,
+          "duration": 4,
+          "elementDurability": 100,
           "modifierMixins": [
             {
-              "$type": "IFCNAOFGNGG",
+              "$type": "CameraBlurMixin",
               "cameraRadialBlur": {
-                "power": 0.6000000238418579,
-                "fadeTime": 0.15000000596046448
+                "power": 0.6,
+                "fadeTime": 0.15
               }
             }
           ]
@@ -2366,20 +2313,20 @@
       },
       "onAbilityStart": [
         {
-          "$type": "KIBGAKKBNCL",
+          "$type": "TriggerAttackEvent",
           "attackEvent": {
             "attackPattern": {
-              "$type": "MFBGHKHFOPA",
+              "$type": "ConfigAttackBox",
               "triggerType": "TriggerNoRepeat",
               "ignoreMassive": true,
               "born": {
-                "$type": "DCIDKNMJCLI",
+                "$type": "ConfigBornBySelf",
                 "useRotation": true
               },
               "size": {
-                "EPAKBMBAOKK": 0.10000000149011612,
-                "LNOGCFLGIJI": 0.10000000149011612,
-                "MEJNCDENBNH": 0.10000000149011612
+                "x": 0.1,
+                "y": 0.1,
+                "z": 0.1
               }
             },
             "attackInfo": {
@@ -2387,31 +2334,31 @@
               "attenuationTag": "",
               "attenuationGroup": "default",
               "attackProperty": {
-                "actorGrassSubHurtDelta": 0.0,
-                "actorWaterSubHurtDelta": 0.0,
-                "MCCELHKGPOP": 100.0,
-                "KLIMCEGLPLG": 0.0
+                "damagePercentage": 0,
+                "damagePercentageRatio": 0,
+                "elementDurability": 100,
+                "__exp_arkhe": 0
               },
               "hitPattern": {
                 "onHitEffectName": "none",
-                "hitImpulseY": "",
+                "__unk_Q3893899620": "",
                 "hitImpulseType": "LV0",
-                "hitHaltTimeScale": 0.05000000074505806
+                "hitHaltTimeScale": 0.05
               },
               "forceCameraShake": true,
               "cameraShake": {
                 "shakeType": "CustomVector",
                 "shakeRange": 0.125,
-                "shakeTime": 3.0,
-                "shakeDistance": 35.0,
+                "shakeTime": 3,
+                "shakeDistance": 35,
                 "shakeDir": {
-                  "y": -1.0
+                  "y": -1
                 },
                 "extension": {
                   "baseOnCamera": true,
-                  "baseCycle": 0.20000000298023224,
-                  "cycleDamping": 0.0,
-                  "rangeAttenuation": 1.0
+                  "baseCycle": 0.2,
+                  "cycleDamping": 0,
+                  "rangeAttenuation": 1
                 }
               }
             }
@@ -2423,7 +2370,7 @@
   },
   {
     "Default": {
-      "$type": "ECIJFKLDIPB",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_MoveSandWorm_Sand_01",
       "abilityMixins": [
         {
@@ -2439,26 +2386,26 @@
       "modifiers": {
         "Skill": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0,
+          "elementDurability": 100,
           "onBeingHit": [
             {
-              "$type": "AELJBEHKFGP",
+              "$type": "SetAnimatorBool",
               "boolID": "End",
-              "repeatTimes": true
+              "value": true
             }
           ]
         },
         "End": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "MGDIMGIKFKK",
               "luaCallType": "FromGroup",
               "sourceName": "MoveSandWorm_Sand_End",
-              "param1": 0.0,
-              "BMDDJMILHBO": 0.0,
-              "HILLBLDAAKP": 0.0
+              "param1": 0,
+              "BMDDJMILHBO": 0,
+              "HILLBLDAAKP": 0
             }
           ]
         }
@@ -2467,7 +2414,7 @@
   },
   {
     "Default": {
-      "$type": "ECIJFKLDIPB",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_DieSandWorm_Sand_01",
       "abilityMixins": [
         {
@@ -2495,9 +2442,9 @@
           "modifierName": "End"
         },
         {
-          "$type": "GBFNENNJIBL",
+          "$type": "AttachModifierToSelfGlobalValueMixin",
           "globalValueKey": "DIESANDWORM_PLAYDIE",
-          "gvInTalk": 0.0,
+          "defaultGlobalValueOnCreate": 0,
           "valueSteps": [
             -0.5,
             0.5,
@@ -2512,14 +2459,14 @@
       "modifiers": {
         "Wait": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "BHKHMEDGJGH",
-              "shieldHP": true,
-              "PLKMGPJIHFH": 1.0,
+              "$type": "HealHP",
+              "doOffStage": true,
+              "amountByTargetMaxHPRatio": 1,
               "muteHealEffect": true,
-              "cdRatio": ""
+              "__exp_healTag": ""
             },
             {
               "$type": "AKOECFNBMBC",
@@ -2531,37 +2478,37 @@
               "skipCheck": true
             },
             {
-              "$type": "HLHAODOBHPK",
-              "repeatTimes": 0.0,
+              "$type": "SetGlobalValue",
+              "value": 0,
               "key": "DIESANDWORM_PLAYDIE",
-              "param2": 0.0,
-              "triggerID": 0.0
+              "maxValue": 0,
+              "minValue": 0
             },
             {
-              "$type": "KEBEIINPIOE",
-              "OEMEMBJJJPH": "ToWait"
+              "$type": "SetAnimatorTrigger",
+              "triggerID": "ToWait"
             },
             {
-              "$type": "KEBEIINPIOE",
-              "OEMEMBJJJPH": "ShaderWait"
+              "$type": "SetAnimatorTrigger",
+              "triggerID": "ShaderWait"
             },
             {
-              "$type": "ANEGGLOPIGK",
+              "$type": "SetAnimatorInt",
               "intID": "SkillState",
-              "repeatTimes": 0.0
+              "value": 0
             },
             {
-              "$type": "HLHAODOBHPK",
-              "repeatTimes": 0.0,
+              "$type": "SetGlobalValue",
+              "value": 0,
               "key": "DieSandworm_IsInCutscene",
-              "param2": 0.0,
-              "triggerID": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         "Skill01": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0,
+          "elementDurability": 100,
           "state": "Limbo",
           "onAdded": [
             {
@@ -2574,9 +2521,9 @@
               "fore": true
             },
             {
-              "$type": "ANEGGLOPIGK",
+              "$type": "SetAnimatorInt",
               "intID": "SkillState",
-              "repeatTimes": 1.0
+              "value": 1
             },
             {
               "$type": "GPLMLFFCLAN",
@@ -2590,15 +2537,15 @@
           ],
           "onRemoved": [
             {
-              "$type": "ANEGGLOPIGK",
+              "$type": "SetAnimatorInt",
               "intID": "SkillState",
-              "repeatTimes": 0.0
+              "value": 0
             }
           ]
         },
         "Skill02": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0,
+          "elementDurability": 100,
           "state": "Limbo",
           "onAdded": [
             {
@@ -2611,9 +2558,9 @@
               "fore": true
             },
             {
-              "$type": "ANEGGLOPIGK",
+              "$type": "SetAnimatorInt",
               "intID": "SkillState",
-              "repeatTimes": 2.0
+              "value": 2
             },
             {
               "$type": "GPLMLFFCLAN",
@@ -2627,15 +2574,15 @@
           ],
           "onRemoved": [
             {
-              "$type": "ANEGGLOPIGK",
+              "$type": "SetAnimatorInt",
               "intID": "SkillState",
-              "repeatTimes": 0.0
+              "value": 0
             }
           ]
         },
         "Skill03": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0,
+          "elementDurability": 100,
           "state": "Limbo",
           "onAdded": [
             {
@@ -2648,9 +2595,9 @@
               "fore": true
             },
             {
-              "$type": "ANEGGLOPIGK",
+              "$type": "SetAnimatorInt",
               "intID": "SkillState",
-              "repeatTimes": 3.0
+              "value": 3
             },
             {
               "$type": "GPLMLFFCLAN",
@@ -2664,57 +2611,57 @@
           ],
           "onRemoved": [
             {
-              "$type": "ANEGGLOPIGK",
+              "$type": "SetAnimatorInt",
               "intID": "SkillState",
-              "repeatTimes": 0.0
+              "value": 0
             }
           ]
         },
         "End": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "MGDIMGIKFKK",
               "luaCallType": "FromGroup",
               "sourceName": "DieSandWorm_Sand_End",
-              "param1": 0.0,
-              "BMDDJMILHBO": 0.0,
-              "HILLBLDAAKP": 0.0
+              "param1": 0,
+              "BMDDJMILHBO": 0,
+              "HILLBLDAAKP": 0
             },
             {
-              "$type": "AHHAGLJGKDD",
+              "$type": "ApplyModifier",
               "modifierName": "Delayed_ReturnToWait"
             }
           ]
         },
         "DieSandworm_PlayDie": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "KEBEIINPIOE",
-              "OEMEMBJJJPH": "ToDie"
+              "$type": "SetAnimatorTrigger",
+              "triggerID": "ToDie"
             },
             {
-              "$type": "KEBEIINPIOE",
-              "OEMEMBJJJPH": "Die"
+              "$type": "SetAnimatorTrigger",
+              "triggerID": "Die"
             },
             {
-              "$type": "ANEGGLOPIGK",
+              "$type": "SetAnimatorInt",
               "intID": "SkillState",
-              "repeatTimes": 0.0
+              "value": 0
             }
           ]
         },
         "Empty": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0
+          "elementDurability": 100
         },
         "Delayed_ReturnToWait": {
           "modifierName": "",
-          "elementDurability": 10.0,
-          "MCCELHKGPOP": 100.0,
+          "duration": 10,
+          "elementDurability": 100,
           "onRemoved": [
             {
               "$type": "GDPEKEDGDLC",
@@ -2727,23 +2674,23 @@
               ]
             },
             {
-              "$type": "ANEGGLOPIGK",
+              "$type": "SetAnimatorInt",
               "intID": "SkillState",
-              "repeatTimes": 0.0
+              "value": 0
             }
           ]
         }
       },
       "onAdded": [
         {
-          "$type": "HLHAODOBHPK",
-          "repeatTimes": 0.0,
+          "$type": "SetGlobalValue",
+          "value": 0,
           "key": "DIESANDWORM_PLAYDIE",
-          "param2": 0.0,
-          "triggerID": 0.0
+          "maxValue": 0,
+          "minValue": 0
         },
         {
-          "$type": "DIADBHNCPGO",
+          "$type": "CreateGadget",
           "lifeByOwnerV2": true,
           "gadgetID": 70290938,
           "campID": 5001,
@@ -2760,7 +2707,7 @@
   },
   {
     "Default": {
-      "$type": "ECIJFKLDIPB",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_SmashSandWorm_Sand_01",
       "abilityMixins": [
         {
@@ -2778,49 +2725,49 @@
           "modifierName": "End"
         },
         {
-          "$type": "BCJDIOHHNHP",
+          "$type": "AttachToStateIDMixin",
           "stateIDs": [
             "Skill"
           ],
           "modifierName": "SmashSandworm_BeHitDetector",
-          "JGGNBGHKMJG": ""
+          "__unk_Q2081332355": ""
         }
       ],
       "modifiers": {
         "Empty": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0
+          "elementDurability": 100
         },
         "Skill": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0
+          "elementDurability": 100
         },
         "End": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "MGDIMGIKFKK",
               "luaCallType": "FromGroup",
               "sourceName": "SmashSandWorm_Sand_End",
-              "param1": 0.0,
-              "BMDDJMILHBO": 0.0,
-              "HILLBLDAAKP": 0.0
+              "param1": 0,
+              "BMDDJMILHBO": 0,
+              "HILLBLDAAKP": 0
             },
             {
-              "$type": "AHHAGLJGKDD",
+              "$type": "ApplyModifier",
               "modifierName": "DelayedRemove"
             }
           ]
         },
         "SmashSandworm_BeHitDetector": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
-              "$type": "GBFNENNJIBL",
+              "$type": "AttachModifierToSelfGlobalValueMixin",
               "globalValueKey": "SmashSandworm_BeHit_Count",
-              "gvInTalk": 0.0,
+              "defaultGlobalValueOnCreate": 0,
               "valueSteps": [
                 -0.5,
                 0.5,
@@ -2834,42 +2781,42 @@
           ],
           "onAdded": [
             {
-              "$type": "HLHAODOBHPK",
-              "repeatTimes": 0.0,
+              "$type": "SetGlobalValue",
+              "value": 0,
               "key": "SmashSandworm_BeHit_Count",
-              "param2": 0.0,
-              "triggerID": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ],
           "onBeingHit": [
             {
-              "$type": "ACPEIOBJLKD",
-              "repeatTimes": 1.0,
+              "$type": "AddGlobalValue",
+              "value": 1,
               "key": "SmashSandworm_BeHit_Count",
               "useLimitRange": true,
-              "param2": 1.0,
-              "triggerID": 0.0
+              "maxValue": 1,
+              "minValue": 0
             }
           ]
         },
         "SmashSandworm_ToEnd": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "AELJBEHKFGP",
+              "$type": "SetAnimatorBool",
               "boolID": "End_Killed",
-              "repeatTimes": true
+              "value": true
             }
           ]
         },
         "DelayedRemove": {
           "modifierName": "",
-          "elementDurability": 10.0,
-          "MCCELHKGPOP": 100.0,
+          "duration": 10,
+          "elementDurability": 100,
           "onRemoved": [
             {
-              "$type": "ACAJCCHJEDG"
+              "$type": "KillSelf"
             }
           ]
         }
@@ -2878,15 +2825,15 @@
   },
   {
     "Default": {
-      "$type": "ECIJFKLDIPB",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_DieSandWorm_Sand_01_PartcontrolTarget",
       "onAdded": [
         {
-          "$type": "HLHAODOBHPK",
-          "repeatTimes": 1.0,
+          "$type": "SetGlobalValue",
+          "value": 1,
           "key": "DIESANDWORM_ISPARTCONTROLTARGET",
-          "param2": 0.0,
-          "triggerID": 0.0
+          "maxValue": 0,
+          "minValue": 0
         },
         {
           "$type": "PABHFPEOELC",
@@ -2898,13 +2845,13 @@
   },
   {
     "Default": {
-      "$type": "ECIJFKLDIPB",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_AbilitySandWorm_Sand_01_TailGroundCover_Start",
       "abilityMixins": [
         {
-          "$type": "GBFNENNJIBL",
+          "$type": "AttachModifierToSelfGlobalValueMixin",
           "globalValueKey": "_MONSTER_SANDWORM_TAILGROUNDCOVER_EFFECT_ON",
-          "gvInTalk": 0.0,
+          "defaultGlobalValueOnCreate": 0,
           "valueSteps": [
             -0.5,
             0.5,
@@ -2919,66 +2866,65 @@
       "modifiers": {
         "Sandworm_TrailGroundCover_Off": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0
+          "elementDurability": 100
         },
         "Sandworm_TrailGroundCover_On": {
           "stacking": "Unique",
           "modifierName": "",
-          "MCCELHKGPOP": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "ENDHKAOAKJH",
-              "rotationDampTime": "Eff_Monster_Sandworm_01_Stage01_GroundCover",
-              "FKNFFAHLCHH": 1.0,
-              "GDNGPLIHABI": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_Monster_Sandworm_01_Stage01_GroundCover",
+              "scale": 1
             }
           ]
         }
       },
       "onAdded": [
         {
-          "$type": "HLHAODOBHPK",
-          "repeatTimes": 0.0,
+          "$type": "SetGlobalValue",
+          "value": 0,
           "key": "_MONSTER_SANDWORM_TAILGROUNDCOVER_EFFECT_ON",
-          "param2": 0.0,
-          "triggerID": 0.0
+          "maxValue": 0,
+          "minValue": 0
         }
       ],
       "onAbilityStart": [
         {
-          "$type": "HLHAODOBHPK",
-          "repeatTimes": 1.0,
+          "$type": "SetGlobalValue",
+          "value": 1,
           "key": "_MONSTER_SANDWORM_TAILGROUNDCOVER_EFFECT_ON",
-          "param2": 0.0,
-          "triggerID": 0.0
+          "maxValue": 0,
+          "minValue": 0
         }
       ]
     }
   },
   {
     "Default": {
-      "$type": "ECIJFKLDIPB",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_AbilitySandWorm_Sand_01_TailGroundCover_End",
       "onAbilityStart": [
         {
-          "$type": "HLHAODOBHPK",
-          "repeatTimes": 0.0,
+          "$type": "SetGlobalValue",
+          "value": 0,
           "key": "_MONSTER_SANDWORM_TAILGROUNDCOVER_EFFECT_ON",
-          "param2": 0.0,
-          "triggerID": 0.0
+          "maxValue": 0,
+          "minValue": 0
         }
       ]
     }
   },
   {
     "Default": {
-      "$type": "ECIJFKLDIPB",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_AbilitySandWorm_Sand_ClearBullet",
       "abilityMixins": [
         {
-          "$type": "GBFNENNJIBL",
+          "$type": "AttachModifierToSelfGlobalValueMixin",
           "globalValueKey": "DieSandworm_IsInCutscene",
-          "gvInTalk": 0.0,
+          "defaultGlobalValueOnCreate": 0,
           "valueSteps": [
             -0.5,
             0.5,
@@ -2993,29 +2939,29 @@
       "modifiers": {
         "Empty": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0
+          "elementDurability": 100
         },
         "ClearBullet": {
           "modifierName": "",
-          "MCCELHKGPOP": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "JACFKHFCKAL",
-              "shieldHP": true,
+              "$type": "KillGadget",
+              "doOffStage": true,
               "gadgetInfo": {
                 "configID": 70290941
               }
             },
             {
-              "$type": "JACFKHFCKAL",
-              "shieldHP": true,
+              "$type": "KillGadget",
+              "doOffStage": true,
               "gadgetInfo": {
                 "configID": 70290942
               }
             },
             {
               "$type": "KEFEENOBNMC",
-              "shieldHP": true,
+              "doOffStage": true,
               "gadgetInfo": {
                 "configID": 70290943
               }

@@ -3,51 +3,49 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "SceneObj_Environment_Collision_MeteoriteDebuffController",
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "AddDebuff": {
-          "BGIONAIMBCJ": "",
-          "FAFCPJJAIGK": 10.0,
-          "ONIHJPOMNHA": 100.0,
-          "NFKOGKMAIIE": [
+          "modifierName": "",
+          "duration": 10,
+          "elementDurability": 100,
+          "onRemoved": [
             {
               "$type": "ApplyModifier",
-              "KMGAOOHMCPK": "CurLocalAvatar",
-              "BGIONAIMBCJ": "DebuffTimer"
+              "target": "CurLocalAvatar",
+              "modifierName": "DebuffTimer"
             }
           ]
         },
         "DebuffTimer": {
-          "BGIONAIMBCJ": "",
-          "FAFCPJJAIGK": 5.0,
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "duration": 5,
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_Element_Crystal_Ice_Shield",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_Element_Crystal_Ice_Shield"
             }
           ],
-          "NFKOGKMAIIE": [
+          "onRemoved": [
             {
               "$type": "FireEffect",
-              "LHHFHDEJOHC": "Eff_SceneObj_BombBarrel_01_Explode",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_SceneObj_BombBarrel_01_Explode"
             },
             {
               "$type": "CreateGadget",
-              "CCNCMOGOFAG": {
-                "$type": "DELDMCFKBBL"
+              "born": {
+                "$type": "ConfigBornBySelf"
               },
-              "BLPPFMNOOIO": 70900360,
+              "gadgetID": 70900360,
               "campID": 5001
             }
           ]
         }
       },
-      "NLFIGALMIPD": [
+      "onAdded": [
         {
           "$type": "AttachModifier",
-          "BGIONAIMBCJ": "AddDebuff"
+          "modifierName": "AddDebuff"
         }
       ]
     }
@@ -56,134 +54,126 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "SceneObj_Environment_Collision_MeteoriteSeal",
-      "CLHBPEHHEJB": {
-        "DebuffDuration": 20.0
+      "abilitySpecials": {
+        "DebuffDuration": 20
       },
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "Timmer": {
-          "BGIONAIMBCJ": "",
-          "FAFCPJJAIGK": "DebuffDuration",
-          "ONIHJPOMNHA": 100.0,
-          "NFKOGKMAIIE": [
+          "modifierName": "",
+          "duration": "DebuffDuration",
+          "elementDurability": 100,
+          "onRemoved": [
             {
               "$type": "KillSelf"
             }
           ]
         },
         "Eff_Barrier": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 150.0,
-          "CLOIGOBCDJK": [
+          "modifierName": "",
+          "elementDurability": 150,
+          "modifierMixins": [
             {
               "$type": "ShieldBarMixin",
-              "BNHNIOIMHDI": ""
+              "showDamageText": ""
             }
           ],
-          "NLFIGALMIPD": [
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Debuff_01_Imprison",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_SceneObj_Aster_Debuff_01_Imprison"
             }
           ],
-          "NFKOGKMAIIE": [
+          "onRemoved": [
             {
               "$type": "KillSelf"
             }
           ],
-          "EOMGJKEEICG": [
+          "onBeingHit": [
             {
               "$type": "AddElementDurability",
-              "value": -10.0,
-              "BGIONAIMBCJ": "Eff_Barrier",
-              "AJKBEKOCMKF": true,
-              "LBHGJKHHAKP": 150.0,
-              "EMGNPOKHMNN": 0.0
+              "value": -10,
+              "modifierName": "Eff_Barrier",
+              "useLimitRange": true,
+              "maxValue": 150,
+              "minValue": 0
             },
             {
               "$type": "SetGlobalDir",
-              "NGGCNKPAODB": "_AVATAR_HIT_DIR",
-              "CCNCMOGOFAG": {
-                "$type": "OJJKGLKOGEG",
-                "FNHBOFDBNNK": {
+              "key": "_AVATAR_HIT_DIR",
+              "born": {
+                "$type": "ConfigBornByHitPoint",
+                "direction": {
                   "$type": "CCNENGIFDOE"
                 }
               },
-              "NMPAAMMEDAD": false
+              "setTarget": false
             },
             {
               "$type": "FireEffect",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Debuff_01_ImprisonHit",
-              "CCNCMOGOFAG": {
-                "$type": "OJJKGLKOGEG",
-                "offset": {
-                  "NEEHMANEJKM": 0.0,
-                  "KKKLBADAPPB": 0.0,
-                  "GENNNOANKOO": 0.0
-                },
-                "OINHJGEGJLO": true,
-                "FNHBOFDBNNK": {
+              "effectPattern": "Eff_SceneObj_Aster_Debuff_01_ImprisonHit",
+              "born": {
+                "$type": "ConfigBornByHitPoint",
+                "onGround": true,
+                "direction": {
                   "$type": "CCNENGIFDOE"
                 }
-              },
-              "PCLAEGHPNHE": -1.0
+              }
             }
           ],
-          "LFBJFECLNGK": [
+          "onKill": [
             {
               "$type": "FireEffect",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Debuff_01_ImprisonBroken",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_SceneObj_Aster_Debuff_01_ImprisonBroken"
             }
           ]
         },
         "DeBuffController": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AttachModifier",
-              "musicSubStates": {
-                "$type": "HGNAFICLGFP",
-                "IBPOJODNMHO": "CircleR6",
-                "CHPLPFBEPDN": "All",
-                "CHGLFBPDMKF": 1.0
+              "otherTargets": {
+                "$type": "SelectTargetsByShape",
+                "shapeName": "CircleR6",
+                "campTargetType": "All",
+                "sizeRatio": 1
               },
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "FAGBAHBLACH",
-                  "MALHNOJHHDJ": [
+                  "$type": "ByEntityTypes",
+                  "entityTypes": [
                     "Avatar"
                   ]
                 }
               ],
-              "BGIONAIMBCJ": "AttackDebuff"
+              "modifierName": "AttackDebuff"
             }
           ]
         },
         "AttackDebuff": {
-          "BGIONAIMBCJ": "",
-          "FAFCPJJAIGK": "DebuffDuration",
-          "ONIHJPOMNHA": 100.0,
-          "NLPPKPOJEOA": {
-            "Actor_AttackRatio": -0.800000011920929
+          "modifierName": "",
+          "duration": "DebuffDuration",
+          "elementDurability": 100,
+          "properties": {
+            "Actor_AttackRatio": -0.8
           },
-          "FJMPEOEHPJK": "SpeedDown",
-          "PLFMOPGDMDI": true
+          "state": "SpeedDown",
+          "isLimitedProperties": true
         }
       },
-      "NLFIGALMIPD": [
+      "onAdded": [
         {
           "$type": "AttachModifier",
-          "BGIONAIMBCJ": "Eff_Barrier"
+          "modifierName": "Eff_Barrier"
         },
         {
           "$type": "AttachModifier",
-          "BGIONAIMBCJ": "DeBuffController"
+          "modifierName": "DeBuffController"
         },
         {
           "$type": "AttachModifier",
-          "BGIONAIMBCJ": "Timmer"
+          "modifierName": "Timmer"
         }
       ]
     }
@@ -192,77 +182,76 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "SceneObj_Aster_BigAster",
-      "KBODACCMEFE": [
+      "abilityMixins": [
         {
           "$type": "AttachToGadgetStateMixin",
-          "BGIONAIMBCJ": "GearDefault"
+          "modifierName": "GearDefault"
         },
         {
           "$type": "AttachToGadgetStateMixin",
           "JBFLOAMNPBC": 201,
-          "BGIONAIMBCJ": "Mode1"
+          "modifierName": "Mode1"
         },
         {
           "$type": "AttachToGadgetStateMixin",
           "JBFLOAMNPBC": 202,
-          "BGIONAIMBCJ": "Mode2"
+          "modifierName": "Mode2"
         }
       ],
-      "CLHBPEHHEJB": {
-        "curteamscore": 0.0
+      "abilitySpecials": {
+        "curteamscore": 0
       },
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "Mode1": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "SetAnimatorFloat",
-              "JFPNPOCKNIH": "Blend",
-              "value": 1.0
+              "floatID": "Blend",
+              "value": 1
             },
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_SceneObj_AsterLarge_Idle",
-              "CCNCMOGOFAG": {
-                "$type": "IADBHDLMGJB",
-                "MDPMJPIOGLA": "attachPoint"
-              },
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_SceneObj_AsterLarge_Idle",
+              "born": {
+                "$type": "ConfigBornByAttachPoint",
+                "attachPointName": "attachPoint"
+              }
             }
           ]
         },
         "Mode2": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "SetAnimatorFloat",
-              "JFPNPOCKNIH": "Blend",
-              "value": 1.0
+              "floatID": "Blend",
+              "value": 1
             }
           ]
         },
         "GearDefault": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "SetAnimatorFloat",
-              "JFPNPOCKNIH": "Blend",
-              "value": 0.0
+              "floatID": "Blend",
+              "value": 0
             }
           ]
         }
       },
-      "NLFIGALMIPD": [
+      "onAdded": [
         {
           "$type": "AddGlobalValue",
-          "value": 1.0,
-          "NGGCNKPAODB": "IS_BIG_ASTER",
-          "AJKBEKOCMKF": true,
-          "LBHGJKHHAKP": 1.0,
-          "EMGNPOKHMNN": 1.0
+          "value": 1,
+          "key": "IS_BIG_ASTER",
+          "useLimitRange": true,
+          "maxValue": 1,
+          "minValue": 1
         }
       ]
     }
@@ -271,43 +260,43 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "MonsterAffix_Aster_Score",
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "AddScore_To_CurAvatar": {
-          "BGIONAIMBCJ": "",
-          "FAFCPJJAIGK": 0.5,
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "duration": 0.5,
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AddGlobalValue",
-              "KMGAOOHMCPK": "Team",
-              "value": 10.0,
-              "NGGCNKPAODB": "AVATAR_ASTER_SCORE",
-              "AJKBEKOCMKF": true,
-              "LBHGJKHHAKP": 100.0,
-              "EMGNPOKHMNN": 0.0
+              "target": "Team",
+              "value": 10,
+              "key": "AVATAR_ASTER_SCORE",
+              "useLimitRange": true,
+              "maxValue": 100,
+              "minValue": 0
             }
           ]
         }
       },
-      "LFBJFECLNGK": [
+      "onKill": [
         {
           "$type": "ApplyModifier",
-          "musicSubStates": {
-            "$type": "HGNAFICLGFP",
-            "HDBBMLMCMKE": "Nearest",
-            "IBPOJODNMHO": "CircleR5",
-            "CHPLPFBEPDN": "Enemy",
-            "CHGLFBPDMKF": 1.0
+          "otherTargets": {
+            "$type": "SelectTargetsByShape",
+            "sortType": "Nearest",
+            "shapeName": "CircleR5",
+            "campTargetType": "Enemy",
+            "sizeRatio": 1
           },
-          "FLEEHCIOPKA": [
+          "predicates": [
             {
-              "$type": "FAGBAHBLACH",
-              "MALHNOJHHDJ": [
+              "$type": "ByEntityTypes",
+              "entityTypes": [
                 "Avatar"
               ]
             }
           ],
-          "BGIONAIMBCJ": "AddScore_To_CurAvatar"
+          "modifierName": "AddScore_To_CurAvatar"
         }
       ]
     }
@@ -316,12 +305,12 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "SceneObj_Aster_UpLoader",
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "SetAbilityEnableT": {
-          "BGIONAIMBCJ": "",
-          "FAFCPJJAIGK": 0.5,
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "duration": 0.5,
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "SetExtraAbilityEnable",
               "enable": true
@@ -329,48 +318,48 @@
           ]
         },
         "SetAbilityEnableF": {
-          "BGIONAIMBCJ": "",
-          "FAFCPJJAIGK": 0.5,
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "duration": 0.5,
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "SetExtraAbilityEnable"
             }
           ]
         }
       },
-      "LFBJFECLNGK": [
+      "onKill": [
         {
           "$type": "ApplyModifier",
-          "musicSubStates": {
-            "$type": "HGNAFICLGFP",
-            "IBPOJODNMHO": "CircleR5",
-            "CHPLPFBEPDN": "Enemy",
-            "CHGLFBPDMKF": 1.0
+          "otherTargets": {
+            "$type": "SelectTargetsByShape",
+            "shapeName": "CircleR5",
+            "campTargetType": "Enemy",
+            "sizeRatio": 1
           },
-          "FLEEHCIOPKA": [
+          "predicates": [
             {
-              "$type": "FAGBAHBLACH",
-              "MALHNOJHHDJ": [
+              "$type": "ByEntityTypes",
+              "entityTypes": [
                 "Avatar"
               ]
             }
           ],
-          "BGIONAIMBCJ": "SetAbilityEnableF"
+          "modifierName": "SetAbilityEnableF"
         }
       ],
-      "MENHKHPHIKK": [
+      "onFieldEnter": [
         {
           "$type": "ApplyModifier",
-          "KMGAOOHMCPK": "Target",
-          "BGIONAIMBCJ": "SetAbilityEnableT"
+          "target": "Target",
+          "modifierName": "SetAbilityEnableT"
         }
       ],
       "HONEMNFNBMO": [
         {
           "$type": "ApplyModifier",
-          "KMGAOOHMCPK": "Target",
-          "BGIONAIMBCJ": "SetAbilityEnableF"
+          "target": "Target",
+          "modifierName": "SetAbilityEnableF"
         }
       ]
     }
@@ -379,12 +368,12 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "SceneObj_Aster_UpLoader_Small",
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "SetAbilityEnableT": {
-          "BGIONAIMBCJ": "",
-          "FAFCPJJAIGK": 0.5,
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "duration": 0.5,
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "SetExtraAbilityEnable",
               "enable": true
@@ -392,48 +381,48 @@
           ]
         },
         "SetAbilityEnableF": {
-          "BGIONAIMBCJ": "",
-          "FAFCPJJAIGK": 0.5,
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "duration": 0.5,
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "SetExtraAbilityEnable"
             }
           ]
         }
       },
-      "LFBJFECLNGK": [
+      "onKill": [
         {
           "$type": "ApplyModifier",
-          "musicSubStates": {
-            "$type": "HGNAFICLGFP",
-            "IBPOJODNMHO": "CircleR2",
-            "CHPLPFBEPDN": "Enemy",
-            "CHGLFBPDMKF": 1.0
+          "otherTargets": {
+            "$type": "SelectTargetsByShape",
+            "shapeName": "CircleR2",
+            "campTargetType": "Enemy",
+            "sizeRatio": 1
           },
-          "FLEEHCIOPKA": [
+          "predicates": [
             {
-              "$type": "FAGBAHBLACH",
-              "MALHNOJHHDJ": [
+              "$type": "ByEntityTypes",
+              "entityTypes": [
                 "Avatar"
               ]
             }
           ],
-          "BGIONAIMBCJ": "SetAbilityEnableF"
+          "modifierName": "SetAbilityEnableF"
         }
       ],
-      "MENHKHPHIKK": [
+      "onFieldEnter": [
         {
           "$type": "ApplyModifier",
-          "KMGAOOHMCPK": "Target",
-          "BGIONAIMBCJ": "SetAbilityEnableT"
+          "target": "Target",
+          "modifierName": "SetAbilityEnableT"
         }
       ],
       "HONEMNFNBMO": [
         {
           "$type": "ApplyModifier",
-          "KMGAOOHMCPK": "Target",
-          "BGIONAIMBCJ": "SetAbilityEnableF"
+          "target": "Target",
+          "modifierName": "SetAbilityEnableF"
         }
       ]
     }
@@ -442,85 +431,85 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "SceneObj_Aster_ScoreDummy",
-      "CLHBPEHHEJB": {
-        "dummyscore": 0.0
+      "abilitySpecials": {
+        "dummyscore": 0
       },
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "Dummy_Ready": {
-          "BGIONAIMBCJ": "",
+          "modifierName": "",
           "elementType": "Wind",
-          "ONIHJPOMNHA": 101.0,
-          "CLOIGOBCDJK": [
+          "elementDurability": 101,
+          "modifierMixins": [
             {
               "$type": "ShieldBarMixin",
               "HNOAFBPEEGJ": true,
-              "BNHNIOIMHDI": ""
+              "showDamageText": ""
             }
           ],
-          "NLFIGALMIPD": [
+          "onAdded": [
             {
               "$type": "AddGlobalValueToTarget",
-              "CAAICNJMPCD": "Team",
-              "INODFCIEOPP": "Self",
-              "OHLDODBILJD": "AVATAR_ASTER_SCORE",
-              "DCOAHDNGMHH": "DUMMY_ASTER_SCORE"
+              "srcTarget": "Team",
+              "dstTarget": "Self",
+              "srcKey": "AVATAR_ASTER_SCORE",
+              "dstKey": "DUMMY_ASTER_SCORE"
             },
             {
               "$type": "SetGlobalValueToOverrideMap",
-              "AOJHAGMBDNP": "ASTER_CUR",
-              "BPGLCPGHEEK": "curteamscore"
+              "globalValueKey": "ASTER_CUR",
+              "overrideMapKey": "curteamscore"
             },
             {
               "$type": "AddElementDurability",
-              "BKFHNENKMAL": true,
+              "doOffStage": true,
               "value": [
-                0.0,
+                0,
                 "dummyscore",
                 "SUB"
               ],
-              "BGIONAIMBCJ": "Dummy_Ready",
+              "modifierName": "Dummy_Ready",
               "elementType": "Wind",
-              "AJKBEKOCMKF": true,
-              "LBHGJKHHAKP": 101.0,
-              "EMGNPOKHMNN": 1.0
+              "useLimitRange": true,
+              "maxValue": 101,
+              "minValue": 1
             },
             {
               "$type": "DamageByAttackValue",
-              "OIAMOBFMPAB": {
-                "KNOKCFHALLI": "",
-                "HOKPLNACNKG": "",
-                "ILLFBEHPCJA": "default",
-                "BAPFFKCLDPC": {
-                  "PDHAKJCMPHB": 0.0,
-                  "ONIHJPOMNHA": 100.0,
-                  "PGDDACECJLG": 1.0,
-                  "AEOLDMAMNLM": 0.0
+              "attackInfo": {
+                "attackTag": "",
+                "attenuationTag": "",
+                "attenuationGroup": "default",
+                "attackProperty": {
+                  "damagePercentageRatio": 0,
+                  "elementDurability": 100,
+                  "damageExtra": 1,
+                  "__exp_arkhe": 0
                 }
               }
             }
           ]
         }
       },
-      "NLFIGALMIPD": [
+      "onAdded": [
         {
           "$type": "ApplyModifier",
-          "BGIONAIMBCJ": "Dummy_Ready"
+          "modifierName": "Dummy_Ready"
         },
         {
           "$type": "AddGlobalValue",
-          "value": 1.0,
-          "NGGCNKPAODB": "IS_SCOREDUMMY",
-          "AJKBEKOCMKF": true,
-          "LBHGJKHHAKP": 1.0,
-          "EMGNPOKHMNN": 0.0
+          "value": 1,
+          "key": "IS_SCOREDUMMY",
+          "useLimitRange": true,
+          "maxValue": 1,
+          "minValue": 0
         },
         {
           "$type": "AddGlobalValue",
-          "value": 0.0,
-          "NGGCNKPAODB": "DUMMY_ASTER_SCORE",
-          "AJKBEKOCMKF": true,
-          "LBHGJKHHAKP": 100.0,
-          "EMGNPOKHMNN": 0.0
+          "value": 0,
+          "key": "DUMMY_ASTER_SCORE",
+          "useLimitRange": true,
+          "maxValue": 100,
+          "minValue": 0
         }
       ]
     }
@@ -529,61 +518,61 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "SceneObj_Aster_PlayEntity_Esay",
-      "CLHBPEHHEJB": {
-        "MaxScore": 200.0,
-        "SubScore": -0.30000001192092896,
-        "CurScore": 0.0
+      "abilitySpecials": {
+        "MaxScore": 200,
+        "SubScore": -0.3,
+        "CurScore": 0
       },
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "Init": {
-          "BGIONAIMBCJ": "",
-          "FAFCPJJAIGK": 0.5,
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "duration": 0.5,
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "SetGlobalValue",
-              "KMGAOOHMCPK": "Team",
-              "value": 0.0,
-              "NGGCNKPAODB": "AVATAR_ASTER_SCORE",
-              "LBHGJKHHAKP": 0.0,
-              "EMGNPOKHMNN": 0.0
+              "target": "Team",
+              "value": 0,
+              "key": "AVATAR_ASTER_SCORE",
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         "UNIQUE_SkillButtonController": {
-          "BGIONAIMBCJ": "",
-          "defaultDistanceBetweenAvatarAndCamera": true,
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "isUnique": true,
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "ShowExtraAbility",
-              "GCOFBECOEFF": 20003
+              "skillID": 20003
             },
             {
               "$type": "SetExtraAbilityEnable"
             }
           ],
-          "NFKOGKMAIIE": [
+          "onRemoved": [
             {
               "$type": "ShowExtraAbility"
             }
           ]
         },
         "UNIQUE_TuntController": {
-          "BGIONAIMBCJ": "",
-          "defaultDistanceBetweenAvatarAndCamera": true,
-          "ONIHJPOMNHA": 100.0,
-          "CLOIGOBCDJK": [
+          "modifierName": "",
+          "isUnique": true,
+          "elementDurability": 100,
+          "modifierMixins": [
             {
               "$type": "AttachModifierToSelfGlobalValueMixin",
-              "AOJHAGMBDNP": "AVATAR_ASTER_SCORE",
-              "MCAEKKJBNNJ": 0.0,
-              "FCPOANIDKOM": [
-                0.0,
+              "globalValueKey": "AVATAR_ASTER_SCORE",
+              "defaultGlobalValueOnCreate": 0,
+              "valueSteps": [
+                0,
                 99.5,
                 100.5
               ],
-              "NGIGIMPCHOO": [
+              "modifierNameSteps": [
                 "Blank",
                 "SetTaunt"
               ]
@@ -591,64 +580,64 @@
           ]
         },
         "Blank": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0
+          "modifierName": "",
+          "elementDurability": 100
         },
         "SetTaunt": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AttachModifier",
-              "KMGAOOHMCPK": "CurLocalAvatar",
-              "BGIONAIMBCJ": "Avatar_Taunt"
+              "target": "CurLocalAvatar",
+              "modifierName": "Avatar_Taunt"
             }
           ]
         },
         "Avatar_Taunt": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "TriggerTaunt",
-              "musicSubStates": {
-                "$type": "HGNAFICLGFP",
-                "IBPOJODNMHO": "CircleR25",
-                "CHPLPFBEPDN": "Enemy",
-                "CHGLFBPDMKF": 1.0
+              "otherTargets": {
+                "$type": "SelectTargetsByShape",
+                "shapeName": "CircleR25",
+                "campTargetType": "Enemy",
+                "sizeRatio": 1
               },
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "FAGBAHBLACH",
-                  "MALHNOJHHDJ": [
+                  "$type": "ByEntityTypes",
+                  "entityTypes": [
                     "Monster"
                   ]
                 }
               ],
-              "NKCIEFLMBMK": 50.0
+              "NKCIEFLMBMK": 50
             }
           ]
         },
         "UNIQUE_PlayerNotify": {
-          "HABNNJHCOCD": "Unique",
-          "BGIONAIMBCJ": "",
-          "defaultDistanceBetweenAvatarAndCamera": true,
-          "ONIHJPOMNHA": 100.0,
-          "CLOIGOBCDJK": [
+          "stacking": "Unique",
+          "modifierName": "",
+          "isUnique": true,
+          "elementDurability": 100,
+          "modifierMixins": [
             {
               "$type": "PlayerUidNotifyMixin",
               "PDHIOHEAJPI": "clear_energy",
               "DDCDCLHBJBA": 1,
-              "JCMFILJLNFH": "Equal",
+              "logic": "Equal",
               "actions": [
                 {
                   "$type": "AddGlobalValue",
-                  "KMGAOOHMCPK": "Team",
-                  "value": 0.0,
-                  "NGGCNKPAODB": "AVATAR_ASTER_SCORE",
-                  "AJKBEKOCMKF": true,
-                  "LBHGJKHHAKP": 0.0,
-                  "EMGNPOKHMNN": 0.0
+                  "target": "Team",
+                  "value": 0,
+                  "key": "AVATAR_ASTER_SCORE",
+                  "useLimitRange": true,
+                  "maxValue": 0,
+                  "minValue": 0
                 }
               ]
             },
@@ -656,12 +645,12 @@
               "$type": "PlayerUidNotifyMixin",
               "PDHIOHEAJPI": "random_buff_aster",
               "DDCDCLHBJBA": 1,
-              "JCMFILJLNFH": "Equal",
+              "logic": "Equal",
               "actions": [
                 {
                   "$type": "ApplyModifier",
-                  "KMGAOOHMCPK": "Team",
-                  "BGIONAIMBCJ": "UNIQUE_Team_DamageUp_Arua"
+                  "target": "Team",
+                  "modifierName": "UNIQUE_Team_DamageUp_Arua"
                 }
               ]
             },
@@ -669,12 +658,12 @@
               "$type": "PlayerUidNotifyMixin",
               "PDHIOHEAJPI": "random_buff_aster",
               "DDCDCLHBJBA": 2,
-              "JCMFILJLNFH": "Equal",
+              "logic": "Equal",
               "actions": [
                 {
                   "$type": "ApplyModifier",
-                  "KMGAOOHMCPK": "Team",
-                  "BGIONAIMBCJ": "UNIQUE_Team_ChannelBlock_Arua"
+                  "target": "Team",
+                  "modifierName": "UNIQUE_Team_ChannelBlock_Arua"
                 }
               ]
             },
@@ -682,12 +671,12 @@
               "$type": "PlayerUidNotifyMixin",
               "PDHIOHEAJPI": "random_buff_aster",
               "DDCDCLHBJBA": 3,
-              "JCMFILJLNFH": "Equal",
+              "logic": "Equal",
               "actions": [
                 {
                   "$type": "ApplyModifier",
-                  "KMGAOOHMCPK": "Team",
-                  "BGIONAIMBCJ": "UNIQUE_Team_ScoreMult_Arua"
+                  "target": "Team",
+                  "modifierName": "UNIQUE_Team_ScoreMult_Arua"
                 }
               ]
             },
@@ -695,12 +684,12 @@
               "$type": "PlayerUidNotifyMixin",
               "PDHIOHEAJPI": "random_buff_aster",
               "DDCDCLHBJBA": 4,
-              "JCMFILJLNFH": "Equal",
+              "logic": "Equal",
               "actions": [
                 {
                   "$type": "ApplyModifier",
-                  "KMGAOOHMCPK": "Team",
-                  "BGIONAIMBCJ": "UNIQUE_DebuffTimer_Team"
+                  "target": "Team",
+                  "modifierName": "UNIQUE_DebuffTimer_Team"
                 }
               ]
             },
@@ -708,713 +697,696 @@
               "$type": "PlayerUidNotifyMixin",
               "PDHIOHEAJPI": "random_buff_aster",
               "DDCDCLHBJBA": 5,
-              "JCMFILJLNFH": "Equal",
+              "logic": "Equal",
               "actions": [
                 {
                   "$type": "ApplyModifier",
-                  "KMGAOOHMCPK": "Team",
-                  "BGIONAIMBCJ": "UNIQUE_Team_UperScoreMult_Arua"
+                  "target": "Team",
+                  "modifierName": "UNIQUE_Team_UperScoreMult_Arua"
                 }
               ]
             }
           ]
         },
         "UNIQUE_DebuffTimer_Team": {
-          "HABNNJHCOCD": "Unique",
-          "BGIONAIMBCJ": "",
-          "defaultDistanceBetweenAvatarAndCamera": true,
-          "FAFCPJJAIGK": 5.0,
-          "ONIHJPOMNHA": 100.0,
-          "CLOIGOBCDJK": [
+          "stacking": "Unique",
+          "modifierName": "",
+          "isUnique": true,
+          "duration": 5,
+          "elementDurability": 100,
+          "modifierMixins": [
             {
               "$type": "ApplyModifierWithSharedDurabilityMixin",
-              "BGIONAIMBCJ": "DebuffTimer"
+              "modifierName": "DebuffTimer"
             }
           ]
         },
         "DebuffTimer": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Debuff_01",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_SceneObj_Aster_Debuff_01"
             }
           ],
-          "NFKOGKMAIIE": [
+          "onRemoved": [
             {
               "$type": "CreateGadget",
-              "CCNCMOGOFAG": {
-                "$type": "DELDMCFKBBL"
+              "born": {
+                "$type": "ConfigBornBySelf"
               },
-              "BLPPFMNOOIO": 70900360,
+              "gadgetID": 70900360,
               "MJDKNDMPMIB": true
             }
           ]
         },
         "UNIQUE_Team_DamageUp_Arua": {
-          "HABNNJHCOCD": "Unique",
-          "BGIONAIMBCJ": "",
-          "defaultDistanceBetweenAvatarAndCamera": true,
-          "FAFCPJJAIGK": 120.0,
-          "ONIHJPOMNHA": 100.0,
-          "ANPDJHOGAFE": 5.0,
-          "CLOIGOBCDJK": [
+          "stacking": "Unique",
+          "modifierName": "",
+          "isUnique": true,
+          "duration": 120,
+          "elementDurability": 100,
+          "thinkInterval": 5,
+          "modifierMixins": [
             {
               "$type": "CurLocalAvatarMixin",
-              "BGIONAIMBCJ": "Team_DamageUp_Arua_Eff"
+              "modifierName": "Team_DamageUp_Arua_Eff"
             }
           ],
-          "NLFIGALMIPD": [
+          "onAdded": [
             {
               "$type": "FireEffect",
-              "KMGAOOHMCPK": "CurLocalAvatar",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Buff_01_Wave",
-              "PCLAEGHPNHE": -1.0
+              "target": "CurLocalAvatar",
+              "effectPattern": "Eff_SceneObj_Aster_Buff_01_Wave"
             },
             {
               "$type": "ApplyModifier",
-              "musicSubStates": {
-                "$type": "HGNAFICLGFP",
-                "IBPOJODNMHO": "CircleR5",
+              "otherTargets": {
+                "$type": "SelectTargetsByShape",
+                "shapeName": "CircleR5",
                 "BPDOJDLNBPP": "CurLocalAvatar",
-                "CHPLPFBEPDN": "All",
-                "CNNFBFOPDJC": "CurLocalAvatar",
-                "CHGLFBPDMKF": 1.0
+                "campTargetType": "All",
+                "campBasedOn": "CurLocalAvatar",
+                "sizeRatio": 1
               },
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "FAGBAHBLACH",
-                  "MALHNOJHHDJ": [
+                  "$type": "ByEntityTypes",
+                  "entityTypes": [
                     "Avatar"
                   ]
                 }
               ],
-              "BGIONAIMBCJ": "DamageUp"
+              "modifierName": "DamageUp"
             }
           ],
-          "MDPGEKAIFIM": [
+          "onThinkInterval": [
             {
               "$type": "FireEffect",
-              "KMGAOOHMCPK": "CurLocalAvatar",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Buff_01_Wave",
-              "PCLAEGHPNHE": -1.0
+              "target": "CurLocalAvatar",
+              "effectPattern": "Eff_SceneObj_Aster_Buff_01_Wave"
             },
             {
               "$type": "ApplyModifier",
-              "musicSubStates": {
-                "$type": "HGNAFICLGFP",
-                "IBPOJODNMHO": "CircleR5",
+              "otherTargets": {
+                "$type": "SelectTargetsByShape",
+                "shapeName": "CircleR5",
                 "BPDOJDLNBPP": "CurLocalAvatar",
-                "CHPLPFBEPDN": "All",
-                "CNNFBFOPDJC": "CurLocalAvatar",
-                "CHGLFBPDMKF": 1.0
+                "campTargetType": "All",
+                "campBasedOn": "CurLocalAvatar",
+                "sizeRatio": 1
               },
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "FAGBAHBLACH",
-                  "MALHNOJHHDJ": [
+                  "$type": "ByEntityTypes",
+                  "entityTypes": [
                     "Avatar"
                   ]
                 }
               ],
-              "BGIONAIMBCJ": "DamageUp"
+              "modifierName": "DamageUp"
             }
           ]
         },
         "Team_DamageUp_Arua_Eff": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Buff_01",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_SceneObj_Aster_Buff_01"
             }
           ]
         },
         "DamageUp": {
-          "BGIONAIMBCJ": "",
-          "FAFCPJJAIGK": 5.5,
-          "ONIHJPOMNHA": 100.0,
-          "NLPPKPOJEOA": {
-            "Actor_AttackRatio": 0.800000011920929
+          "modifierName": "",
+          "duration": 5.5,
+          "elementDurability": 100,
+          "properties": {
+            "Actor_AttackRatio": 0.8
           },
-          "FJMPEOEHPJK": "AttackUp",
-          "NLFIGALMIPD": [
+          "state": "AttackUp",
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_MQ1002_XueyueBuff",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_MQ1002_XueyueBuff"
             }
           ],
-          "PLFMOPGDMDI": true,
-          "PAIHEPNMKDJ": 10001
+          "isLimitedProperties": true,
+          "buffID": 10001
         },
         "UNIQUE_Team_ChannelBlock_Arua": {
-          "HABNNJHCOCD": "Unique",
-          "BGIONAIMBCJ": "",
-          "defaultDistanceBetweenAvatarAndCamera": true,
-          "FAFCPJJAIGK": 30.0,
-          "ONIHJPOMNHA": 100.0,
-          "ANPDJHOGAFE": 5.0,
-          "CLOIGOBCDJK": [
+          "stacking": "Unique",
+          "modifierName": "",
+          "isUnique": true,
+          "duration": 30,
+          "elementDurability": 100,
+          "thinkInterval": 5,
+          "modifierMixins": [
             {
               "$type": "CurLocalAvatarMixin",
-              "BGIONAIMBCJ": "Team_ChannelBlock_Arua_Eff"
+              "modifierName": "Team_ChannelBlock_Arua_Eff"
             }
           ],
-          "NLFIGALMIPD": [
+          "onAdded": [
             {
               "$type": "FireEffect",
-              "KMGAOOHMCPK": "CurLocalAvatar",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Buff_01_Wave",
-              "PCLAEGHPNHE": -1.0
+              "target": "CurLocalAvatar",
+              "effectPattern": "Eff_SceneObj_Aster_Buff_01_Wave"
             },
             {
               "$type": "ApplyModifier",
-              "musicSubStates": {
-                "$type": "HGNAFICLGFP",
-                "IBPOJODNMHO": "CircleR5",
+              "otherTargets": {
+                "$type": "SelectTargetsByShape",
+                "shapeName": "CircleR5",
                 "BPDOJDLNBPP": "CurLocalAvatar",
-                "CHPLPFBEPDN": "All",
-                "CNNFBFOPDJC": "CurLocalAvatar",
-                "CHGLFBPDMKF": 1.0
+                "campTargetType": "All",
+                "campBasedOn": "CurLocalAvatar",
+                "sizeRatio": 1
               },
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "FAGBAHBLACH",
-                  "MALHNOJHHDJ": [
+                  "$type": "ByEntityTypes",
+                  "entityTypes": [
                     "Avatar"
                   ]
                 }
               ],
-              "BGIONAIMBCJ": "ChannelBlock"
+              "modifierName": "ChannelBlock"
             }
           ],
-          "MDPGEKAIFIM": [
+          "onThinkInterval": [
             {
               "$type": "FireEffect",
-              "KMGAOOHMCPK": "CurLocalAvatar",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Buff_01_Wave",
-              "PCLAEGHPNHE": -1.0
+              "target": "CurLocalAvatar",
+              "effectPattern": "Eff_SceneObj_Aster_Buff_01_Wave"
             },
             {
               "$type": "ApplyModifier",
-              "musicSubStates": {
-                "$type": "HGNAFICLGFP",
-                "IBPOJODNMHO": "CircleR5",
+              "otherTargets": {
+                "$type": "SelectTargetsByShape",
+                "shapeName": "CircleR5",
                 "BPDOJDLNBPP": "CurLocalAvatar",
-                "CHPLPFBEPDN": "All",
-                "CNNFBFOPDJC": "CurLocalAvatar",
-                "CHGLFBPDMKF": 1.0
+                "campTargetType": "All",
+                "campBasedOn": "CurLocalAvatar",
+                "sizeRatio": 1
               },
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "FAGBAHBLACH",
-                  "MALHNOJHHDJ": [
+                  "$type": "ByEntityTypes",
+                  "entityTypes": [
                     "Avatar"
                   ]
                 }
               ],
-              "BGIONAIMBCJ": "ChannelBlock"
+              "modifierName": "ChannelBlock"
             }
           ]
         },
         "ChannelBlock": {
-          "BGIONAIMBCJ": "",
-          "FAFCPJJAIGK": 5.5,
-          "ONIHJPOMNHA": 100.0,
-          "NLPPKPOJEOA": {
-            "Actor_EndureDelta": 10.0
+          "modifierName": "",
+          "duration": 5.5,
+          "elementDurability": 100,
+          "properties": {
+            "Actor_EndureDelta": 10
           },
-          "NLFIGALMIPD": [
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_MQ1002_XueyueBuff",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_MQ1002_XueyueBuff"
             },
             {
               "$type": "AddGlobalValue",
-              "value": 1.0,
-              "NGGCNKPAODB": "CHANNEL_BLOCK",
-              "AJKBEKOCMKF": true,
-              "LBHGJKHHAKP": 1.0,
-              "EMGNPOKHMNN": 1.0
+              "value": 1,
+              "key": "CHANNEL_BLOCK",
+              "useLimitRange": true,
+              "maxValue": 1,
+              "minValue": 1
             }
           ],
-          "NFKOGKMAIIE": [
+          "onRemoved": [
             {
               "$type": "AddGlobalValue",
-              "value": 0.0,
-              "NGGCNKPAODB": "CHANNEL_BLOCK",
-              "AJKBEKOCMKF": true,
-              "LBHGJKHHAKP": 0.0,
-              "EMGNPOKHMNN": 0.0
+              "value": 0,
+              "key": "CHANNEL_BLOCK",
+              "useLimitRange": true,
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         "Team_ChannelBlock_Arua_Eff": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Buff_01",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_SceneObj_Aster_Buff_01"
             }
           ]
         },
         "UNIQUE_Team_ScoreMult_Arua": {
-          "HABNNJHCOCD": "Unique",
-          "BGIONAIMBCJ": "",
-          "defaultDistanceBetweenAvatarAndCamera": true,
-          "FAFCPJJAIGK": 120.0,
-          "ONIHJPOMNHA": 100.0,
-          "ANPDJHOGAFE": 5.0,
-          "CLOIGOBCDJK": [
+          "stacking": "Unique",
+          "modifierName": "",
+          "isUnique": true,
+          "duration": 120,
+          "elementDurability": 100,
+          "thinkInterval": 5,
+          "modifierMixins": [
             {
               "$type": "CurLocalAvatarMixin",
-              "BGIONAIMBCJ": "Team_ScoreMult_Arua_Eff"
+              "modifierName": "Team_ScoreMult_Arua_Eff"
             }
           ],
-          "NLFIGALMIPD": [
+          "onAdded": [
             {
               "$type": "FireEffect",
-              "KMGAOOHMCPK": "CurLocalAvatar",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Buff_02_Wave",
-              "PCLAEGHPNHE": -1.0
+              "target": "CurLocalAvatar",
+              "effectPattern": "Eff_SceneObj_Aster_Buff_02_Wave"
             },
             {
               "$type": "ApplyModifier",
-              "musicSubStates": {
-                "$type": "HGNAFICLGFP",
-                "IBPOJODNMHO": "CircleR5",
+              "otherTargets": {
+                "$type": "SelectTargetsByShape",
+                "shapeName": "CircleR5",
                 "BPDOJDLNBPP": "CurLocalAvatar",
-                "CHPLPFBEPDN": "All",
-                "CNNFBFOPDJC": "CurLocalAvatar",
-                "CHGLFBPDMKF": 1.0
+                "campTargetType": "All",
+                "campBasedOn": "CurLocalAvatar",
+                "sizeRatio": 1
               },
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "FAGBAHBLACH",
-                  "MALHNOJHHDJ": [
+                  "$type": "ByEntityTypes",
+                  "entityTypes": [
                     "Avatar"
                   ]
                 }
               ],
-              "BGIONAIMBCJ": "ScoreMult"
+              "modifierName": "ScoreMult"
             }
           ],
-          "MDPGEKAIFIM": [
+          "onThinkInterval": [
             {
               "$type": "FireEffect",
-              "KMGAOOHMCPK": "CurLocalAvatar",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Buff_02_Wave",
-              "PCLAEGHPNHE": -1.0
+              "target": "CurLocalAvatar",
+              "effectPattern": "Eff_SceneObj_Aster_Buff_02_Wave"
             },
             {
               "$type": "ApplyModifier",
-              "musicSubStates": {
-                "$type": "HGNAFICLGFP",
-                "IBPOJODNMHO": "CircleR5",
+              "otherTargets": {
+                "$type": "SelectTargetsByShape",
+                "shapeName": "CircleR5",
                 "BPDOJDLNBPP": "CurLocalAvatar",
-                "CHPLPFBEPDN": "All",
-                "CNNFBFOPDJC": "CurLocalAvatar",
-                "CHGLFBPDMKF": 1.0
+                "campTargetType": "All",
+                "campBasedOn": "CurLocalAvatar",
+                "sizeRatio": 1
               },
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "FAGBAHBLACH",
-                  "MALHNOJHHDJ": [
+                  "$type": "ByEntityTypes",
+                  "entityTypes": [
                     "Avatar"
                   ]
                 }
               ],
-              "BGIONAIMBCJ": "ScoreMult"
+              "modifierName": "ScoreMult"
             }
           ]
         },
         "ScoreMult": {
-          "BGIONAIMBCJ": "",
-          "FAFCPJJAIGK": 6.0,
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "duration": 6,
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Buff_02",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_SceneObj_Aster_Buff_02"
             },
             {
               "$type": "SetGlobalValue",
-              "KMGAOOHMCPK": "Team",
-              "value": 1.0,
-              "NGGCNKPAODB": "ASTER_PROGRESS_RATIO",
-              "LBHGJKHHAKP": 0.0,
-              "EMGNPOKHMNN": 0.0
+              "target": "Team",
+              "value": 1,
+              "key": "ASTER_PROGRESS_RATIO",
+              "maxValue": 0,
+              "minValue": 0
             }
           ],
-          "NFKOGKMAIIE": [
+          "onRemoved": [
             {
               "$type": "SetGlobalValue",
-              "KMGAOOHMCPK": "Team",
-              "value": 0.0,
-              "NGGCNKPAODB": "ASTER_PROGRESS_RATIO",
-              "LBHGJKHHAKP": 0.0,
-              "EMGNPOKHMNN": 0.0
+              "target": "Team",
+              "value": 0,
+              "key": "ASTER_PROGRESS_RATIO",
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         "Team_ScoreMult_Arua_Eff": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Buff_02_Circle",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_SceneObj_Aster_Buff_02_Circle"
             }
           ]
         },
         "UNIQUE_Team_UperScoreMult_Arua": {
-          "HABNNJHCOCD": "Unique",
-          "BGIONAIMBCJ": "",
-          "defaultDistanceBetweenAvatarAndCamera": true,
-          "FAFCPJJAIGK": 120.0,
-          "ONIHJPOMNHA": 100.0,
-          "CLOIGOBCDJK": [
+          "stacking": "Unique",
+          "modifierName": "",
+          "isUnique": true,
+          "duration": 120,
+          "elementDurability": 100,
+          "modifierMixins": [
             {
               "$type": "CurLocalAvatarMixin",
-              "BGIONAIMBCJ": "Team_UperScoreMult_Arua_Eff"
+              "modifierName": "Team_UperScoreMult_Arua_Eff"
             }
           ],
-          "NLFIGALMIPD": [
+          "onAdded": [
             {
               "$type": "SetGlobalValue",
-              "KMGAOOHMCPK": "Team",
-              "value": 1.0,
-              "NGGCNKPAODB": "ASTER_ENERGY_RATIO",
-              "LBHGJKHHAKP": 0.0,
-              "EMGNPOKHMNN": 0.0
+              "target": "Team",
+              "value": 1,
+              "key": "ASTER_ENERGY_RATIO",
+              "maxValue": 0,
+              "minValue": 0
             }
           ],
-          "NFKOGKMAIIE": [
+          "onRemoved": [
             {
               "$type": "SetGlobalValue",
-              "KMGAOOHMCPK": "Team",
-              "value": 0.0,
-              "NGGCNKPAODB": "ASTER_ENERGY_RATIO",
-              "LBHGJKHHAKP": 0.0,
-              "EMGNPOKHMNN": 0.0
+              "target": "Team",
+              "value": 0,
+              "key": "ASTER_ENERGY_RATIO",
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         "Team_UperScoreMult_Arua_Eff": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Buff_01",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_SceneObj_Aster_Buff_01"
             }
           ]
         },
         "UNIQUE_AvatarStateController": {
-          "HABNNJHCOCD": "Unique",
-          "BGIONAIMBCJ": "",
-          "defaultDistanceBetweenAvatarAndCamera": true,
-          "ONIHJPOMNHA": 100.0,
-          "CLOIGOBCDJK": [
+          "stacking": "Unique",
+          "modifierName": "",
+          "isUnique": true,
+          "elementDurability": 100,
+          "modifierMixins": [
             {
               "$type": "CurLocalAvatarMixin",
-              "BGIONAIMBCJ": "Avatar_State"
+              "modifierName": "Avatar_State"
             },
             {
               "$type": "ServerUpdateGlobalValueMixin",
-              "NGGCNKPAODB": "AVATAR_ASTER_SCORE",
-              "AJKBEKOCMKF": true,
-              "LBHGJKHHAKP": "MaxScore",
-              "EMGNPOKHMNN": 0.0
+              "key": "AVATAR_ASTER_SCORE",
+              "useLimitRange": true,
+              "maxValue": "MaxScore",
+              "minValue": 0
             }
           ]
         },
         "Avatar_State": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "CLOIGOBCDJK": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "modifierMixins": [
             {
               "$type": "AttachToStateIDMixin",
-              "FHCHNMKMJJA": [
+              "stateIDs": [
                 "Channel_Loop",
                 "Channel_AS",
                 "Channel_BS"
               ],
-              "BGIONAIMBCJ": "AvatarInChannel"
+              "modifierName": "AvatarInChannel"
             }
           ]
         },
         "AvatarInChannel": {
-          "HABNNJHCOCD": "Unique",
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "ANPDJHOGAFE": 5.0,
-          "NLFIGALMIPD": [
+          "stacking": "Unique",
+          "modifierName": "",
+          "elementDurability": 100,
+          "thinkInterval": 5,
+          "onAdded": [
             {
               "$type": "SetExtraAbilityState",
-              "KMGAOOHMCPK": "Caster"
+              "target": "Caster"
             },
             {
               "$type": "AttachModifier",
-              "musicSubStates": {
-                "$type": "HGNAFICLGFP",
-                "IBPOJODNMHO": "CircleR50",
+              "otherTargets": {
+                "$type": "SelectTargetsByShape",
+                "shapeName": "CircleR50",
                 "BPDOJDLNBPP": "CurLocalAvatar",
-                "CHPLPFBEPDN": "AllExceptSelf",
-                "CNNFBFOPDJC": "CurLocalAvatar",
-                "CHGLFBPDMKF": 1.0
+                "campTargetType": "AllExceptSelf",
+                "campBasedOn": "CurLocalAvatar",
+                "sizeRatio": 1
               },
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "OMPKIEPKGPF",
-                  "NGGCNKPAODB": "IS_BIG_ASTER",
-                  "value": 1.0
+                  "$type": "ByTargetGlobalValue",
+                  "key": "IS_BIG_ASTER",
+                  "value": 1
                 }
               ],
-              "BGIONAIMBCJ": "LineEff_FindAster"
+              "modifierName": "LineEff_FindAster"
             },
             {
               "$type": "SetGlobalValue",
-              "KMGAOOHMCPK": "CurLocalAvatar",
-              "value": 0.0,
-              "NGGCNKPAODB": "CHARGE_SUCCESS",
-              "LBHGJKHHAKP": 0.0,
-              "EMGNPOKHMNN": 0.0
+              "target": "CurLocalAvatar",
+              "value": 0,
+              "key": "CHARGE_SUCCESS",
+              "maxValue": 0,
+              "minValue": 0
             },
             {
               "$type": "AttachEffect",
-              "musicSubStates": {
-                "$type": "HGNAFICLGFP",
-                "IBPOJODNMHO": "CircleR50",
+              "otherTargets": {
+                "$type": "SelectTargetsByShape",
+                "shapeName": "CircleR50",
                 "BPDOJDLNBPP": "CurLocalAvatar",
-                "CHPLPFBEPDN": "AllExceptSelf",
-                "CNNFBFOPDJC": "CurLocalAvatar",
-                "CHGLFBPDMKF": 1.0
+                "campTargetType": "AllExceptSelf",
+                "campBasedOn": "CurLocalAvatar",
+                "sizeRatio": 1
               },
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "OMPKIEPKGPF",
-                  "NGGCNKPAODB": "IS_BIG_ASTER",
-                  "value": 1.0
+                  "$type": "ByTargetGlobalValue",
+                  "key": "IS_BIG_ASTER",
+                  "value": 1
                 }
               ],
-              "LHHFHDEJOHC": "Eff_SceneObj_AsterLarge_Active",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_SceneObj_AsterLarge_Active"
             }
           ],
-          "NFKOGKMAIIE": [
+          "onRemoved": [
             {
               "$type": "SetAnimatorTrigger",
-              "KMGAOOHMCPK": "CurLocalAvatar",
-              "FLEEHCIOPKA": [
+              "target": "CurLocalAvatar",
+              "predicates": [
                 {
-                  "$type": "OMPKIEPKGPF",
-                  "KMGAOOHMCPK": "CurLocalAvatar",
-                  "NGGCNKPAODB": "CHARGE_SUCCESS",
-                  "value": 0.0
+                  "$type": "ByTargetGlobalValue",
+                  "target": "CurLocalAvatar",
+                  "key": "CHARGE_SUCCESS",
+                  "value": 0
                 }
               ],
-              "POPKLBPMAJN": "EndChannelTrigger"
+              "triggerID": "EndChannelTrigger"
             },
             {
               "$type": "SetExtraAbilityState",
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "OMPKIEPKGPF",
-                  "KMGAOOHMCPK": "CurLocalAvatar",
-                  "NGGCNKPAODB": "CHARGE_SUCCESS",
-                  "value": 0.0
+                  "$type": "ByTargetGlobalValue",
+                  "target": "CurLocalAvatar",
+                  "key": "CHARGE_SUCCESS",
+                  "value": 0
                 }
               ],
-              "FJMPEOEHPJK": "Interrupt"
+              "state": "Interrupt"
             }
           ],
-          "EOMGJKEEICG": [
+          "onBeingHit": [
             {
               "$type": "Predicated",
-              "KMGAOOHMCPK": "CurLocalAvatar",
-              "EGMDPEHBAOA": [
+              "target": "CurLocalAvatar",
+              "targetPredicates": [
                 {
-                  "$type": "OMPKIEPKGPF",
-                  "NGGCNKPAODB": "CHANNEL_BLOCK",
-                  "value": 0.0,
-                  "GAGKBNPOCAC": "NoneOrEqual"
+                  "$type": "ByTargetGlobalValue",
+                  "key": "CHANNEL_BLOCK",
+                  "value": 0,
+                  "compareType": "NoneOrEqual"
                 }
               ],
               "successActions": [
                 {
                   "$type": "CopyGlobalValue",
-                  "CAAICNJMPCD": "Team",
-                  "INODFCIEOPP": "Caster",
-                  "OHLDODBILJD": "AVATAR_ASTER_SCORE",
-                  "DCOAHDNGMHH": "AVATAR_ASTER_SCORE"
+                  "srcTarget": "Team",
+                  "dstTarget": "Caster",
+                  "srcKey": "AVATAR_ASTER_SCORE",
+                  "dstKey": "AVATAR_ASTER_SCORE"
                 },
                 {
                   "$type": "SetGlobalValueToOverrideMap",
-                  "KMGAOOHMCPK": "Caster",
-                  "AOJHAGMBDNP": "AVATAR_ASTER_SCORE",
-                  "BPGLCPGHEEK": "CurScore"
+                  "target": "Caster",
+                  "globalValueKey": "AVATAR_ASTER_SCORE",
+                  "overrideMapKey": "CurScore"
                 },
                 {
                   "$type": "ServerLuaCall",
-                  "KMGAOOHMCPK": "Team",
+                  "target": "Team",
                   "FNBGNCANKJF": "CurScenePlay",
                   "FDPMGLDLLIN": "UpdateAsterInterrupt",
-                  "param1": 0.0,
-                  "HFOIEKLCLEM": 0.0,
-                  "MCLOKLEBGPH": 0.0
+                  "param1": 0,
+                  "HFOIEKLCLEM": 0,
+                  "MCLOKLEBGPH": 0
                 },
                 {
                   "$type": "SetGlobalValue",
-                  "KMGAOOHMCPK": "Team",
+                  "target": "Team",
                   "value": [
-                    0.699999988079071,
+                    0.7,
                     "CurScore",
                     "MUL"
                   ],
-                  "NGGCNKPAODB": "AVATAR_ASTER_SCORE",
-                  "LBHGJKHHAKP": 0.0,
-                  "EMGNPOKHMNN": 0.0
+                  "key": "AVATAR_ASTER_SCORE",
+                  "maxValue": 0,
+                  "minValue": 0
                 },
                 {
                   "$type": "SetAnimatorTrigger",
-                  "KMGAOOHMCPK": "CurLocalAvatar",
-                  "POPKLBPMAJN": "EndChannelTrigger"
+                  "target": "CurLocalAvatar",
+                  "triggerID": "EndChannelTrigger"
                 },
                 {
                   "$type": "RemoveModifier",
-                  "KMGAOOHMCPK": "CurLocalAvatar",
-                  "BGIONAIMBCJ": "AvatarInChannel"
+                  "target": "CurLocalAvatar",
+                  "modifierName": "AvatarInChannel"
                 }
               ]
             }
           ],
-          "MDPGEKAIFIM": [
+          "onThinkInterval": [
             {
               "$type": "SetGlobalValue",
-              "KMGAOOHMCPK": "CurLocalAvatar",
-              "value": 1.0,
-              "NGGCNKPAODB": "CHARGE_SUCCESS",
-              "LBHGJKHHAKP": 0.0,
-              "EMGNPOKHMNN": 0.0
+              "target": "CurLocalAvatar",
+              "value": 1,
+              "key": "CHARGE_SUCCESS",
+              "maxValue": 0,
+              "minValue": 0
             },
             {
               "$type": "FireEffect",
-              "musicSubStates": {
-                "$type": "HGNAFICLGFP",
-                "IBPOJODNMHO": "CircleR50",
+              "otherTargets": {
+                "$type": "SelectTargetsByShape",
+                "shapeName": "CircleR50",
                 "BPDOJDLNBPP": "CurLocalAvatar",
-                "CHPLPFBEPDN": "AllExceptSelf",
-                "CNNFBFOPDJC": "CurLocalAvatar",
-                "CHGLFBPDMKF": 1.0
+                "campTargetType": "AllExceptSelf",
+                "campBasedOn": "CurLocalAvatar",
+                "sizeRatio": 1
               },
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "OMPKIEPKGPF",
-                  "NGGCNKPAODB": "IS_BIG_ASTER",
-                  "value": 1.0
+                  "$type": "ByTargetGlobalValue",
+                  "key": "IS_BIG_ASTER",
+                  "value": 1
                 }
               ],
-              "LHHFHDEJOHC": "Eff_SceneObj_AsterLarge_RecevieFinish",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_SceneObj_AsterLarge_RecevieFinish"
             },
             {
               "$type": "ServerLuaCall",
-              "KMGAOOHMCPK": "Team",
+              "target": "Team",
               "FNBGNCANKJF": "CurScenePlay",
               "FDPMGLDLLIN": "UpdateAsterProgress",
-              "param1": 0.0,
-              "HFOIEKLCLEM": 0.0,
-              "MCLOKLEBGPH": 0.0
+              "param1": 0,
+              "HFOIEKLCLEM": 0,
+              "MCLOKLEBGPH": 0
             },
             {
               "$type": "SetAnimatorTrigger",
-              "KMGAOOHMCPK": "CurLocalAvatar",
-              "POPKLBPMAJN": "EndChannelTrigger"
+              "target": "CurLocalAvatar",
+              "triggerID": "EndChannelTrigger"
             },
             {
               "$type": "RemoveModifier",
-              "BGIONAIMBCJ": "AvatarInChannel"
+              "modifierName": "AvatarInChannel"
             }
           ]
         },
         "LineEff_FindAster": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "KMGAOOHMCPK": "Applier",
-              "LHHFHDEJOHC": "Eff_SceneObj_AsterLarge_Recevie",
-              "CCNCMOGOFAG": {
-                "$type": "IADBHDLMGJB",
-                "MDPMJPIOGLA": "EffPoint",
-                "JPEOGPAHPDM": "Self"
-              },
-              "PCLAEGHPNHE": -1.0
+              "target": "Applier",
+              "effectPattern": "Eff_SceneObj_AsterLarge_Recevie",
+              "born": {
+                "$type": "ConfigBornByAttachPoint",
+                "attachPointName": "EffPoint",
+                "attachPointTargetType": "Self"
+              }
             }
           ]
         }
       },
-      "NLFIGALMIPD": [
+      "onAdded": [
         {
           "$type": "AttachModifier",
-          "BGIONAIMBCJ": "UNIQUE_SkillButtonController"
+          "modifierName": "UNIQUE_SkillButtonController"
         },
         {
           "$type": "AttachModifier",
-          "KMGAOOHMCPK": "Team",
-          "BGIONAIMBCJ": "Init"
+          "target": "Team",
+          "modifierName": "Init"
         },
         {
           "$type": "AttachModifier",
-          "KMGAOOHMCPK": "Team",
-          "BGIONAIMBCJ": "UNIQUE_AvatarStateController"
+          "target": "Team",
+          "modifierName": "UNIQUE_AvatarStateController"
         },
         {
           "$type": "AttachModifier",
-          "KMGAOOHMCPK": "Team",
-          "BGIONAIMBCJ": "UNIQUE_PlayerNotify"
+          "target": "Team",
+          "modifierName": "UNIQUE_PlayerNotify"
         },
         {
           "$type": "AttachModifier",
-          "KMGAOOHMCPK": "Team",
-          "BGIONAIMBCJ": "UNIQUE_TuntController"
+          "target": "Team",
+          "modifierName": "UNIQUE_TuntController"
         },
         {
           "$type": "SetGlobalValue",
-          "value": 0.0,
-          "NGGCNKPAODB": "AVATAR_ASTER_SCORE",
-          "LBHGJKHHAKP": 0.0,
-          "EMGNPOKHMNN": 0.0
+          "value": 0,
+          "key": "AVATAR_ASTER_SCORE",
+          "maxValue": 0,
+          "minValue": 0
         }
       ],
-      "DEOJHLMNLFC": [
+      "onAbilityStart": [
         {
           "$type": "SetAnimatorTrigger",
-          "KMGAOOHMCPK": "CurLocalAvatar",
-          "POPKLBPMAJN": "StartChannelTrigger"
+          "target": "CurLocalAvatar",
+          "triggerID": "StartChannelTrigger"
         }
       ],
-      "LFBJFECLNGK": [
+      "onKill": [
         {
           "$type": "RemoveUniqueModifier",
-          "BGIONAIMBCJ": "UNIQUE_SkillButtonController"
+          "modifierName": "UNIQUE_SkillButtonController"
         },
         {
           "$type": "RemoveModifier",
-          "BGIONAIMBCJ": "AvatarInChannel"
+          "modifierName": "AvatarInChannel"
         }
       ]
     }
@@ -1423,61 +1395,61 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "SceneObj_Aster_PlayEntity_Normal",
-      "CLHBPEHHEJB": {
-        "MaxScore": 200.0,
+      "abilitySpecials": {
+        "MaxScore": 200,
         "SubScore": -0.5,
-        "CurScore": 0.0
+        "CurScore": 0
       },
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "Init": {
-          "BGIONAIMBCJ": "",
-          "FAFCPJJAIGK": 0.5,
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "duration": 0.5,
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "SetGlobalValue",
-              "KMGAOOHMCPK": "Team",
-              "value": 0.0,
-              "NGGCNKPAODB": "AVATAR_ASTER_SCORE",
-              "LBHGJKHHAKP": 0.0,
-              "EMGNPOKHMNN": 0.0
+              "target": "Team",
+              "value": 0,
+              "key": "AVATAR_ASTER_SCORE",
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         "UNIQUE_SkillButtonController": {
-          "BGIONAIMBCJ": "",
-          "defaultDistanceBetweenAvatarAndCamera": true,
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "isUnique": true,
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "ShowExtraAbility",
-              "GCOFBECOEFF": 20004
+              "skillID": 20004
             },
             {
               "$type": "SetExtraAbilityEnable"
             }
           ],
-          "NFKOGKMAIIE": [
+          "onRemoved": [
             {
               "$type": "ShowExtraAbility"
             }
           ]
         },
         "UNIQUE_TuntController": {
-          "BGIONAIMBCJ": "",
-          "defaultDistanceBetweenAvatarAndCamera": true,
-          "ONIHJPOMNHA": 100.0,
-          "CLOIGOBCDJK": [
+          "modifierName": "",
+          "isUnique": true,
+          "elementDurability": 100,
+          "modifierMixins": [
             {
               "$type": "AttachModifierToSelfGlobalValueMixin",
-              "AOJHAGMBDNP": "AVATAR_ASTER_SCORE",
-              "MCAEKKJBNNJ": 0.0,
-              "FCPOANIDKOM": [
-                0.0,
+              "globalValueKey": "AVATAR_ASTER_SCORE",
+              "defaultGlobalValueOnCreate": 0,
+              "valueSteps": [
+                0,
                 99.5,
                 100.5
               ],
-              "NGIGIMPCHOO": [
+              "modifierNameSteps": [
                 "Blank",
                 "SetTaunt"
               ]
@@ -1485,64 +1457,64 @@
           ]
         },
         "Blank": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0
+          "modifierName": "",
+          "elementDurability": 100
         },
         "SetTaunt": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AttachModifier",
-              "KMGAOOHMCPK": "CurLocalAvatar",
-              "BGIONAIMBCJ": "Avatar_Taunt"
+              "target": "CurLocalAvatar",
+              "modifierName": "Avatar_Taunt"
             }
           ]
         },
         "Avatar_Taunt": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "TriggerTaunt",
-              "musicSubStates": {
-                "$type": "HGNAFICLGFP",
-                "IBPOJODNMHO": "CircleR25",
-                "CHPLPFBEPDN": "Enemy",
-                "CHGLFBPDMKF": 1.0
+              "otherTargets": {
+                "$type": "SelectTargetsByShape",
+                "shapeName": "CircleR25",
+                "campTargetType": "Enemy",
+                "sizeRatio": 1
               },
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "FAGBAHBLACH",
-                  "MALHNOJHHDJ": [
+                  "$type": "ByEntityTypes",
+                  "entityTypes": [
                     "Monster"
                   ]
                 }
               ],
-              "NKCIEFLMBMK": 50.0
+              "NKCIEFLMBMK": 50
             }
           ]
         },
         "UNIQUE_PlayerNotify": {
-          "HABNNJHCOCD": "Unique",
-          "BGIONAIMBCJ": "",
-          "defaultDistanceBetweenAvatarAndCamera": true,
-          "ONIHJPOMNHA": 100.0,
-          "CLOIGOBCDJK": [
+          "stacking": "Unique",
+          "modifierName": "",
+          "isUnique": true,
+          "elementDurability": 100,
+          "modifierMixins": [
             {
               "$type": "PlayerUidNotifyMixin",
               "PDHIOHEAJPI": "clear_energy",
               "DDCDCLHBJBA": 1,
-              "JCMFILJLNFH": "Equal",
+              "logic": "Equal",
               "actions": [
                 {
                   "$type": "AddGlobalValue",
-                  "KMGAOOHMCPK": "Team",
-                  "value": 0.0,
-                  "NGGCNKPAODB": "AVATAR_ASTER_SCORE",
-                  "AJKBEKOCMKF": true,
-                  "LBHGJKHHAKP": 0.0,
-                  "EMGNPOKHMNN": 0.0
+                  "target": "Team",
+                  "value": 0,
+                  "key": "AVATAR_ASTER_SCORE",
+                  "useLimitRange": true,
+                  "maxValue": 0,
+                  "minValue": 0
                 }
               ]
             },
@@ -1550,12 +1522,12 @@
               "$type": "PlayerUidNotifyMixin",
               "PDHIOHEAJPI": "random_buff_aster",
               "DDCDCLHBJBA": 1,
-              "JCMFILJLNFH": "Equal",
+              "logic": "Equal",
               "actions": [
                 {
                   "$type": "ApplyModifier",
-                  "KMGAOOHMCPK": "Team",
-                  "BGIONAIMBCJ": "UNIQUE_Team_DamageUp_Arua"
+                  "target": "Team",
+                  "modifierName": "UNIQUE_Team_DamageUp_Arua"
                 }
               ]
             },
@@ -1563,12 +1535,12 @@
               "$type": "PlayerUidNotifyMixin",
               "PDHIOHEAJPI": "random_buff_aster",
               "DDCDCLHBJBA": 2,
-              "JCMFILJLNFH": "Equal",
+              "logic": "Equal",
               "actions": [
                 {
                   "$type": "ApplyModifier",
-                  "KMGAOOHMCPK": "Team",
-                  "BGIONAIMBCJ": "UNIQUE_Team_ChannelBlock_Arua"
+                  "target": "Team",
+                  "modifierName": "UNIQUE_Team_ChannelBlock_Arua"
                 }
               ]
             },
@@ -1576,12 +1548,12 @@
               "$type": "PlayerUidNotifyMixin",
               "PDHIOHEAJPI": "random_buff_aster",
               "DDCDCLHBJBA": 3,
-              "JCMFILJLNFH": "Equal",
+              "logic": "Equal",
               "actions": [
                 {
                   "$type": "ApplyModifier",
-                  "KMGAOOHMCPK": "Team",
-                  "BGIONAIMBCJ": "UNIQUE_Team_ScoreMult_Arua"
+                  "target": "Team",
+                  "modifierName": "UNIQUE_Team_ScoreMult_Arua"
                 }
               ]
             },
@@ -1589,12 +1561,12 @@
               "$type": "PlayerUidNotifyMixin",
               "PDHIOHEAJPI": "random_buff_aster",
               "DDCDCLHBJBA": 4,
-              "JCMFILJLNFH": "Equal",
+              "logic": "Equal",
               "actions": [
                 {
                   "$type": "ApplyModifier",
-                  "KMGAOOHMCPK": "Team",
-                  "BGIONAIMBCJ": "UNIQUE_DebuffTimer_Team"
+                  "target": "Team",
+                  "modifierName": "UNIQUE_DebuffTimer_Team"
                 }
               ]
             },
@@ -1602,711 +1574,694 @@
               "$type": "PlayerUidNotifyMixin",
               "PDHIOHEAJPI": "random_buff_aster",
               "DDCDCLHBJBA": 5,
-              "JCMFILJLNFH": "Equal",
+              "logic": "Equal",
               "actions": [
                 {
                   "$type": "ApplyModifier",
-                  "KMGAOOHMCPK": "Team",
-                  "BGIONAIMBCJ": "UNIQUE_Team_UperScoreMult_Arua"
+                  "target": "Team",
+                  "modifierName": "UNIQUE_Team_UperScoreMult_Arua"
                 }
               ]
             }
           ]
         },
         "UNIQUE_DebuffTimer_Team": {
-          "HABNNJHCOCD": "Unique",
-          "BGIONAIMBCJ": "",
-          "defaultDistanceBetweenAvatarAndCamera": true,
-          "FAFCPJJAIGK": 5.0,
-          "ONIHJPOMNHA": 100.0,
-          "CLOIGOBCDJK": [
+          "stacking": "Unique",
+          "modifierName": "",
+          "isUnique": true,
+          "duration": 5,
+          "elementDurability": 100,
+          "modifierMixins": [
             {
               "$type": "ApplyModifierWithSharedDurabilityMixin",
-              "BGIONAIMBCJ": "DebuffTimer"
+              "modifierName": "DebuffTimer"
             }
           ]
         },
         "DebuffTimer": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Debuff_01",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_SceneObj_Aster_Debuff_01"
             }
           ],
-          "NFKOGKMAIIE": [
+          "onRemoved": [
             {
               "$type": "CreateGadget",
-              "CCNCMOGOFAG": {
-                "$type": "DELDMCFKBBL"
+              "born": {
+                "$type": "ConfigBornBySelf"
               },
-              "BLPPFMNOOIO": 70900360,
+              "gadgetID": 70900360,
               "MJDKNDMPMIB": true
             }
           ]
         },
         "UNIQUE_Team_DamageUp_Arua": {
-          "HABNNJHCOCD": "Unique",
-          "BGIONAIMBCJ": "",
-          "defaultDistanceBetweenAvatarAndCamera": true,
-          "FAFCPJJAIGK": 30.0,
-          "ONIHJPOMNHA": 100.0,
-          "ANPDJHOGAFE": 5.0,
-          "CLOIGOBCDJK": [
+          "stacking": "Unique",
+          "modifierName": "",
+          "isUnique": true,
+          "duration": 30,
+          "elementDurability": 100,
+          "thinkInterval": 5,
+          "modifierMixins": [
             {
               "$type": "CurLocalAvatarMixin",
-              "BGIONAIMBCJ": "Team_DamageUp_Arua_Eff"
+              "modifierName": "Team_DamageUp_Arua_Eff"
             }
           ],
-          "NLFIGALMIPD": [
+          "onAdded": [
             {
               "$type": "FireEffect",
-              "KMGAOOHMCPK": "CurLocalAvatar",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Buff_01_Wave",
-              "PCLAEGHPNHE": -1.0
+              "target": "CurLocalAvatar",
+              "effectPattern": "Eff_SceneObj_Aster_Buff_01_Wave"
             },
             {
               "$type": "ApplyModifier",
-              "musicSubStates": {
-                "$type": "HGNAFICLGFP",
-                "IBPOJODNMHO": "CircleR5",
+              "otherTargets": {
+                "$type": "SelectTargetsByShape",
+                "shapeName": "CircleR5",
                 "BPDOJDLNBPP": "CurLocalAvatar",
-                "CHPLPFBEPDN": "All",
-                "CNNFBFOPDJC": "CurLocalAvatar",
-                "CHGLFBPDMKF": 1.0
+                "campTargetType": "All",
+                "campBasedOn": "CurLocalAvatar",
+                "sizeRatio": 1
               },
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "FAGBAHBLACH",
-                  "MALHNOJHHDJ": [
+                  "$type": "ByEntityTypes",
+                  "entityTypes": [
                     "Avatar"
                   ]
                 }
               ],
-              "BGIONAIMBCJ": "DamageUp"
+              "modifierName": "DamageUp"
             }
           ],
-          "MDPGEKAIFIM": [
+          "onThinkInterval": [
             {
               "$type": "FireEffect",
-              "KMGAOOHMCPK": "CurLocalAvatar",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Buff_01_Wave",
-              "PCLAEGHPNHE": -1.0
+              "target": "CurLocalAvatar",
+              "effectPattern": "Eff_SceneObj_Aster_Buff_01_Wave"
             },
             {
               "$type": "ApplyModifier",
-              "musicSubStates": {
-                "$type": "HGNAFICLGFP",
-                "IBPOJODNMHO": "CircleR5",
+              "otherTargets": {
+                "$type": "SelectTargetsByShape",
+                "shapeName": "CircleR5",
                 "BPDOJDLNBPP": "CurLocalAvatar",
-                "CHPLPFBEPDN": "All",
-                "CNNFBFOPDJC": "CurLocalAvatar",
-                "CHGLFBPDMKF": 1.0
+                "campTargetType": "All",
+                "campBasedOn": "CurLocalAvatar",
+                "sizeRatio": 1
               },
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "FAGBAHBLACH",
-                  "MALHNOJHHDJ": [
+                  "$type": "ByEntityTypes",
+                  "entityTypes": [
                     "Avatar"
                   ]
                 }
               ],
-              "BGIONAIMBCJ": "DamageUp"
+              "modifierName": "DamageUp"
             }
           ]
         },
         "Team_DamageUp_Arua_Eff": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Buff_01",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_SceneObj_Aster_Buff_01"
             }
           ]
         },
         "DamageUp": {
-          "BGIONAIMBCJ": "",
-          "FAFCPJJAIGK": 5.5,
-          "ONIHJPOMNHA": 100.0,
-          "NLPPKPOJEOA": {
-            "Actor_AttackRatio": 0.800000011920929
+          "modifierName": "",
+          "duration": 5.5,
+          "elementDurability": 100,
+          "properties": {
+            "Actor_AttackRatio": 0.8
           },
-          "FJMPEOEHPJK": "AttackUp",
-          "NLFIGALMIPD": [
+          "state": "AttackUp",
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_MQ1002_XueyueBuff",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_MQ1002_XueyueBuff"
             }
           ],
-          "PLFMOPGDMDI": true,
-          "PAIHEPNMKDJ": 10001
+          "isLimitedProperties": true,
+          "buffID": 10001
         },
         "UNIQUE_Team_ChannelBlock_Arua": {
-          "HABNNJHCOCD": "Unique",
-          "BGIONAIMBCJ": "",
-          "defaultDistanceBetweenAvatarAndCamera": true,
-          "FAFCPJJAIGK": 30.0,
-          "ONIHJPOMNHA": 100.0,
-          "ANPDJHOGAFE": 5.0,
-          "CLOIGOBCDJK": [
+          "stacking": "Unique",
+          "modifierName": "",
+          "isUnique": true,
+          "duration": 30,
+          "elementDurability": 100,
+          "thinkInterval": 5,
+          "modifierMixins": [
             {
               "$type": "CurLocalAvatarMixin",
-              "BGIONAIMBCJ": "Team_ChannelBlock_Arua_Eff"
+              "modifierName": "Team_ChannelBlock_Arua_Eff"
             }
           ],
-          "NLFIGALMIPD": [
+          "onAdded": [
             {
               "$type": "FireEffect",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Buff_01_Wave",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_SceneObj_Aster_Buff_01_Wave"
             },
             {
               "$type": "ApplyModifier",
-              "musicSubStates": {
-                "$type": "HGNAFICLGFP",
-                "IBPOJODNMHO": "CircleR5",
+              "otherTargets": {
+                "$type": "SelectTargetsByShape",
+                "shapeName": "CircleR5",
                 "BPDOJDLNBPP": "CurLocalAvatar",
-                "CHPLPFBEPDN": "All",
-                "CNNFBFOPDJC": "CurLocalAvatar",
-                "CHGLFBPDMKF": 1.0
+                "campTargetType": "All",
+                "campBasedOn": "CurLocalAvatar",
+                "sizeRatio": 1
               },
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "FAGBAHBLACH",
-                  "MALHNOJHHDJ": [
+                  "$type": "ByEntityTypes",
+                  "entityTypes": [
                     "Avatar"
                   ]
                 }
               ],
-              "BGIONAIMBCJ": "ChannelBlock"
+              "modifierName": "ChannelBlock"
             }
           ],
-          "MDPGEKAIFIM": [
+          "onThinkInterval": [
             {
               "$type": "FireEffect",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Buff_01_Wave",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_SceneObj_Aster_Buff_01_Wave"
             },
             {
               "$type": "ApplyModifier",
-              "musicSubStates": {
-                "$type": "HGNAFICLGFP",
-                "IBPOJODNMHO": "CircleR5",
+              "otherTargets": {
+                "$type": "SelectTargetsByShape",
+                "shapeName": "CircleR5",
                 "BPDOJDLNBPP": "CurLocalAvatar",
-                "CHPLPFBEPDN": "All",
-                "CNNFBFOPDJC": "CurLocalAvatar",
-                "CHGLFBPDMKF": 1.0
+                "campTargetType": "All",
+                "campBasedOn": "CurLocalAvatar",
+                "sizeRatio": 1
               },
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "FAGBAHBLACH",
-                  "MALHNOJHHDJ": [
+                  "$type": "ByEntityTypes",
+                  "entityTypes": [
                     "Avatar"
                   ]
                 }
               ],
-              "BGIONAIMBCJ": "ChannelBlock"
+              "modifierName": "ChannelBlock"
             }
           ]
         },
         "ChannelBlock": {
-          "BGIONAIMBCJ": "",
-          "FAFCPJJAIGK": 5.5,
-          "ONIHJPOMNHA": 100.0,
-          "NLPPKPOJEOA": {
-            "Actor_EndureDelta": 10.0
+          "modifierName": "",
+          "duration": 5.5,
+          "elementDurability": 100,
+          "properties": {
+            "Actor_EndureDelta": 10
           },
-          "NLFIGALMIPD": [
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_MQ1002_XueyueBuff",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_MQ1002_XueyueBuff"
             },
             {
               "$type": "AddGlobalValue",
-              "value": 1.0,
-              "NGGCNKPAODB": "CHANNEL_BLOCK",
-              "AJKBEKOCMKF": true,
-              "LBHGJKHHAKP": 1.0,
-              "EMGNPOKHMNN": 1.0
+              "value": 1,
+              "key": "CHANNEL_BLOCK",
+              "useLimitRange": true,
+              "maxValue": 1,
+              "minValue": 1
             }
           ],
-          "NFKOGKMAIIE": [
+          "onRemoved": [
             {
               "$type": "AddGlobalValue",
-              "value": 0.0,
-              "NGGCNKPAODB": "CHANNEL_BLOCK",
-              "AJKBEKOCMKF": true,
-              "LBHGJKHHAKP": 0.0,
-              "EMGNPOKHMNN": 0.0
+              "value": 0,
+              "key": "CHANNEL_BLOCK",
+              "useLimitRange": true,
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         "Team_ChannelBlock_Arua_Eff": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Buff_01",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_SceneObj_Aster_Buff_01"
             }
           ]
         },
         "UNIQUE_Team_ScoreMult_Arua": {
-          "HABNNJHCOCD": "Unique",
-          "BGIONAIMBCJ": "",
-          "defaultDistanceBetweenAvatarAndCamera": true,
-          "FAFCPJJAIGK": 30.0,
-          "ONIHJPOMNHA": 100.0,
-          "ANPDJHOGAFE": 5.0,
-          "CLOIGOBCDJK": [
+          "stacking": "Unique",
+          "modifierName": "",
+          "isUnique": true,
+          "duration": 30,
+          "elementDurability": 100,
+          "thinkInterval": 5,
+          "modifierMixins": [
             {
               "$type": "CurLocalAvatarMixin",
-              "BGIONAIMBCJ": "Team_ScoreMult_Arua_Eff"
+              "modifierName": "Team_ScoreMult_Arua_Eff"
             }
           ],
-          "NLFIGALMIPD": [
+          "onAdded": [
             {
               "$type": "FireEffect",
-              "KMGAOOHMCPK": "CurLocalAvatar",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Buff_02_Wave",
-              "PCLAEGHPNHE": -1.0
+              "target": "CurLocalAvatar",
+              "effectPattern": "Eff_SceneObj_Aster_Buff_02_Wave"
             },
             {
               "$type": "ApplyModifier",
-              "musicSubStates": {
-                "$type": "HGNAFICLGFP",
-                "IBPOJODNMHO": "CircleR5",
+              "otherTargets": {
+                "$type": "SelectTargetsByShape",
+                "shapeName": "CircleR5",
                 "BPDOJDLNBPP": "CurLocalAvatar",
-                "CHPLPFBEPDN": "All",
-                "CNNFBFOPDJC": "CurLocalAvatar",
-                "CHGLFBPDMKF": 1.0
+                "campTargetType": "All",
+                "campBasedOn": "CurLocalAvatar",
+                "sizeRatio": 1
               },
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "FAGBAHBLACH",
-                  "MALHNOJHHDJ": [
+                  "$type": "ByEntityTypes",
+                  "entityTypes": [
                     "Avatar"
                   ]
                 }
               ],
-              "BGIONAIMBCJ": "ScoreMult"
+              "modifierName": "ScoreMult"
             }
           ],
-          "MDPGEKAIFIM": [
+          "onThinkInterval": [
             {
               "$type": "FireEffect",
-              "KMGAOOHMCPK": "CurLocalAvatar",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Buff_02_Wave",
-              "PCLAEGHPNHE": -1.0
+              "target": "CurLocalAvatar",
+              "effectPattern": "Eff_SceneObj_Aster_Buff_02_Wave"
             },
             {
               "$type": "ApplyModifier",
-              "musicSubStates": {
-                "$type": "HGNAFICLGFP",
-                "IBPOJODNMHO": "CircleR5",
+              "otherTargets": {
+                "$type": "SelectTargetsByShape",
+                "shapeName": "CircleR5",
                 "BPDOJDLNBPP": "CurLocalAvatar",
-                "CHPLPFBEPDN": "All",
-                "CNNFBFOPDJC": "CurLocalAvatar",
-                "CHGLFBPDMKF": 1.0
+                "campTargetType": "All",
+                "campBasedOn": "CurLocalAvatar",
+                "sizeRatio": 1
               },
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "FAGBAHBLACH",
-                  "MALHNOJHHDJ": [
+                  "$type": "ByEntityTypes",
+                  "entityTypes": [
                     "Avatar"
                   ]
                 }
               ],
-              "BGIONAIMBCJ": "ScoreMult"
+              "modifierName": "ScoreMult"
             }
           ]
         },
         "ScoreMult": {
-          "BGIONAIMBCJ": "",
-          "FAFCPJJAIGK": 6.0,
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "duration": 6,
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Buff_02",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_SceneObj_Aster_Buff_02"
             },
             {
               "$type": "SetGlobalValue",
-              "KMGAOOHMCPK": "Team",
-              "value": 1.0,
-              "NGGCNKPAODB": "ASTER_PROGRESS_RATIO",
-              "LBHGJKHHAKP": 0.0,
-              "EMGNPOKHMNN": 0.0
+              "target": "Team",
+              "value": 1,
+              "key": "ASTER_PROGRESS_RATIO",
+              "maxValue": 0,
+              "minValue": 0
             }
           ],
-          "NFKOGKMAIIE": [
+          "onRemoved": [
             {
               "$type": "SetGlobalValue",
-              "KMGAOOHMCPK": "Team",
-              "value": 0.0,
-              "NGGCNKPAODB": "ASTER_PROGRESS_RATIO",
-              "LBHGJKHHAKP": 0.0,
-              "EMGNPOKHMNN": 0.0
+              "target": "Team",
+              "value": 0,
+              "key": "ASTER_PROGRESS_RATIO",
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         "Team_ScoreMult_Arua_Eff": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Buff_02_Circle",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_SceneObj_Aster_Buff_02_Circle"
             }
           ]
         },
         "UNIQUE_Team_UperScoreMult_Arua": {
-          "HABNNJHCOCD": "Unique",
-          "BGIONAIMBCJ": "",
-          "defaultDistanceBetweenAvatarAndCamera": true,
-          "FAFCPJJAIGK": 30.0,
-          "ONIHJPOMNHA": 100.0,
-          "CLOIGOBCDJK": [
+          "stacking": "Unique",
+          "modifierName": "",
+          "isUnique": true,
+          "duration": 30,
+          "elementDurability": 100,
+          "modifierMixins": [
             {
               "$type": "CurLocalAvatarMixin",
-              "BGIONAIMBCJ": "Team_UperScoreMult_Arua_Eff"
+              "modifierName": "Team_UperScoreMult_Arua_Eff"
             }
           ],
-          "NLFIGALMIPD": [
+          "onAdded": [
             {
               "$type": "SetGlobalValue",
-              "KMGAOOHMCPK": "Team",
-              "value": 1.0,
-              "NGGCNKPAODB": "ASTER_ENERGY_RATIO",
-              "LBHGJKHHAKP": 0.0,
-              "EMGNPOKHMNN": 0.0
+              "target": "Team",
+              "value": 1,
+              "key": "ASTER_ENERGY_RATIO",
+              "maxValue": 0,
+              "minValue": 0
             }
           ],
-          "NFKOGKMAIIE": [
+          "onRemoved": [
             {
               "$type": "SetGlobalValue",
-              "KMGAOOHMCPK": "Team",
-              "value": 0.0,
-              "NGGCNKPAODB": "ASTER_ENERGY_RATIO",
-              "LBHGJKHHAKP": 0.0,
-              "EMGNPOKHMNN": 0.0
+              "target": "Team",
+              "value": 0,
+              "key": "ASTER_ENERGY_RATIO",
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         "Team_UperScoreMult_Arua_Eff": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Buff_01",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_SceneObj_Aster_Buff_01"
             }
           ]
         },
         "UNIQUE_AvatarStateController": {
-          "HABNNJHCOCD": "Unique",
-          "BGIONAIMBCJ": "",
-          "defaultDistanceBetweenAvatarAndCamera": true,
-          "ONIHJPOMNHA": 100.0,
-          "CLOIGOBCDJK": [
+          "stacking": "Unique",
+          "modifierName": "",
+          "isUnique": true,
+          "elementDurability": 100,
+          "modifierMixins": [
             {
               "$type": "CurLocalAvatarMixin",
-              "BGIONAIMBCJ": "Avatar_State"
+              "modifierName": "Avatar_State"
             },
             {
               "$type": "ServerUpdateGlobalValueMixin",
-              "NGGCNKPAODB": "AVATAR_ASTER_SCORE",
-              "AJKBEKOCMKF": true,
-              "LBHGJKHHAKP": "MaxScore",
-              "EMGNPOKHMNN": 0.0
+              "key": "AVATAR_ASTER_SCORE",
+              "useLimitRange": true,
+              "maxValue": "MaxScore",
+              "minValue": 0
             }
           ]
         },
         "Avatar_State": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "CLOIGOBCDJK": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "modifierMixins": [
             {
               "$type": "AttachToStateIDMixin",
-              "FHCHNMKMJJA": [
+              "stateIDs": [
                 "Channel_Loop",
                 "Channel_AS",
                 "Channel_BS"
               ],
-              "BGIONAIMBCJ": "AvatarInChannel"
+              "modifierName": "AvatarInChannel"
             }
           ]
         },
         "AvatarInChannel": {
-          "HABNNJHCOCD": "Unique",
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "ANPDJHOGAFE": 5.0,
-          "NLFIGALMIPD": [
+          "stacking": "Unique",
+          "modifierName": "",
+          "elementDurability": 100,
+          "thinkInterval": 5,
+          "onAdded": [
             {
               "$type": "SetExtraAbilityState",
-              "KMGAOOHMCPK": "Caster"
+              "target": "Caster"
             },
             {
               "$type": "AttachModifier",
-              "musicSubStates": {
-                "$type": "HGNAFICLGFP",
-                "IBPOJODNMHO": "CircleR50",
+              "otherTargets": {
+                "$type": "SelectTargetsByShape",
+                "shapeName": "CircleR50",
                 "BPDOJDLNBPP": "CurLocalAvatar",
-                "CHPLPFBEPDN": "AllExceptSelf",
-                "CNNFBFOPDJC": "CurLocalAvatar",
-                "CHGLFBPDMKF": 1.0
+                "campTargetType": "AllExceptSelf",
+                "campBasedOn": "CurLocalAvatar",
+                "sizeRatio": 1
               },
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "OMPKIEPKGPF",
-                  "NGGCNKPAODB": "IS_BIG_ASTER",
-                  "value": 1.0
+                  "$type": "ByTargetGlobalValue",
+                  "key": "IS_BIG_ASTER",
+                  "value": 1
                 }
               ],
-              "BGIONAIMBCJ": "LineEff_FindAster"
+              "modifierName": "LineEff_FindAster"
             },
             {
               "$type": "SetGlobalValue",
-              "KMGAOOHMCPK": "CurLocalAvatar",
-              "value": 0.0,
-              "NGGCNKPAODB": "CHARGE_SUCCESS",
-              "LBHGJKHHAKP": 0.0,
-              "EMGNPOKHMNN": 0.0
+              "target": "CurLocalAvatar",
+              "value": 0,
+              "key": "CHARGE_SUCCESS",
+              "maxValue": 0,
+              "minValue": 0
             },
             {
               "$type": "AttachEffect",
-              "musicSubStates": {
-                "$type": "HGNAFICLGFP",
-                "IBPOJODNMHO": "CircleR50",
+              "otherTargets": {
+                "$type": "SelectTargetsByShape",
+                "shapeName": "CircleR50",
                 "BPDOJDLNBPP": "CurLocalAvatar",
-                "CHPLPFBEPDN": "AllExceptSelf",
-                "CNNFBFOPDJC": "CurLocalAvatar",
-                "CHGLFBPDMKF": 1.0
+                "campTargetType": "AllExceptSelf",
+                "campBasedOn": "CurLocalAvatar",
+                "sizeRatio": 1
               },
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "OMPKIEPKGPF",
-                  "NGGCNKPAODB": "IS_BIG_ASTER",
-                  "value": 1.0
+                  "$type": "ByTargetGlobalValue",
+                  "key": "IS_BIG_ASTER",
+                  "value": 1
                 }
               ],
-              "LHHFHDEJOHC": "Eff_SceneObj_AsterLarge_Active",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_SceneObj_AsterLarge_Active"
             }
           ],
-          "NFKOGKMAIIE": [
+          "onRemoved": [
             {
               "$type": "SetAnimatorTrigger",
-              "KMGAOOHMCPK": "CurLocalAvatar",
-              "FLEEHCIOPKA": [
+              "target": "CurLocalAvatar",
+              "predicates": [
                 {
-                  "$type": "OMPKIEPKGPF",
-                  "KMGAOOHMCPK": "CurLocalAvatar",
-                  "NGGCNKPAODB": "CHARGE_SUCCESS",
-                  "value": 0.0
+                  "$type": "ByTargetGlobalValue",
+                  "target": "CurLocalAvatar",
+                  "key": "CHARGE_SUCCESS",
+                  "value": 0
                 }
               ],
-              "POPKLBPMAJN": "EndChannelTrigger"
+              "triggerID": "EndChannelTrigger"
             },
             {
               "$type": "SetExtraAbilityState",
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "OMPKIEPKGPF",
-                  "KMGAOOHMCPK": "CurLocalAvatar",
-                  "NGGCNKPAODB": "CHARGE_SUCCESS",
-                  "value": 0.0
+                  "$type": "ByTargetGlobalValue",
+                  "target": "CurLocalAvatar",
+                  "key": "CHARGE_SUCCESS",
+                  "value": 0
                 }
               ],
-              "FJMPEOEHPJK": "Interrupt"
+              "state": "Interrupt"
             }
           ],
-          "EOMGJKEEICG": [
+          "onBeingHit": [
             {
               "$type": "Predicated",
-              "KMGAOOHMCPK": "CurLocalAvatar",
-              "EGMDPEHBAOA": [
+              "target": "CurLocalAvatar",
+              "targetPredicates": [
                 {
-                  "$type": "OMPKIEPKGPF",
-                  "NGGCNKPAODB": "CHANNEL_BLOCK",
-                  "value": 0.0,
-                  "GAGKBNPOCAC": "NoneOrEqual"
+                  "$type": "ByTargetGlobalValue",
+                  "key": "CHANNEL_BLOCK",
+                  "value": 0,
+                  "compareType": "NoneOrEqual"
                 }
               ],
               "successActions": [
                 {
                   "$type": "CopyGlobalValue",
-                  "CAAICNJMPCD": "Team",
-                  "INODFCIEOPP": "Caster",
-                  "OHLDODBILJD": "AVATAR_ASTER_SCORE",
-                  "DCOAHDNGMHH": "AVATAR_ASTER_SCORE"
+                  "srcTarget": "Team",
+                  "dstTarget": "Caster",
+                  "srcKey": "AVATAR_ASTER_SCORE",
+                  "dstKey": "AVATAR_ASTER_SCORE"
                 },
                 {
                   "$type": "SetGlobalValueToOverrideMap",
-                  "KMGAOOHMCPK": "Caster",
-                  "AOJHAGMBDNP": "AVATAR_ASTER_SCORE",
-                  "BPGLCPGHEEK": "CurScore"
+                  "target": "Caster",
+                  "globalValueKey": "AVATAR_ASTER_SCORE",
+                  "overrideMapKey": "CurScore"
                 },
                 {
                   "$type": "ServerLuaCall",
-                  "KMGAOOHMCPK": "Team",
+                  "target": "Team",
                   "FNBGNCANKJF": "CurScenePlay",
                   "FDPMGLDLLIN": "UpdateAsterInterrupt",
-                  "param1": 0.0,
-                  "HFOIEKLCLEM": 0.0,
-                  "MCLOKLEBGPH": 0.0
+                  "param1": 0,
+                  "HFOIEKLCLEM": 0,
+                  "MCLOKLEBGPH": 0
                 },
                 {
                   "$type": "SetGlobalValue",
-                  "KMGAOOHMCPK": "Team",
+                  "target": "Team",
                   "value": [
                     0.5,
                     "CurScore",
                     "MUL"
                   ],
-                  "NGGCNKPAODB": "AVATAR_ASTER_SCORE",
-                  "LBHGJKHHAKP": 0.0,
-                  "EMGNPOKHMNN": 0.0
+                  "key": "AVATAR_ASTER_SCORE",
+                  "maxValue": 0,
+                  "minValue": 0
                 },
                 {
                   "$type": "SetAnimatorTrigger",
-                  "KMGAOOHMCPK": "CurLocalAvatar",
-                  "POPKLBPMAJN": "EndChannelTrigger"
+                  "target": "CurLocalAvatar",
+                  "triggerID": "EndChannelTrigger"
                 },
                 {
                   "$type": "RemoveModifier",
-                  "KMGAOOHMCPK": "CurLocalAvatar",
-                  "BGIONAIMBCJ": "AvatarInChannel"
+                  "target": "CurLocalAvatar",
+                  "modifierName": "AvatarInChannel"
                 }
               ]
             }
           ],
-          "MDPGEKAIFIM": [
+          "onThinkInterval": [
             {
               "$type": "SetGlobalValue",
-              "KMGAOOHMCPK": "CurLocalAvatar",
-              "value": 1.0,
-              "NGGCNKPAODB": "CHARGE_SUCCESS",
-              "LBHGJKHHAKP": 0.0,
-              "EMGNPOKHMNN": 0.0
+              "target": "CurLocalAvatar",
+              "value": 1,
+              "key": "CHARGE_SUCCESS",
+              "maxValue": 0,
+              "minValue": 0
             },
             {
               "$type": "FireEffect",
-              "musicSubStates": {
-                "$type": "HGNAFICLGFP",
-                "IBPOJODNMHO": "CircleR50",
+              "otherTargets": {
+                "$type": "SelectTargetsByShape",
+                "shapeName": "CircleR50",
                 "BPDOJDLNBPP": "CurLocalAvatar",
-                "CHPLPFBEPDN": "AllExceptSelf",
-                "CNNFBFOPDJC": "CurLocalAvatar",
-                "CHGLFBPDMKF": 1.0
+                "campTargetType": "AllExceptSelf",
+                "campBasedOn": "CurLocalAvatar",
+                "sizeRatio": 1
               },
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "OMPKIEPKGPF",
-                  "NGGCNKPAODB": "IS_BIG_ASTER",
-                  "value": 1.0
+                  "$type": "ByTargetGlobalValue",
+                  "key": "IS_BIG_ASTER",
+                  "value": 1
                 }
               ],
-              "LHHFHDEJOHC": "Eff_SceneObj_AsterLarge_RecevieFinish",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_SceneObj_AsterLarge_RecevieFinish"
             },
             {
               "$type": "ServerLuaCall",
-              "KMGAOOHMCPK": "Team",
+              "target": "Team",
               "FNBGNCANKJF": "CurScenePlay",
               "FDPMGLDLLIN": "UpdateAsterProgress",
-              "param1": 0.0,
-              "HFOIEKLCLEM": 0.0,
-              "MCLOKLEBGPH": 0.0
+              "param1": 0,
+              "HFOIEKLCLEM": 0,
+              "MCLOKLEBGPH": 0
             },
             {
               "$type": "SetAnimatorTrigger",
-              "KMGAOOHMCPK": "CurLocalAvatar",
-              "POPKLBPMAJN": "EndChannelTrigger"
+              "target": "CurLocalAvatar",
+              "triggerID": "EndChannelTrigger"
             },
             {
               "$type": "RemoveModifier",
-              "BGIONAIMBCJ": "AvatarInChannel"
+              "modifierName": "AvatarInChannel"
             }
           ]
         },
         "LineEff_FindAster": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "KMGAOOHMCPK": "Applier",
-              "LHHFHDEJOHC": "Eff_SceneObj_AsterLarge_Recevie",
-              "CCNCMOGOFAG": {
-                "$type": "IADBHDLMGJB",
-                "MDPMJPIOGLA": "EffPoint",
-                "JPEOGPAHPDM": "Self"
-              },
-              "PCLAEGHPNHE": -1.0
+              "target": "Applier",
+              "effectPattern": "Eff_SceneObj_AsterLarge_Recevie",
+              "born": {
+                "$type": "ConfigBornByAttachPoint",
+                "attachPointName": "EffPoint",
+                "attachPointTargetType": "Self"
+              }
             }
           ]
         }
       },
-      "NLFIGALMIPD": [
+      "onAdded": [
         {
           "$type": "AttachModifier",
-          "BGIONAIMBCJ": "UNIQUE_SkillButtonController"
+          "modifierName": "UNIQUE_SkillButtonController"
         },
         {
           "$type": "AttachModifier",
-          "KMGAOOHMCPK": "Team",
-          "BGIONAIMBCJ": "Init"
+          "target": "Team",
+          "modifierName": "Init"
         },
         {
           "$type": "AttachModifier",
-          "KMGAOOHMCPK": "Team",
-          "BGIONAIMBCJ": "UNIQUE_AvatarStateController"
+          "target": "Team",
+          "modifierName": "UNIQUE_AvatarStateController"
         },
         {
           "$type": "AttachModifier",
-          "KMGAOOHMCPK": "Team",
-          "BGIONAIMBCJ": "UNIQUE_PlayerNotify"
+          "target": "Team",
+          "modifierName": "UNIQUE_PlayerNotify"
         },
         {
           "$type": "AttachModifier",
-          "KMGAOOHMCPK": "Team",
-          "BGIONAIMBCJ": "UNIQUE_TuntController"
+          "target": "Team",
+          "modifierName": "UNIQUE_TuntController"
         },
         {
           "$type": "SetGlobalValue",
-          "value": 0.0,
-          "NGGCNKPAODB": "AVATAR_ASTER_SCORE",
-          "LBHGJKHHAKP": 0.0,
-          "EMGNPOKHMNN": 0.0
+          "value": 0,
+          "key": "AVATAR_ASTER_SCORE",
+          "maxValue": 0,
+          "minValue": 0
         }
       ],
-      "DEOJHLMNLFC": [
+      "onAbilityStart": [
         {
           "$type": "SetAnimatorTrigger",
-          "KMGAOOHMCPK": "CurLocalAvatar",
-          "POPKLBPMAJN": "StartChannelTrigger"
+          "target": "CurLocalAvatar",
+          "triggerID": "StartChannelTrigger"
         }
       ],
-      "LFBJFECLNGK": [
+      "onKill": [
         {
           "$type": "RemoveUniqueModifier",
-          "BGIONAIMBCJ": "UNIQUE_SkillButtonController"
+          "modifierName": "UNIQUE_SkillButtonController"
         },
         {
           "$type": "RemoveModifier",
-          "BGIONAIMBCJ": "AvatarInChannel"
+          "modifierName": "AvatarInChannel"
         }
       ]
     }
@@ -2315,61 +2270,61 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "SceneObj_Aster_PlayEntity_Hard",
-      "CLHBPEHHEJB": {
-        "MaxScore": 300.0,
-        "SubScore": -1.0,
-        "CurScore": 0.0
+      "abilitySpecials": {
+        "MaxScore": 300,
+        "SubScore": -1,
+        "CurScore": 0
       },
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "Init": {
-          "BGIONAIMBCJ": "",
-          "FAFCPJJAIGK": 0.5,
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "duration": 0.5,
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "SetGlobalValue",
-              "KMGAOOHMCPK": "Team",
-              "value": 0.0,
-              "NGGCNKPAODB": "AVATAR_ASTER_SCORE",
-              "LBHGJKHHAKP": 0.0,
-              "EMGNPOKHMNN": 0.0
+              "target": "Team",
+              "value": 0,
+              "key": "AVATAR_ASTER_SCORE",
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         "UNIQUE_SkillButtonController": {
-          "BGIONAIMBCJ": "",
-          "defaultDistanceBetweenAvatarAndCamera": true,
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "isUnique": true,
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "ShowExtraAbility",
-              "GCOFBECOEFF": 20005
+              "skillID": 20005
             },
             {
               "$type": "SetExtraAbilityEnable"
             }
           ],
-          "NFKOGKMAIIE": [
+          "onRemoved": [
             {
               "$type": "ShowExtraAbility"
             }
           ]
         },
         "UNIQUE_TuntController": {
-          "BGIONAIMBCJ": "",
-          "defaultDistanceBetweenAvatarAndCamera": true,
-          "ONIHJPOMNHA": 100.0,
-          "CLOIGOBCDJK": [
+          "modifierName": "",
+          "isUnique": true,
+          "elementDurability": 100,
+          "modifierMixins": [
             {
               "$type": "AttachModifierToSelfGlobalValueMixin",
-              "AOJHAGMBDNP": "AVATAR_ASTER_SCORE",
-              "MCAEKKJBNNJ": 0.0,
-              "FCPOANIDKOM": [
-                0.0,
+              "globalValueKey": "AVATAR_ASTER_SCORE",
+              "defaultGlobalValueOnCreate": 0,
+              "valueSteps": [
+                0,
                 99.5,
                 100.5
               ],
-              "NGIGIMPCHOO": [
+              "modifierNameSteps": [
                 "Blank",
                 "SetTaunt"
               ]
@@ -2377,64 +2332,64 @@
           ]
         },
         "Blank": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0
+          "modifierName": "",
+          "elementDurability": 100
         },
         "SetTaunt": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AttachModifier",
-              "KMGAOOHMCPK": "CurLocalAvatar",
-              "BGIONAIMBCJ": "Avatar_Taunt"
+              "target": "CurLocalAvatar",
+              "modifierName": "Avatar_Taunt"
             }
           ]
         },
         "Avatar_Taunt": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "TriggerTaunt",
-              "musicSubStates": {
-                "$type": "HGNAFICLGFP",
-                "IBPOJODNMHO": "CircleR25",
-                "CHPLPFBEPDN": "Enemy",
-                "CHGLFBPDMKF": 1.0
+              "otherTargets": {
+                "$type": "SelectTargetsByShape",
+                "shapeName": "CircleR25",
+                "campTargetType": "Enemy",
+                "sizeRatio": 1
               },
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "FAGBAHBLACH",
-                  "MALHNOJHHDJ": [
+                  "$type": "ByEntityTypes",
+                  "entityTypes": [
                     "Monster"
                   ]
                 }
               ],
-              "NKCIEFLMBMK": 50.0
+              "NKCIEFLMBMK": 50
             }
           ]
         },
         "UNIQUE_PlayerNotify": {
-          "HABNNJHCOCD": "Unique",
-          "BGIONAIMBCJ": "",
-          "defaultDistanceBetweenAvatarAndCamera": true,
-          "ONIHJPOMNHA": 100.0,
-          "CLOIGOBCDJK": [
+          "stacking": "Unique",
+          "modifierName": "",
+          "isUnique": true,
+          "elementDurability": 100,
+          "modifierMixins": [
             {
               "$type": "PlayerUidNotifyMixin",
               "PDHIOHEAJPI": "clear_energy",
               "DDCDCLHBJBA": 1,
-              "JCMFILJLNFH": "Equal",
+              "logic": "Equal",
               "actions": [
                 {
                   "$type": "AddGlobalValue",
-                  "KMGAOOHMCPK": "Team",
-                  "value": 0.0,
-                  "NGGCNKPAODB": "AVATAR_ASTER_SCORE",
-                  "AJKBEKOCMKF": true,
-                  "LBHGJKHHAKP": 0.0,
-                  "EMGNPOKHMNN": 0.0
+                  "target": "Team",
+                  "value": 0,
+                  "key": "AVATAR_ASTER_SCORE",
+                  "useLimitRange": true,
+                  "maxValue": 0,
+                  "minValue": 0
                 }
               ]
             },
@@ -2442,12 +2397,12 @@
               "$type": "PlayerUidNotifyMixin",
               "PDHIOHEAJPI": "random_buff_aster",
               "DDCDCLHBJBA": 1,
-              "JCMFILJLNFH": "Equal",
+              "logic": "Equal",
               "actions": [
                 {
                   "$type": "ApplyModifier",
-                  "KMGAOOHMCPK": "Team",
-                  "BGIONAIMBCJ": "UNIQUE_Team_DamageUp_Arua"
+                  "target": "Team",
+                  "modifierName": "UNIQUE_Team_DamageUp_Arua"
                 }
               ]
             },
@@ -2455,12 +2410,12 @@
               "$type": "PlayerUidNotifyMixin",
               "PDHIOHEAJPI": "random_buff_aster",
               "DDCDCLHBJBA": 2,
-              "JCMFILJLNFH": "Equal",
+              "logic": "Equal",
               "actions": [
                 {
                   "$type": "ApplyModifier",
-                  "KMGAOOHMCPK": "Team",
-                  "BGIONAIMBCJ": "UNIQUE_Team_ChannelBlock_Arua"
+                  "target": "Team",
+                  "modifierName": "UNIQUE_Team_ChannelBlock_Arua"
                 }
               ]
             },
@@ -2468,12 +2423,12 @@
               "$type": "PlayerUidNotifyMixin",
               "PDHIOHEAJPI": "random_buff_aster",
               "DDCDCLHBJBA": 3,
-              "JCMFILJLNFH": "Equal",
+              "logic": "Equal",
               "actions": [
                 {
                   "$type": "ApplyModifier",
-                  "KMGAOOHMCPK": "Team",
-                  "BGIONAIMBCJ": "UNIQUE_Team_ScoreMult_Arua"
+                  "target": "Team",
+                  "modifierName": "UNIQUE_Team_ScoreMult_Arua"
                 }
               ]
             },
@@ -2481,12 +2436,12 @@
               "$type": "PlayerUidNotifyMixin",
               "PDHIOHEAJPI": "random_buff_aster",
               "DDCDCLHBJBA": 4,
-              "JCMFILJLNFH": "Equal",
+              "logic": "Equal",
               "actions": [
                 {
                   "$type": "ApplyModifier",
-                  "KMGAOOHMCPK": "Team",
-                  "BGIONAIMBCJ": "UNIQUE_DebuffTimer_Team"
+                  "target": "Team",
+                  "modifierName": "UNIQUE_DebuffTimer_Team"
                 }
               ]
             },
@@ -2494,694 +2449,677 @@
               "$type": "PlayerUidNotifyMixin",
               "PDHIOHEAJPI": "random_buff_aster",
               "DDCDCLHBJBA": 5,
-              "JCMFILJLNFH": "Equal",
+              "logic": "Equal",
               "actions": [
                 {
                   "$type": "ApplyModifier",
-                  "KMGAOOHMCPK": "Team",
-                  "BGIONAIMBCJ": "UNIQUE_Team_UperScoreMult_Arua"
+                  "target": "Team",
+                  "modifierName": "UNIQUE_Team_UperScoreMult_Arua"
                 }
               ]
             }
           ]
         },
         "UNIQUE_DebuffTimer_Team": {
-          "HABNNJHCOCD": "Unique",
-          "BGIONAIMBCJ": "",
-          "defaultDistanceBetweenAvatarAndCamera": true,
-          "FAFCPJJAIGK": 5.0,
-          "ONIHJPOMNHA": 100.0,
-          "CLOIGOBCDJK": [
+          "stacking": "Unique",
+          "modifierName": "",
+          "isUnique": true,
+          "duration": 5,
+          "elementDurability": 100,
+          "modifierMixins": [
             {
               "$type": "ApplyModifierWithSharedDurabilityMixin",
-              "BGIONAIMBCJ": "DebuffTimer"
+              "modifierName": "DebuffTimer"
             }
           ]
         },
         "DebuffTimer": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Debuff_01",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_SceneObj_Aster_Debuff_01"
             }
           ],
-          "NFKOGKMAIIE": [
+          "onRemoved": [
             {
               "$type": "CreateGadget",
-              "CCNCMOGOFAG": {
-                "$type": "DELDMCFKBBL"
+              "born": {
+                "$type": "ConfigBornBySelf"
               },
-              "BLPPFMNOOIO": 70900360,
+              "gadgetID": 70900360,
               "MJDKNDMPMIB": true
             }
           ]
         },
         "UNIQUE_Team_DamageUp_Arua": {
-          "HABNNJHCOCD": "Unique",
-          "BGIONAIMBCJ": "",
-          "defaultDistanceBetweenAvatarAndCamera": true,
-          "FAFCPJJAIGK": 30.0,
-          "ONIHJPOMNHA": 100.0,
-          "ANPDJHOGAFE": 5.0,
-          "CLOIGOBCDJK": [
+          "stacking": "Unique",
+          "modifierName": "",
+          "isUnique": true,
+          "duration": 30,
+          "elementDurability": 100,
+          "thinkInterval": 5,
+          "modifierMixins": [
             {
               "$type": "CurLocalAvatarMixin",
-              "BGIONAIMBCJ": "Team_DamageUp_Arua_Eff"
+              "modifierName": "Team_DamageUp_Arua_Eff"
             }
           ],
-          "NLFIGALMIPD": [
+          "onAdded": [
             {
               "$type": "FireEffect",
-              "KMGAOOHMCPK": "CurLocalAvatar",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Buff_01_Wave",
-              "PCLAEGHPNHE": -1.0
+              "target": "CurLocalAvatar",
+              "effectPattern": "Eff_SceneObj_Aster_Buff_01_Wave"
             },
             {
               "$type": "ApplyModifier",
-              "musicSubStates": {
-                "$type": "HGNAFICLGFP",
-                "IBPOJODNMHO": "CircleR5",
+              "otherTargets": {
+                "$type": "SelectTargetsByShape",
+                "shapeName": "CircleR5",
                 "BPDOJDLNBPP": "CurLocalAvatar",
-                "CHPLPFBEPDN": "All",
-                "CNNFBFOPDJC": "CurLocalAvatar",
-                "CHGLFBPDMKF": 1.0
+                "campTargetType": "All",
+                "campBasedOn": "CurLocalAvatar",
+                "sizeRatio": 1
               },
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "FAGBAHBLACH",
-                  "MALHNOJHHDJ": [
+                  "$type": "ByEntityTypes",
+                  "entityTypes": [
                     "Avatar"
                   ]
                 }
               ],
-              "BGIONAIMBCJ": "DamageUp"
+              "modifierName": "DamageUp"
             }
           ],
-          "MDPGEKAIFIM": [
+          "onThinkInterval": [
             {
               "$type": "FireEffect",
-              "KMGAOOHMCPK": "CurLocalAvatar",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Buff_01_Wave",
-              "PCLAEGHPNHE": -1.0
+              "target": "CurLocalAvatar",
+              "effectPattern": "Eff_SceneObj_Aster_Buff_01_Wave"
             },
             {
               "$type": "ApplyModifier",
-              "musicSubStates": {
-                "$type": "HGNAFICLGFP",
-                "IBPOJODNMHO": "CircleR5",
+              "otherTargets": {
+                "$type": "SelectTargetsByShape",
+                "shapeName": "CircleR5",
                 "BPDOJDLNBPP": "CurLocalAvatar",
-                "CHPLPFBEPDN": "All",
-                "CNNFBFOPDJC": "CurLocalAvatar",
-                "CHGLFBPDMKF": 1.0
+                "campTargetType": "All",
+                "campBasedOn": "CurLocalAvatar",
+                "sizeRatio": 1
               },
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "FAGBAHBLACH",
-                  "MALHNOJHHDJ": [
+                  "$type": "ByEntityTypes",
+                  "entityTypes": [
                     "Avatar"
                   ]
                 }
               ],
-              "BGIONAIMBCJ": "DamageUp"
+              "modifierName": "DamageUp"
             }
           ]
         },
         "Team_DamageUp_Arua_Eff": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Buff_01",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_SceneObj_Aster_Buff_01"
             }
           ]
         },
         "DamageUp": {
-          "BGIONAIMBCJ": "",
-          "FAFCPJJAIGK": 6.0,
-          "ONIHJPOMNHA": 100.0,
-          "NLPPKPOJEOA": {
-            "Actor_AttackRatio": 0.800000011920929
+          "modifierName": "",
+          "duration": 6,
+          "elementDurability": 100,
+          "properties": {
+            "Actor_AttackRatio": 0.8
           },
-          "FJMPEOEHPJK": "AttackUp",
-          "NLFIGALMIPD": [
+          "state": "AttackUp",
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_MQ1002_XueyueBuff",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_MQ1002_XueyueBuff"
             }
           ],
-          "PLFMOPGDMDI": true,
-          "PAIHEPNMKDJ": 10001
+          "isLimitedProperties": true,
+          "buffID": 10001
         },
         "UNIQUE_Team_ChannelBlock_Arua": {
-          "HABNNJHCOCD": "Unique",
-          "BGIONAIMBCJ": "",
-          "defaultDistanceBetweenAvatarAndCamera": true,
-          "FAFCPJJAIGK": 30.0,
-          "ONIHJPOMNHA": 100.0,
-          "ANPDJHOGAFE": 5.0,
-          "CLOIGOBCDJK": [
+          "stacking": "Unique",
+          "modifierName": "",
+          "isUnique": true,
+          "duration": 30,
+          "elementDurability": 100,
+          "thinkInterval": 5,
+          "modifierMixins": [
             {
               "$type": "CurLocalAvatarMixin",
-              "BGIONAIMBCJ": "Team_ChannelBlock_Arua_Eff"
+              "modifierName": "Team_ChannelBlock_Arua_Eff"
             }
           ],
-          "NLFIGALMIPD": [
+          "onAdded": [
             {
               "$type": "FireEffect",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Buff_01_Wave",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_SceneObj_Aster_Buff_01_Wave"
             },
             {
               "$type": "ApplyModifier",
-              "musicSubStates": {
-                "$type": "HGNAFICLGFP",
-                "IBPOJODNMHO": "CircleR5",
+              "otherTargets": {
+                "$type": "SelectTargetsByShape",
+                "shapeName": "CircleR5",
                 "BPDOJDLNBPP": "CurLocalAvatar",
-                "CHPLPFBEPDN": "All",
-                "CNNFBFOPDJC": "CurLocalAvatar",
-                "CHGLFBPDMKF": 1.0
+                "campTargetType": "All",
+                "campBasedOn": "CurLocalAvatar",
+                "sizeRatio": 1
               },
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "FAGBAHBLACH",
-                  "MALHNOJHHDJ": [
+                  "$type": "ByEntityTypes",
+                  "entityTypes": [
                     "Avatar"
                   ]
                 }
               ],
-              "BGIONAIMBCJ": "ChannelBlock"
+              "modifierName": "ChannelBlock"
             }
           ],
-          "MDPGEKAIFIM": [
+          "onThinkInterval": [
             {
               "$type": "FireEffect",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Buff_01_Wave",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_SceneObj_Aster_Buff_01_Wave"
             },
             {
               "$type": "ApplyModifier",
-              "musicSubStates": {
-                "$type": "HGNAFICLGFP",
-                "IBPOJODNMHO": "CircleR5",
+              "otherTargets": {
+                "$type": "SelectTargetsByShape",
+                "shapeName": "CircleR5",
                 "BPDOJDLNBPP": "CurLocalAvatar",
-                "CHPLPFBEPDN": "All",
-                "CNNFBFOPDJC": "CurLocalAvatar",
-                "CHGLFBPDMKF": 1.0
+                "campTargetType": "All",
+                "campBasedOn": "CurLocalAvatar",
+                "sizeRatio": 1
               },
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "FAGBAHBLACH",
-                  "MALHNOJHHDJ": [
+                  "$type": "ByEntityTypes",
+                  "entityTypes": [
                     "Avatar"
                   ]
                 }
               ],
-              "BGIONAIMBCJ": "ChannelBlock"
+              "modifierName": "ChannelBlock"
             }
           ]
         },
         "ChannelBlock": {
-          "BGIONAIMBCJ": "",
-          "FAFCPJJAIGK": 5.5,
-          "ONIHJPOMNHA": 100.0,
-          "NLPPKPOJEOA": {
-            "Actor_EndureDelta": 10.0
+          "modifierName": "",
+          "duration": 5.5,
+          "elementDurability": 100,
+          "properties": {
+            "Actor_EndureDelta": 10
           },
-          "NLFIGALMIPD": [
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_MQ1002_XueyueBuff",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_MQ1002_XueyueBuff"
             },
             {
               "$type": "AddGlobalValue",
-              "value": 1.0,
-              "NGGCNKPAODB": "CHANNEL_BLOCK",
-              "AJKBEKOCMKF": true,
-              "LBHGJKHHAKP": 1.0,
-              "EMGNPOKHMNN": 1.0
+              "value": 1,
+              "key": "CHANNEL_BLOCK",
+              "useLimitRange": true,
+              "maxValue": 1,
+              "minValue": 1
             }
           ],
-          "NFKOGKMAIIE": [
+          "onRemoved": [
             {
               "$type": "AddGlobalValue",
-              "value": 0.0,
-              "NGGCNKPAODB": "CHANNEL_BLOCK",
-              "AJKBEKOCMKF": true,
-              "LBHGJKHHAKP": 0.0,
-              "EMGNPOKHMNN": 0.0
+              "value": 0,
+              "key": "CHANNEL_BLOCK",
+              "useLimitRange": true,
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         "Team_ChannelBlock_Arua_Eff": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Buff_01",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_SceneObj_Aster_Buff_01"
             }
           ]
         },
         "UNIQUE_Team_ScoreMult_Arua": {
-          "HABNNJHCOCD": "Unique",
-          "BGIONAIMBCJ": "",
-          "defaultDistanceBetweenAvatarAndCamera": true,
-          "FAFCPJJAIGK": 30.0,
-          "ONIHJPOMNHA": 100.0,
-          "ANPDJHOGAFE": 5.0,
-          "CLOIGOBCDJK": [
+          "stacking": "Unique",
+          "modifierName": "",
+          "isUnique": true,
+          "duration": 30,
+          "elementDurability": 100,
+          "thinkInterval": 5,
+          "modifierMixins": [
             {
               "$type": "CurLocalAvatarMixin",
-              "BGIONAIMBCJ": "Team_ScoreMult_Arua_Eff"
+              "modifierName": "Team_ScoreMult_Arua_Eff"
             }
           ],
-          "NLFIGALMIPD": [
+          "onAdded": [
             {
               "$type": "FireEffect",
-              "KMGAOOHMCPK": "CurLocalAvatar",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Buff_02_Wave",
-              "PCLAEGHPNHE": -1.0
+              "target": "CurLocalAvatar",
+              "effectPattern": "Eff_SceneObj_Aster_Buff_02_Wave"
             },
             {
               "$type": "ApplyModifier",
-              "musicSubStates": {
-                "$type": "HGNAFICLGFP",
-                "IBPOJODNMHO": "CircleR5",
+              "otherTargets": {
+                "$type": "SelectTargetsByShape",
+                "shapeName": "CircleR5",
                 "BPDOJDLNBPP": "CurLocalAvatar",
-                "CHPLPFBEPDN": "All",
-                "CNNFBFOPDJC": "CurLocalAvatar",
-                "CHGLFBPDMKF": 1.0
+                "campTargetType": "All",
+                "campBasedOn": "CurLocalAvatar",
+                "sizeRatio": 1
               },
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "FAGBAHBLACH",
-                  "MALHNOJHHDJ": [
+                  "$type": "ByEntityTypes",
+                  "entityTypes": [
                     "Avatar"
                   ]
                 }
               ],
-              "BGIONAIMBCJ": "ScoreMult"
+              "modifierName": "ScoreMult"
             }
           ],
-          "MDPGEKAIFIM": [
+          "onThinkInterval": [
             {
               "$type": "FireEffect",
-              "KMGAOOHMCPK": "CurLocalAvatar",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Buff_02_Wave",
-              "PCLAEGHPNHE": -1.0
+              "target": "CurLocalAvatar",
+              "effectPattern": "Eff_SceneObj_Aster_Buff_02_Wave"
             },
             {
               "$type": "ApplyModifier",
-              "musicSubStates": {
-                "$type": "HGNAFICLGFP",
-                "IBPOJODNMHO": "CircleR5",
+              "otherTargets": {
+                "$type": "SelectTargetsByShape",
+                "shapeName": "CircleR5",
                 "BPDOJDLNBPP": "CurLocalAvatar",
-                "CHPLPFBEPDN": "All",
-                "CNNFBFOPDJC": "CurLocalAvatar",
-                "CHGLFBPDMKF": 1.0
+                "campTargetType": "All",
+                "campBasedOn": "CurLocalAvatar",
+                "sizeRatio": 1
               },
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "FAGBAHBLACH",
-                  "MALHNOJHHDJ": [
+                  "$type": "ByEntityTypes",
+                  "entityTypes": [
                     "Avatar"
                   ]
                 }
               ],
-              "BGIONAIMBCJ": "ScoreMult"
+              "modifierName": "ScoreMult"
             }
           ]
         },
         "ScoreMult": {
-          "BGIONAIMBCJ": "",
-          "FAFCPJJAIGK": 6.0,
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "duration": 6,
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Buff_02",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_SceneObj_Aster_Buff_02"
             },
             {
               "$type": "SetGlobalValue",
-              "KMGAOOHMCPK": "Team",
-              "value": 1.0,
-              "NGGCNKPAODB": "ASTER_PROGRESS_RATIO",
-              "LBHGJKHHAKP": 0.0,
-              "EMGNPOKHMNN": 0.0
+              "target": "Team",
+              "value": 1,
+              "key": "ASTER_PROGRESS_RATIO",
+              "maxValue": 0,
+              "minValue": 0
             }
           ],
-          "NFKOGKMAIIE": [
+          "onRemoved": [
             {
               "$type": "SetGlobalValue",
-              "KMGAOOHMCPK": "Team",
-              "value": 0.0,
-              "NGGCNKPAODB": "ASTER_PROGRESS_RATIO",
-              "LBHGJKHHAKP": 0.0,
-              "EMGNPOKHMNN": 0.0
+              "target": "Team",
+              "value": 0,
+              "key": "ASTER_PROGRESS_RATIO",
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         "Team_ScoreMult_Arua_Eff": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Buff_02_Circle",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_SceneObj_Aster_Buff_02_Circle"
             }
           ]
         },
         "UNIQUE_Team_UperScoreMult_Arua": {
-          "HABNNJHCOCD": "Unique",
-          "BGIONAIMBCJ": "",
-          "defaultDistanceBetweenAvatarAndCamera": true,
-          "FAFCPJJAIGK": 30.0,
-          "ONIHJPOMNHA": 100.0,
-          "CLOIGOBCDJK": [
+          "stacking": "Unique",
+          "modifierName": "",
+          "isUnique": true,
+          "duration": 30,
+          "elementDurability": 100,
+          "modifierMixins": [
             {
               "$type": "CurLocalAvatarMixin",
-              "BGIONAIMBCJ": "Team_UperScoreMult_Arua_Eff"
+              "modifierName": "Team_UperScoreMult_Arua_Eff"
             }
           ],
-          "NLFIGALMIPD": [
+          "onAdded": [
             {
               "$type": "SetGlobalValue",
-              "KMGAOOHMCPK": "Team",
-              "value": 1.0,
-              "NGGCNKPAODB": "ASTER_ENERGY_RATIO",
-              "LBHGJKHHAKP": 0.0,
-              "EMGNPOKHMNN": 0.0
+              "target": "Team",
+              "value": 1,
+              "key": "ASTER_ENERGY_RATIO",
+              "maxValue": 0,
+              "minValue": 0
             }
           ],
-          "NFKOGKMAIIE": [
+          "onRemoved": [
             {
               "$type": "SetGlobalValue",
-              "KMGAOOHMCPK": "Team",
-              "value": 0.0,
-              "NGGCNKPAODB": "ASTER_ENERGY_RATIO",
-              "LBHGJKHHAKP": 0.0,
-              "EMGNPOKHMNN": 0.0
+              "target": "Team",
+              "value": 0,
+              "key": "ASTER_ENERGY_RATIO",
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         "Team_UperScoreMult_Arua_Eff": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Buff_01",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_SceneObj_Aster_Buff_01"
             }
           ]
         },
         "UNIQUE_AvatarStateController": {
-          "HABNNJHCOCD": "Unique",
-          "BGIONAIMBCJ": "",
-          "defaultDistanceBetweenAvatarAndCamera": true,
-          "ONIHJPOMNHA": 100.0,
-          "CLOIGOBCDJK": [
+          "stacking": "Unique",
+          "modifierName": "",
+          "isUnique": true,
+          "elementDurability": 100,
+          "modifierMixins": [
             {
               "$type": "CurLocalAvatarMixin",
-              "BGIONAIMBCJ": "Avatar_State"
+              "modifierName": "Avatar_State"
             },
             {
               "$type": "ServerUpdateGlobalValueMixin",
-              "NGGCNKPAODB": "AVATAR_ASTER_SCORE",
-              "AJKBEKOCMKF": true,
-              "LBHGJKHHAKP": "MaxScore",
-              "EMGNPOKHMNN": 0.0
+              "key": "AVATAR_ASTER_SCORE",
+              "useLimitRange": true,
+              "maxValue": "MaxScore",
+              "minValue": 0
             }
           ]
         },
         "Avatar_State": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "CLOIGOBCDJK": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "modifierMixins": [
             {
               "$type": "AttachToStateIDMixin",
-              "FHCHNMKMJJA": [
+              "stateIDs": [
                 "Channel_Loop",
                 "Channel_AS",
                 "Channel_BS"
               ],
-              "BGIONAIMBCJ": "AvatarInChannel"
+              "modifierName": "AvatarInChannel"
             }
           ]
         },
         "AvatarInChannel": {
-          "HABNNJHCOCD": "Unique",
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "ANPDJHOGAFE": 5.0,
-          "NLFIGALMIPD": [
+          "stacking": "Unique",
+          "modifierName": "",
+          "elementDurability": 100,
+          "thinkInterval": 5,
+          "onAdded": [
             {
               "$type": "SetExtraAbilityState",
-              "KMGAOOHMCPK": "Caster"
+              "target": "Caster"
             },
             {
               "$type": "AttachModifier",
-              "musicSubStates": {
-                "$type": "HGNAFICLGFP",
-                "IBPOJODNMHO": "CircleR50",
+              "otherTargets": {
+                "$type": "SelectTargetsByShape",
+                "shapeName": "CircleR50",
                 "BPDOJDLNBPP": "CurLocalAvatar",
-                "CHPLPFBEPDN": "AllExceptSelf",
-                "CNNFBFOPDJC": "CurLocalAvatar",
-                "CHGLFBPDMKF": 1.0
+                "campTargetType": "AllExceptSelf",
+                "campBasedOn": "CurLocalAvatar",
+                "sizeRatio": 1
               },
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "OMPKIEPKGPF",
-                  "NGGCNKPAODB": "IS_BIG_ASTER",
-                  "value": 1.0
+                  "$type": "ByTargetGlobalValue",
+                  "key": "IS_BIG_ASTER",
+                  "value": 1
                 }
               ],
-              "BGIONAIMBCJ": "LineEff_FindAster"
+              "modifierName": "LineEff_FindAster"
             },
             {
               "$type": "SetGlobalValue",
-              "KMGAOOHMCPK": "CurLocalAvatar",
-              "value": 0.0,
-              "NGGCNKPAODB": "CHARGE_SUCCESS",
-              "LBHGJKHHAKP": 0.0,
-              "EMGNPOKHMNN": 0.0
+              "target": "CurLocalAvatar",
+              "value": 0,
+              "key": "CHARGE_SUCCESS",
+              "maxValue": 0,
+              "minValue": 0
             },
             {
               "$type": "AttachEffect",
-              "musicSubStates": {
-                "$type": "HGNAFICLGFP",
-                "IBPOJODNMHO": "CircleR50",
+              "otherTargets": {
+                "$type": "SelectTargetsByShape",
+                "shapeName": "CircleR50",
                 "BPDOJDLNBPP": "CurLocalAvatar",
-                "CHPLPFBEPDN": "AllExceptSelf",
-                "CNNFBFOPDJC": "CurLocalAvatar",
-                "CHGLFBPDMKF": 1.0
+                "campTargetType": "AllExceptSelf",
+                "campBasedOn": "CurLocalAvatar",
+                "sizeRatio": 1
               },
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "OMPKIEPKGPF",
-                  "NGGCNKPAODB": "IS_BIG_ASTER",
-                  "value": 1.0
+                  "$type": "ByTargetGlobalValue",
+                  "key": "IS_BIG_ASTER",
+                  "value": 1
                 }
               ],
-              "LHHFHDEJOHC": "Eff_SceneObj_AsterLarge_Active",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_SceneObj_AsterLarge_Active"
             }
           ],
-          "NFKOGKMAIIE": [
+          "onRemoved": [
             {
               "$type": "SetAnimatorTrigger",
-              "KMGAOOHMCPK": "CurLocalAvatar",
-              "FLEEHCIOPKA": [
+              "target": "CurLocalAvatar",
+              "predicates": [
                 {
-                  "$type": "OMPKIEPKGPF",
-                  "KMGAOOHMCPK": "CurLocalAvatar",
-                  "NGGCNKPAODB": "CHARGE_SUCCESS",
-                  "value": 0.0
+                  "$type": "ByTargetGlobalValue",
+                  "target": "CurLocalAvatar",
+                  "key": "CHARGE_SUCCESS",
+                  "value": 0
                 }
               ],
-              "POPKLBPMAJN": "EndChannelTrigger"
+              "triggerID": "EndChannelTrigger"
             },
             {
               "$type": "SetExtraAbilityState",
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "OMPKIEPKGPF",
-                  "KMGAOOHMCPK": "CurLocalAvatar",
-                  "NGGCNKPAODB": "CHARGE_SUCCESS",
-                  "value": 0.0
+                  "$type": "ByTargetGlobalValue",
+                  "target": "CurLocalAvatar",
+                  "key": "CHARGE_SUCCESS",
+                  "value": 0
                 }
               ],
-              "FJMPEOEHPJK": "Interrupt"
+              "state": "Interrupt"
             }
           ],
-          "EOMGJKEEICG": [
+          "onBeingHit": [
             {
               "$type": "Predicated",
-              "KMGAOOHMCPK": "CurLocalAvatar",
-              "EGMDPEHBAOA": [
+              "target": "CurLocalAvatar",
+              "targetPredicates": [
                 {
-                  "$type": "OMPKIEPKGPF",
-                  "NGGCNKPAODB": "CHANNEL_BLOCK",
-                  "value": 0.0,
-                  "GAGKBNPOCAC": "NoneOrEqual"
+                  "$type": "ByTargetGlobalValue",
+                  "key": "CHANNEL_BLOCK",
+                  "value": 0,
+                  "compareType": "NoneOrEqual"
                 }
               ],
               "successActions": [
                 {
                   "$type": "SetGlobalValue",
-                  "KMGAOOHMCPK": "Team",
-                  "value": 0.0,
-                  "NGGCNKPAODB": "AVATAR_ASTER_SCORE",
-                  "LBHGJKHHAKP": 0.0,
-                  "EMGNPOKHMNN": 0.0
+                  "target": "Team",
+                  "value": 0,
+                  "key": "AVATAR_ASTER_SCORE",
+                  "maxValue": 0,
+                  "minValue": 0
                 },
                 {
                   "$type": "ServerLuaCall",
-                  "KMGAOOHMCPK": "Team",
+                  "target": "Team",
                   "FNBGNCANKJF": "CurScenePlay",
                   "FDPMGLDLLIN": "UpdateAsterInterrupt",
-                  "param1": 0.0,
-                  "HFOIEKLCLEM": 0.0,
-                  "MCLOKLEBGPH": 0.0
+                  "param1": 0,
+                  "HFOIEKLCLEM": 0,
+                  "MCLOKLEBGPH": 0
                 },
                 {
                   "$type": "SetAnimatorTrigger",
-                  "KMGAOOHMCPK": "CurLocalAvatar",
-                  "POPKLBPMAJN": "EndChannelTrigger"
+                  "target": "CurLocalAvatar",
+                  "triggerID": "EndChannelTrigger"
                 },
                 {
                   "$type": "RemoveModifier",
-                  "KMGAOOHMCPK": "CurLocalAvatar",
-                  "BGIONAIMBCJ": "AvatarInChannel"
+                  "target": "CurLocalAvatar",
+                  "modifierName": "AvatarInChannel"
                 }
               ]
             }
           ],
-          "MDPGEKAIFIM": [
+          "onThinkInterval": [
             {
               "$type": "SetGlobalValue",
-              "KMGAOOHMCPK": "CurLocalAvatar",
-              "value": 1.0,
-              "NGGCNKPAODB": "CHARGE_SUCCESS",
-              "LBHGJKHHAKP": 0.0,
-              "EMGNPOKHMNN": 0.0
+              "target": "CurLocalAvatar",
+              "value": 1,
+              "key": "CHARGE_SUCCESS",
+              "maxValue": 0,
+              "minValue": 0
             },
             {
               "$type": "FireEffect",
-              "musicSubStates": {
-                "$type": "HGNAFICLGFP",
-                "IBPOJODNMHO": "CircleR50",
+              "otherTargets": {
+                "$type": "SelectTargetsByShape",
+                "shapeName": "CircleR50",
                 "BPDOJDLNBPP": "CurLocalAvatar",
-                "CHPLPFBEPDN": "AllExceptSelf",
-                "CNNFBFOPDJC": "CurLocalAvatar",
-                "CHGLFBPDMKF": 1.0
+                "campTargetType": "AllExceptSelf",
+                "campBasedOn": "CurLocalAvatar",
+                "sizeRatio": 1
               },
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "OMPKIEPKGPF",
-                  "NGGCNKPAODB": "IS_BIG_ASTER",
-                  "value": 1.0
+                  "$type": "ByTargetGlobalValue",
+                  "key": "IS_BIG_ASTER",
+                  "value": 1
                 }
               ],
-              "LHHFHDEJOHC": "Eff_SceneObj_AsterLarge_RecevieFinish",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_SceneObj_AsterLarge_RecevieFinish"
             },
             {
               "$type": "ServerLuaCall",
-              "KMGAOOHMCPK": "Team",
+              "target": "Team",
               "FNBGNCANKJF": "CurScenePlay",
               "FDPMGLDLLIN": "UpdateAsterProgress",
-              "param1": 0.0,
-              "HFOIEKLCLEM": 0.0,
-              "MCLOKLEBGPH": 0.0
+              "param1": 0,
+              "HFOIEKLCLEM": 0,
+              "MCLOKLEBGPH": 0
             },
             {
               "$type": "SetAnimatorTrigger",
-              "KMGAOOHMCPK": "CurLocalAvatar",
-              "POPKLBPMAJN": "EndChannelTrigger"
+              "target": "CurLocalAvatar",
+              "triggerID": "EndChannelTrigger"
             },
             {
               "$type": "RemoveModifier",
-              "BGIONAIMBCJ": "AvatarInChannel"
+              "modifierName": "AvatarInChannel"
             }
           ]
         },
         "LineEff_FindAster": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "KMGAOOHMCPK": "Applier",
-              "LHHFHDEJOHC": "Eff_SceneObj_AsterLarge_Recevie",
-              "CCNCMOGOFAG": {
-                "$type": "IADBHDLMGJB",
-                "MDPMJPIOGLA": "EffPoint",
-                "JPEOGPAHPDM": "Self"
-              },
-              "PCLAEGHPNHE": -1.0
+              "target": "Applier",
+              "effectPattern": "Eff_SceneObj_AsterLarge_Recevie",
+              "born": {
+                "$type": "ConfigBornByAttachPoint",
+                "attachPointName": "EffPoint",
+                "attachPointTargetType": "Self"
+              }
             }
           ]
         }
       },
-      "NLFIGALMIPD": [
+      "onAdded": [
         {
           "$type": "AttachModifier",
-          "BGIONAIMBCJ": "UNIQUE_SkillButtonController"
+          "modifierName": "UNIQUE_SkillButtonController"
         },
         {
           "$type": "AttachModifier",
-          "KMGAOOHMCPK": "Team",
-          "BGIONAIMBCJ": "Init"
+          "target": "Team",
+          "modifierName": "Init"
         },
         {
           "$type": "AttachModifier",
-          "KMGAOOHMCPK": "Team",
-          "BGIONAIMBCJ": "UNIQUE_AvatarStateController"
+          "target": "Team",
+          "modifierName": "UNIQUE_AvatarStateController"
         },
         {
           "$type": "AttachModifier",
-          "KMGAOOHMCPK": "Team",
-          "BGIONAIMBCJ": "UNIQUE_PlayerNotify"
+          "target": "Team",
+          "modifierName": "UNIQUE_PlayerNotify"
         },
         {
           "$type": "AttachModifier",
-          "KMGAOOHMCPK": "Team",
-          "BGIONAIMBCJ": "UNIQUE_TuntController"
+          "target": "Team",
+          "modifierName": "UNIQUE_TuntController"
         },
         {
           "$type": "SetGlobalValue",
-          "value": 0.0,
-          "NGGCNKPAODB": "AVATAR_ASTER_SCORE",
-          "LBHGJKHHAKP": 0.0,
-          "EMGNPOKHMNN": 0.0
+          "value": 0,
+          "key": "AVATAR_ASTER_SCORE",
+          "maxValue": 0,
+          "minValue": 0
         }
       ],
-      "DEOJHLMNLFC": [
+      "onAbilityStart": [
         {
           "$type": "SetAnimatorTrigger",
-          "KMGAOOHMCPK": "CurLocalAvatar",
-          "POPKLBPMAJN": "StartChannelTrigger"
+          "target": "CurLocalAvatar",
+          "triggerID": "StartChannelTrigger"
         }
       ],
-      "LFBJFECLNGK": [
+      "onKill": [
         {
           "$type": "RemoveUniqueModifier",
-          "BGIONAIMBCJ": "UNIQUE_SkillButtonController"
+          "modifierName": "UNIQUE_SkillButtonController"
         },
         {
           "$type": "RemoveModifier",
-          "BGIONAIMBCJ": "AvatarInChannel"
+          "modifierName": "AvatarInChannel"
         }
       ]
     }
@@ -3190,61 +3128,61 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "SceneObj_Aster_PlayEntity_Single",
-      "CLHBPEHHEJB": {
-        "MaxScore": 400.0,
-        "SubScore": -0.30000001192092896,
-        "CurScore": 0.0
+      "abilitySpecials": {
+        "MaxScore": 400,
+        "SubScore": -0.3,
+        "CurScore": 0
       },
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "Init": {
-          "BGIONAIMBCJ": "",
-          "FAFCPJJAIGK": 0.5,
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "duration": 0.5,
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "SetGlobalValue",
-              "KMGAOOHMCPK": "Team",
-              "value": 0.0,
-              "NGGCNKPAODB": "AVATAR_ASTER_SCORE",
-              "LBHGJKHHAKP": 0.0,
-              "EMGNPOKHMNN": 0.0
+              "target": "Team",
+              "value": 0,
+              "key": "AVATAR_ASTER_SCORE",
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         "UNIQUE_SkillButtonController": {
-          "BGIONAIMBCJ": "",
-          "defaultDistanceBetweenAvatarAndCamera": true,
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "isUnique": true,
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "ShowExtraAbility",
-              "GCOFBECOEFF": 20006
+              "skillID": 20006
             },
             {
               "$type": "SetExtraAbilityEnable"
             }
           ],
-          "NFKOGKMAIIE": [
+          "onRemoved": [
             {
               "$type": "ShowExtraAbility"
             }
           ]
         },
         "UNIQUE_TuntController": {
-          "BGIONAIMBCJ": "",
-          "defaultDistanceBetweenAvatarAndCamera": true,
-          "ONIHJPOMNHA": 100.0,
-          "CLOIGOBCDJK": [
+          "modifierName": "",
+          "isUnique": true,
+          "elementDurability": 100,
+          "modifierMixins": [
             {
               "$type": "AttachModifierToSelfGlobalValueMixin",
-              "AOJHAGMBDNP": "AVATAR_ASTER_SCORE",
-              "MCAEKKJBNNJ": 0.0,
-              "FCPOANIDKOM": [
-                0.0,
+              "globalValueKey": "AVATAR_ASTER_SCORE",
+              "defaultGlobalValueOnCreate": 0,
+              "valueSteps": [
+                0,
                 99.5,
                 100.5
               ],
-              "NGIGIMPCHOO": [
+              "modifierNameSteps": [
                 "Blank",
                 "SetTaunt"
               ]
@@ -3252,64 +3190,64 @@
           ]
         },
         "Blank": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0
+          "modifierName": "",
+          "elementDurability": 100
         },
         "SetTaunt": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AttachModifier",
-              "KMGAOOHMCPK": "CurLocalAvatar",
-              "BGIONAIMBCJ": "Avatar_Taunt"
+              "target": "CurLocalAvatar",
+              "modifierName": "Avatar_Taunt"
             }
           ]
         },
         "Avatar_Taunt": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "TriggerTaunt",
-              "musicSubStates": {
-                "$type": "HGNAFICLGFP",
-                "IBPOJODNMHO": "CircleR25",
-                "CHPLPFBEPDN": "Enemy",
-                "CHGLFBPDMKF": 1.0
+              "otherTargets": {
+                "$type": "SelectTargetsByShape",
+                "shapeName": "CircleR25",
+                "campTargetType": "Enemy",
+                "sizeRatio": 1
               },
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "FAGBAHBLACH",
-                  "MALHNOJHHDJ": [
+                  "$type": "ByEntityTypes",
+                  "entityTypes": [
                     "Monster"
                   ]
                 }
               ],
-              "NKCIEFLMBMK": 50.0
+              "NKCIEFLMBMK": 50
             }
           ]
         },
         "UNIQUE_PlayerNotify": {
-          "HABNNJHCOCD": "Unique",
-          "BGIONAIMBCJ": "",
-          "defaultDistanceBetweenAvatarAndCamera": true,
-          "ONIHJPOMNHA": 100.0,
-          "CLOIGOBCDJK": [
+          "stacking": "Unique",
+          "modifierName": "",
+          "isUnique": true,
+          "elementDurability": 100,
+          "modifierMixins": [
             {
               "$type": "PlayerUidNotifyMixin",
               "PDHIOHEAJPI": "clear_energy",
               "DDCDCLHBJBA": 1,
-              "JCMFILJLNFH": "Equal",
+              "logic": "Equal",
               "actions": [
                 {
                   "$type": "AddGlobalValue",
-                  "KMGAOOHMCPK": "Team",
-                  "value": 0.0,
-                  "NGGCNKPAODB": "AVATAR_ASTER_SCORE",
-                  "AJKBEKOCMKF": true,
-                  "LBHGJKHHAKP": 0.0,
-                  "EMGNPOKHMNN": 0.0
+                  "target": "Team",
+                  "value": 0,
+                  "key": "AVATAR_ASTER_SCORE",
+                  "useLimitRange": true,
+                  "maxValue": 0,
+                  "minValue": 0
                 }
               ]
             },
@@ -3317,12 +3255,12 @@
               "$type": "PlayerUidNotifyMixin",
               "PDHIOHEAJPI": "random_buff_aster",
               "DDCDCLHBJBA": 1,
-              "JCMFILJLNFH": "Equal",
+              "logic": "Equal",
               "actions": [
                 {
                   "$type": "ApplyModifier",
-                  "KMGAOOHMCPK": "Team",
-                  "BGIONAIMBCJ": "UNIQUE_Team_DamageUp_Arua"
+                  "target": "Team",
+                  "modifierName": "UNIQUE_Team_DamageUp_Arua"
                 }
               ]
             },
@@ -3330,12 +3268,12 @@
               "$type": "PlayerUidNotifyMixin",
               "PDHIOHEAJPI": "random_buff_aster",
               "DDCDCLHBJBA": 2,
-              "JCMFILJLNFH": "Equal",
+              "logic": "Equal",
               "actions": [
                 {
                   "$type": "ApplyModifier",
-                  "KMGAOOHMCPK": "Team",
-                  "BGIONAIMBCJ": "UNIQUE_Team_ChannelBlock_Arua"
+                  "target": "Team",
+                  "modifierName": "UNIQUE_Team_ChannelBlock_Arua"
                 }
               ]
             },
@@ -3343,12 +3281,12 @@
               "$type": "PlayerUidNotifyMixin",
               "PDHIOHEAJPI": "random_buff_aster",
               "DDCDCLHBJBA": 3,
-              "JCMFILJLNFH": "Equal",
+              "logic": "Equal",
               "actions": [
                 {
                   "$type": "ApplyModifier",
-                  "KMGAOOHMCPK": "Team",
-                  "BGIONAIMBCJ": "UNIQUE_Team_ScoreMult_Arua"
+                  "target": "Team",
+                  "modifierName": "UNIQUE_Team_ScoreMult_Arua"
                 }
               ]
             },
@@ -3356,12 +3294,12 @@
               "$type": "PlayerUidNotifyMixin",
               "PDHIOHEAJPI": "random_buff_aster",
               "DDCDCLHBJBA": 4,
-              "JCMFILJLNFH": "Equal",
+              "logic": "Equal",
               "actions": [
                 {
                   "$type": "ApplyModifier",
-                  "KMGAOOHMCPK": "Team",
-                  "BGIONAIMBCJ": "UNIQUE_DebuffTimer_Team"
+                  "target": "Team",
+                  "modifierName": "UNIQUE_DebuffTimer_Team"
                 }
               ]
             },
@@ -3369,711 +3307,694 @@
               "$type": "PlayerUidNotifyMixin",
               "PDHIOHEAJPI": "random_buff_aster",
               "DDCDCLHBJBA": 5,
-              "JCMFILJLNFH": "Equal",
+              "logic": "Equal",
               "actions": [
                 {
                   "$type": "ApplyModifier",
-                  "KMGAOOHMCPK": "Team",
-                  "BGIONAIMBCJ": "UNIQUE_Team_UperScoreMult_Arua"
+                  "target": "Team",
+                  "modifierName": "UNIQUE_Team_UperScoreMult_Arua"
                 }
               ]
             }
           ]
         },
         "UNIQUE_DebuffTimer_Team": {
-          "HABNNJHCOCD": "Unique",
-          "BGIONAIMBCJ": "",
-          "defaultDistanceBetweenAvatarAndCamera": true,
-          "FAFCPJJAIGK": 5.0,
-          "ONIHJPOMNHA": 100.0,
-          "CLOIGOBCDJK": [
+          "stacking": "Unique",
+          "modifierName": "",
+          "isUnique": true,
+          "duration": 5,
+          "elementDurability": 100,
+          "modifierMixins": [
             {
               "$type": "ApplyModifierWithSharedDurabilityMixin",
-              "BGIONAIMBCJ": "DebuffTimer"
+              "modifierName": "DebuffTimer"
             }
           ]
         },
         "DebuffTimer": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Debuff_01",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_SceneObj_Aster_Debuff_01"
             }
           ],
-          "NFKOGKMAIIE": [
+          "onRemoved": [
             {
               "$type": "CreateGadget",
-              "CCNCMOGOFAG": {
-                "$type": "DELDMCFKBBL"
+              "born": {
+                "$type": "ConfigBornBySelf"
               },
-              "BLPPFMNOOIO": 70900360,
+              "gadgetID": 70900360,
               "MJDKNDMPMIB": true
             }
           ]
         },
         "UNIQUE_Team_DamageUp_Arua": {
-          "HABNNJHCOCD": "Unique",
-          "BGIONAIMBCJ": "",
-          "defaultDistanceBetweenAvatarAndCamera": true,
-          "FAFCPJJAIGK": 30.0,
-          "ONIHJPOMNHA": 100.0,
-          "ANPDJHOGAFE": 5.0,
-          "CLOIGOBCDJK": [
+          "stacking": "Unique",
+          "modifierName": "",
+          "isUnique": true,
+          "duration": 30,
+          "elementDurability": 100,
+          "thinkInterval": 5,
+          "modifierMixins": [
             {
               "$type": "CurLocalAvatarMixin",
-              "BGIONAIMBCJ": "Team_DamageUp_Arua_Eff"
+              "modifierName": "Team_DamageUp_Arua_Eff"
             }
           ],
-          "NLFIGALMIPD": [
+          "onAdded": [
             {
               "$type": "FireEffect",
-              "KMGAOOHMCPK": "CurLocalAvatar",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Buff_01_Wave",
-              "PCLAEGHPNHE": -1.0
+              "target": "CurLocalAvatar",
+              "effectPattern": "Eff_SceneObj_Aster_Buff_01_Wave"
             },
             {
               "$type": "ApplyModifier",
-              "musicSubStates": {
-                "$type": "HGNAFICLGFP",
-                "IBPOJODNMHO": "CircleR5",
+              "otherTargets": {
+                "$type": "SelectTargetsByShape",
+                "shapeName": "CircleR5",
                 "BPDOJDLNBPP": "CurLocalAvatar",
-                "CHPLPFBEPDN": "All",
-                "CNNFBFOPDJC": "CurLocalAvatar",
-                "CHGLFBPDMKF": 1.0
+                "campTargetType": "All",
+                "campBasedOn": "CurLocalAvatar",
+                "sizeRatio": 1
               },
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "FAGBAHBLACH",
-                  "MALHNOJHHDJ": [
+                  "$type": "ByEntityTypes",
+                  "entityTypes": [
                     "Avatar"
                   ]
                 }
               ],
-              "BGIONAIMBCJ": "DamageUp"
+              "modifierName": "DamageUp"
             }
           ],
-          "MDPGEKAIFIM": [
+          "onThinkInterval": [
             {
               "$type": "FireEffect",
-              "KMGAOOHMCPK": "CurLocalAvatar",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Buff_01_Wave",
-              "PCLAEGHPNHE": -1.0
+              "target": "CurLocalAvatar",
+              "effectPattern": "Eff_SceneObj_Aster_Buff_01_Wave"
             },
             {
               "$type": "ApplyModifier",
-              "musicSubStates": {
-                "$type": "HGNAFICLGFP",
-                "IBPOJODNMHO": "CircleR5",
+              "otherTargets": {
+                "$type": "SelectTargetsByShape",
+                "shapeName": "CircleR5",
                 "BPDOJDLNBPP": "CurLocalAvatar",
-                "CHPLPFBEPDN": "All",
-                "CNNFBFOPDJC": "CurLocalAvatar",
-                "CHGLFBPDMKF": 1.0
+                "campTargetType": "All",
+                "campBasedOn": "CurLocalAvatar",
+                "sizeRatio": 1
               },
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "FAGBAHBLACH",
-                  "MALHNOJHHDJ": [
+                  "$type": "ByEntityTypes",
+                  "entityTypes": [
                     "Avatar"
                   ]
                 }
               ],
-              "BGIONAIMBCJ": "DamageUp"
+              "modifierName": "DamageUp"
             }
           ]
         },
         "Team_DamageUp_Arua_Eff": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Buff_01",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_SceneObj_Aster_Buff_01"
             }
           ]
         },
         "DamageUp": {
-          "BGIONAIMBCJ": "",
-          "FAFCPJJAIGK": 5.5,
-          "ONIHJPOMNHA": 100.0,
-          "NLPPKPOJEOA": {
-            "Actor_AttackRatio": 0.800000011920929
+          "modifierName": "",
+          "duration": 5.5,
+          "elementDurability": 100,
+          "properties": {
+            "Actor_AttackRatio": 0.8
           },
-          "FJMPEOEHPJK": "AttackUp",
-          "NLFIGALMIPD": [
+          "state": "AttackUp",
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_MQ1002_XueyueBuff",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_MQ1002_XueyueBuff"
             }
           ],
-          "PLFMOPGDMDI": true,
-          "PAIHEPNMKDJ": 10001
+          "isLimitedProperties": true,
+          "buffID": 10001
         },
         "UNIQUE_Team_ChannelBlock_Arua": {
-          "HABNNJHCOCD": "Unique",
-          "BGIONAIMBCJ": "",
-          "defaultDistanceBetweenAvatarAndCamera": true,
-          "FAFCPJJAIGK": 30.0,
-          "ONIHJPOMNHA": 100.0,
-          "ANPDJHOGAFE": 5.0,
-          "CLOIGOBCDJK": [
+          "stacking": "Unique",
+          "modifierName": "",
+          "isUnique": true,
+          "duration": 30,
+          "elementDurability": 100,
+          "thinkInterval": 5,
+          "modifierMixins": [
             {
               "$type": "CurLocalAvatarMixin",
-              "BGIONAIMBCJ": "Team_ChannelBlock_Arua_Eff"
+              "modifierName": "Team_ChannelBlock_Arua_Eff"
             }
           ],
-          "NLFIGALMIPD": [
+          "onAdded": [
             {
               "$type": "FireEffect",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Buff_01_Wave",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_SceneObj_Aster_Buff_01_Wave"
             },
             {
               "$type": "ApplyModifier",
-              "musicSubStates": {
-                "$type": "HGNAFICLGFP",
-                "IBPOJODNMHO": "CircleR5",
+              "otherTargets": {
+                "$type": "SelectTargetsByShape",
+                "shapeName": "CircleR5",
                 "BPDOJDLNBPP": "CurLocalAvatar",
-                "CHPLPFBEPDN": "All",
-                "CNNFBFOPDJC": "CurLocalAvatar",
-                "CHGLFBPDMKF": 1.0
+                "campTargetType": "All",
+                "campBasedOn": "CurLocalAvatar",
+                "sizeRatio": 1
               },
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "FAGBAHBLACH",
-                  "MALHNOJHHDJ": [
+                  "$type": "ByEntityTypes",
+                  "entityTypes": [
                     "Avatar"
                   ]
                 }
               ],
-              "BGIONAIMBCJ": "ChannelBlock"
+              "modifierName": "ChannelBlock"
             }
           ],
-          "MDPGEKAIFIM": [
+          "onThinkInterval": [
             {
               "$type": "FireEffect",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Buff_01_Wave",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_SceneObj_Aster_Buff_01_Wave"
             },
             {
               "$type": "ApplyModifier",
-              "musicSubStates": {
-                "$type": "HGNAFICLGFP",
-                "IBPOJODNMHO": "CircleR5",
+              "otherTargets": {
+                "$type": "SelectTargetsByShape",
+                "shapeName": "CircleR5",
                 "BPDOJDLNBPP": "CurLocalAvatar",
-                "CHPLPFBEPDN": "All",
-                "CNNFBFOPDJC": "CurLocalAvatar",
-                "CHGLFBPDMKF": 1.0
+                "campTargetType": "All",
+                "campBasedOn": "CurLocalAvatar",
+                "sizeRatio": 1
               },
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "FAGBAHBLACH",
-                  "MALHNOJHHDJ": [
+                  "$type": "ByEntityTypes",
+                  "entityTypes": [
                     "Avatar"
                   ]
                 }
               ],
-              "BGIONAIMBCJ": "ChannelBlock"
+              "modifierName": "ChannelBlock"
             }
           ]
         },
         "ChannelBlock": {
-          "BGIONAIMBCJ": "",
-          "FAFCPJJAIGK": 5.5,
-          "ONIHJPOMNHA": 100.0,
-          "NLPPKPOJEOA": {
-            "Actor_EndureDelta": 10.0
+          "modifierName": "",
+          "duration": 5.5,
+          "elementDurability": 100,
+          "properties": {
+            "Actor_EndureDelta": 10
           },
-          "NLFIGALMIPD": [
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_MQ1002_XueyueBuff",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_MQ1002_XueyueBuff"
             },
             {
               "$type": "AddGlobalValue",
-              "value": 1.0,
-              "NGGCNKPAODB": "CHANNEL_BLOCK",
-              "AJKBEKOCMKF": true,
-              "LBHGJKHHAKP": 1.0,
-              "EMGNPOKHMNN": 1.0
+              "value": 1,
+              "key": "CHANNEL_BLOCK",
+              "useLimitRange": true,
+              "maxValue": 1,
+              "minValue": 1
             }
           ],
-          "NFKOGKMAIIE": [
+          "onRemoved": [
             {
               "$type": "AddGlobalValue",
-              "value": 0.0,
-              "NGGCNKPAODB": "CHANNEL_BLOCK",
-              "AJKBEKOCMKF": true,
-              "LBHGJKHHAKP": 0.0,
-              "EMGNPOKHMNN": 0.0
+              "value": 0,
+              "key": "CHANNEL_BLOCK",
+              "useLimitRange": true,
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         "Team_ChannelBlock_Arua_Eff": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Buff_01",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_SceneObj_Aster_Buff_01"
             }
           ]
         },
         "UNIQUE_Team_ScoreMult_Arua": {
-          "HABNNJHCOCD": "Unique",
-          "BGIONAIMBCJ": "",
-          "defaultDistanceBetweenAvatarAndCamera": true,
-          "FAFCPJJAIGK": 30.0,
-          "ONIHJPOMNHA": 100.0,
-          "ANPDJHOGAFE": 5.0,
-          "CLOIGOBCDJK": [
+          "stacking": "Unique",
+          "modifierName": "",
+          "isUnique": true,
+          "duration": 30,
+          "elementDurability": 100,
+          "thinkInterval": 5,
+          "modifierMixins": [
             {
               "$type": "CurLocalAvatarMixin",
-              "BGIONAIMBCJ": "Team_ScoreMult_Arua_Eff"
+              "modifierName": "Team_ScoreMult_Arua_Eff"
             }
           ],
-          "NLFIGALMIPD": [
+          "onAdded": [
             {
               "$type": "FireEffect",
-              "KMGAOOHMCPK": "CurLocalAvatar",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Buff_02_Wave",
-              "PCLAEGHPNHE": -1.0
+              "target": "CurLocalAvatar",
+              "effectPattern": "Eff_SceneObj_Aster_Buff_02_Wave"
             },
             {
               "$type": "ApplyModifier",
-              "musicSubStates": {
-                "$type": "HGNAFICLGFP",
-                "IBPOJODNMHO": "CircleR5",
+              "otherTargets": {
+                "$type": "SelectTargetsByShape",
+                "shapeName": "CircleR5",
                 "BPDOJDLNBPP": "CurLocalAvatar",
-                "CHPLPFBEPDN": "All",
-                "CNNFBFOPDJC": "CurLocalAvatar",
-                "CHGLFBPDMKF": 1.0
+                "campTargetType": "All",
+                "campBasedOn": "CurLocalAvatar",
+                "sizeRatio": 1
               },
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "FAGBAHBLACH",
-                  "MALHNOJHHDJ": [
+                  "$type": "ByEntityTypes",
+                  "entityTypes": [
                     "Avatar"
                   ]
                 }
               ],
-              "BGIONAIMBCJ": "ScoreMult"
+              "modifierName": "ScoreMult"
             }
           ],
-          "MDPGEKAIFIM": [
+          "onThinkInterval": [
             {
               "$type": "FireEffect",
-              "KMGAOOHMCPK": "CurLocalAvatar",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Buff_02_Wave",
-              "PCLAEGHPNHE": -1.0
+              "target": "CurLocalAvatar",
+              "effectPattern": "Eff_SceneObj_Aster_Buff_02_Wave"
             },
             {
               "$type": "ApplyModifier",
-              "musicSubStates": {
-                "$type": "HGNAFICLGFP",
-                "IBPOJODNMHO": "CircleR5",
+              "otherTargets": {
+                "$type": "SelectTargetsByShape",
+                "shapeName": "CircleR5",
                 "BPDOJDLNBPP": "CurLocalAvatar",
-                "CHPLPFBEPDN": "All",
-                "CNNFBFOPDJC": "CurLocalAvatar",
-                "CHGLFBPDMKF": 1.0
+                "campTargetType": "All",
+                "campBasedOn": "CurLocalAvatar",
+                "sizeRatio": 1
               },
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "FAGBAHBLACH",
-                  "MALHNOJHHDJ": [
+                  "$type": "ByEntityTypes",
+                  "entityTypes": [
                     "Avatar"
                   ]
                 }
               ],
-              "BGIONAIMBCJ": "ScoreMult"
+              "modifierName": "ScoreMult"
             }
           ]
         },
         "ScoreMult": {
-          "BGIONAIMBCJ": "",
-          "FAFCPJJAIGK": 6.0,
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "duration": 6,
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Buff_02",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_SceneObj_Aster_Buff_02"
             },
             {
               "$type": "SetGlobalValue",
-              "KMGAOOHMCPK": "Team",
-              "value": 1.0,
-              "NGGCNKPAODB": "ASTER_PROGRESS_RATIO",
-              "LBHGJKHHAKP": 0.0,
-              "EMGNPOKHMNN": 0.0
+              "target": "Team",
+              "value": 1,
+              "key": "ASTER_PROGRESS_RATIO",
+              "maxValue": 0,
+              "minValue": 0
             }
           ],
-          "NFKOGKMAIIE": [
+          "onRemoved": [
             {
               "$type": "SetGlobalValue",
-              "KMGAOOHMCPK": "Team",
-              "value": 0.0,
-              "NGGCNKPAODB": "ASTER_PROGRESS_RATIO",
-              "LBHGJKHHAKP": 0.0,
-              "EMGNPOKHMNN": 0.0
+              "target": "Team",
+              "value": 0,
+              "key": "ASTER_PROGRESS_RATIO",
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         "Team_ScoreMult_Arua_Eff": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Buff_02_Circle",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_SceneObj_Aster_Buff_02_Circle"
             }
           ]
         },
         "UNIQUE_Team_UperScoreMult_Arua": {
-          "HABNNJHCOCD": "Unique",
-          "BGIONAIMBCJ": "",
-          "defaultDistanceBetweenAvatarAndCamera": true,
-          "FAFCPJJAIGK": 30.0,
-          "ONIHJPOMNHA": 100.0,
-          "CLOIGOBCDJK": [
+          "stacking": "Unique",
+          "modifierName": "",
+          "isUnique": true,
+          "duration": 30,
+          "elementDurability": 100,
+          "modifierMixins": [
             {
               "$type": "CurLocalAvatarMixin",
-              "BGIONAIMBCJ": "Team_UperScoreMult_Arua_Eff"
+              "modifierName": "Team_UperScoreMult_Arua_Eff"
             }
           ],
-          "NLFIGALMIPD": [
+          "onAdded": [
             {
               "$type": "SetGlobalValue",
-              "KMGAOOHMCPK": "Team",
-              "value": 1.0,
-              "NGGCNKPAODB": "ASTER_ENERGY_RATIO",
-              "LBHGJKHHAKP": 0.0,
-              "EMGNPOKHMNN": 0.0
+              "target": "Team",
+              "value": 1,
+              "key": "ASTER_ENERGY_RATIO",
+              "maxValue": 0,
+              "minValue": 0
             }
           ],
-          "NFKOGKMAIIE": [
+          "onRemoved": [
             {
               "$type": "SetGlobalValue",
-              "KMGAOOHMCPK": "Team",
-              "value": 0.0,
-              "NGGCNKPAODB": "ASTER_ENERGY_RATIO",
-              "LBHGJKHHAKP": 0.0,
-              "EMGNPOKHMNN": 0.0
+              "target": "Team",
+              "value": 0,
+              "key": "ASTER_ENERGY_RATIO",
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         "Team_UperScoreMult_Arua_Eff": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_SceneObj_Aster_Buff_01",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_SceneObj_Aster_Buff_01"
             }
           ]
         },
         "UNIQUE_AvatarStateController": {
-          "HABNNJHCOCD": "Unique",
-          "BGIONAIMBCJ": "",
-          "defaultDistanceBetweenAvatarAndCamera": true,
-          "ONIHJPOMNHA": 100.0,
-          "CLOIGOBCDJK": [
+          "stacking": "Unique",
+          "modifierName": "",
+          "isUnique": true,
+          "elementDurability": 100,
+          "modifierMixins": [
             {
               "$type": "CurLocalAvatarMixin",
-              "BGIONAIMBCJ": "Avatar_State"
+              "modifierName": "Avatar_State"
             },
             {
               "$type": "ServerUpdateGlobalValueMixin",
-              "NGGCNKPAODB": "AVATAR_ASTER_SCORE",
-              "AJKBEKOCMKF": true,
-              "LBHGJKHHAKP": "MaxScore",
-              "EMGNPOKHMNN": 0.0
+              "key": "AVATAR_ASTER_SCORE",
+              "useLimitRange": true,
+              "maxValue": "MaxScore",
+              "minValue": 0
             }
           ]
         },
         "Avatar_State": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "CLOIGOBCDJK": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "modifierMixins": [
             {
               "$type": "AttachToStateIDMixin",
-              "FHCHNMKMJJA": [
+              "stateIDs": [
                 "Channel_Loop",
                 "Channel_AS",
                 "Channel_BS"
               ],
-              "BGIONAIMBCJ": "AvatarInChannel"
+              "modifierName": "AvatarInChannel"
             }
           ]
         },
         "AvatarInChannel": {
-          "HABNNJHCOCD": "Unique",
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "ANPDJHOGAFE": 5.0,
-          "NLFIGALMIPD": [
+          "stacking": "Unique",
+          "modifierName": "",
+          "elementDurability": 100,
+          "thinkInterval": 5,
+          "onAdded": [
             {
               "$type": "SetExtraAbilityState",
-              "KMGAOOHMCPK": "Caster"
+              "target": "Caster"
             },
             {
               "$type": "AttachModifier",
-              "musicSubStates": {
-                "$type": "HGNAFICLGFP",
-                "IBPOJODNMHO": "CircleR50",
+              "otherTargets": {
+                "$type": "SelectTargetsByShape",
+                "shapeName": "CircleR50",
                 "BPDOJDLNBPP": "CurLocalAvatar",
-                "CHPLPFBEPDN": "AllExceptSelf",
-                "CNNFBFOPDJC": "CurLocalAvatar",
-                "CHGLFBPDMKF": 1.0
+                "campTargetType": "AllExceptSelf",
+                "campBasedOn": "CurLocalAvatar",
+                "sizeRatio": 1
               },
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "OMPKIEPKGPF",
-                  "NGGCNKPAODB": "IS_BIG_ASTER",
-                  "value": 1.0
+                  "$type": "ByTargetGlobalValue",
+                  "key": "IS_BIG_ASTER",
+                  "value": 1
                 }
               ],
-              "BGIONAIMBCJ": "LineEff_FindAster"
+              "modifierName": "LineEff_FindAster"
             },
             {
               "$type": "SetGlobalValue",
-              "KMGAOOHMCPK": "CurLocalAvatar",
-              "value": 0.0,
-              "NGGCNKPAODB": "CHARGE_SUCCESS",
-              "LBHGJKHHAKP": 0.0,
-              "EMGNPOKHMNN": 0.0
+              "target": "CurLocalAvatar",
+              "value": 0,
+              "key": "CHARGE_SUCCESS",
+              "maxValue": 0,
+              "minValue": 0
             },
             {
               "$type": "AttachEffect",
-              "musicSubStates": {
-                "$type": "HGNAFICLGFP",
-                "IBPOJODNMHO": "CircleR50",
+              "otherTargets": {
+                "$type": "SelectTargetsByShape",
+                "shapeName": "CircleR50",
                 "BPDOJDLNBPP": "CurLocalAvatar",
-                "CHPLPFBEPDN": "AllExceptSelf",
-                "CNNFBFOPDJC": "CurLocalAvatar",
-                "CHGLFBPDMKF": 1.0
+                "campTargetType": "AllExceptSelf",
+                "campBasedOn": "CurLocalAvatar",
+                "sizeRatio": 1
               },
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "OMPKIEPKGPF",
-                  "NGGCNKPAODB": "IS_BIG_ASTER",
-                  "value": 1.0
+                  "$type": "ByTargetGlobalValue",
+                  "key": "IS_BIG_ASTER",
+                  "value": 1
                 }
               ],
-              "LHHFHDEJOHC": "Eff_SceneObj_AsterLarge_Active",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_SceneObj_AsterLarge_Active"
             }
           ],
-          "NFKOGKMAIIE": [
+          "onRemoved": [
             {
               "$type": "SetAnimatorTrigger",
-              "KMGAOOHMCPK": "CurLocalAvatar",
-              "FLEEHCIOPKA": [
+              "target": "CurLocalAvatar",
+              "predicates": [
                 {
-                  "$type": "OMPKIEPKGPF",
-                  "KMGAOOHMCPK": "CurLocalAvatar",
-                  "NGGCNKPAODB": "CHARGE_SUCCESS",
-                  "value": 0.0
+                  "$type": "ByTargetGlobalValue",
+                  "target": "CurLocalAvatar",
+                  "key": "CHARGE_SUCCESS",
+                  "value": 0
                 }
               ],
-              "POPKLBPMAJN": "EndChannelTrigger"
+              "triggerID": "EndChannelTrigger"
             },
             {
               "$type": "SetExtraAbilityState",
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "OMPKIEPKGPF",
-                  "KMGAOOHMCPK": "CurLocalAvatar",
-                  "NGGCNKPAODB": "CHARGE_SUCCESS",
-                  "value": 0.0
+                  "$type": "ByTargetGlobalValue",
+                  "target": "CurLocalAvatar",
+                  "key": "CHARGE_SUCCESS",
+                  "value": 0
                 }
               ],
-              "FJMPEOEHPJK": "Interrupt"
+              "state": "Interrupt"
             }
           ],
-          "EOMGJKEEICG": [
+          "onBeingHit": [
             {
               "$type": "Predicated",
-              "KMGAOOHMCPK": "CurLocalAvatar",
-              "EGMDPEHBAOA": [
+              "target": "CurLocalAvatar",
+              "targetPredicates": [
                 {
-                  "$type": "OMPKIEPKGPF",
-                  "NGGCNKPAODB": "CHANNEL_BLOCK",
-                  "value": 0.0,
-                  "GAGKBNPOCAC": "NoneOrEqual"
+                  "$type": "ByTargetGlobalValue",
+                  "key": "CHANNEL_BLOCK",
+                  "value": 0,
+                  "compareType": "NoneOrEqual"
                 }
               ],
               "successActions": [
                 {
                   "$type": "CopyGlobalValue",
-                  "CAAICNJMPCD": "Team",
-                  "INODFCIEOPP": "Caster",
-                  "OHLDODBILJD": "AVATAR_ASTER_SCORE",
-                  "DCOAHDNGMHH": "AVATAR_ASTER_SCORE"
+                  "srcTarget": "Team",
+                  "dstTarget": "Caster",
+                  "srcKey": "AVATAR_ASTER_SCORE",
+                  "dstKey": "AVATAR_ASTER_SCORE"
                 },
                 {
                   "$type": "SetGlobalValueToOverrideMap",
-                  "KMGAOOHMCPK": "Caster",
-                  "AOJHAGMBDNP": "AVATAR_ASTER_SCORE",
-                  "BPGLCPGHEEK": "CurScore"
+                  "target": "Caster",
+                  "globalValueKey": "AVATAR_ASTER_SCORE",
+                  "overrideMapKey": "CurScore"
                 },
                 {
                   "$type": "ServerLuaCall",
-                  "KMGAOOHMCPK": "Team",
+                  "target": "Team",
                   "FNBGNCANKJF": "CurScenePlay",
                   "FDPMGLDLLIN": "UpdateAsterInterrupt",
-                  "param1": 0.0,
-                  "HFOIEKLCLEM": 0.0,
-                  "MCLOKLEBGPH": 0.0
+                  "param1": 0,
+                  "HFOIEKLCLEM": 0,
+                  "MCLOKLEBGPH": 0
                 },
                 {
                   "$type": "SetGlobalValue",
-                  "KMGAOOHMCPK": "Team",
+                  "target": "Team",
                   "value": [
-                    0.699999988079071,
+                    0.7,
                     "CurScore",
                     "MUL"
                   ],
-                  "NGGCNKPAODB": "AVATAR_ASTER_SCORE",
-                  "LBHGJKHHAKP": 0.0,
-                  "EMGNPOKHMNN": 0.0
+                  "key": "AVATAR_ASTER_SCORE",
+                  "maxValue": 0,
+                  "minValue": 0
                 },
                 {
                   "$type": "SetAnimatorTrigger",
-                  "KMGAOOHMCPK": "CurLocalAvatar",
-                  "POPKLBPMAJN": "EndChannelTrigger"
+                  "target": "CurLocalAvatar",
+                  "triggerID": "EndChannelTrigger"
                 },
                 {
                   "$type": "RemoveModifier",
-                  "KMGAOOHMCPK": "CurLocalAvatar",
-                  "BGIONAIMBCJ": "AvatarInChannel"
+                  "target": "CurLocalAvatar",
+                  "modifierName": "AvatarInChannel"
                 }
               ]
             }
           ],
-          "MDPGEKAIFIM": [
+          "onThinkInterval": [
             {
               "$type": "SetGlobalValue",
-              "KMGAOOHMCPK": "CurLocalAvatar",
-              "value": 1.0,
-              "NGGCNKPAODB": "CHARGE_SUCCESS",
-              "LBHGJKHHAKP": 0.0,
-              "EMGNPOKHMNN": 0.0
+              "target": "CurLocalAvatar",
+              "value": 1,
+              "key": "CHARGE_SUCCESS",
+              "maxValue": 0,
+              "minValue": 0
             },
             {
               "$type": "FireEffect",
-              "musicSubStates": {
-                "$type": "HGNAFICLGFP",
-                "IBPOJODNMHO": "CircleR50",
+              "otherTargets": {
+                "$type": "SelectTargetsByShape",
+                "shapeName": "CircleR50",
                 "BPDOJDLNBPP": "CurLocalAvatar",
-                "CHPLPFBEPDN": "AllExceptSelf",
-                "CNNFBFOPDJC": "CurLocalAvatar",
-                "CHGLFBPDMKF": 1.0
+                "campTargetType": "AllExceptSelf",
+                "campBasedOn": "CurLocalAvatar",
+                "sizeRatio": 1
               },
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "OMPKIEPKGPF",
-                  "NGGCNKPAODB": "IS_BIG_ASTER",
-                  "value": 1.0
+                  "$type": "ByTargetGlobalValue",
+                  "key": "IS_BIG_ASTER",
+                  "value": 1
                 }
               ],
-              "LHHFHDEJOHC": "Eff_SceneObj_AsterLarge_RecevieFinish",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_SceneObj_AsterLarge_RecevieFinish"
             },
             {
               "$type": "ServerLuaCall",
-              "KMGAOOHMCPK": "Team",
+              "target": "Team",
               "FNBGNCANKJF": "CurScenePlay",
               "FDPMGLDLLIN": "UpdateAsterProgress",
-              "param1": 0.0,
-              "HFOIEKLCLEM": 0.0,
-              "MCLOKLEBGPH": 0.0
+              "param1": 0,
+              "HFOIEKLCLEM": 0,
+              "MCLOKLEBGPH": 0
             },
             {
               "$type": "SetAnimatorTrigger",
-              "KMGAOOHMCPK": "CurLocalAvatar",
-              "POPKLBPMAJN": "EndChannelTrigger"
+              "target": "CurLocalAvatar",
+              "triggerID": "EndChannelTrigger"
             },
             {
               "$type": "RemoveModifier",
-              "BGIONAIMBCJ": "AvatarInChannel"
+              "modifierName": "AvatarInChannel"
             }
           ]
         },
         "LineEff_FindAster": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "KMGAOOHMCPK": "Applier",
-              "LHHFHDEJOHC": "Eff_SceneObj_AsterLarge_Recevie",
-              "CCNCMOGOFAG": {
-                "$type": "IADBHDLMGJB",
-                "MDPMJPIOGLA": "EffPoint",
-                "JPEOGPAHPDM": "Self"
-              },
-              "PCLAEGHPNHE": -1.0
+              "target": "Applier",
+              "effectPattern": "Eff_SceneObj_AsterLarge_Recevie",
+              "born": {
+                "$type": "ConfigBornByAttachPoint",
+                "attachPointName": "EffPoint",
+                "attachPointTargetType": "Self"
+              }
             }
           ]
         }
       },
-      "NLFIGALMIPD": [
+      "onAdded": [
         {
           "$type": "AttachModifier",
-          "BGIONAIMBCJ": "UNIQUE_SkillButtonController"
+          "modifierName": "UNIQUE_SkillButtonController"
         },
         {
           "$type": "AttachModifier",
-          "KMGAOOHMCPK": "Team",
-          "BGIONAIMBCJ": "Init"
+          "target": "Team",
+          "modifierName": "Init"
         },
         {
           "$type": "AttachModifier",
-          "KMGAOOHMCPK": "Team",
-          "BGIONAIMBCJ": "UNIQUE_AvatarStateController"
+          "target": "Team",
+          "modifierName": "UNIQUE_AvatarStateController"
         },
         {
           "$type": "AttachModifier",
-          "KMGAOOHMCPK": "Team",
-          "BGIONAIMBCJ": "UNIQUE_PlayerNotify"
+          "target": "Team",
+          "modifierName": "UNIQUE_PlayerNotify"
         },
         {
           "$type": "AttachModifier",
-          "KMGAOOHMCPK": "Team",
-          "BGIONAIMBCJ": "UNIQUE_TuntController"
+          "target": "Team",
+          "modifierName": "UNIQUE_TuntController"
         },
         {
           "$type": "SetGlobalValue",
-          "value": 0.0,
-          "NGGCNKPAODB": "AVATAR_ASTER_SCORE",
-          "LBHGJKHHAKP": 0.0,
-          "EMGNPOKHMNN": 0.0
+          "value": 0,
+          "key": "AVATAR_ASTER_SCORE",
+          "maxValue": 0,
+          "minValue": 0
         }
       ],
-      "DEOJHLMNLFC": [
+      "onAbilityStart": [
         {
           "$type": "SetAnimatorTrigger",
-          "KMGAOOHMCPK": "CurLocalAvatar",
-          "POPKLBPMAJN": "StartChannelTrigger"
+          "target": "CurLocalAvatar",
+          "triggerID": "StartChannelTrigger"
         }
       ],
-      "LFBJFECLNGK": [
+      "onKill": [
         {
           "$type": "RemoveUniqueModifier",
-          "BGIONAIMBCJ": "UNIQUE_SkillButtonController"
+          "modifierName": "UNIQUE_SkillButtonController"
         },
         {
           "$type": "RemoveModifier",
-          "BGIONAIMBCJ": "AvatarInChannel"
+          "modifierName": "AvatarInChannel"
         }
       ]
     }

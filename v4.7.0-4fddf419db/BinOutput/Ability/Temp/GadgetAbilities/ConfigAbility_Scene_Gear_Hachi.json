@@ -1,9 +1,9 @@
 [
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Dq_Property_Prop_SmokeDevice_01",
-      "PIDAPNFJNDF": [
+      "abilityMixins": [
         {
           "$type": "MoleMole.Config.AttachToGadgetStateMixin",
           "modifierName": "Close"
@@ -19,46 +19,45 @@
           "modifierName": "CoolDown"
         }
       ],
-      "BFBDNNJCDLH": {
+      "modifiers": {
         "HachiSmokeArea": {
           "modifierName": "",
           "duration": 1.5,
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "MoleMole.Config.ServerLuaCall",
               "MECCMJIFJKG": "FromGroup",
               "ACMHGHCMOIF": "SLC_SmokeClearThreat",
-              "param1": 0.0,
-              "param2": 0.0,
-              "GBOGNIOMAGM": 0.0
+              "param1": 0,
+              "param2": 0,
+              "GBOGNIOMAGM": 0
             }
           ],
-          "MINFJCDAIBB": [
+          "onRemoved": [
             {
               "$type": "MoleMole.Config.ServerLuaCall",
               "MECCMJIFJKG": "FromGroup",
               "ACMHGHCMOIF": "SLC_SmokeSetThreat",
-              "param1": 0.0,
-              "param2": 0.0,
-              "GBOGNIOMAGM": 0.0
+              "param1": 0,
+              "param2": 0,
+              "GBOGNIOMAGM": 0
             }
           ]
         },
         "HachiDenyLockOn": {
           "modifierName": "",
           "duration": 1.5,
-          "elementDurability": 100.0,
+          "elementDurability": 100,
           "state": "DenyLockOn"
         },
         "Close": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.AttachEffect",
-              "effectPattern": "Eff_Item_Hint_SearchPoint",
-              "effectTempleteID": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_Item_Hint_SearchPoint"
             }
           ],
           "onBeingHit": [
@@ -66,10 +65,10 @@
               "$type": "MoleMole.Config.ExecuteGadgetLua",
               "predicates": [
                 {
-                  "$type": "OFEHCLIGCND",
+                  "$type": "ByNot",
                   "predicates": [
                     {
-                      "$type": "AIIEFALBANL",
+                      "$type": "ByAttackTags",
                       "attackTags": [
                         "BurningDamage",
                         "ShockDamage"
@@ -84,19 +83,19 @@
         },
         "CoolDown": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.ApplyModifier",
+              "$type": "ApplyModifier",
               "modifierName": "DisableInteractTimer"
             }
           ]
         },
         "OpenStateTimer": {
           "modifierName": "",
-          "duration": 5.0,
-          "elementDurability": 100.0,
-          "MINFJCDAIBB": [
+          "duration": 5,
+          "elementDurability": 100,
+          "onRemoved": [
             {
               "$type": "MoleMole.Config.ExecuteGadgetLua",
               "param1": 202
@@ -105,9 +104,9 @@
         },
         "DisableInteractTimer": {
           "modifierName": "",
-          "duration": 10.0,
-          "elementDurability": 100.0,
-          "MINFJCDAIBB": [
+          "duration": 10,
+          "elementDurability": 100,
+          "onRemoved": [
             {
               "$type": "MoleMole.Config.ExecuteGadgetLua"
             }
@@ -115,17 +114,16 @@
         },
         "Open": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "BNJENAIMDPL": 0.5,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "thinkInterval": 0.5,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.AttachEffect",
+              "$type": "AttachEffect",
               "effectPattern": "Eff_ScenObj_SmokeDevice_01_Fog",
-              "scale": 0.5,
-              "effectTempleteID": -1.0
+              "scale": 0.5
             },
             {
-              "$type": "MoleMole.Config.ApplyModifier",
+              "$type": "ApplyModifier",
               "modifierName": "OpenStateTimer"
             },
             {
@@ -133,36 +131,36 @@
               "MECCMJIFJKG": "FromGroup",
               "ACMHGHCMOIF": "SLC_HachiGadgetActionMark",
               "EPFBIHBJPAH": 1,
-              "param1": 1.0,
-              "param2": 0.0,
-              "GBOGNIOMAGM": 0.0
+              "param1": 1,
+              "param2": 0,
+              "GBOGNIOMAGM": 0
             }
           ],
-          "PJKELBNICOI": [
+          "onThinkInterval": [
             {
-              "$type": "MoleMole.Config.Predicated",
+              "$type": "Predicated",
               "otherTargets": {
-                "$type": "DOMPKGOHKNB",
+                "$type": "SelectTargetsByShape",
                 "shapeName": "CircleR5",
-                "FAMCBLCIFCJ": "All",
-                "CONEFMBNECE": 1.0
+                "campTargetType": "All",
+                "sizeRatio": 1
               },
-              "CKBKOCJPJMM": [
+              "targetPredicates": [
                 {
-                  "$type": "DLLOJMFICPG",
-                  "JBEIOINCLFB": [
+                  "$type": "ByEntityTypes",
+                  "entityTypes": [
                     "Avatar"
                   ]
                 }
               ],
               "successActions": [
                 {
-                  "$type": "MoleMole.Config.ApplyModifier",
+                  "$type": "ApplyModifier",
                   "modifierName": "HachiSmokeArea"
                 },
                 {
-                  "$type": "MoleMole.Config.ApplyModifier",
-                  "MLDBFKEGPEF": "Other",
+                  "$type": "ApplyModifier",
+                  "target": "Other",
                   "modifierName": "HachiDenyLockOn"
                 }
               ]
@@ -170,19 +168,19 @@
           ]
         }
       },
-      "OAOGLLGGJPD": [
+      "onAdded": [
         {
-          "$type": "MoleMole.Config.AttachAbilityStateResistance",
-          "OHNGCCEOFAM": 11002
+          "$type": "AttachAbilityStateResistance",
+          "resistanceListID": 11002
         }
       ]
     }
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Dq_Property_Prop_NoisyBait_01",
-      "PIDAPNFJNDF": [
+      "abilityMixins": [
         {
           "$type": "MoleMole.Config.AttachToGadgetStateMixin",
           "modifierName": "Close"
@@ -198,28 +196,24 @@
           "modifierName": "CoolDown"
         }
       ],
-      "BFBDNNJCDLH": {
+      "modifiers": {
         "Close": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.AttachEffect",
-              "effectPattern": "Eff_Item_Hint_SearchPoint",
-              "effectTempleteID": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_Item_Hint_SearchPoint"
             },
             {
-              "$type": "MoleMole.Config.AttachEffect",
+              "$type": "AttachEffect",
               "effectPattern": "Eff_Quest_SiteInteract_Event",
               "born": {
-                "$type": "KPFCCIOJAMK",
+                "$type": "ConfigBornBySelf",
                 "offset": {
-                  "GOAPOLCAJBP": 0.0,
-                  "FMOPCJGGFMH": 0.6000000238418579,
-                  "EJJEPFCDDAM": 0.0
+                  "y": 0.6
                 }
-              },
-              "effectTempleteID": -1.0
+              }
             }
           ],
           "onBeingHit": [
@@ -227,10 +221,10 @@
               "$type": "MoleMole.Config.ExecuteGadgetLua",
               "predicates": [
                 {
-                  "$type": "OFEHCLIGCND",
+                  "$type": "ByNot",
                   "predicates": [
                     {
-                      "$type": "AIIEFALBANL",
+                      "$type": "ByAttackTags",
                       "attackTags": [
                         "BurningDamage",
                         "ShockDamage"
@@ -245,19 +239,19 @@
         },
         "CoolDown": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.ApplyModifier",
+              "$type": "ApplyModifier",
               "modifierName": "DisableInteractTimer"
             }
           ]
         },
         "OpenStateTimer": {
           "modifierName": "",
-          "duration": 10.0,
-          "elementDurability": 100.0,
-          "MINFJCDAIBB": [
+          "duration": 10,
+          "elementDurability": 100,
+          "onRemoved": [
             {
               "$type": "MoleMole.Config.ExecuteGadgetLua",
               "param1": 202
@@ -266,9 +260,9 @@
         },
         "DisableInteractTimer": {
           "modifierName": "",
-          "duration": 5.0,
-          "elementDurability": 100.0,
-          "MINFJCDAIBB": [
+          "duration": 5,
+          "elementDurability": 100,
+          "onRemoved": [
             {
               "$type": "MoleMole.Config.ExecuteGadgetLua"
             }
@@ -276,61 +270,60 @@
         },
         "Open": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "BNJENAIMDPL": 0.5,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "thinkInterval": 0.5,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.ApplyModifier",
+              "$type": "ApplyModifier",
               "modifierName": "OpenStateTimer"
             },
             {
-              "$type": "MoleMole.Config.AttachEffect",
+              "$type": "AttachEffect",
               "effectPattern": "Eff_SceneObj_NoisyBait_01",
               "born": {
-                "$type": "JEDNAGFKIDP",
-                "OBNIJLKICKN": "RootNode"
-              },
-              "effectTempleteID": -1.0
+                "$type": "ConfigBornByAttachPoint",
+                "attachPointName": "RootNode"
+              }
             },
             {
               "$type": "MoleMole.Config.ServerLuaCall",
               "MECCMJIFJKG": "FromGroup",
               "ACMHGHCMOIF": "SLC_HachiGadgetActionMark",
               "EPFBIHBJPAH": 1,
-              "param1": 2.0,
-              "param2": 0.0,
-              "GBOGNIOMAGM": 0.0
+              "param1": 2,
+              "param2": 0,
+              "GBOGNIOMAGM": 0
             }
           ],
-          "PJKELBNICOI": [
+          "onThinkInterval": [
             {
-              "$type": "MoleMole.Config.Predicated",
+              "$type": "Predicated",
               "otherTargets": {
-                "$type": "DOMPKGOHKNB",
+                "$type": "SelectTargetsByShape",
                 "sortType": "Nearest",
                 "shapeName": "CircleR10",
-                "FAMCBLCIFCJ": "All",
-                "CONEFMBNECE": 1.0
+                "campTargetType": "All",
+                "sizeRatio": 1
               },
-              "CKBKOCJPJMM": [
+              "targetPredicates": [
                 {
-                  "$type": "IPGGGPIJONN",
+                  "$type": "ByTargetGlobalValue",
                   "key": "_IS_INU_SHIHANDAI",
-                  "value": 1.0
+                  "value": 1
                 }
               ],
               "successActions": [
                 {
-                  "$type": "MoleMole.Config.ApplyModifier",
-                  "MLDBFKEGPEF": "Target",
+                  "$type": "ApplyModifier",
+                  "target": "Target",
                   "modifierName": "UNIQUE_HappyPoint_Attracted"
                 },
                 {
-                  "$type": "MoleMole.Config.SetGlobalPos",
-                  "MLDBFKEGPEF": "Target",
+                  "$type": "SetGlobalPos",
+                  "target": "Target",
                   "key": "_HAPPY_POINT_POS",
                   "born": {
-                    "$type": "KPFCCIOJAMK"
+                    "$type": "ConfigBornBySelf"
                   }
                 }
               ]
@@ -338,62 +331,62 @@
           ]
         },
         "UNIQUE_HappyPoint_Attracted": {
-          "EODJPKICNGG": "RefreshUniqueDurability",
+          "stacking": "RefreshUniqueDurability",
           "modifierName": "",
-          "LLIJGLMEHFK": true,
-          "duration": 1.0,
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "isUnique": true,
+          "duration": 1,
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.SetGlobalValue",
-              "value": 1.0,
+              "$type": "SetGlobalValue",
+              "value": 1,
               "key": "_FIND_HAPPY_POINT",
-              "maxValue": 0.0,
-              "GCEOGBJIFCP": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ],
-          "MINFJCDAIBB": [
+          "onRemoved": [
             {
-              "$type": "MoleMole.Config.SetGlobalValue",
-              "value": 0.0,
+              "$type": "SetGlobalValue",
+              "value": 0,
               "key": "_FIND_HAPPY_POINT",
-              "maxValue": 0.0,
-              "GCEOGBJIFCP": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         }
       },
-      "OAOGLLGGJPD": [
+      "onAdded": [
         {
-          "$type": "MoleMole.Config.AttachAbilityStateResistance",
-          "OHNGCCEOFAM": 11002
+          "$type": "AttachAbilityStateResistance",
+          "resistanceListID": 11002
         }
       ]
     }
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Dq_Property_Prop_HachiWayPoint_01",
-      "GGGLNDFDIMI": [
+      "onFieldEnter": [
         {
-          "$type": "MoleMole.Config.Predicated",
-          "MLDBFKEGPEF": "Target",
-          "CKBKOCJPJMM": [
+          "$type": "Predicated",
+          "target": "Target",
+          "targetPredicates": [
             {
-              "$type": "IPGGGPIJONN",
+              "$type": "ByTargetGlobalValue",
               "key": "_IS_INU_SHIHANDAI",
-              "value": 1.0
+              "value": 1
             }
           ],
           "successActions": [
             {
-              "$type": "MoleMole.Config.SetGlobalValue",
-              "MLDBFKEGPEF": "Target",
-              "value": 1.0,
+              "$type": "SetGlobalValue",
+              "target": "Target",
+              "value": 1,
               "key": "_SHIHANDAI_TO_SEARCH",
-              "maxValue": 0.0,
-              "GCEOGBJIFCP": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         }
@@ -402,28 +395,27 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Gear_Property_Ani_Prop_WoodenCage_01",
-      "PIDAPNFJNDF": [
+      "abilityMixins": [
         {
           "$type": "MoleMole.Config.AttachToGadgetStateMixin",
           "MHKDFIPGJJO": 201,
           "modifierName": "Door_Open"
         }
       ],
-      "BFBDNNJCDLH": {
+      "modifiers": {
         "Door_Open": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.FireEffect",
+              "$type": "FireEffect",
               "effectPattern": "Eff_CoverSmoke_Mini_01",
               "born": {
-                "$type": "JEDNAGFKIDP",
-                "OBNIJLKICKN": "LockPosition"
-              },
-              "effectTempleteID": -1.0
+                "$type": "ConfigBornByAttachPoint",
+                "attachPointName": "LockPosition"
+              }
             },
             {
               "$type": "MoleMole.Config.ExecuteGadgetLua",
@@ -436,9 +428,9 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Common_Property_Prop_HintPoint_01",
-      "PIDAPNFJNDF": [
+      "abilityMixins": [
         {
           "$type": "MoleMole.Config.AttachToGadgetStateMixin",
           "modifierName": "DefaultEffect"
@@ -449,21 +441,20 @@
           "modifierName": "HideEffect"
         }
       ],
-      "BFBDNNJCDLH": {
+      "modifiers": {
         "DefaultEffect": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.AttachEffect",
-              "effectPattern": "Eff_QuestGuide_Position",
-              "effectTempleteID": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_QuestGuide_Position"
             }
           ]
         },
         "HideEffect": {
           "modifierName": "",
-          "elementDurability": 100.0
+          "elementDurability": 100
         }
       }
     }

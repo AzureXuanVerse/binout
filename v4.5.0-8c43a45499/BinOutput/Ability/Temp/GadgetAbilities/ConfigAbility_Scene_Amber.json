@@ -3,22 +3,22 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "SceneObj_Amber_GoldenAmber",
-      "KBODACCMEFE": [
+      "abilityMixins": [
         {
           "$type": "AttachToGadgetStateMixin",
-          "BGIONAIMBCJ": "GoldenAmber"
+          "modifierName": "GoldenAmber"
         },
         {
           "$type": "AttachToGadgetStateMixin",
           "JBFLOAMNPBC": 201,
-          "BGIONAIMBCJ": "HideMesh"
+          "modifierName": "HideMesh"
         }
       ],
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "HideMesh": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "EnableSceneTransformByName",
               "HFFMMIDGGKN": [
@@ -28,37 +28,31 @@
           ]
         },
         "GoldenAmber": {
-          "BGIONAIMBCJ": "",
+          "modifierName": "",
           "elementType": "Rock",
-          "ONIHJPOMNHA": 50.0,
-          "CLOIGOBCDJK": [
+          "elementDurability": 50,
+          "modifierMixins": [
             {
               "$type": "ShieldBarMixin",
-              "BNHNIOIMHDI": ""
+              "showDamageText": ""
             }
           ],
-          "NLFIGALMIPD": [
+          "onAdded": [
             {
               "$type": "EnableSceneTransformByName",
               "HFFMMIDGGKN": [
                 "Collider"
               ],
-              "DEHFCFDDEGB": true
+              "setEnable": true
             }
           ],
-          "NFKOGKMAIIE": [
+          "onRemoved": [
             {
               "$type": "FireEffect",
-              "LHHFHDEJOHC": "Eff_Object_Amber_Destory",
-              "CCNCMOGOFAG": {
-                "$type": "PHDFAKODIBC",
-                "offset": {
-                  "NEEHMANEJKM": 0.0,
-                  "KKKLBADAPPB": 0.0,
-                  "GENNNOANKOO": 0.0
-                }
-              },
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_Object_Amber_Destory",
+              "born": {
+                "$type": "ConfigBornByTarget"
+              }
             },
             {
               "$type": "EnableSceneTransformByName",
@@ -73,14 +67,14 @@
           ]
         }
       },
-      "NLFIGALMIPD": [
+      "onAdded": [
         {
           "$type": "AttachAbilityStateResistance",
-          "NPCLJKGFAMK": 14005
+          "resistanceListID": 14005
         },
         {
           "$type": "AttachAbilityStateResistance",
-          "NPCLJKGFAMK": 14002
+          "resistanceListID": 14002
         }
       ]
     }
@@ -89,73 +83,70 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "SceneObj_Amber_RockAmberBroken",
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "RockAmberBuff": {
-          "BGIONAIMBCJ": "",
-          "FAFCPJJAIGK": 60.0,
+          "modifierName": "",
+          "duration": 60,
           "elementType": "Rock",
-          "ONIHJPOMNHA": 10.0,
-          "NLPPKPOJEOA": {
-            "Entity_WeightRatio": 2.0
+          "elementDurability": 10,
+          "properties": {
+            "Entity_WeightRatio": 2
           }
         },
         "Broken": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NFKOGKMAIIE": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onRemoved": [
             {
               "$type": "ApplyModifier",
-              "musicSubStates": {
-                "$type": "HGNAFICLGFP",
-                "IBPOJODNMHO": "CircleR5",
-                "CHPLPFBEPDN": "All",
-                "CHGLFBPDMKF": 1.0
+              "otherTargets": {
+                "$type": "SelectTargetsByShape",
+                "shapeName": "CircleR5",
+                "campTargetType": "All",
+                "sizeRatio": 1
               },
-              "BGIONAIMBCJ": "RockAmberBuff"
+              "modifierName": "RockAmberBuff"
             },
             {
               "$type": "FireEffect",
-              "LHHFHDEJOHC": "Eff_Amber_Rock_Hit",
-              "CCNCMOGOFAG": {
-                "$type": "PHDFAKODIBC",
+              "effectPattern": "Eff_Amber_Rock_Hit",
+              "born": {
+                "$type": "ConfigBornByTarget",
                 "offset": {
-                  "NEEHMANEJKM": 0.0,
-                  "KKKLBADAPPB": 0.30000001192092896,
-                  "GENNNOANKOO": 0.0
+                  "y": 0.3
                 }
-              },
-              "PCLAEGHPNHE": -1.0
+              }
             },
             {
               "$type": "KillSelf"
             }
           ],
-          "EOMGJKEEICG": [
+          "onBeingHit": [
             {
               "$type": "RemoveModifier",
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "MODAEKIEDEN",
-                  "FHBHAPHLNCP": 1.0
+                  "$type": "ByHitDamage",
+                  "damage": 1
                 }
               ],
-              "BGIONAIMBCJ": "Broken"
+              "modifierName": "Broken"
             }
           ]
         }
       },
-      "NLFIGALMIPD": [
+      "onAdded": [
         {
           "$type": "ApplyModifier",
-          "BGIONAIMBCJ": "Broken"
+          "modifierName": "Broken"
         },
         {
           "$type": "AttachAbilityStateResistance",
-          "NPCLJKGFAMK": 14005
+          "resistanceListID": 14005
         },
         {
           "$type": "AttachAbilityStateResistance",
-          "NPCLJKGFAMK": 14002
+          "resistanceListID": 14002
         }
       ]
     }
@@ -164,69 +155,61 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "SceneObj_Amber_WaterAmberBroken",
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "Broken": {
-          "BGIONAIMBCJ": "",
+          "modifierName": "",
           "elementType": "Water",
-          "ONIHJPOMNHA": 50.0,
-          "NFKOGKMAIIE": [
+          "elementDurability": 50,
+          "onRemoved": [
             {
               "$type": "CreateGadget",
-              "CCNCMOGOFAG": {
-                "$type": "PHDFAKODIBC",
-                "offset": {
-                  "NEEHMANEJKM": 0.0,
-                  "KKKLBADAPPB": 0.0,
-                  "GENNNOANKOO": 0.0
-                }
+              "born": {
+                "$type": "ConfigBornByTarget"
               },
-              "BLPPFMNOOIO": 70270002,
+              "gadgetID": 70270002,
               "campID": 5001,
-              "CHPLPFBEPDN": "All"
+              "campTargetType": "All"
             },
             {
               "$type": "FireEffect",
-              "LHHFHDEJOHC": "Eff_SceneObj_Amber_Water_Hit",
-              "CCNCMOGOFAG": {
-                "$type": "PHDFAKODIBC",
+              "effectPattern": "Eff_SceneObj_Amber_Water_Hit",
+              "born": {
+                "$type": "ConfigBornByTarget",
                 "offset": {
-                  "NEEHMANEJKM": 0.0,
-                  "KKKLBADAPPB": 0.30000001192092896,
-                  "GENNNOANKOO": 0.0
+                  "y": 0.3
                 }
-              },
-              "PCLAEGHPNHE": -1.0
+              }
             },
             {
               "$type": "KillSelf"
             }
           ],
-          "EOMGJKEEICG": [
+          "onBeingHit": [
             {
               "$type": "RemoveModifier",
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "MODAEKIEDEN",
-                  "FHBHAPHLNCP": 0.0
+                  "$type": "ByHitDamage",
+                  "damage": 0
                 }
               ],
-              "BGIONAIMBCJ": "Broken"
+              "modifierName": "Broken"
             }
           ]
         }
       },
-      "NLFIGALMIPD": [
+      "onAdded": [
         {
           "$type": "ApplyModifier",
-          "BGIONAIMBCJ": "Broken"
+          "modifierName": "Broken"
         },
         {
           "$type": "AttachAbilityStateResistance",
-          "NPCLJKGFAMK": 14005
+          "resistanceListID": 14005
         },
         {
           "$type": "AttachAbilityStateResistance",
-          "NPCLJKGFAMK": 14002
+          "resistanceListID": 14002
         }
       ]
     }
@@ -235,68 +218,60 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "SceneObj_Amber_WindAmberBroken",
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "Broken": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NFKOGKMAIIE": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onRemoved": [
             {
               "$type": "CreateGadget",
-              "CCNCMOGOFAG": {
-                "$type": "PHDFAKODIBC",
-                "offset": {
-                  "NEEHMANEJKM": 0.0,
-                  "KKKLBADAPPB": 0.0,
-                  "GENNNOANKOO": 0.0
-                }
+              "born": {
+                "$type": "ConfigBornByTarget"
               },
-              "BLPPFMNOOIO": 70270003,
+              "gadgetID": 70270003,
               "campID": 1001,
-              "CHPLPFBEPDN": "All"
+              "campTargetType": "All"
             },
             {
               "$type": "FireEffect",
-              "LHHFHDEJOHC": "Eff_Amber_Wind_Hit",
-              "CCNCMOGOFAG": {
-                "$type": "PHDFAKODIBC",
+              "effectPattern": "Eff_Amber_Wind_Hit",
+              "born": {
+                "$type": "ConfigBornByTarget",
                 "offset": {
-                  "NEEHMANEJKM": 0.0,
-                  "KKKLBADAPPB": 0.30000001192092896,
-                  "GENNNOANKOO": 0.0
+                  "y": 0.3
                 }
-              },
-              "PCLAEGHPNHE": -1.0
+              }
             },
             {
               "$type": "KillSelf"
             }
           ],
-          "EOMGJKEEICG": [
+          "onBeingHit": [
             {
               "$type": "RemoveModifier",
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "MODAEKIEDEN",
-                  "FHBHAPHLNCP": 1.0
+                  "$type": "ByHitDamage",
+                  "damage": 1
                 }
               ],
-              "BGIONAIMBCJ": "Broken"
+              "modifierName": "Broken"
             }
           ]
         }
       },
-      "NLFIGALMIPD": [
+      "onAdded": [
         {
           "$type": "ApplyModifier",
-          "BGIONAIMBCJ": "Broken"
+          "modifierName": "Broken"
         },
         {
           "$type": "AttachAbilityStateResistance",
-          "NPCLJKGFAMK": 14005
+          "resistanceListID": 14005
         },
         {
           "$type": "AttachAbilityStateResistance",
-          "NPCLJKGFAMK": 14002
+          "resistanceListID": 14002
         }
       ]
     }
@@ -305,68 +280,60 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "SceneObj_Amber_WindAmberBroken_02",
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "Broken": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NFKOGKMAIIE": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onRemoved": [
             {
               "$type": "CreateGadget",
-              "CCNCMOGOFAG": {
-                "$type": "PHDFAKODIBC",
-                "offset": {
-                  "NEEHMANEJKM": 0.0,
-                  "KKKLBADAPPB": 0.0,
-                  "GENNNOANKOO": 0.0
-                }
+              "born": {
+                "$type": "ConfigBornByTarget"
               },
-              "BLPPFMNOOIO": 70270007,
+              "gadgetID": 70270007,
               "campID": 1001,
-              "CHPLPFBEPDN": "All"
+              "campTargetType": "All"
             },
             {
               "$type": "FireEffect",
-              "LHHFHDEJOHC": "Eff_Amber_Wind_Hit",
-              "CCNCMOGOFAG": {
-                "$type": "PHDFAKODIBC",
+              "effectPattern": "Eff_Amber_Wind_Hit",
+              "born": {
+                "$type": "ConfigBornByTarget",
                 "offset": {
-                  "NEEHMANEJKM": 0.0,
-                  "KKKLBADAPPB": 0.30000001192092896,
-                  "GENNNOANKOO": 0.0
+                  "y": 0.3
                 }
-              },
-              "PCLAEGHPNHE": -1.0
+              }
             },
             {
               "$type": "KillSelf"
             }
           ],
-          "EOMGJKEEICG": [
+          "onBeingHit": [
             {
               "$type": "RemoveModifier",
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "MODAEKIEDEN",
-                  "FHBHAPHLNCP": 1.0
+                  "$type": "ByHitDamage",
+                  "damage": 1
                 }
               ],
-              "BGIONAIMBCJ": "Broken"
+              "modifierName": "Broken"
             }
           ]
         }
       },
-      "NLFIGALMIPD": [
+      "onAdded": [
         {
           "$type": "ApplyModifier",
-          "BGIONAIMBCJ": "Broken"
+          "modifierName": "Broken"
         },
         {
           "$type": "AttachAbilityStateResistance",
-          "NPCLJKGFAMK": 14005
+          "resistanceListID": 14005
         },
         {
           "$type": "AttachAbilityStateResistance",
-          "NPCLJKGFAMK": 14002
+          "resistanceListID": 14002
         }
       ]
     }

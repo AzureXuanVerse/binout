@@ -3,51 +3,51 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Boltbug_Scarab_UnderGroundHandler",
-      "KBODACCMEFE": [
+      "abilityMixins": [
         {
           "$type": "AttachToAnimatorStateIDMixin",
-          "FHCHNMKMJJA": [
+          "stateIDs": [
             "Standby",
             "MakeBall",
             "IdleFree01",
             "Walk"
           ],
-          "BGIONAIMBCJ": "Boltbug_Scarab_AboveGround"
+          "modifierName": "Boltbug_Scarab_AboveGround"
         },
         {
           "$type": "AttachToAnimatorStateIDMixin",
-          "FHCHNMKMJJA": [
+          "stateIDs": [
             "DigIn",
             "Standby_Hide",
             "DigOut"
           ],
-          "BGIONAIMBCJ": "Boltbug_Scarab_UnderGround"
+          "modifierName": "Boltbug_Scarab_UnderGround"
         }
       ],
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "Boltbug_Scarab_AboveGround": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0
+          "modifierName": "",
+          "elementDurability": 100
         },
         "Boltbug_Scarab_UnderGround": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "CLOIGOBCDJK": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "modifierMixins": [
             {
               "$type": "DisableMonsterPickedUpMixin"
             }
           ]
         },
         "Boltbug_Scarab_Invincible": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "FJMPEOEHPJK": "LockHP"
+          "modifierName": "",
+          "elementDurability": 100,
+          "state": "LockHP"
         }
       },
-      "NLFIGALMIPD": [
+      "onAdded": [
         {
           "$type": "ApplyModifier",
-          "BGIONAIMBCJ": "Boltbug_Scarab_Invincible"
+          "modifierName": "Boltbug_Scarab_Invincible"
         }
       ]
     }
@@ -56,21 +56,20 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Boltbug_Scarab_MakeBall",
-      "DEOJHLMNLFC": [
+      "onAbilityStart": [
         {
           "$type": "CreateGadget",
-          "CCNCMOGOFAG": {
-            "$type": "DELDMCFKBBL",
+          "born": {
+            "$type": "ConfigBornBySelf",
             "offset": {
-              "NEEHMANEJKM": 0.03382803872227669,
-              "KKKLBADAPPB": 0.0,
-              "GENNNOANKOO": -0.3788909912109375
+              "x": 0.03383,
+              "z": -0.37889
             },
-            "OINHJGEGJLO": true,
-            "CPEFNCABPPO": 0.5,
+            "onGround": true,
+            "onGroundRaycastUpDist": 0.5,
             "BOBAFJLJGEH": true
           },
-          "BLPPFMNOOIO": 42805001,
+          "gadgetID": 42805001,
           "campID": 4001
         }
       ]
@@ -80,13 +79,13 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Boltbug_Scarab_DestroyBall",
-      "DEOJHLMNLFC": [
+      "onAbilityStart": [
         {
           "$type": "TriggerAbility",
-          "musicSubStates": {
-            "$type": "GNHODBHJPLP",
-            "CJJEEJHMBGG": 1,
-            "HADIOIIIHBI": 42805001
+          "otherTargets": {
+            "$type": "SelectTargetsByChildren",
+            "topLimit": 1,
+            "configID": 42805001
           },
           "abilityName": "Boltbug_Scarab_Ball"
         }
@@ -97,18 +96,17 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Boltbug_Scarab_Ball",
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "Boltbug_Scarab_Ball": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_Animal_Boltbug_Scarab_Ball",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_Animal_Boltbug_Scarab_Ball"
             }
           ],
-          "EOMGJKEEICG": [
+          "onBeingHit": [
             {
               "$type": "TriggerAbility",
               "abilityName": "Monster_Fungus_Raptor_01_SummonAttackBullet_OnGround"
@@ -116,21 +114,20 @@
           ]
         }
       },
-      "NLFIGALMIPD": [
+      "onAdded": [
         {
           "$type": "AttachModifier",
-          "BGIONAIMBCJ": "Boltbug_Scarab_Ball"
+          "modifierName": "Boltbug_Scarab_Ball"
         }
       ],
-      "DEOJHLMNLFC": [
+      "onAbilityStart": [
         {
           "$type": "FireEffect",
-          "LHHFHDEJOHC": "Eff_Animal_Boltbug_Scarab_BallDestroy",
-          "PCLAEGHPNHE": -1.0
+          "effectPattern": "Eff_Animal_Boltbug_Scarab_BallDestroy"
         },
         {
           "$type": "RemoveModifier",
-          "BGIONAIMBCJ": "Boltbug_Scarab_Ball"
+          "modifierName": "Boltbug_Scarab_Ball"
         }
       ]
     }
@@ -139,152 +136,147 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "BoltBug_MachinaIustitia_LogicHandler",
-      "KBODACCMEFE": [
+      "abilityMixins": [
         {
           "$type": "AttachToPoseIDMixin",
           "OLJKDPFLMCF": [
             99
           ],
-          "BGIONAIMBCJ": "Broken_Spark_VFX"
+          "modifierName": "Broken_Spark_VFX"
         },
         {
           "$type": "AttachToAnimatorStateIDMixin",
-          "FHCHNMKMJJA": [
+          "stateIDs": [
             "WorkingFly"
           ],
-          "BGIONAIMBCJ": "ScanLight_VFX"
+          "modifierName": "ScanLight_VFX"
         },
         {
           "$type": "AttachToStateIDMixin",
-          "FHCHNMKMJJA": [
+          "stateIDs": [
             "Fly"
           ],
-          "BGIONAIMBCJ": "Wings_VFX"
+          "modifierName": "Wings_VFX"
         },
         {
           "$type": "DoActionByStateIDMixin",
-          "FHCHNMKMJJA": [
+          "stateIDs": [
             "BeHitAir",
             "BeHit"
           ],
           "EEGIIGFKBHC": [
             {
               "$type": "Predicated",
-              "EGMDPEHBAOA": [
+              "targetPredicates": [
                 {
-                  "$type": "OMPKIEPKGPF",
-                  "NGGCNKPAODB": "_BROKEN_STATE_",
-                  "value": 1.0
+                  "$type": "ByTargetGlobalValue",
+                  "key": "_BROKEN_STATE_",
+                  "value": 1
                 }
               ],
               "successActions": [
                 {
                   "$type": "SetPoseInt",
-                  "EGCALHMEFEC": "BrokenState",
-                  "KHMNAHOBJAE": 2
+                  "intID": "BrokenState",
+                  "value": 2
                 },
                 {
                   "$type": "SetGlobalValue",
-                  "value": 2.0,
-                  "NGGCNKPAODB": "_BROKEN_STATE_",
-                  "LBHGJKHHAKP": 0.0,
-                  "EMGNPOKHMNN": 0.0
+                  "value": 2,
+                  "key": "_BROKEN_STATE_",
+                  "maxValue": 0,
+                  "minValue": 0
                 },
                 {
                   "$type": "FireEffect",
-                  "LHHFHDEJOHC": "Eff_Animal_Boltbug_MachinaIustitia_Break",
-                  "PCLAEGHPNHE": -1.0
+                  "effectPattern": "Eff_Animal_Boltbug_MachinaIustitia_Break"
                 }
               ]
             }
           ]
         }
       ],
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "BeHit_Monitor": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLPPKPOJEOA": {
-            "Actor_EndureDelta": 20.0
+          "modifierName": "",
+          "elementDurability": 100,
+          "properties": {
+            "Actor_EndureDelta": 20
           },
-          "EOMGJKEEICG": [
+          "onBeingHit": [
             {
               "$type": "Randomed",
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "OMPKIEPKGPF",
-                  "NGGCNKPAODB": "_BROKEN_STATE_",
-                  "value": 2.0
+                  "$type": "ByTargetGlobalValue",
+                  "key": "_BROKEN_STATE_",
+                  "value": 2
                 }
               ],
-              "NGLFOHEEJEJ": 0.33000001311302185,
+              "chance": 0.33,
               "successActions": [
                 {
                   "$type": "SetPoseInt",
-                  "EGCALHMEFEC": "BrokenState",
-                  "KHMNAHOBJAE": 3
+                  "intID": "BrokenState",
+                  "value": 3
                 },
                 {
                   "$type": "FireEffect",
-                  "LHHFHDEJOHC": "Eff_Animal_Boltbug_MachinaIustitia_Break",
-                  "PCLAEGHPNHE": -1.0
+                  "effectPattern": "Eff_Animal_Boltbug_MachinaIustitia_Break"
                 },
                 {
                   "$type": "SetGlobalValue",
-                  "value": 3.0,
-                  "NGGCNKPAODB": "_BROKEN_STATE_",
-                  "LBHGJKHHAKP": 0.0,
-                  "EMGNPOKHMNN": 0.0
+                  "value": 3,
+                  "key": "_BROKEN_STATE_",
+                  "maxValue": 0,
+                  "minValue": 0
                 }
               ]
             }
           ]
         },
         "Broken_Spark_VFX": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_Animal_Boltbug_MachinaIustitia_Broken",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_Animal_Boltbug_MachinaIustitia_Broken"
             }
           ]
         },
         "ScanLight_VFX": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_Animal_Boltbug_MachinaIustitia_ScanLight",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_Animal_Boltbug_MachinaIustitia_ScanLight"
             }
           ]
         },
         "Wings_VFX": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_Animal_Boltbug_MachinaIustitia_Wings",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_Animal_Boltbug_MachinaIustitia_Wings"
             }
           ]
         }
       },
-      "NLFIGALMIPD": [
+      "onAdded": [
         {
           "$type": "SetGlobalValue",
-          "value": 1.0,
-          "NGGCNKPAODB": "_BROKEN_STATE_",
-          "LBHGJKHHAKP": 0.0,
-          "EMGNPOKHMNN": 0.0
+          "value": 1,
+          "key": "_BROKEN_STATE_",
+          "maxValue": 0,
+          "minValue": 0
         },
         {
           "$type": "ApplyModifier",
-          "BGIONAIMBCJ": "BeHit_Monitor"
+          "modifierName": "BeHit_Monitor"
         }
       ]
     }
@@ -293,7 +285,7 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Animal_Boltbug_Lightbug_02_DisablePickUp",
-      "KBODACCMEFE": [
+      "abilityMixins": [
         {
           "$type": "DisableMonsterPickedUpMixin"
         }

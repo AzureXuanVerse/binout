@@ -1,13 +1,13 @@
 [
   {
     "Default": {
-      "$type": "MoleMole.Config.ConfigAbility",
+      "$type": "ConfigAbility",
       "abilityName": "Monster_Hound_Riftstalker_Rock_Pose",
       "abilityMixins": [
         {
-          "$type": "MoleMole.Config.AttachModifierToSelfGlobalValueMixin",
+          "$type": "AttachModifierToSelfGlobalValueMixin",
           "globalValueKey": "_Riftstalker_POSE_TAG_",
-          "gvInTalk": 0.0,
+          "defaultGlobalValueOnCreate": 0,
           "valueSteps": [
             -0.5,
             0.5,
@@ -33,16 +33,16 @@
       "modifiers": {
         "Riftstalker_ChargeBar_Handler": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "MoleMole.Config.ApplyModifier",
+              "$type": "ApplyModifier",
               "modifierName": "UNIQUE_Riftstalker_ChargeBar"
             }
           ],
           "onRemoved": [
             {
-              "$type": "MoleMole.Config.RemoveUniqueModifier",
+              "$type": "RemoveUniqueModifier",
               "modifierName": "UNIQUE_Riftstalker_ChargeBar"
             }
           ]
@@ -50,19 +50,19 @@
         "UNIQUE_Riftstalker_ChargeBar": {
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "MoleMole.Config.ChargeBarMixin",
               "chargeBarElementType": "Rock",
               "chargeBarIconID": 2,
-              "initialValue": 0.0,
-              "param2": 100.0
+              "initialValue": 0,
+              "maxValue": 100
             },
             {
-              "$type": "MoleMole.Config.AttachModifierToSelfGlobalValueMixin",
+              "$type": "AttachModifierToSelfGlobalValueMixin",
               "globalValueKey": "_CHARGEBAR_VALUE",
-              "gvInTalk": 0.0,
+              "defaultGlobalValueOnCreate": 0,
               "valueSteps": [
                 99.5,
                 100.5
@@ -75,135 +75,135 @@
           "onAdded": [
             {
               "$type": "MoleMole.Config.SetChargeBarValue",
-              "param3": 0.0
+              "value": 0
             }
           ]
         },
         "ChargeActivated": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "MoleMole.Config.SetGlobalValue",
-              "param3": 1.0,
+              "$type": "SetGlobalValue",
+              "value": 1,
               "key": "_Riftstalker_POSE_TAG_",
-              "param2": 0.0,
-              "triggerID": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         "Pose_None": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "MoleMole.Config.SetPoseInt",
               "intID": "ActivatedTag"
             },
             {
-              "$type": "MoleMole.Config.SetAnimatorBool",
+              "$type": "SetAnimatorBool",
               "boolID": "ActivatedTag"
             },
             {
-              "$type": "MoleMole.Config.SetAnimatorBool",
+              "$type": "SetAnimatorBool",
               "boolID": "ShaderActivatedTag"
             }
           ]
         },
         "Pose_NormalToActivated": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "MoleMole.Config.SetPoseInt",
               "intID": "ActivatedTag",
-              "value": 1
+              "triggerID": 1
             },
             {
               "$type": "MoleMole.Config.SetAISkillGCD",
-              "value": 0.20000000298023224
+              "triggerID": 0.2
             }
           ]
         },
         "Pose_Activated": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "properties": {
-            "Actor_RockSubHurtDelta": -0.6499999761581421
+            "Actor_RockSubHurtDelta": -0.65
           },
           "state": "DefenseDown",
           "onAdded": [
             {
               "$type": "MoleMole.Config.SetPoseInt",
               "intID": "ActivatedTag",
-              "value": 2
+              "triggerID": 2
             },
             {
-              "$type": "MoleMole.Config.SetAnimatorBool",
+              "$type": "SetAnimatorBool",
               "boolID": "ActivatedTag",
-              "param3": true
+              "value": true
             },
             {
-              "$type": "MoleMole.Config.SetAnimatorBool",
+              "$type": "SetAnimatorBool",
               "boolID": "ShaderActivatedTag",
-              "param3": true
+              "value": true
             },
             {
               "$type": "MoleMole.Config.SetAISkillGCD",
-              "value": 1.399999976158142
+              "triggerID": 1.4
             }
           ]
         },
         "UNIQUE_Riftstalker_BeHitCheck": {
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onBeingHit": [
             {
-              "$type": "MoleMole.Config.Predicated",
+              "$type": "Predicated",
               "target": "Target",
               "targetPredicates": [
                 {
-                  "$type": "BBBFIPNGHGH",
+                  "$type": "ByEntityTypes",
                   "entityTypes": [
                     "Avatar"
                   ]
                 },
                 {
-                  "$type": "OFJKNHNDFOO",
+                  "$type": "ByHitElement",
                   "element": "Rock"
                 }
               ],
               "successActions": [
                 {
                   "$type": "MoleMole.Config.AddChargeBarValue",
-                  "param3": 20.0,
-                  "param2": 0.0,
-                  "triggerID": 0.0
+                  "value": 20,
+                  "maxValue": 0,
+                  "minValue": 0
                 }
               ]
             },
             {
-              "$type": "MoleMole.Config.Predicated",
+              "$type": "Predicated",
               "target": "TargetOriginOwner",
               "targetPredicates": [
                 {
-                  "$type": "BBBFIPNGHGH",
+                  "$type": "ByEntityTypes",
                   "entityTypes": [
                     "Avatar"
                   ]
                 },
                 {
-                  "$type": "OFJKNHNDFOO",
+                  "$type": "ByHitElement",
                   "element": "Rock"
                 }
               ],
               "successActions": [
                 {
                   "$type": "MoleMole.Config.AddChargeBarValue",
-                  "param3": 20.0,
-                  "param2": 0.0,
-                  "triggerID": 0.0
+                  "value": 20,
+                  "maxValue": 0,
+                  "minValue": 0
                 }
               ]
             }
@@ -212,22 +212,22 @@
       },
       "onAdded": [
         {
-          "$type": "MoleMole.Config.ApplyModifier",
+          "$type": "ApplyModifier",
           "modifierName": "UNIQUE_Riftstalker_BeHitCheck"
         },
         {
-          "$type": "MoleMole.Config.SetGlobalValue",
-          "param3": 1.0,
+          "$type": "SetGlobalValue",
+          "value": 1,
           "key": "_RIFTSTALKER_ROCK_TAG_",
-          "param2": 0.0,
-          "triggerID": 0.0
+          "maxValue": 0,
+          "minValue": 0
         }
       ]
     }
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.ConfigAbility",
+      "$type": "ConfigAbility",
       "abilityName": "Monster_Hound_Riftstalker_Rock_Steer",
       "abilityMixins": [
         {
@@ -235,29 +235,29 @@
           "steerStateIDs": [
             "RandomWalk"
           ],
-          "angularSpeed": 720.0,
+          "angularSpeed": 720,
           "attackTrigger": "",
-          "BILMCNCKIAO": ""
+          "__unk_Q2081332355": ""
         },
         {
           "$type": "MoleMole.Config.SteerAttackMixin",
           "steerStateIDs": [
             "WavePaw"
           ],
-          "endNormalizedTime": 0.20000000298023224,
-          "angularSpeed": 120.0,
+          "endNormalizedTime": 0.2,
+          "angularSpeed": 120,
           "attackTrigger": "",
-          "BILMCNCKIAO": ""
+          "__unk_Q2081332355": ""
         },
         {
           "$type": "MoleMole.Config.SteerAttackMixin",
           "steerStateIDs": [
             "Strike_BS"
           ],
-          "endNormalizedTime": 0.18000000715255737,
-          "angularSpeed": 180.0,
+          "endNormalizedTime": 0.18,
+          "angularSpeed": 180,
           "attackTrigger": "",
-          "BILMCNCKIAO": ""
+          "__unk_Q2081332355": ""
         },
         {
           "$type": "MoleMole.Config.SteerAttackMixin",
@@ -265,100 +265,93 @@
             "Biting"
           ],
           "endNormalizedTime": 0.25,
-          "angularSpeed": 120.0,
+          "angularSpeed": 120,
           "attackTrigger": "",
-          "BILMCNCKIAO": ""
+          "__unk_Q2081332355": ""
         },
         {
           "$type": "MoleMole.Config.SteerAttackMixin",
           "steerStateIDs": [
             "JumpBack"
           ],
-          "endNormalizedTime": 0.10000000149011612,
-          "angularSpeed": 270.0,
+          "endNormalizedTime": 0.1,
+          "angularSpeed": 270,
           "attackTrigger": "",
-          "BILMCNCKIAO": ""
+          "__unk_Q2081332355": ""
         },
         {
           "$type": "MoleMole.Config.SteerAttackMixin",
           "steerStateIDs": [
             "Bullet"
           ],
-          "endNormalizedTime": 0.15000000596046448,
-          "angularSpeed": 180.0,
+          "endNormalizedTime": 0.15,
+          "angularSpeed": 180,
           "attackTrigger": "",
-          "BILMCNCKIAO": ""
+          "__unk_Q2081332355": ""
         },
         {
           "$type": "MoleMole.Config.SteerAttackMixin",
           "steerStateIDs": [
             "Bullet"
           ],
-          "startNormalizedTime": 0.3799999952316284,
-          "endNormalizedTime": 0.550000011920929,
-          "angularSpeed": 180.0,
+          "startNormalizedTime": 0.38,
+          "endNormalizedTime": 0.55,
+          "angularSpeed": 180,
           "attackTrigger": "",
-          "BILMCNCKIAO": ""
+          "__unk_Q2081332355": ""
         }
       ]
     }
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.ConfigAbility",
+      "$type": "ConfigAbility",
       "abilityName": "Monster_Hound_Riftstalker_Rock_AddBodyEff",
       "modifiers": {
         "UNIQUE_Riftstalker_Rock_BodyEff": {
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "MoleMole.Config.AttachEffect",
-              "rotationDampTime": "Eff_Monster_Riftstalker_Rock_Body",
-              "NHGDGLICLFB": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_Monster_Riftstalker_Rock_Body"
             }
           ]
         },
         "UNIQUE_Riftstalker_Rock_EyeEff": {
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "MoleMole.Config.AttachEffect",
-              "rotationDampTime": "Eff_Monster_Riftstalker_Rock_Eye",
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_Monster_Riftstalker_Rock_Eye",
               "born": {
-                "$type": "POAPJOHEDDM",
-                "offset": {
-                  "AOFNOGLCGMP": 0.0,
-                  "CHEGDAPFFHA": 0.0,
-                  "JEGKAACFHJK": 0.0
-                },
+                "$type": "ConfigBornByAttachPoint",
                 "attachPointName": "Mouth"
-              },
-              "NHGDGLICLFB": -1.0
+              }
             }
           ]
         }
       },
       "onAdded": [
         {
-          "$type": "MoleMole.Config.ApplyModifier",
+          "$type": "ApplyModifier",
           "modifierName": "UNIQUE_Riftstalker_Rock_BodyEff"
         },
         {
-          "$type": "MoleMole.Config.ApplyModifier",
+          "$type": "ApplyModifier",
           "modifierName": "UNIQUE_Riftstalker_Rock_EyeEff"
         }
       ],
       "onAbilityStart": [
         {
-          "$type": "MoleMole.Config.ApplyModifier",
+          "$type": "ApplyModifier",
           "modifierName": "UNIQUE_Riftstalker_Rock_BodyEff"
         },
         {
-          "$type": "MoleMole.Config.ApplyModifier",
+          "$type": "ApplyModifier",
           "modifierName": "UNIQUE_Riftstalker_Rock_EyeEff"
         }
       ]
@@ -366,15 +359,15 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.ConfigAbility",
+      "$type": "ConfigAbility",
       "abilityName": "Monster_Hound_Riftstalker_Rock_RemoveBodyEff",
       "onAbilityStart": [
         {
-          "$type": "MoleMole.Config.RemoveUniqueModifier",
+          "$type": "RemoveUniqueModifier",
           "modifierName": "UNIQUE_Riftstalker_Rock_BodyEff"
         },
         {
-          "$type": "MoleMole.Config.RemoveUniqueModifier",
+          "$type": "RemoveUniqueModifier",
           "modifierName": "UNIQUE_Riftstalker_Rock_EyeEff"
         }
       ]
@@ -382,56 +375,56 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.ConfigAbility",
+      "$type": "ConfigAbility",
       "abilityName": "Monster_Hound_Riftstalker_Rock_Strike_State",
       "abilityMixins": [
         {
-          "$type": "MoleMole.Config.AttachToStateIDMixin",
+          "$type": "AttachToStateIDMixin",
           "stateIDs": [
             "Strike_Loop_01",
             "Strike_Loop_02",
             "Strike_Loop_03"
           ],
           "modifierName": "UNIQUE_Strike_Actions",
-          "BILMCNCKIAO": ""
+          "__unk_Q2081332355": ""
         },
         {
-          "$type": "MoleMole.Config.AttachToStateIDMixin",
+          "$type": "AttachToStateIDMixin",
           "stateIDs": [
             "Strike_Loop_02"
           ],
           "modifierName": "Strike_FindBlinkPointActions",
-          "BILMCNCKIAO": ""
+          "__unk_Q2081332355": ""
         },
         {
-          "$type": "MoleMole.Config.AttachToStateIDMixin",
+          "$type": "AttachToStateIDMixin",
           "stateIDs": [
             "Strike_Loop_03"
           ],
           "modifierName": "Strike_BlinkActions",
-          "BILMCNCKIAO": ""
+          "__unk_Q2081332355": ""
         }
       ],
       "modifiers": {
         "UNIQUE_Strike_Actions": {
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "MoleMole.Config.ClearLockTarget",
               "target": "CurLocalAvatar"
             },
             {
-              "$type": "MoleMole.Config.AttachModifier",
+              "$type": "AttachModifier",
               "modifierName": "Strike_Invincible"
             },
             {
-              "$type": "MoleMole.Config.AttachModifier",
+              "$type": "AttachModifier",
               "modifierName": "Strike_DenyLockOn"
             },
             {
-              "$type": "MoleMole.Config.TriggerSetVisible"
+              "$type": "TriggerSetVisible"
             },
             {
               "$type": "MoleMole.Config.HideUIBillBoard",
@@ -445,13 +438,13 @@
               ]
             },
             {
-              "$type": "MoleMole.Config.EnablePushColliderName",
+              "$type": "EnablePushColliderName",
               "pushColliderNames": [
                 "PushCollider"
               ]
             },
             {
-              "$type": "MoleMole.Config.TriggerAbility",
+              "$type": "TriggerAbility",
               "abilityName": "Monster_Hound_Riftstalker_Rock_RemoveBodyEff"
             }
           ],
@@ -465,62 +458,61 @@
               "setEnable": true
             },
             {
-              "$type": "MoleMole.Config.EnablePushColliderName",
+              "$type": "EnablePushColliderName",
               "pushColliderNames": [
                 "PushCollider"
               ],
               "setEnable": true
             },
             {
-              "$type": "MoleMole.Config.TriggerSetVisible",
-              "EKCJEIECJJH": true
+              "$type": "TriggerSetVisible",
+              "visible": true
             },
             {
               "$type": "MoleMole.Config.HideUIBillBoard"
             },
             {
-              "$type": "MoleMole.Config.TriggerAbility",
+              "$type": "TriggerAbility",
               "abilityName": "Monster_Hound_Riftstalker_Rock_AddBodyEff"
             }
           ]
         },
         "Strike_Invincible": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "state": "Invincible"
         },
         "Strike_DenyLockOn": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "state": "DenyLockOn"
         },
         "Strike_FindBlinkPointActions": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "MoleMole.Config.TriggerAbility",
+              "$type": "TriggerAbility",
               "abilityName": "Monster_Hound_Riftstalker_Rock_Strike_FindBlinkPoint"
             }
           ]
         },
         "Strike_BlinkActions": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "MoleMole.Config.TriggerAbility",
+              "$type": "TriggerAbility",
               "abilityName": "Monster_Hound_Riftstalker_Rock_Strike_DoBlink"
             }
           ],
           "onRemoved": [
             {
-              "$type": "MoleMole.Config.FireEffect",
-              "rotationDampTime": "Eff_Monster_Riftstalker_Rock_Strike_AS",
+              "$type": "FireEffect",
+              "effectPattern": "Eff_Monster_Riftstalker_Rock_Strike_AS",
               "born": {
                 "$type": "FICAJIGICAH"
-              },
-              "NHGDGLICLFB": -1.0
+              }
             }
           ]
         }
@@ -529,7 +521,7 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.ConfigAbility",
+      "$type": "ConfigAbility",
       "abilityName": "Monster_Hound_Riftstalker_Rock_Strike_FindBlinkPoint",
       "onAbilityStart": [
         {
@@ -537,25 +529,20 @@
           "target": "SelfAttackTarget",
           "predicates": [
             {
-              "$type": "POOFKGMBLNA",
+              "$type": "ByTargetGlobalValue",
               "target": "Self",
               "key": "_ROUGUE_HOUNDSTRIKE_TAG_",
-              "param3": 0.0,
+              "value": 0,
               "compareType": "NoneOrEqual"
             }
           ],
           "born": {
             "$type": "MNCJACPDDLK",
-            "offset": {
-              "AOFNOGLCGMP": 0.0,
-              "CHEGDAPFFHA": 0.0,
-              "JEGKAACFHJK": 0.0
-            },
             "onGround": true,
-            "linearOffset": 4.800000190734863,
+            "linearOffset": 4.8,
             "linearXZ": false,
-            "linearMin": 0.0,
-            "linearMax": 40.0
+            "linearMin": 0,
+            "linearMax": 40
           },
           "hitSceneType": "BlinkHitSceneTestByThreeSegments",
           "limitY": 2.5
@@ -565,24 +552,19 @@
           "target": "SelfAttackTarget",
           "predicates": [
             {
-              "$type": "POOFKGMBLNA",
+              "$type": "ByTargetGlobalValue",
               "target": "Self",
               "key": "_ROUGUE_HOUNDSTRIKE_TAG_",
-              "param3": 1.0
+              "value": 1
             }
           ],
           "born": {
             "$type": "MNCJACPDDLK",
-            "offset": {
-              "AOFNOGLCGMP": 0.0,
-              "CHEGDAPFFHA": 0.0,
-              "JEGKAACFHJK": 0.0
-            },
             "onGround": true,
-            "linearOffset": 4.800000190734863,
+            "linearOffset": 4.8,
             "linearXZ": false,
-            "linearMin": 0.0,
-            "linearMax": 40.0
+            "linearMin": 0,
+            "linearMax": 40
           },
           "hitSceneType": "BlinkHitSceneTestByThreeSegments",
           "limitY": 2.5
@@ -592,17 +574,17 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.ConfigAbility",
+      "$type": "ConfigAbility",
       "abilityName": "Monster_Hound_Riftstalker_Rock_Strike_DoBlink",
       "onAbilityStart": [
         {
           "$type": "MoleMole.Config.DoBlink"
         },
         {
-          "$type": "MoleMole.Config.TurnDirectionToPos",
+          "$type": "TurnDirectionToPos",
           "target": "SelfAttackTarget",
           "toPos": {
-            "$type": "CGJIFGJJOJA"
+            "$type": "ConfigBornByTarget"
           }
         }
       ]
@@ -610,52 +592,52 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.ConfigAbility",
+      "$type": "ConfigAbility",
       "abilityName": "Monster_Hound_Riftstalker_Rock_Strike_Attack",
       "onAbilityStart": [
         {
-          "$type": "MoleMole.Config.TriggerAttackEvent",
+          "$type": "TriggerAttackEvent",
           "attackEvent": {
             "attackPattern": {
-              "$type": "ABPNLDBPPHF",
+              "$type": "ConfigAttackCircle",
               "triggerType": "TriggerNoRepeat",
               "born": {
-                "$type": "AHBFOPDDMPB",
+                "$type": "ConfigBornBySelf",
                 "offset": {
-                  "AOFNOGLCGMP": -1.4900000095367432,
-                  "CHEGDAPFFHA": -0.18000000715255737,
-                  "JEGKAACFHJK": 1.600000023841858
+                  "x": -1.49,
+                  "y": -0.18,
+                  "z": 1.6
                 },
                 "direction": {
-                  "$type": "OEEJPHNIBLE",
+                  "$type": "ConfigDirectionByDefault",
                   "angleOffset": {
-                    "AOFNOGLCGMP": -9.380000114440918,
-                    "CHEGDAPFFHA": -4.0,
-                    "JEGKAACFHJK": 16.5
+                    "x": -9.38,
+                    "y": -4,
+                    "z": 16.5
                   }
                 }
               },
-              "height": 2.950000047683716,
-              "fanAngle": 270.0,
-              "IDLDJCPGNHD": 4.0
+              "height": 2.95,
+              "fanAngle": 270,
+              "radius": 4
             },
             "attackInfo": {
               "attackTag": "Hound_Corruption_Tag",
               "attenuationTag": "",
               "attenuationGroup": "default",
               "attackProperty": {
-                "AGMNCBAKCEF": 1.0,
-                "AILJJDMKONE": 0.0,
+                "damagePercentage": 1,
+                "damagePercentageRatio": 0,
                 "elementType": "Rock",
-                "bonusCriticalHurt": 50.0,
+                "elementDurability": 50,
                 "strikeType": "Default",
-                "enBreak": 20.0,
-                "bonusCritical": 0.0
+                "damage": 20,
+                "__exp_arkhe": 0
               },
               "hitPattern": {
                 "onHitEffectName": "Eff_Monster_Riftstalker_Hit",
                 "hitImpulseType": "LV2",
-                "hitHaltTimeScale": 0.05000000074505806
+                "hitHaltTimeScale": 0.05
               }
             }
           },
@@ -666,37 +648,34 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.ConfigAbility",
+      "$type": "ConfigAbility",
       "abilityName": "Monster_Hound_Riftstalker_Rock_JumpBack",
       "abilityMixins": [
         {
-          "$type": "MoleMole.Config.AttachToStateIDMixin",
+          "$type": "AttachToStateIDMixin",
           "stateIDs": [
             "JumpBack"
           ],
           "modifierName": "Riftstalker_JumpBack_Actions",
-          "BILMCNCKIAO": ""
+          "__unk_Q2081332355": ""
         }
       ],
       "modifiers": {
         "Riftstalker_JumpBack_Actions": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "MoleMole.Config.FireEffect",
-              "rotationDampTime": "Eff_Monster_Riftstalker_Rock_JumpBack",
-              "NHGDGLICLFB": -1.0
+              "$type": "FireEffect",
+              "effectPattern": "Eff_Monster_Riftstalker_Rock_JumpBack"
             },
             {
               "$type": "MoleMole.Config.TryFindBlinkPointByBorn",
               "target": "SelfAttackTarget",
               "born": {
-                "$type": "AHBFOPDDMPB",
+                "$type": "ConfigBornBySelf",
                 "offset": {
-                  "AOFNOGLCGMP": 0.0,
-                  "CHEGDAPFFHA": 0.0,
-                  "JEGKAACFHJK": -8.0
+                  "z": -8
                 }
               },
               "hitSceneType": "BlinkHitSceneTestByThreeSegments",
@@ -707,7 +686,7 @@
               "toPos": {
                 "$type": "FICAJIGICAH"
               },
-              "MBHPLECOEKG": 1.0,
+              "timeRange": 1,
               "animatorStateIDs": [
                 "JumpBack"
               ],
@@ -720,7 +699,7 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.ConfigAbility",
+      "$type": "ConfigAbility",
       "abilityName": "Monster_Hound_Riftstalker_Rock_Howl",
       "abilityMixins": [
         {
@@ -730,11 +709,11 @@
           ],
           "exitActions": [
             {
-              "$type": "MoleMole.Config.ApplyModifier",
+              "$type": "ApplyModifier",
               "modifierName": "Watcher_82124_Moniter_Cleaner"
             }
           ],
-          "BILMCNCKIAO": ""
+          "__unk_Q2081332355": ""
         },
         {
           "$type": "MoleMole.Config.DoActionByAnimatorStateIDMixin",
@@ -746,7 +725,7 @@
               "$type": "MoleMole.Config.DoWatcherSystemAction",
               "predicates": [
                 {
-                  "$type": "LMBGIDDHLDM",
+                  "$type": "ByHasModifier",
                   "modifierName": "Watcher_82124_Moniter"
                 }
               ],
@@ -754,7 +733,7 @@
               "inThreatListOnly": true
             }
           ],
-          "BILMCNCKIAO": ""
+          "__unk_Q2081332355": ""
         }
       ],
       "modifiers": {
@@ -762,8 +741,8 @@
           "stacking": "Multiple",
           "modifierName": "",
           "isUnique": true,
-          "elementDurability": 10.0,
-          "bonusCriticalHurt": 100.0,
+          "duration": 10,
+          "elementDurability": 100,
           "properties": {
             "Actor_AttackRatio": 0.25
           },
@@ -775,24 +754,23 @@
               ]
             },
             {
-              "$type": "MoleMole.Config.FireEffect",
-              "rotationDampTime": "Eff_Monster_Riftstalker_Rock_Howl_Response",
-              "NHGDGLICLFB": -1.0
+              "$type": "FireEffect",
+              "effectPattern": "Eff_Monster_Riftstalker_Rock_Howl_Response"
             }
           ]
         },
         "Watcher_82124_Moniter": {
           "modifierName": "",
-          "elementDurability": 8.0,
-          "bonusCriticalHurt": 100.0
+          "duration": 8,
+          "elementDurability": 100
         },
         "Watcher_82124_Moniter_Cleaner": {
           "modifierName": "",
-          "elementDurability": 0.8799999952316284,
-          "bonusCriticalHurt": 100.0,
+          "duration": 0.88,
+          "elementDurability": 100,
           "onRemoved": [
             {
-              "$type": "MoleMole.Config.RemoveModifier",
+              "$type": "RemoveModifier",
               "modifierName": "Watcher_82124_Moniter"
             }
           ]
@@ -800,62 +778,62 @@
       },
       "onAdded": [
         {
-          "$type": "MoleMole.Config.SetGlobalValue",
-          "param3": 2.0,
+          "$type": "SetGlobalValue",
+          "value": 2,
           "key": "_RIFTSTALKER_ROCK_HOWL_COUNT_",
-          "param2": 0.0,
-          "triggerID": 0.0
+          "maxValue": 0,
+          "minValue": 0
         }
       ],
       "onAbilityStart": [
         {
-          "$type": "MoleMole.Config.Predicated",
+          "$type": "Predicated",
           "otherTargets": {
-            "$type": "AFOOPHMLCCL",
+            "$type": "SelectTargetsByShape",
             "sortType": "Nearest",
             "shapeName": "CircleR30",
             "campTargetType": "Alliance",
-            "doOffStage": 1.0
+            "sizeRatio": 1
           },
           "targetPredicates": [
             {
-              "$type": "POOFKGMBLNA",
+              "$type": "ByTargetGlobalValue",
               "key": "_KANIS_TAG_",
-              "param3": 1.0
+              "value": 1
             },
             {
-              "$type": "POOFKGMBLNA",
+              "$type": "ByTargetGlobalValue",
               "target": "Self",
               "key": "_RIFTSTALKER_ROCK_HOWL_COUNT_",
-              "param3": 0.0,
+              "value": 0,
               "compareType": "MoreThan"
             }
           ],
           "successActions": [
             {
-              "$type": "MoleMole.Config.ApplyModifier",
+              "$type": "ApplyModifier",
               "target": "Target",
               "modifierName": "UNIQUE_Hound_Riftstalker_Rock_Howl"
             },
             {
-              "$type": "MoleMole.Config.AddGlobalValue",
-              "param3": -1.0,
+              "$type": "AddGlobalValue",
+              "value": -1,
               "key": "_RIFTSTALKER_ROCK_HOWL_COUNT_",
               "useLimitRange": true,
-              "param2": 2.0,
-              "triggerID": 0.0
+              "maxValue": 2,
+              "minValue": 0
             }
           ]
         },
         {
-          "$type": "MoleMole.Config.SetGlobalValue",
-          "param3": 2.0,
+          "$type": "SetGlobalValue",
+          "value": 2,
           "key": "_RIFTSTALKER_ROCK_HOWL_COUNT_",
-          "param2": 0.0,
-          "triggerID": 0.0
+          "maxValue": 0,
+          "minValue": 0
         },
         {
-          "$type": "MoleMole.Config.ApplyModifier",
+          "$type": "ApplyModifier",
           "modifierName": "Watcher_82124_Moniter"
         }
       ]
@@ -863,18 +841,18 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.ConfigAbility",
+      "$type": "ConfigAbility",
       "abilityName": "Monster_Hound_Riftstalker_Rock_Smash",
       "abilityMixins": [
         {
-          "$type": "MoleMole.Config.AttachToStateIDMixin",
+          "$type": "AttachToStateIDMixin",
           "stateIDs": [
             "Smash_Loop_01",
             "Smash_Loop_02",
             "Smash_Loop_03"
           ],
           "modifierName": "Smash_Actions",
-          "BILMCNCKIAO": ""
+          "__unk_Q2081332355": ""
         },
         {
           "$type": "MoleMole.Config.SteerAttackMixin",
@@ -882,12 +860,12 @@
             "Smash_BS"
           ],
           "endNormalizedTime": 0.5,
-          "angularSpeed": 270.0,
+          "angularSpeed": 270,
           "attackTrigger": "",
-          "BILMCNCKIAO": ""
+          "__unk_Q2081332355": ""
         },
         {
-          "$type": "MoleMole.Config.AttachToStateIDMixin",
+          "$type": "AttachToStateIDMixin",
           "stateIDs": [
             "Smash_BS",
             "Smash_Loop_01",
@@ -896,31 +874,29 @@
             "Smash_AS"
           ],
           "modifierName": "Smash_ShaderProtect",
-          "BILMCNCKIAO": ""
+          "__unk_Q2081332355": ""
         }
       ],
       "modifiers": {
         "Smash_Actions": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "MoleMole.Config.AttachModifier",
+              "$type": "AttachModifier",
               "modifierName": "Smash_EffHandler"
             },
             {
-              "$type": "MoleMole.Config.AttachModifier",
+              "$type": "AttachModifier",
               "modifierName": "Smash_Rush"
             },
             {
-              "$type": "MoleMole.Config.TriggerBullet",
+              "$type": "TriggerBullet",
               "bulletID": 42205003,
               "born": {
-                "$type": "POAPJOHEDDM",
+                "$type": "ConfigBornByAttachPoint",
                 "offset": {
-                  "AOFNOGLCGMP": 0.0,
-                  "CHEGDAPFFHA": 0.0,
-                  "JEGKAACFHJK": -4.0
+                  "z": -4
                 },
                 "attachPointName": "Body"
               },
@@ -928,7 +904,7 @@
               "lifeByOwnerV2": true
             },
             {
-              "$type": "MoleMole.Config.EnablePushColliderName",
+              "$type": "EnablePushColliderName",
               "pushColliderNames": [
                 "PushCollider"
               ]
@@ -936,14 +912,14 @@
           ],
           "onRemoved": [
             {
-              "$type": "MoleMole.Config.KillSelf",
+              "$type": "KillSelf",
               "otherTargets": {
-                "$type": "JHKLCAELLHL",
+                "$type": "SelectTargetsByChildren",
                 "configID": 42205003
               }
             },
             {
-              "$type": "MoleMole.Config.EnablePushColliderName",
+              "$type": "EnablePushColliderName",
               "pushColliderNames": [
                 "PushCollider"
               ],
@@ -953,55 +929,49 @@
         },
         "Smash_EffHandler": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "MoleMole.Config.AttachEffect",
-              "rotationDampTime": "Eff_Monster_Riftstalker_Rock_Smash_Loop",
-              "NHGDGLICLFB": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_Monster_Riftstalker_Rock_Smash_Loop"
             }
           ],
           "onRemoved": [
             {
-              "$type": "MoleMole.Config.RemoveModifier",
+              "$type": "RemoveModifier",
               "modifierName": "Smash_ShaderHandler"
             }
           ]
         },
         "Smash_ShaderHandler": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "MoleMole.Config.SetAnimatorBool",
+              "$type": "SetAnimatorBool",
               "boolID": "ShaderSmashTag",
-              "param3": true
+              "value": true
             }
           ],
           "onRemoved": [
             {
-              "$type": "MoleMole.Config.SetAnimatorBool",
+              "$type": "SetAnimatorBool",
               "boolID": "ShaderSmashTag"
             }
           ]
         },
         "Smash_Rush": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "MoleMole.Config.TryFindBlinkPointByBorn",
               "target": "SelfAttackTarget",
               "born": {
                 "$type": "MNCJACPDDLK",
-                "offset": {
-                  "AOFNOGLCGMP": 0.0,
-                  "CHEGDAPFFHA": 0.0,
-                  "JEGKAACFHJK": 0.0
-                },
                 "linearOffset": 6.5,
-                "linearMin": 10.0,
-                "linearMax": 15.0
+                "linearMin": 10,
+                "linearMax": 15
               },
               "hitSceneTest": false,
               "limitY": 2.5
@@ -1011,7 +981,7 @@
               "toPos": {
                 "$type": "FICAJIGICAH"
               },
-              "MBHPLECOEKG": 0.4000000059604645,
+              "timeRange": 0.4,
               "animatorStateIDs": [
                 "Smash_Loop_01",
                 "Smash_Loop_02",
@@ -1024,10 +994,10 @@
         },
         "Smash_ShaderProtect": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onRemoved": [
             {
-              "$type": "MoleMole.Config.RemoveModifier",
+              "$type": "RemoveModifier",
               "modifierName": "Smash_ShaderHandler"
             }
           ]
@@ -1035,7 +1005,7 @@
       },
       "onAbilityStart": [
         {
-          "$type": "MoleMole.Config.ApplyModifier",
+          "$type": "ApplyModifier",
           "modifierName": "Smash_ShaderHandler"
         }
       ]
@@ -1043,23 +1013,23 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.ConfigAbility",
+      "$type": "ConfigAbility",
       "abilityName": "Hound_Riftstalker_Rock_Smash_FollowBullet_Hit",
       "abilityMixins": [
         {
           "$type": "MoleMole.Config.AttackHittingSceneMixin",
           "onHittingScene": [
             {
-              "$type": "MoleMole.Config.SetAnimatorTrigger",
+              "$type": "SetAnimatorTrigger",
               "target": "Owner",
-              "value": "SmashEnd"
+              "triggerID": "SmashEnd"
             },
             {
-              "$type": "MoleMole.Config.ActCameraShake",
+              "$type": "ActCameraShake",
               "cameraShake": {
-                "shakeRange": 0.1599999964237213,
-                "shakeTime": 0.09000000357627869,
-                "shakeDistance": 25.0
+                "shakeRange": 0.16,
+                "shakeTime": 0.09,
+                "shakeDistance": 25
               }
             }
           ]
@@ -1067,33 +1037,33 @@
       ],
       "onAbilityStart": [
         {
-          "$type": "MoleMole.Config.TriggerAttackEvent",
+          "$type": "TriggerAttackEvent",
           "attackEvent": {
             "attackPattern": {
-              "$type": "CDFDJKDFCFJ",
+              "$type": "ConfigAttackSphere",
               "triggerType": "TriggerNoRepeat",
               "born": {
-                "$type": "KKKABMDCNIJ"
+                "$type": "ConfigBornByCollisionPoint"
               },
-              "IDLDJCPGNHD": 1.0
+              "radius": 1
             },
             "attackInfo": {
               "attackTag": "Hound_Corruption_Tag",
               "attenuationTag": "",
               "attenuationGroup": "default",
               "attackProperty": {
-                "AGMNCBAKCEF": 0.8500000238418579,
-                "AILJJDMKONE": 0.0,
+                "damagePercentage": 0.85,
+                "damagePercentageRatio": 0,
                 "elementType": "Rock",
-                "bonusCriticalHurt": 50.0,
+                "elementDurability": 50,
                 "strikeType": "Blunt",
-                "enBreak": 1.0,
-                "bonusCritical": 0.0
+                "damage": 1,
+                "__exp_arkhe": 0
               },
               "hitPattern": {
                 "onHitEffectName": "Eff_Monster_Riftstalker_Hit",
                 "hitImpulseType": "LV1",
-                "hitHaltTimeScale": 0.009999999776482582
+                "hitHaltTimeScale": 0.01
               },
               "canBeModifiedBy": "OriginOwner"
             }
@@ -1105,34 +1075,34 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.ConfigAbility",
+      "$type": "ConfigAbility",
       "abilityName": "Monster_Hound_Riftstalker_Rock_Acitvated",
       "abilityMixins": [
         {
-          "$type": "MoleMole.Config.AttachToStateIDMixin",
+          "$type": "AttachToStateIDMixin",
           "stateIDs": [
             "Activated"
           ],
           "modifierName": "Riftstalker_Activated_Actions",
-          "BILMCNCKIAO": ""
+          "__unk_Q2081332355": ""
         }
       ],
       "modifiers": {
         "Riftstalker_Activated_Actions": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "MoleMole.Config.SetGlobalValue",
-              "param3": 2.0,
+              "$type": "SetGlobalValue",
+              "value": 2,
               "key": "_Riftstalker_POSE_TAG_",
-              "param2": 0.0,
-              "triggerID": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ],
           "onRemoved": [
             {
-              "$type": "MoleMole.Config.RemoveUniqueModifier",
+              "$type": "RemoveUniqueModifier",
               "modifierName": "UNIQUE_Riftstalker_ChargeBar"
             },
             {
@@ -1148,34 +1118,33 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.ConfigAbility",
+      "$type": "ConfigAbility",
       "abilityName": "Monster_Hound_Riftstalker_Rock_Bullet",
       "onAbilityStart": [
         {
-          "$type": "MoleMole.Config.FireEffect",
-          "rotationDampTime": "Eff_Monster_Riftstalker_Rock_ElementBullet_Fire",
+          "$type": "FireEffect",
+          "effectPattern": "Eff_Monster_Riftstalker_Rock_ElementBullet_Fire",
           "born": {
-            "$type": "POAPJOHEDDM",
+            "$type": "ConfigBornByAttachPoint",
             "attachPointName": "BulletAttachPoint"
-          },
-          "NHGDGLICLFB": -1.0
+          }
         },
         {
-          "$type": "MoleMole.Config.TriggerBullet",
+          "$type": "TriggerBullet",
           "bulletID": 42205001,
           "born": {
-            "$type": "POAPJOHEDDM",
+            "$type": "ConfigBornByAttachPoint",
             "offset": {
-              "AOFNOGLCGMP": -0.019999999552965164,
-              "CHEGDAPFFHA": 0.3499999940395355,
-              "JEGKAACFHJK": -0.2199999988079071
+              "x": -0.02,
+              "y": 0.35,
+              "z": -0.22
             },
             "direction": {
-              "$type": "JOHHBEHLHLO",
+              "$type": "ConfigDirectionByAttachPoint",
               "angleOffset": {
-                "AOFNOGLCGMP": -1.0,
-                "CHEGDAPFFHA": -7.699999809265137,
-                "JEGKAACFHJK": 31.399999618530273
+                "x": -1,
+                "y": -7.7,
+                "z": 31.4
               },
               "attachPointName": "BulletAttachPoint"
             },
@@ -1187,56 +1156,55 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.ConfigAbility",
+      "$type": "ConfigAbility",
       "abilityName": "Hound_Riftstalker_Rock_Bullet",
       "modifiers": {
         "ElementBullet_Effect": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "MoleMole.Config.AttachEffect",
-              "rotationDampTime": "Eff_Monster_Riftstalker_Rock_ElementBullet_Bullet",
-              "NHGDGLICLFB": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_Monster_Riftstalker_Rock_ElementBullet_Bullet"
             }
           ]
         }
       },
       "onAdded": [
         {
-          "$type": "MoleMole.Config.ApplyModifier",
+          "$type": "ApplyModifier",
           "modifierName": "ElementBullet_Effect"
         }
       ],
       "onAbilityStart": [
         {
-          "$type": "MoleMole.Config.TriggerAttackEvent",
+          "$type": "TriggerAttackEvent",
           "attackEvent": {
             "attackPattern": {
-              "$type": "CDFDJKDFCFJ",
+              "$type": "ConfigAttackSphere",
               "triggerType": "TriggerNoRepeat",
               "born": {
-                "$type": "KKKABMDCNIJ"
+                "$type": "ConfigBornByCollisionPoint"
               },
-              "IDLDJCPGNHD": 1.2999999523162842
+              "radius": 1.3
             },
             "attackInfo": {
               "attackTag": "Hound_Corruption_Tag",
               "attenuationTag": "",
               "attenuationGroup": "default",
               "attackProperty": {
-                "AGMNCBAKCEF": 0.949999988079071,
-                "AILJJDMKONE": 0.0,
+                "damagePercentage": 0.95,
+                "damagePercentageRatio": 0,
                 "elementType": "Rock",
-                "bonusCriticalHurt": 50.0,
+                "elementDurability": 50,
                 "strikeType": "Default",
-                "enBreak": 20.0,
-                "bonusCritical": 0.0
+                "damage": 20,
+                "__exp_arkhe": 0
               },
               "hitPattern": {
                 "onHitEffectName": "Eff_Monster_Riftstalker_Hit",
                 "hitImpulseType": "LV2",
-                "hitHaltTimeScale": 0.009999999776482582
+                "hitHaltTimeScale": 0.01
               },
               "canBeModifiedBy": "OriginOwner"
             }
@@ -1244,19 +1212,18 @@
           "targetType": "Enemy"
         },
         {
-          "$type": "MoleMole.Config.RemoveModifier",
+          "$type": "RemoveModifier",
           "modifierName": "ElementBullet_Effect"
         },
         {
-          "$type": "MoleMole.Config.FireEffect",
-          "rotationDampTime": "Eff_Monster_Riftstalker_Rock_ElementBullet_Bullet_AS",
+          "$type": "FireEffect",
+          "effectPattern": "Eff_Monster_Riftstalker_Rock_ElementBullet_Bullet_AS",
           "born": {
-            "$type": "KKKABMDCNIJ"
-          },
-          "NHGDGLICLFB": -1.0
+            "$type": "ConfigBornByCollisionPoint"
+          }
         },
         {
-          "$type": "MoleMole.Config.KillSelf"
+          "$type": "KillSelf"
         }
       ]
     }

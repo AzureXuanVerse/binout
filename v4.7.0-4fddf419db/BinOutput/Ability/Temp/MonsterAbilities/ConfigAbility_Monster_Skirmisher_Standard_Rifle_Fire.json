@@ -1,35 +1,33 @@
 [
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "Monster_Skirmisher_Rifle_Fire_JumpBack",
-      "EIIHGJGFDHC": [
+      "onAbilityStart": [
         {
           "$type": "MoleMole.Config.FixedMonsterRushMove",
-          "AOFHAEGNPNM": {
-            "$type": "KPFCCIOJAMK",
+          "toPos": {
+            "$type": "ConfigBornBySelf",
             "offset": {
-              "GOAPOLCAJBP": 0.0,
-              "FMOPCJGGFMH": 0.0,
-              "EJJEPFCDDAM": -6.0
+              "z": -6
             }
           },
-          "CCCEOGENKHO": 0.25,
-          "PINMBGMOMIF": 6.0,
-          "DEMLBEAGONB": [
+          "timeRange": 0.25,
+          "maxRange": 6,
+          "animatorStateIDs": [
             "DodgeOnce",
             "DodgeTwice_1"
           ],
-          "FPDNOCJKMNB": ""
+          "overrideMoveCollider": ""
         }
       ]
     }
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "Monster_Skirmisher_Rifle_Fire_ForceImprove_Pose",
-      "PIDAPNFJNDF": [
+      "abilityMixins": [
         {
           "$type": "MoleMole.Config.AttachToPoseIDMixin",
           "LEPKMNMJJHJ": [
@@ -38,15 +36,15 @@
           "modifierName": "Monster_Skirmisher_Rifle_Fire_TickHP"
         },
         {
-          "$type": "MoleMole.Config.AttachModifierToSelfGlobalValueMixin",
+          "$type": "AttachModifierToSelfGlobalValueMixin",
           "globalValueKey": "_MONSTER_SKIRMISHER_ROCKWALL_BROADCAST",
-          "KADKJMOFOLI": 0.0,
-          "FJEPHJNDEAI": [
+          "defaultGlobalValueOnCreate": 0,
+          "valueSteps": [
             -0.5,
             0.5,
             1.5
           ],
-          "IJEPHCMOAPE": [
+          "modifierNameSteps": [
             "Monster_Skirmisher_Rifle_Fire_BatteryModeOff",
             "Monster_Skirmisher_Rifle_Fire_BatteryModeOn"
           ]
@@ -61,118 +59,117 @@
           "modifierName": "Monster_Skirmisher_Rifle_Fire_BatteryMode"
         }
       ],
-      "BFBDNNJCDLH": {
+      "modifiers": {
         "Monster_Skirmisher_Rifle_Fire_BatteryMode": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "MoleMole.Config.SetAISkillGCD"
             }
           ],
-          "MINFJCDAIBB": [
+          "onRemoved": [
             {
               "$type": "MoleMole.Config.SetAISkillGCD",
-              "value": 2.0
+              "value": 2
             }
           ]
         },
         "Monster_Skirmisher_Rifle_Fire_BatteryModeOff": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "MoleMole.Config.SetPoseBool",
-              "KIAGMJMPHPG": "BatteryMode"
+              "boolID": "BatteryMode"
             }
           ]
         },
         "Monster_Skirmisher_Rifle_Fire_BatteryModeOn": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "MoleMole.Config.SetPoseBool",
-              "KIAGMJMPHPG": "BatteryMode",
+              "boolID": "BatteryMode",
               "value": true
             }
           ]
         },
         "Monster_Skirmisher_Rifle_Fire_TickHP": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "BNJENAIMDPL": 1.0,
-          "PJKELBNICOI": [
+          "elementDurability": 100,
+          "thinkInterval": 1,
+          "onThinkInterval": [
             {
-              "$type": "MoleMole.Config.Predicated",
-              "CKBKOCJPJMM": [
+              "$type": "Predicated",
+              "targetPredicates": [
                 {
-                  "$type": "FKDMDGDJPMH",
+                  "$type": "ByTargetHPRatio",
                   "logic": "LesserOrEqual",
-                  "APHCOIOECMN": 0.5
+                  "HPRatio": 0.5
                 },
                 {
-                  "$type": "IPGGGPIJONN",
+                  "$type": "ByTargetGlobalValue",
                   "key": "_MONSTER_SKIRMISHER_RIFLE_FIRE_IMPROVENUM",
-                  "value": 0.0
+                  "value": 0
                 }
               ],
               "successActions": [
                 {
                   "$type": "MoleMole.Config.SetPoseBool",
-                  "KIAGMJMPHPG": "ForceImprove",
+                  "boolID": "ForceImprove",
                   "value": true
                 }
               ],
               "failActions": [
                 {
                   "$type": "MoleMole.Config.SetPoseBool",
-                  "KIAGMJMPHPG": "ForceImprove"
+                  "boolID": "ForceImprove"
                 }
               ]
             }
           ]
         }
       },
-      "OAOGLLGGJPD": [
+      "onAdded": [
         {
-          "$type": "MoleMole.Config.AddGlobalValue",
-          "value": 0.0,
+          "$type": "AddGlobalValue",
+          "value": 0,
           "key": "_MONSTER_SKIRMISHER_RIFLE_FIRE_IMPROVENUM",
-          "HPICGAMGEGA": true,
-          "maxValue": 10.0,
-          "GCEOGBJIFCP": 0.0
+          "useLimitRange": true,
+          "maxValue": 10,
+          "minValue": 0
         }
       ]
     }
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "Monster_Skirmisher_Standard_Rifle_Fire_EyeEffect",
-      "BFBDNNJCDLH": {
+      "modifiers": {
         "UNIQUE_Monster_Skirmisher_Rifle_Fire_Eye_NormalEffect": {
           "modifierName": "",
-          "LLIJGLMEHFK": true,
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "isUnique": true,
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.AttachEffect",
-              "effectPattern": "Eff_Monster_Skirmisher_Male_Standard_Rifle_Fire_EyeNormal",
-              "effectTempleteID": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_Monster_Skirmisher_Male_Standard_Rifle_Fire_EyeNormal"
             }
           ]
         }
       },
-      "OAOGLLGGJPD": [
+      "onAdded": [
         {
-          "$type": "MoleMole.Config.AttachModifier",
+          "$type": "AttachModifier",
           "modifierName": "UNIQUE_Monster_Skirmisher_Rifle_Fire_Eye_NormalEffect"
         }
       ],
-      "EIIHGJGFDHC": [
+      "onAbilityStart": [
         {
-          "$type": "MoleMole.Config.AttachModifier",
+          "$type": "AttachModifier",
           "modifierName": "UNIQUE_Monster_Skirmisher_Rifle_Fire_Eye_NormalEffect"
         }
       ]
@@ -180,9 +177,9 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "Monster_Skirmisher_Rifle_Fire_PreCombatRecover",
-      "PIDAPNFJNDF": [
+      "abilityMixins": [
         {
           "$type": "MoleMole.Config.AttachToPoseIDMixin",
           "LEPKMNMJJHJ": [
@@ -197,25 +194,25 @@
           "modifierName": "Monster_Skirmisher_Rifle_Fire_BeHitChangePose"
         }
       ],
-      "BFBDNNJCDLH": {
+      "modifiers": {
         "Monster_Skirmisher_Rifle_Fire_BeHitChangePose": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "JPIFFPJJEMK": [
+          "elementDurability": 100,
+          "modifierMixins": [
             {
               "$type": "MoleMole.Config.DoActionOnEquipOwnerAndEquipsReadyMixin",
-              "MHFEEBCNCIB": [
+              "actionQueue": [
                 {
-                  "$type": "MoleMole.Config.TriggerHideWeapon",
+                  "$type": "TriggerHideWeapon",
                   "canBeHandledOnRecover": true,
-                  "PCJBGFIBDGC": [
+                  "partNames": [
                     "equip01"
                   ]
                 },
                 {
-                  "$type": "MoleMole.Config.TriggerHideWeapon",
+                  "$type": "TriggerHideWeapon",
                   "canBeHandledOnRecover": true,
-                  "PCJBGFIBDGC": [
+                  "partNames": [
                     "equip02"
                   ]
                 }
@@ -225,181 +222,176 @@
           "onBeingHit": [
             {
               "$type": "MoleMole.Config.SetPoseBool",
-              "KIAGMJMPHPG": "Search"
+              "boolID": "Search"
             },
             {
               "$type": "MoleMole.Config.SetPoseBool",
-              "KIAGMJMPHPG": "Threat"
+              "boolID": "Threat"
             },
             {
               "$type": "MoleMole.Config.SetPoseBool",
-              "KIAGMJMPHPG": "Attention"
+              "boolID": "Attention"
             },
             {
               "$type": "MoleMole.Config.SetPoseBool",
-              "KIAGMJMPHPG": "Afraid"
+              "boolID": "Afraid"
             },
             {
               "$type": "MoleMole.Config.SetPoseBool",
-              "KIAGMJMPHPG": "Practice"
+              "boolID": "Practice"
             },
             {
               "$type": "MoleMole.Config.SetPoseBool",
-              "KIAGMJMPHPG": "Threat"
+              "boolID": "Threat"
             },
             {
               "$type": "MoleMole.Config.SetPoseBool",
-              "KIAGMJMPHPG": "Think"
+              "boolID": "Think"
             },
             {
               "$type": "MoleMole.Config.SetPoseBool",
-              "KIAGMJMPHPG": "Agree"
+              "boolID": "Agree"
             },
             {
               "$type": "MoleMole.Config.SetPoseBool",
-              "KIAGMJMPHPG": "Talk"
+              "boolID": "Talk"
             },
             {
-              "$type": "MoleMole.Config.TriggerHideWeapon",
-              "LJBECOMGDEJ": true,
-              "PCJBGFIBDGC": [
+              "$type": "TriggerHideWeapon",
+              "visible": true,
+              "partNames": [
                 "equip01"
               ]
             },
             {
-              "$type": "MoleMole.Config.TriggerHideWeapon",
-              "LJBECOMGDEJ": true,
-              "PCJBGFIBDGC": [
+              "$type": "TriggerHideWeapon",
+              "visible": true,
+              "partNames": [
                 "equip02"
               ]
             },
             {
-              "$type": "MoleMole.Config.FireEffect",
+              "$type": "FireEffect",
               "otherTargets": {
-                "$type": "MGJJNCBALEH",
-                "FMFCEFEHDEA": [
+                "$type": "SelectTargetsByEquipParts",
+                "equipPartNames": [
                   "equip01"
                 ]
               },
-              "effectPattern": "Eff_Monster_Weapon_Disappear",
-              "effectTempleteID": -1.0
+              "effectPattern": "Eff_Monster_Weapon_Disappear"
             },
             {
-              "$type": "MoleMole.Config.FireEffect",
+              "$type": "FireEffect",
               "otherTargets": {
-                "$type": "MGJJNCBALEH",
-                "FMFCEFEHDEA": [
+                "$type": "SelectTargetsByEquipParts",
+                "equipPartNames": [
                   "equip02"
                 ]
               },
-              "effectPattern": "Eff_Monster_Weapon_Disappear",
-              "effectTempleteID": -1.0
+              "effectPattern": "Eff_Monster_Weapon_Disappear"
             }
           ]
         }
       },
-      "EIIHGJGFDHC": [
+      "onAbilityStart": [
         {
           "$type": "MoleMole.Config.SetPoseBool",
-          "KIAGMJMPHPG": "Search"
+          "boolID": "Search"
         },
         {
           "$type": "MoleMole.Config.SetPoseBool",
-          "KIAGMJMPHPG": "Threat"
+          "boolID": "Threat"
         },
         {
           "$type": "MoleMole.Config.SetPoseBool",
-          "KIAGMJMPHPG": "Attention"
+          "boolID": "Attention"
         },
         {
           "$type": "MoleMole.Config.SetPoseBool",
-          "KIAGMJMPHPG": "Afraid"
+          "boolID": "Afraid"
         },
         {
           "$type": "MoleMole.Config.SetPoseBool",
-          "KIAGMJMPHPG": "Practice"
+          "boolID": "Practice"
         },
         {
           "$type": "MoleMole.Config.SetPoseBool",
-          "KIAGMJMPHPG": "Threat"
+          "boolID": "Threat"
         },
         {
           "$type": "MoleMole.Config.SetPoseBool",
-          "KIAGMJMPHPG": "Think"
+          "boolID": "Think"
         },
         {
           "$type": "MoleMole.Config.SetPoseBool",
-          "KIAGMJMPHPG": "Agree"
+          "boolID": "Agree"
         },
         {
           "$type": "MoleMole.Config.SetPoseBool",
-          "KIAGMJMPHPG": "Talk"
+          "boolID": "Talk"
         },
         {
-          "$type": "MoleMole.Config.TriggerHideWeapon",
-          "LJBECOMGDEJ": true,
-          "PCJBGFIBDGC": [
+          "$type": "TriggerHideWeapon",
+          "visible": true,
+          "partNames": [
             "equip01"
           ]
         },
         {
-          "$type": "MoleMole.Config.TriggerHideWeapon",
-          "LJBECOMGDEJ": true,
-          "PCJBGFIBDGC": [
+          "$type": "TriggerHideWeapon",
+          "visible": true,
+          "partNames": [
             "equip02"
           ]
         },
         {
-          "$type": "MoleMole.Config.FireEffect",
+          "$type": "FireEffect",
           "otherTargets": {
-            "$type": "MGJJNCBALEH",
-            "FMFCEFEHDEA": [
+            "$type": "SelectTargetsByEquipParts",
+            "equipPartNames": [
               "equip01"
             ]
           },
-          "effectPattern": "Eff_Monster_Weapon_Disappear",
-          "effectTempleteID": -1.0
+          "effectPattern": "Eff_Monster_Weapon_Disappear"
         },
         {
-          "$type": "MoleMole.Config.FireEffect",
+          "$type": "FireEffect",
           "otherTargets": {
-            "$type": "MGJJNCBALEH",
-            "FMFCEFEHDEA": [
+            "$type": "SelectTargetsByEquipParts",
+            "equipPartNames": [
               "equip02"
             ]
           },
-          "effectPattern": "Eff_Monster_Weapon_Disappear",
-          "effectTempleteID": -1.0
+          "effectPattern": "Eff_Monster_Weapon_Disappear"
         }
       ]
     }
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "Monster_Skirmisher_Standard_Rifle_Fire_WeaponEffect",
-      "BFBDNNJCDLH": {
+      "modifiers": {
         "UNIQUE_Monster_Skirmisher_Standard_Rifle_Fire_Weapon_PowerUp": {
           "modifierName": "",
-          "LLIJGLMEHFK": true,
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "isUnique": true,
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.AttachEffect",
-              "effectPattern": "Eff_Monster_Skirmisher_Male_Standard_Rifle_Fire_WeaponPowerUp",
-              "effectTempleteID": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_Monster_Skirmisher_Male_Standard_Rifle_Fire_WeaponPowerUp"
             },
             {
-              "$type": "MoleMole.Config.SetAnimatorBool",
-              "KIAGMJMPHPG": "PowerUp",
+              "$type": "SetAnimatorBool",
+              "boolID": "PowerUp",
               "value": true
             }
           ]
         }
       },
-      "EIIHGJGFDHC": [
+      "onAbilityStart": [
         {
-          "$type": "MoleMole.Config.AttachModifier",
+          "$type": "AttachModifier",
           "modifierName": "UNIQUE_Monster_Skirmisher_Standard_Rifle_Fire_Weapon_PowerUp"
         }
       ]
@@ -407,9 +399,9 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "Monster_Skirmisher_Standard_Rifle_Fire_ReturnToBorn",
-      "PIDAPNFJNDF": [
+      "abilityMixins": [
         {
           "$type": "MoleMole.Config.AttachToPoseIDMixin",
           "LEPKMNMJJHJ": [
@@ -420,14 +412,14 @@
           "modifierName": "Monster_Skirmisher_Standard_Rifle_Fire_ReturnToBorn_Invincible"
         }
       ],
-      "BFBDNNJCDLH": {
+      "modifiers": {
         "Monster_Skirmisher_Standard_Rifle_Fire_ReturnToBorn_Invincible": {
           "modifierName": "",
-          "elementDurability": 100.0,
+          "elementDurability": 100,
           "state": "Invincible",
-          "OAOGLLGGJPD": [
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.ApplyModifier",
+              "$type": "ApplyModifier",
               "modifierName": "Monster_Skirmisher_Standard_Rifle_Fire_ReturnToBorn_RemoveImproveDelay"
             },
             {
@@ -448,20 +440,20 @@
         },
         "Monster_Skirmisher_Standard_Rifle_Fire_ReturnToBorn_RemoveImproveDelay": {
           "modifierName": "",
-          "duration": 1.0,
-          "elementDurability": 100.0,
-          "MINFJCDAIBB": [
+          "duration": 1,
+          "elementDurability": 100,
+          "onRemoved": [
             {
-              "$type": "MoleMole.Config.RemoveUniqueModifier",
+              "$type": "RemoveUniqueModifier",
               "modifierName": "UNIQUE_Monster_Skirmisher_Standard_Rifle_Fire_Element"
             },
             {
-              "$type": "MoleMole.Config.AddGlobalValue",
-              "value": -11.0,
+              "$type": "AddGlobalValue",
+              "value": -11,
               "key": "_MONSTER_SKIRMISHER_RIFLE_FIRE_IMPROVENUM",
-              "HPICGAMGEGA": true,
-              "maxValue": 10.0,
-              "GCEOGBJIFCP": 0.0
+              "useLimitRange": true,
+              "maxValue": 10,
+              "minValue": 0
             }
           ]
         }
@@ -470,206 +462,203 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "Monster_Skirmisher_Standard_Rifle_Fire_Improve",
-      "PIDAPNFJNDF": [
+      "abilityMixins": [
         {
-          "$type": "MoleMole.Config.AttachToNormalizedTimeMixin",
-          "GOPFOAFEKLC": "Improve",
+          "$type": "AttachToNormalizedTimeMixin",
+          "stateID": "Improve",
           "modifierName": "Monster_Skirmisher_Standard_Rifle_Fire_ChangePose",
-          "normalizeStart": 0.49000000953674316,
-          "MJFJKAHGHDJ": ""
+          "normalizeStart": 0.49,
+          "__unk_Q2081332355": ""
         }
       ],
-      "BFBDNNJCDLH": {
+      "modifiers": {
         "Monster_Skirmisher_Standard_Rifle_Fire_ChangePose": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.SetAnimatorBool",
-              "KIAGMJMPHPG": "InWeak"
+              "$type": "SetAnimatorBool",
+              "boolID": "InWeak"
             },
             {
               "$type": "MoleMole.Config.SetPoseBool",
-              "KIAGMJMPHPG": "ImprovedState",
+              "boolID": "ImprovedState",
               "value": true
             },
             {
               "$type": "MoleMole.Config.SetPoseBool",
-              "KIAGMJMPHPG": "WeakState"
+              "boolID": "WeakState"
             },
             {
-              "$type": "MoleMole.Config.ApplyModifier",
+              "$type": "ApplyModifier",
               "modifierName": "UNIQUE_Monster_Skirmisher_Standard_Rifle_Fire_Element"
             }
           ]
         },
         "UNIQUE_Monster_Skirmisher_Rifle_Fire_Eye_Improve": {
           "modifierName": "",
-          "LLIJGLMEHFK": true,
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "isUnique": true,
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.FireEffect",
+              "$type": "FireEffect",
               "effectPattern": "Eff_Monster_Skirmisher_Male_Standard_Rifle_Fire_EyeNormalToImprove",
               "born": {
-                "$type": "JEDNAGFKIDP",
-                "OBNIJLKICKN": "EyeEffect"
-              },
-              "effectTempleteID": -1.0
+                "$type": "ConfigBornByAttachPoint",
+                "attachPointName": "EyeEffect"
+              }
             },
             {
-              "$type": "MoleMole.Config.AttachEffect",
+              "$type": "AttachEffect",
               "effectPattern": "Eff_Monster_Skirmisher_Male_Standard_Staff_Rock_EyeImprove",
               "born": {
-                "$type": "JEDNAGFKIDP",
-                "OBNIJLKICKN": "EyeEffect"
-              },
-              "effectTempleteID": -1.0
+                "$type": "ConfigBornByAttachPoint",
+                "attachPointName": "EyeEffect"
+              }
             }
           ],
-          "MINFJCDAIBB": [
+          "onRemoved": [
             {
-              "$type": "MoleMole.Config.FireEffect",
+              "$type": "FireEffect",
               "effectPattern": "Eff_Monster_Skirmisher_Male_Standard_Rifle_Fire_EyeImproveToNormal",
               "born": {
-                "$type": "JEDNAGFKIDP",
-                "OBNIJLKICKN": "EyeEffect"
-              },
-              "effectTempleteID": -1.0
+                "$type": "ConfigBornByAttachPoint",
+                "attachPointName": "EyeEffect"
+              }
             }
           ]
         },
         "UNIQUE_Monster_Skirmisher_Standard_Rifle_Fire_Element": {
           "modifierName": "",
-          "LLIJGLMEHFK": true,
+          "isUnique": true,
           "elementType": "Fire",
-          "elementDurability": 200.0,
-          "JPIFFPJJEMK": [
+          "elementDurability": 200,
+          "modifierMixins": [
             {
               "$type": "MoleMole.Config.ShieldBarMixin",
-              "JCPHOEFMCMO": ""
+              "showDamageText": ""
             },
             {
               "$type": "MoleMole.Config.ModifyElementDecrateMixin",
               "group": "Monster_SingleElement_Method_Fire"
             }
           ],
-          "EPKCPIKGJOJ": {
-            "Actor_EndureDelta": 0.0,
-            "Entity_WeightRatio": 5.0,
-            "Actor_PhysicalSubHurtDelta": 1.0,
-            "Actor_FireSubHurtDelta": 1.0,
-            "Actor_ElecSubHurtDelta": 1.0,
-            "Actor_WaterSubHurtDelta": 1.0,
-            "Actor_GrassSubHurtDelta": 1.0,
-            "Actor_WindSubHurtDelta": 1.0,
-            "Actor_IceSubHurtDelta": 1.0,
-            "Actor_RockSubHurtDelta": 1.0
+          "properties": {
+            "Actor_EndureDelta": 0,
+            "Entity_WeightRatio": 5,
+            "Actor_PhysicalSubHurtDelta": 1,
+            "Actor_FireSubHurtDelta": 1,
+            "Actor_ElecSubHurtDelta": 1,
+            "Actor_WaterSubHurtDelta": 1,
+            "Actor_GrassSubHurtDelta": 1,
+            "Actor_WindSubHurtDelta": 1,
+            "Actor_IceSubHurtDelta": 1,
+            "Actor_RockSubHurtDelta": 1
           },
-          "OAOGLLGGJPD": [
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.ApplyModifier",
+              "$type": "ApplyModifier",
               "modifierName": "Monster_Skirmisher_Rifle_Fire_AtkTag"
             },
             {
               "$type": "MoleMole.Config.SetPoseBool",
-              "KIAGMJMPHPG": "ForceImprove"
+              "boolID": "ForceImprove"
             },
             {
-              "$type": "MoleMole.Config.AddGlobalValue",
-              "value": 1.0,
+              "$type": "AddGlobalValue",
+              "value": 1,
               "key": "_MONSTER_SKIRMISHER_RIFLE_FIRE_IMPROVENUM",
-              "HPICGAMGEGA": true,
-              "maxValue": 10.0,
-              "GCEOGBJIFCP": 0.0
+              "useLimitRange": true,
+              "maxValue": 10,
+              "minValue": 0
             },
             {
-              "$type": "MoleMole.Config.RemoveUniqueModifier",
+              "$type": "RemoveUniqueModifier",
               "modifierName": "UNIQUE_Monster_Skirmisher_Rifle_Fire_Eye_NormalEffect"
             },
             {
-              "$type": "MoleMole.Config.AttachModifier",
+              "$type": "AttachModifier",
               "modifierName": "UNIQUE_Monster_Skirmisher_Rifle_Fire_Eye_Improve"
             },
             {
-              "$type": "MoleMole.Config.TriggerAbility",
+              "$type": "TriggerAbility",
               "otherTargets": {
-                "$type": "DMGCADBNILM",
+                "$type": "SelectTargetsByChildren",
                 "configID": 50004048
               },
               "abilityName": "Monster_Skirmisher_Standard_Rifle_Fire_WeaponEffect"
             }
           ],
-          "MINFJCDAIBB": [
+          "onRemoved": [
             {
-              "$type": "MoleMole.Config.AddGlobalValue",
+              "$type": "AddGlobalValue",
               "predicates": [
                 {
-                  "$type": "LNALCOIFPDK",
+                  "$type": "ByAny",
                   "predicates": [
                     {
-                      "$type": "MMIJILGEJIB",
+                      "$type": "ByAnimatorFloat",
                       "logic": "Equal",
-                      "value": 201.0,
+                      "value": 201,
                       "parameter": "PoseID"
                     },
                     {
-                      "$type": "MMIJILGEJIB",
+                      "$type": "ByAnimatorFloat",
                       "logic": "Equal",
-                      "value": 202.0,
+                      "value": 202,
                       "parameter": "PoseID"
                     }
                   ]
                 }
               ],
-              "value": 1.0,
+              "value": 1,
               "key": "_MONSTER_SKIRMISHER_WEAK_",
-              "HPICGAMGEGA": true,
-              "maxValue": 1.0,
-              "GCEOGBJIFCP": 0.0
+              "useLimitRange": true,
+              "maxValue": 1,
+              "minValue": 0
             },
             {
-              "$type": "MoleMole.Config.SetAnimatorBool",
+              "$type": "SetAnimatorBool",
               "predicates": [
                 {
-                  "$type": "LNALCOIFPDK",
+                  "$type": "ByAny",
                   "predicates": [
                     {
-                      "$type": "MMIJILGEJIB",
+                      "$type": "ByAnimatorFloat",
                       "logic": "Equal",
-                      "value": 201.0,
+                      "value": 201,
                       "parameter": "PoseID"
                     },
                     {
-                      "$type": "MMIJILGEJIB",
+                      "$type": "ByAnimatorFloat",
                       "logic": "Equal",
-                      "value": 202.0,
+                      "value": 202,
                       "parameter": "PoseID"
                     }
                   ]
                 }
               ],
-              "KIAGMJMPHPG": "InWeak",
+              "boolID": "InWeak",
               "value": true
             },
             {
-              "$type": "MoleMole.Config.SetAnimatorTrigger",
+              "$type": "SetAnimatorTrigger",
               "predicates": [
                 {
-                  "$type": "LNALCOIFPDK",
+                  "$type": "ByAny",
                   "predicates": [
                     {
-                      "$type": "MMIJILGEJIB",
+                      "$type": "ByAnimatorFloat",
                       "logic": "Equal",
-                      "value": 201.0,
+                      "value": 201,
                       "parameter": "PoseID"
                     },
                     {
-                      "$type": "MMIJILGEJIB",
+                      "$type": "ByAnimatorFloat",
                       "logic": "Equal",
-                      "value": 202.0,
+                      "value": 202,
                       "parameter": "PoseID"
                     }
                   ]
@@ -681,127 +670,127 @@
               "$type": "MoleMole.Config.SetPoseBool",
               "predicates": [
                 {
-                  "$type": "LNALCOIFPDK",
+                  "$type": "ByAny",
                   "predicates": [
                     {
-                      "$type": "MMIJILGEJIB",
+                      "$type": "ByAnimatorFloat",
                       "logic": "Equal",
-                      "value": 201.0,
+                      "value": 201,
                       "parameter": "PoseID"
                     },
                     {
-                      "$type": "MMIJILGEJIB",
+                      "$type": "ByAnimatorFloat",
                       "logic": "Equal",
-                      "value": 202.0,
+                      "value": 202,
                       "parameter": "PoseID"
                     }
                   ]
                 }
               ],
-              "KIAGMJMPHPG": "WeakState",
+              "boolID": "WeakState",
               "value": true
             },
             {
               "$type": "MoleMole.Config.SetPoseBool",
-              "KIAGMJMPHPG": "ImprovedState"
+              "boolID": "ImprovedState"
             },
             {
-              "$type": "MoleMole.Config.SetAnimatorBool",
+              "$type": "SetAnimatorBool",
               "otherTargets": {
-                "$type": "MGJJNCBALEH",
-                "FMFCEFEHDEA": [
+                "$type": "SelectTargetsByEquipParts",
+                "equipPartNames": [
                   "equip01"
                 ]
               },
-              "KIAGMJMPHPG": "PowerUp"
+              "boolID": "PowerUp"
             },
             {
-              "$type": "MoleMole.Config.RemoveUniqueModifier",
+              "$type": "RemoveUniqueModifier",
               "modifierName": "UNIQUE_Monster_Skirmisher_Rifle_Fire_Eye_Improve"
             },
             {
-              "$type": "MoleMole.Config.TriggerAbility",
+              "$type": "TriggerAbility",
               "abilityName": "Monster_Skirmisher_Standard_Rifle_Fire_EyeEffect"
             },
             {
-              "$type": "MoleMole.Config.RemoveUniqueModifier",
+              "$type": "RemoveUniqueModifier",
               "otherTargets": {
-                "$type": "MGJJNCBALEH",
-                "FMFCEFEHDEA": [
+                "$type": "SelectTargetsByEquipParts",
+                "equipPartNames": [
                   "equip01"
                 ]
               },
               "modifierName": "UNIQUE_Monster_Skirmisher_Standard_Rifle_Fire_Weapon_PowerUp"
             }
           ],
-          "DOFDCKKDGHL": [
+          "onKill": [
             {
-              "$type": "MoleMole.Config.RemoveUniqueModifier",
+              "$type": "RemoveUniqueModifier",
               "modifierName": "UNIQUE_Monster_Skirmisher_Rifle_Fire_Eye_Improve"
             },
             {
-              "$type": "MoleMole.Config.RemoveUniqueModifier",
+              "$type": "RemoveUniqueModifier",
               "otherTargets": {
-                "$type": "MGJJNCBALEH",
-                "FMFCEFEHDEA": [
+                "$type": "SelectTargetsByEquipParts",
+                "equipPartNames": [
                   "equip01"
                 ]
               },
               "modifierName": "UNIQUE_Monster_Skirmisher_Standard_Rifle_Fire_Weapon_PowerUp"
             },
             {
-              "$type": "MoleMole.Config.SetAnimatorBool",
+              "$type": "SetAnimatorBool",
               "otherTargets": {
-                "$type": "MGJJNCBALEH",
-                "FMFCEFEHDEA": [
+                "$type": "SelectTargetsByEquipParts",
+                "equipPartNames": [
                   "equip01"
                 ]
               },
-              "KIAGMJMPHPG": "PowerUp"
+              "boolID": "PowerUp"
             }
           ]
         },
         "Monster_Skirmisher_Rifle_Fire_EnterWeak": {
           "modifierName": "",
           "duration": 0.5,
-          "elementDurability": 100.0
+          "elementDurability": 100
         },
         "Monster_Skirmisher_Rifle_Fire_AtkTag": {
           "modifierName": "",
-          "duration": 1.0,
-          "elementDurability": 100.0,
-          "GAPANNMIBJA": [
+          "duration": 1,
+          "elementDurability": 100,
+          "onAttackLanded": [
             {
-              "$type": "MoleMole.Config.ApplyModifier",
-              "MLDBFKEGPEF": "Target",
+              "$type": "ApplyModifier",
+              "target": "Target",
               "modifierName": "Monster_Skirmisher_Rifle_Fire_FireTag"
             }
           ]
         },
         "Monster_Skirmisher_Rifle_Fire_FireTag": {
           "modifierName": "",
-          "duration": 8.0,
+          "duration": 8,
           "elementType": "Fire",
-          "elementDurability": 50.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 50,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.AddGlobalValue",
-              "value": 1.0,
+              "$type": "AddGlobalValue",
+              "value": 1,
               "key": "_SKIRMISHER_ELEMENT_FIRE_",
-              "HPICGAMGEGA": true,
-              "maxValue": 1.0,
-              "GCEOGBJIFCP": 0.0
+              "useLimitRange": true,
+              "maxValue": 1,
+              "minValue": 0
             }
           ],
-          "MINFJCDAIBB": [
+          "onRemoved": [
             {
-              "$type": "MoleMole.Config.AddGlobalValue",
-              "MLDBFKEGPEF": "Target",
-              "value": -5.0,
+              "$type": "AddGlobalValue",
+              "target": "Target",
+              "value": -5,
               "key": "_SKIRMISHER_ELEMENT_FIRE_",
-              "HPICGAMGEGA": true,
-              "maxValue": 1.0,
-              "GCEOGBJIFCP": 0.0
+              "useLimitRange": true,
+              "maxValue": 1,
+              "minValue": 0
             }
           ]
         }
@@ -810,70 +799,70 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "Monster_Skirmisher_Standard_Rifle_Fire_ExitWeak",
-      "PIDAPNFJNDF": [
+      "abilityMixins": [
         {
-          "$type": "MoleMole.Config.AttachToNormalizedTimeMixin",
-          "GOPFOAFEKLC": "Weak_BS",
+          "$type": "AttachToNormalizedTimeMixin",
+          "stateID": "Weak_BS",
           "modifierName": "Monster_Skirmisher_Standard_Rifle_Fire_ExitWeakModiferTimer",
-          "MJFJKAHGHDJ": ""
+          "__unk_Q2081332355": ""
         },
         {
-          "$type": "MoleMole.Config.AttachModifierToSelfGlobalValueMixin",
+          "$type": "AttachModifierToSelfGlobalValueMixin",
           "globalValueKey": "_MONSTER_SKIRMISHER_RECOVER",
-          "KADKJMOFOLI": 0.0,
-          "FJEPHJNDEAI": [
+          "defaultGlobalValueOnCreate": 0,
+          "valueSteps": [
             -0.5,
             0.5,
             1.5
           ],
-          "IJEPHCMOAPE": [
+          "modifierNameSteps": [
             "Empty",
             "Skirmisher_RecoverFromWeak"
           ]
         }
       ],
-      "BFBDNNJCDLH": {
+      "modifiers": {
         "Empty": {
           "modifierName": "",
-          "elementDurability": 100.0
+          "elementDurability": 100
         },
         "Monster_Skirmisher_Standard_Rifle_Fire_ExitWeakModiferTimer": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.ApplyModifier",
+              "$type": "ApplyModifier",
               "modifierName": "Monster_Skirmisher_Standard_Rifle_Fire_ExitWeakDelay"
             }
           ]
         },
         "Monster_Skirmisher_Standard_Rifle_Fire_ExitWeakDelay": {
           "modifierName": "",
-          "duration": 10.0,
-          "elementDurability": 100.0,
-          "EPKCPIKGJOJ": {
-            "Actor_EndureDelta": 0.0
+          "duration": 10,
+          "elementDurability": 100,
+          "properties": {
+            "Actor_EndureDelta": 0
           },
-          "OAOGLLGGJPD": [
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.AddGlobalValue",
-              "value": -2.0,
+              "$type": "AddGlobalValue",
+              "value": -2,
               "key": "_MONSTER_SKIRMISHER_RECOVER",
-              "HPICGAMGEGA": true,
-              "maxValue": 1.0,
-              "GCEOGBJIFCP": 0.0
+              "useLimitRange": true,
+              "maxValue": 1,
+              "minValue": 0
             }
           ],
-          "MINFJCDAIBB": [
+          "onRemoved": [
             {
-              "$type": "MoleMole.Config.Predicated",
-              "CKBKOCJPJMM": [
+              "$type": "Predicated",
+              "targetPredicates": [
                 {
-                  "$type": "IPGGGPIJONN",
+                  "$type": "ByTargetGlobalValue",
                   "key": "_MONSTER_SKIRMISHER_RECOVER",
-                  "value": 1.0
+                  "value": 1
                 }
               ],
               "successActions": [
@@ -896,50 +885,50 @@
               ]
             },
             {
-              "$type": "MoleMole.Config.ApplyModifier",
+              "$type": "ApplyModifier",
               "modifierName": "Skirmisher_RecoverFromWeak"
             },
             {
-              "$type": "MoleMole.Config.AddGlobalValue",
-              "value": -2.0,
+              "$type": "AddGlobalValue",
+              "value": -2,
               "key": "_MONSTER_SKIRMISHER_RECOVER",
-              "HPICGAMGEGA": true,
-              "maxValue": 1.0,
-              "GCEOGBJIFCP": 0.0
+              "useLimitRange": true,
+              "maxValue": 1,
+              "minValue": 0
             }
           ],
-          "DOFDCKKDGHL": [
+          "onKill": [
             {
-              "$type": "MoleMole.Config.RemoveModifier",
+              "$type": "RemoveModifier",
               "modifierName": "Monster_Skirmisher_Standard_Rifle_Fire_ExitWeakDelay"
             }
           ]
         },
         "Skirmisher_RecoverFromWeak": {
           "modifierName": "",
-          "duration": 1.0,
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "duration": 1,
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.SetAnimatorBool",
-              "KIAGMJMPHPG": "InWeak"
+              "$type": "SetAnimatorBool",
+              "boolID": "InWeak"
             },
             {
               "$type": "MoleMole.Config.SetPoseBool",
-              "KIAGMJMPHPG": "WeakState"
+              "boolID": "WeakState"
             },
             {
               "$type": "MoleMole.Config.SetPoseBool",
-              "KIAGMJMPHPG": "AfterFirstImprove",
+              "boolID": "AfterFirstImprove",
               "value": true
             },
             {
-              "$type": "MoleMole.Config.AddGlobalValue",
-              "value": -2.0,
+              "$type": "AddGlobalValue",
+              "value": -2,
               "key": "_MONSTER_SKIRMISHER_WEAK_",
-              "HPICGAMGEGA": true,
-              "maxValue": 1.0,
-              "GCEOGBJIFCP": 0.0
+              "useLimitRange": true,
+              "maxValue": 1,
+              "minValue": 0
             }
           ]
         }
@@ -948,318 +937,291 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "Monster_Skirmisher_Standard_Rifle_Fire_Steer",
-      "PIDAPNFJNDF": [
+      "abilityMixins": [
         {
           "$type": "MoleMole.Config.SteerAttackMixin",
           "BAJBFPAEMHB": [
             "Turn"
           ],
-          "angularSpeed": 120.0,
+          "angularSpeed": 120,
           "GMIILFMLLJI": "",
-          "LFCDKEDGFFG": 2.0,
-          "MJFJKAHGHDJ": ""
+          "LFCDKEDGFFG": 2,
+          "__unk_Q2081332355": ""
         },
         {
           "$type": "MoleMole.Config.SteerAttackMixin",
           "BAJBFPAEMHB": [
             "RangeAtk"
           ],
-          "endNormalizedTime": 0.550000011920929,
-          "angularSpeed": 300.0,
+          "endNormalizedTime": 0.55,
+          "angularSpeed": 300,
           "GMIILFMLLJI": "",
-          "LFCDKEDGFFG": 2.0,
-          "MJFJKAHGHDJ": ""
+          "LFCDKEDGFFG": 2,
+          "__unk_Q2081332355": ""
         },
         {
           "$type": "MoleMole.Config.SteerAttackMixin",
           "BAJBFPAEMHB": [
             "ImprovedRangeAtk"
           ],
-          "endNormalizedTime": 0.4399999976158142,
-          "angularSpeed": 300.0,
+          "endNormalizedTime": 0.44,
+          "angularSpeed": 300,
           "GMIILFMLLJI": "",
-          "LFCDKEDGFFG": 2.0,
-          "MJFJKAHGHDJ": ""
+          "LFCDKEDGFFG": 2,
+          "__unk_Q2081332355": ""
         },
         {
           "$type": "MoleMole.Config.SteerAttackMixin",
           "BAJBFPAEMHB": [
             "DodgeState"
           ],
-          "endNormalizedTime": 0.2800000011920929,
-          "angularSpeed": 150.0,
+          "endNormalizedTime": 0.28,
+          "angularSpeed": 150,
           "GMIILFMLLJI": "",
-          "LFCDKEDGFFG": 2.0,
-          "MJFJKAHGHDJ": ""
+          "LFCDKEDGFFG": 2,
+          "__unk_Q2081332355": ""
         }
       ]
     }
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "Monster_Skirmisher_Male_Standard_Rifle_Fire_TriggerBullet",
-      "EIIHGJGFDHC": [
+      "onAbilityStart": [
         {
-          "$type": "MoleMole.Config.TriggerBullet",
+          "$type": "TriggerBullet",
           "otherTargets": {
-            "$type": "DMGCADBNILM",
+            "$type": "SelectTargetsByChildren",
             "configID": 50004048
           },
-          "DCNFGAGBCMP": 42301008,
+          "bulletID": 42301008,
           "born": {
-            "$type": "JEDNAGFKIDP",
-            "offset": {
-              "GOAPOLCAJBP": 0.0,
-              "FMOPCJGGFMH": 0.0,
-              "EJJEPFCDDAM": 0.0
-            },
+            "$type": "ConfigBornByAttachPoint",
             "direction": {
-              "$type": "HCHFPIMPCJM",
+              "$type": "ConfigDirectionByAttackTarget",
               "maxAngleType": "Vertical",
-              "maxAngle": 20.0,
+              "maxAngle": 20,
               "BKMDHKCJDCB": ""
             },
-            "OBNIJLKICKN": "Head"
+            "attachPointName": "Head"
           },
-          "ABDNPBMDPFH": true
+          "lifeByOwnerIsAlive": true
         },
         {
-          "$type": "MoleMole.Config.FireEffect",
+          "$type": "FireEffect",
           "effectPattern": "Eff_Monster_Skirmisher_Male_Standard_Rifle_Fire_NormalShoot_Launch",
           "born": {
-            "$type": "KPFCCIOJAMK",
+            "$type": "ConfigBornBySelf",
             "offset": {
-              "GOAPOLCAJBP": 0.0,
-              "FMOPCJGGFMH": 1.850000023841858,
-              "EJJEPFCDDAM": 1.399999976158142
+              "y": 1.85,
+              "z": 1.4
             }
-          },
-          "effectTempleteID": -1.0
+          }
         }
       ]
     }
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "Monster_Skirmisher_Standard_Rifle_Fire_NoramalShoot_ChargeEffect",
-      "EIIHGJGFDHC": [
+      "onAbilityStart": [
         {
-          "$type": "MoleMole.Config.FireEffect",
+          "$type": "FireEffect",
           "otherTargets": {
-            "$type": "DMGCADBNILM",
+            "$type": "SelectTargetsByChildren",
             "configID": 50004048
           },
           "effectPattern": "Eff_Monster_Skirmisher_Male_Standard_Rifle_Fire_NormalShoot_Charge",
           "born": {
-            "$type": "JEDNAGFKIDP",
-            "OBNIJLKICKN": "Head"
-          },
-          "effectTempleteID": -1.0
+            "$type": "ConfigBornByAttachPoint",
+            "attachPointName": "Head"
+          }
         }
       ]
     }
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "Monster_Skirmisher_Male_Standard_Rifle_Fire_TriggerPowerBullet",
-      "EIIHGJGFDHC": [
+      "onAbilityStart": [
         {
-          "$type": "MoleMole.Config.TriggerBullet",
+          "$type": "TriggerBullet",
           "otherTargets": {
-            "$type": "DMGCADBNILM",
+            "$type": "SelectTargetsByChildren",
             "configID": 50004048
           },
-          "DCNFGAGBCMP": 42301009,
+          "bulletID": 42301009,
           "born": {
-            "$type": "JEDNAGFKIDP",
-            "offset": {
-              "GOAPOLCAJBP": 0.0,
-              "FMOPCJGGFMH": 0.0,
-              "EJJEPFCDDAM": 0.0
-            },
+            "$type": "ConfigBornByAttachPoint",
             "direction": {
-              "$type": "HCHFPIMPCJM",
+              "$type": "ConfigDirectionByAttackTarget",
               "maxAngleType": "Vertical",
-              "maxAngle": 20.0,
+              "maxAngle": 20,
               "BKMDHKCJDCB": ""
             },
-            "OBNIJLKICKN": "Head"
+            "attachPointName": "Head"
           },
-          "ABDNPBMDPFH": true
+          "lifeByOwnerIsAlive": true
         },
         {
-          "$type": "MoleMole.Config.FireEffect",
+          "$type": "FireEffect",
           "effectPattern": "Eff_Monster_Skirmisher_Male_Standard_Rifle_Fire_ImproveShoot_Launch",
           "born": {
-            "$type": "KPFCCIOJAMK",
+            "$type": "ConfigBornBySelf",
             "offset": {
-              "GOAPOLCAJBP": 0.0,
-              "FMOPCJGGFMH": 1.6799999475479126,
-              "EJJEPFCDDAM": 1.399999976158142
+              "y": 1.68,
+              "z": 1.4
             }
-          },
-          "effectTempleteID": -1.0
+          }
         }
       ]
     }
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "Monster_Skirmisher_Standard_Rifle_Fire_ImproveShoot_ChargeEffect",
-      "EIIHGJGFDHC": [
+      "onAbilityStart": [
         {
-          "$type": "MoleMole.Config.FireEffect",
+          "$type": "FireEffect",
           "otherTargets": {
-            "$type": "DMGCADBNILM",
+            "$type": "SelectTargetsByChildren",
             "configID": 50004048
           },
           "effectPattern": "Eff_Monster_Skirmisher_Male_Standard_Rifle_Fire_ImproveShoot_Charge",
           "born": {
-            "$type": "JEDNAGFKIDP",
-            "OBNIJLKICKN": "Head"
-          },
-          "effectTempleteID": -1.0
+            "$type": "ConfigBornByAttachPoint",
+            "attachPointName": "Head"
+          }
         }
       ]
     }
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "Monster_Skirmisher_Male_Standard_Rifle_Fire_TriggerBurstBullet",
-      "EIIHGJGFDHC": [
+      "onAbilityStart": [
         {
-          "$type": "MoleMole.Config.TriggerBullet",
+          "$type": "TriggerBullet",
           "otherTargets": {
-            "$type": "DMGCADBNILM",
+            "$type": "SelectTargetsByChildren",
             "configID": 50004048
           },
-          "DCNFGAGBCMP": 42301009,
+          "bulletID": 42301009,
           "born": {
-            "$type": "JEDNAGFKIDP",
-            "offset": {
-              "GOAPOLCAJBP": 0.0,
-              "FMOPCJGGFMH": 0.0,
-              "EJJEPFCDDAM": 0.0
-            },
+            "$type": "ConfigBornByAttachPoint",
             "direction": {
-              "$type": "HCHFPIMPCJM",
+              "$type": "ConfigDirectionByAttackTarget",
               "maxAngleType": "Vertical",
-              "maxAngle": 20.0,
+              "maxAngle": 20,
               "BKMDHKCJDCB": ""
             },
-            "OBNIJLKICKN": "Head"
+            "attachPointName": "Head"
           },
-          "ABDNPBMDPFH": true
+          "lifeByOwnerIsAlive": true
         },
         {
-          "$type": "MoleMole.Config.FireEffect",
+          "$type": "FireEffect",
           "effectPattern": "Eff_Monster_Skirmisher_Male_Standard_Rifle_Fire_BurstShoot_Launch",
           "born": {
-            "$type": "KPFCCIOJAMK",
+            "$type": "ConfigBornBySelf",
             "offset": {
-              "GOAPOLCAJBP": 0.0,
-              "FMOPCJGGFMH": 1.850000023841858,
-              "EJJEPFCDDAM": 1.399999976158142
+              "y": 1.85,
+              "z": 1.4
             }
-          },
-          "effectTempleteID": -1.0
+          }
         }
       ]
     }
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "Monster_Skirmisher_Standard_Rifle_Fire_BurstShoot_ChargeEffect",
-      "EIIHGJGFDHC": [
+      "onAbilityStart": [
         {
-          "$type": "MoleMole.Config.FireEffect",
+          "$type": "FireEffect",
           "otherTargets": {
-            "$type": "DMGCADBNILM",
+            "$type": "SelectTargetsByChildren",
             "configID": 50004048
           },
           "effectPattern": "Eff_Monster_Skirmisher_Male_Standard_Rifle_Fire_BurstShoot_Charge",
           "born": {
-            "$type": "JEDNAGFKIDP",
-            "OBNIJLKICKN": "Head"
-          },
-          "effectTempleteID": -1.0
+            "$type": "ConfigBornByAttachPoint",
+            "attachPointName": "Head"
+          }
         }
       ]
     }
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "Skirmisher_Rifle_Fire_NormalBullet_Explode",
-      "BFBDNNJCDLH": {
+      "modifiers": {
         "Skirmisher_Rifle_Fire_NormalBulletEffect": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.AttachEffect",
-              "effectPattern": "Eff_Monster_Skirmisher_Male_Standard_Rifle_Fire_NormalShoot_Bullet",
-              "effectTempleteID": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_Monster_Skirmisher_Male_Standard_Rifle_Fire_NormalShoot_Bullet"
             },
             {
-              "$type": "MoleMole.Config.AttachEffect",
-              "effectPattern": "Eff_Monster_Skirmisher_Male_Standard_Rifle_Fire_NormalShoot_BulletTrail",
-              "effectTempleteID": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_Monster_Skirmisher_Male_Standard_Rifle_Fire_NormalShoot_BulletTrail"
             }
           ]
         }
       },
-      "OAOGLLGGJPD": [
+      "onAdded": [
         {
-          "$type": "MoleMole.Config.AttachModifier",
+          "$type": "AttachModifier",
           "modifierName": "Skirmisher_Rifle_Fire_NormalBulletEffect"
         }
       ],
-      "EIIHGJGFDHC": [
+      "onAbilityStart": [
         {
-          "$type": "MoleMole.Config.RemoveModifier",
+          "$type": "RemoveModifier",
           "modifierName": "Skirmisher_Rifle_Fire_NormalBulletEffect"
         },
         {
-          "$type": "MoleMole.Config.FireEffect",
-          "effectPattern": "Eff_Monster_Skirmisher_Male_Standard_Rifle_Fire_NormalShoot_BulletHit",
-          "effectTempleteID": -1.0
+          "$type": "FireEffect",
+          "effectPattern": "Eff_Monster_Skirmisher_Male_Standard_Rifle_Fire_NormalShoot_BulletHit"
         },
         {
-          "$type": "MoleMole.Config.TriggerAttackEvent",
+          "$type": "TriggerAttackEvent",
           "attackEvent": {
             "attackPattern": {
-              "$type": "IJCIPLFIDAK",
+              "$type": "ConfigAttackSphere",
               "triggerType": "TriggerNoRepeat",
               "born": {
-                "$type": "KPFCCIOJAMK"
+                "$type": "ConfigBornBySelf"
               },
-              "MFGGJCPPBGA": 1.0
+              "radius": 1
             },
             "attackInfo": {
               "attackTag": "",
               "attenuationTag": "",
               "attenuationGroup": "default",
               "attackProperty": {
-                "JMLMDDCBIAO": 0.6660000085830688,
-                "damagePercentageRatio": 0.0,
-                "elementDurability": 100.0,
+                "damagePercentage": 0.666,
+                "damagePercentageRatio": 0,
+                "elementDurability": 100,
                 "strikeType": "Blunt",
-                "enBreak": 100.0,
+                "enBreak": 100,
                 "attackType": "Range",
-                "damagePercentage": 0.0
+                "__exp_arkhe": 0
               },
               "hitPattern": {
                 "onHitEffectName": "none",
-                "hitImpulseY": "",
+                "__unk_Q3893899620": "",
                 "hitImpulseType": "LV2"
               },
               "canBeModifiedBy": "OriginOwner"
@@ -1272,70 +1234,67 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "Skirmisher_Rifle_Fire_ImproveBullet_Explode",
-      "BFBDNNJCDLH": {
+      "modifiers": {
         "Skirmisher_Rifle_Fire_ImproveBulletEffect": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.AttachEffect",
-              "effectPattern": "Eff_Monster_Skirmisher_Male_Standard_Rifle_Fire_ImproveShoot_Bullet",
-              "effectTempleteID": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_Monster_Skirmisher_Male_Standard_Rifle_Fire_ImproveShoot_Bullet"
             },
             {
-              "$type": "MoleMole.Config.AttachEffect",
-              "effectPattern": "Eff_Monster_Skirmisher_Male_Standard_Rifle_Fire_ImproveShoot_BulletTrail",
-              "effectTempleteID": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_Monster_Skirmisher_Male_Standard_Rifle_Fire_ImproveShoot_BulletTrail"
             }
           ]
         }
       },
-      "OAOGLLGGJPD": [
+      "onAdded": [
         {
-          "$type": "MoleMole.Config.AttachModifier",
+          "$type": "AttachModifier",
           "modifierName": "Skirmisher_Rifle_Fire_ImproveBulletEffect"
         }
       ],
-      "EIIHGJGFDHC": [
+      "onAbilityStart": [
         {
-          "$type": "MoleMole.Config.RemoveModifier",
+          "$type": "RemoveModifier",
           "modifierName": "Skirmisher_Rifle_Fire_ImproveBulletEffect"
         },
         {
-          "$type": "MoleMole.Config.FireEffect",
-          "effectPattern": "Eff_Monster_Skirmisher_Male_Standard_Rifle_Fire_ImproveShoot_BulletHit",
-          "effectTempleteID": -1.0
+          "$type": "FireEffect",
+          "effectPattern": "Eff_Monster_Skirmisher_Male_Standard_Rifle_Fire_ImproveShoot_BulletHit"
         },
         {
-          "$type": "MoleMole.Config.TriggerAttackEvent",
+          "$type": "TriggerAttackEvent",
           "attackEvent": {
             "attackPattern": {
-              "$type": "IJCIPLFIDAK",
+              "$type": "ConfigAttackSphere",
               "triggerType": "TriggerNoRepeat",
               "born": {
-                "$type": "KPFCCIOJAMK"
+                "$type": "ConfigBornBySelf"
               },
-              "MFGGJCPPBGA": 1.0
+              "radius": 1
             },
             "attackInfo": {
               "attackTag": "",
               "attenuationTag": "",
               "attenuationGroup": "default",
               "attackProperty": {
-                "JMLMDDCBIAO": 0.6660000085830688,
-                "damagePercentageRatio": 0.0,
+                "damagePercentage": 0.666,
+                "damagePercentageRatio": 0,
                 "elementType": "Fire",
-                "elementDurability": 50.0,
+                "elementDurability": 50,
                 "strikeType": "Blunt",
-                "enBreak": 100.0,
+                "enBreak": 100,
                 "attackType": "Range",
-                "damagePercentage": 0.0
+                "__exp_arkhe": 0
               },
               "hitPattern": {
                 "onHitEffectName": "none",
-                "hitImpulseY": "",
+                "__unk_Q3893899620": "",
                 "hitImpulseType": "LV2"
               },
               "canBeModifiedBy": "OriginOwner"
@@ -1348,70 +1307,67 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "Skirmisher_Rifle_Fire_BurstBullet_Explode",
-      "BFBDNNJCDLH": {
+      "modifiers": {
         "Skirmisher_Rifle_Fire_BurstBulletEffect": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.AttachEffect",
-              "effectPattern": "Eff_Monster_Skirmisher_Male_Standard_Rifle_Fire_BurstShoot_Bullet",
-              "effectTempleteID": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_Monster_Skirmisher_Male_Standard_Rifle_Fire_BurstShoot_Bullet"
             },
             {
-              "$type": "MoleMole.Config.AttachEffect",
-              "effectPattern": "Eff_Monster_Skirmisher_Male_Standard_Rifle_Fire_BurstShoot_BulletTrail",
-              "effectTempleteID": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_Monster_Skirmisher_Male_Standard_Rifle_Fire_BurstShoot_BulletTrail"
             }
           ]
         }
       },
-      "OAOGLLGGJPD": [
+      "onAdded": [
         {
-          "$type": "MoleMole.Config.AttachModifier",
+          "$type": "AttachModifier",
           "modifierName": "Skirmisher_Rifle_Fire_BurstBulletEffect"
         }
       ],
-      "EIIHGJGFDHC": [
+      "onAbilityStart": [
         {
-          "$type": "MoleMole.Config.RemoveModifier",
+          "$type": "RemoveModifier",
           "modifierName": "Skirmisher_Rifle_Fire_BurstBulletEffect"
         },
         {
-          "$type": "MoleMole.Config.FireEffect",
-          "effectPattern": "Eff_Monster_Skirmisher_Male_Standard_Rifle_Fire_BurstShoot_BulletExplode",
-          "effectTempleteID": -1.0
+          "$type": "FireEffect",
+          "effectPattern": "Eff_Monster_Skirmisher_Male_Standard_Rifle_Fire_BurstShoot_BulletExplode"
         },
         {
-          "$type": "MoleMole.Config.TriggerAttackEvent",
+          "$type": "TriggerAttackEvent",
           "attackEvent": {
             "attackPattern": {
-              "$type": "IJCIPLFIDAK",
+              "$type": "ConfigAttackSphere",
               "triggerType": "TriggerNoRepeat",
               "born": {
-                "$type": "KPFCCIOJAMK"
+                "$type": "ConfigBornBySelf"
               },
-              "MFGGJCPPBGA": 1.0
+              "radius": 1
             },
             "attackInfo": {
               "attackTag": "Improve_FireShoot",
               "attenuationTag": "Improve_FireShoot",
               "attenuationGroup": "Skirmisher_Fat_SprayGun_Ice",
               "attackProperty": {
-                "JMLMDDCBIAO": 1.0,
-                "damagePercentageRatio": 0.0,
+                "damagePercentage": 1,
+                "damagePercentageRatio": 0,
                 "elementType": "Fire",
-                "elementDurability": 50.0,
+                "elementDurability": 50,
                 "strikeType": "Blunt",
-                "enBreak": 100.0,
+                "enBreak": 100,
                 "attackType": "Range",
-                "damagePercentage": 0.0
+                "__exp_arkhe": 0
               },
               "hitPattern": {
                 "onHitEffectName": "none",
-                "hitImpulseY": "",
+                "__unk_Q3893899620": "",
                 "hitImpulseType": "LV2"
               },
               "canBeModifiedBy": "OriginOwner"
@@ -1424,45 +1380,45 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "Monster_Skirmisher_Standard_Rifle_Fire_StruggleHideWeapon",
-      "PIDAPNFJNDF": [
+      "abilityMixins": [
         {
-          "$type": "MoleMole.Config.AttachToNormalizedTimeMixin",
-          "GOPFOAFEKLC": "Struggle",
+          "$type": "AttachToNormalizedTimeMixin",
+          "stateID": "Struggle",
           "modifierName": "Monster_Skirmisher_Standard_Rifle_Fire_StruggleHideWeapon",
-          "MJFJKAHGHDJ": ""
+          "__unk_Q2081332355": ""
         },
         {
-          "$type": "MoleMole.Config.AttachToNormalizedTimeMixin",
-          "GOPFOAFEKLC": "SwimDie",
+          "$type": "AttachToNormalizedTimeMixin",
+          "stateID": "SwimDie",
           "modifierName": "Monster_Skirmisher_Standard_Rifle_Fire_StruggleHideWeapon",
-          "MJFJKAHGHDJ": ""
+          "__unk_Q2081332355": ""
         },
         {
-          "$type": "MoleMole.Config.AttachToNormalizedTimeMixin",
-          "GOPFOAFEKLC": "SwimDie_AS",
+          "$type": "AttachToNormalizedTimeMixin",
+          "stateID": "SwimDie_AS",
           "modifierName": "Monster_Skirmisher_Standard_Rifle_Fire_StruggleHideWeapon",
-          "MJFJKAHGHDJ": ""
+          "__unk_Q2081332355": ""
         }
       ],
-      "BFBDNNJCDLH": {
+      "modifiers": {
         "Monster_Skirmisher_Standard_Rifle_Fire_StruggleHideWeapon": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.TriggerHideWeapon",
-              "PCJBGFIBDGC": [
+              "$type": "TriggerHideWeapon",
+              "partNames": [
                 "equip01"
               ]
             }
           ],
-          "MINFJCDAIBB": [
+          "onRemoved": [
             {
-              "$type": "MoleMole.Config.TriggerHideWeapon",
-              "LJBECOMGDEJ": true,
-              "PCJBGFIBDGC": [
+              "$type": "TriggerHideWeapon",
+              "visible": true,
+              "partNames": [
                 "equip01"
               ]
             }
@@ -1473,34 +1429,34 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "Monster_Skirmisher_Standard_Rifle_Fire_WeaponSpecialState",
-      "PIDAPNFJNDF": [
+      "abilityMixins": [
         {
-          "$type": "MoleMole.Config.AttachToAbilityStateMixin",
+          "$type": "AttachToAbilityStateMixin",
           "abilityStates": [
             "ElementFreeze"
           ],
           "modifierName": "Monster_Skirmisher_Standard_Rifle_Fire_WeaponFrozen"
         },
         {
-          "$type": "MoleMole.Config.AttachToAbilityStateMixin",
+          "$type": "AttachToAbilityStateMixin",
           "abilityStates": [
             "ElementPetrifaction"
           ],
           "modifierName": "Monster_Skirmisher_Standard_Rifle_Fire_WeaponPetrifaction"
         }
       ],
-      "BFBDNNJCDLH": {
+      "modifiers": {
         "Monster_Skirmisher_Standard_Rifle_Fire_WeaponFrozen": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.AttachModifier",
+              "$type": "AttachModifier",
               "otherTargets": {
-                "$type": "MGJJNCBALEH",
-                "FMFCEFEHDEA": [
+                "$type": "SelectTargetsByEquipParts",
+                "equipPartNames": [
                   "equip01"
                 ]
               },
@@ -1510,13 +1466,13 @@
         },
         "Monster_Skirmisher_Standard_Rifle_Fire_WeaponPetrifaction": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.AttachModifier",
+              "$type": "AttachModifier",
               "otherTargets": {
-                "$type": "MGJJNCBALEH",
-                "FMFCEFEHDEA": [
+                "$type": "SelectTargetsByEquipParts",
+                "equipPartNames": [
                   "equip01"
                 ]
               },
@@ -1526,12 +1482,12 @@
         },
         "Monster_Skirmisher_Standard_Rifle_Fire_WeaponBeFrozen": {
           "modifierName": "",
-          "elementDurability": 100.0,
+          "elementDurability": 100,
           "state": "ElementFreeze"
         },
         "Monster_Skirmisher_Standard_Rifle_Fire_WeaponBePetrifaction": {
           "modifierName": "",
-          "elementDurability": 100.0,
+          "elementDurability": 100,
           "state": "ElementPetrifaction"
         }
       }
@@ -1539,11 +1495,11 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "Monster_Skirmisher_Standard_Rifle_Fire_Die",
-      "EIIHGJGFDHC": [
+      "onAbilityStart": [
         {
-          "$type": "MoleMole.Config.RemoveUniqueModifier",
+          "$type": "RemoveUniqueModifier",
           "modifierName": "UNIQUE_Monster_Skirmisher_Standard_Rifle_Fire_Element"
         }
       ]

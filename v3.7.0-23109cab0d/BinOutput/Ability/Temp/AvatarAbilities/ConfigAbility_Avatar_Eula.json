@@ -9,7 +9,7 @@
           "skillID": 10511,
           "chargeTime": 0.25,
           "secondChargeTime": "Max_Dura",
-          "OnBeginUncharged": [
+          "onBeginUncharged": [
             {
               "$type": "SetAnimatorTrigger",
               "triggerID": "DoSkill"
@@ -17,7 +17,7 @@
             {
               "$type": "SetAnimatorInt",
               "intID": "SkillID",
-              "ratio": 1.0
+              "value": 1
             },
             {
               "$type": "ResetAnimatorTrigger",
@@ -28,7 +28,7 @@
               "modifierName": "SetTrigger"
             }
           ],
-          "OnBeginCharged": [
+          "onBeginCharged": [
             {
               "$type": "SetAnimatorTrigger",
               "triggerID": "DoSkill"
@@ -36,10 +36,10 @@
             {
               "$type": "SetAnimatorInt",
               "intID": "SkillID",
-              "ratio": 6.0
+              "value": 6
             }
           ],
-          "OnReleaseCharged": [
+          "onReleaseCharged": [
             {
               "$type": "SetAnimatorTrigger",
               "triggerID": "EndHoldTrigger"
@@ -49,7 +49,7 @@
               "modifierName": "SetTrigger"
             }
           ],
-          "OnBeginSecondCharged": [
+          "onBeginSecondCharged": [
             {
               "$type": "SetAnimatorTrigger",
               "triggerID": "EndHoldTrigger"
@@ -91,14 +91,14 @@
         }
       ],
       "abilitySpecials": {
-        "ExtraAttack_Claymore_Stamina_Cost": 0.0,
-        "Max_Dura": 0.0
+        "ExtraAttack_Claymore_Stamina_Cost": 0,
+        "Max_Dura": 0
       },
       "modifiers": {
         "SetTrigger": {
           "modifierName": "",
-          "duration": 1.0,
-          "bonusCriticalHurt": 100.0,
+          "duration": 1,
+          "elementDurability": 100,
           "onRemoved": [
             {
               "$type": "SetAnimatorTrigger",
@@ -108,27 +108,27 @@
         },
         "Camera": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onRemoved": [
             {
               "$type": "AvatarExitCameraShot",
-              "RotationDampTime": true
+              "doOffStage": true
             }
           ],
-          "BDCNMFKCMMB": [
+          "onAvatarOut": [
             {
               "$type": "AvatarExitCameraShot",
-              "RotationDampTime": true
+              "doOffStage": true
             }
           ]
         },
         "Cost": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "CostStaminaMixin",
-              "costStaminaRatio": "ExtraAttack_Claymore_Stamina_Cost",
+              "costStaminaDelta": "ExtraAttack_Claymore_Stamina_Cost",
               "onStaminaEmpty": [
                 {
                   "$type": "SetAnimatorTrigger",
@@ -146,13 +146,13 @@
       "$type": "ConfigAbility",
       "abilityName": "Avatar_Eula_ElementalArt_ExtraAttack_1",
       "abilitySpecials": {
-        "ElementalArt_Extra_Damage": 0.0
+        "ElementalArt_Extra_Damage": 0
       },
       "modifiers": {
         "HasTarget": {
           "modifierName": "",
-          "duration": 0.800000011920929,
-          "bonusCriticalHurt": 100.0,
+          "duration": 0.8,
+          "elementDurability": 100,
           "thinkInterval": 0.5,
           "onAdded": [
             {
@@ -160,31 +160,20 @@
               "target": "SelfAttackTarget",
               "key": "_ABILITY_Eula_ElementalArt_ExtraAttack_Pos_1",
               "born": {
-                "$type": "LMJBKHPGHOK",
-                "offset": {
-                  "JLPLBJEDLIJ": 0.0,
-                  "JAEOEBKKIHF": 0.0,
-                  "GHNJCMBDCCH": 0.0
-                },
-                "KNOFKKLIOHF": true
+                "$type": "ConfigBornBySelectedPoint",
+                "onGround": true
               },
               "setTarget": false
             },
             {
               "$type": "FireEffect",
-              "healLimitedByCasterMaxHPRatio": "Eff_Avatar_Lady_Claymore_Eula_ElementalArt_ExtraAttack",
+              "effectPattern": "Eff_Avatar_Lady_Claymore_Eula_ElementalArt_ExtraAttack",
               "born": {
-                "$type": "HAGCFKDNOKI",
-                "offset": {
-                  "JLPLBJEDLIJ": 0.0,
-                  "JAEOEBKKIHF": 0.0,
-                  "GHNJCMBDCCH": 0.0
-                },
-                "KNOFKKLIOHF": true,
-                "LNAFDGLLOPP": "_ABILITY_Eula_ElementalArt_ExtraAttack_Pos_1",
-                "NKDPBGCAGPJ": ""
-              },
-              "IKGGKJEGMFO": -1.0
+                "$type": "ConfigBornByGlobalValue",
+                "onGround": true,
+                "positionKey": "_ABILITY_Eula_ElementalArt_ExtraAttack_Pos_1",
+                "directionKey": ""
+              }
             }
           ],
           "onThinkInterval": [
@@ -193,43 +182,38 @@
               "target": "Caster",
               "attackEvent": {
                 "attackPattern": {
-                  "$type": "GLPECNPHIEF",
+                  "$type": "ConfigAttackSphere",
                   "triggerType": "TriggerNoRepeat",
                   "born": {
-                    "$type": "HAGCFKDNOKI",
-                    "offset": {
-                      "JLPLBJEDLIJ": 0.0,
-                      "JAEOEBKKIHF": 0.0,
-                      "GHNJCMBDCCH": 0.0
-                    },
-                    "KNOFKKLIOHF": true,
-                    "LNAFDGLLOPP": "_ABILITY_Eula_ElementalArt_ExtraAttack_Pos_1",
-                    "NKDPBGCAGPJ": ""
+                    "$type": "ConfigBornByGlobalValue",
+                    "onGround": true,
+                    "positionKey": "_ABILITY_Eula_ElementalArt_ExtraAttack_Pos_1",
+                    "directionKey": ""
                   },
-                  "EFKOBJIIIFC": 3.5
+                  "radius": 3.5
                 },
                 "attackInfo": {
                   "attackTag": "Elemental_Art",
                   "attenuationTag": "Elemental_Art",
                   "attenuationGroup": "default",
                   "attackProperty": {
-                    "BKJNKFMJHPH": "ElementalArt_Extra_Damage",
-                    "KCNHHOEGDKO": 0.0,
+                    "damagePercentage": "ElementalArt_Extra_Damage",
+                    "damagePercentageRatio": 0,
                     "elementType": "Ice",
-                    "bonusCriticalHurt": 25.0,
+                    "elementDurability": 25,
                     "strikeType": "Default",
-                    "enBreak": 50.0
+                    "enBreak": 50
                   },
                   "hitPattern": {
                     "onHitEffectName": "default",
                     "hitImpulseType": "LV1",
-                    "hitHaltTimeScale": 0.05000000074505806
+                    "hitHaltTimeScale": 0.05
                   },
                   "cameraShake": {
                     "shakeType": "CustomVector",
-                    "shakeRange": 0.36000001430511475,
-                    "shakeTime": 0.11999999731779099,
-                    "shakeDistance": 30.0
+                    "shakeRange": 0.36,
+                    "shakeTime": 0.12,
+                    "shakeDistance": 30
                   },
                   "canBeModifiedBy": "OriginOwner"
                 }
@@ -240,23 +224,17 @@
         },
         "NoTarget": {
           "modifierName": "",
-          "duration": 0.800000011920929,
-          "bonusCriticalHurt": 100.0,
+          "duration": 0.8,
+          "elementDurability": 100,
           "thinkInterval": 0.5,
           "onAdded": [
             {
               "$type": "FireEffect",
-              "healLimitedByCasterMaxHPRatio": "Eff_Avatar_Lady_Claymore_Eula_ElementalArt_ExtraAttack",
+              "effectPattern": "Eff_Avatar_Lady_Claymore_Eula_ElementalArt_ExtraAttack",
               "born": {
-                "$type": "OCBPONGOAGA",
-                "offset": {
-                  "JLPLBJEDLIJ": 0.0,
-                  "JAEOEBKKIHF": 0.0,
-                  "GHNJCMBDCCH": 0.0
-                },
-                "KNOFKKLIOHF": true
-              },
-              "IKGGKJEGMFO": -1.0
+                "$type": "ConfigBornBySelf",
+                "onGround": true
+              }
             }
           ],
           "onThinkInterval": [
@@ -265,41 +243,36 @@
               "target": "Caster",
               "attackEvent": {
                 "attackPattern": {
-                  "$type": "GLPECNPHIEF",
+                  "$type": "ConfigAttackSphere",
                   "triggerType": "TriggerNoRepeat",
                   "born": {
-                    "$type": "OCBPONGOAGA",
-                    "offset": {
-                      "JLPLBJEDLIJ": 0.0,
-                      "JAEOEBKKIHF": 0.0,
-                      "GHNJCMBDCCH": 0.0
-                    },
-                    "KNOFKKLIOHF": true
+                    "$type": "ConfigBornBySelf",
+                    "onGround": true
                   },
-                  "EFKOBJIIIFC": 3.5
+                  "radius": 3.5
                 },
                 "attackInfo": {
                   "attackTag": "Elemental_Art",
                   "attenuationTag": "Elemental_Art",
                   "attenuationGroup": "default",
                   "attackProperty": {
-                    "BKJNKFMJHPH": "ElementalArt_Extra_Damage",
-                    "KCNHHOEGDKO": 0.0,
+                    "damagePercentage": "ElementalArt_Extra_Damage",
+                    "damagePercentageRatio": 0,
                     "elementType": "Ice",
-                    "bonusCriticalHurt": 25.0,
+                    "elementDurability": 25,
                     "strikeType": "Default",
-                    "enBreak": 50.0
+                    "enBreak": 50
                   },
                   "hitPattern": {
                     "onHitEffectName": "default",
                     "hitImpulseType": "LV1",
-                    "hitHaltTimeScale": 0.05000000074505806
+                    "hitHaltTimeScale": 0.05
                   },
                   "cameraShake": {
                     "shakeType": "CustomVector",
-                    "shakeRange": 0.36000001430511475,
-                    "shakeTime": 0.11999999731779099,
-                    "shakeDistance": 30.0
+                    "shakeRange": 0.36,
+                    "shakeTime": 0.12,
+                    "shakeDistance": 30
                   },
                   "canBeModifiedBy": "OriginOwner"
                 }
@@ -313,25 +286,25 @@
         {
           "$type": "SetSelfAttackTarget",
           "otherTargets": {
-            "$type": "HBMHGLGNKAH",
+            "$type": "SelectTargetsByShape",
             "topLimit": 1,
             "sortType": "Nearest",
             "shapeName": "CircleLockEnemy",
             "campTargetType": "Enemy",
-            "AMHFCCEDFII": 1.0
+            "sizeRatio": 1
           },
           "predicates": [
             {
-              "$type": "AHEJBDFBPMH",
+              "$type": "ByEntityTypes",
               "entityTypes": [
                 "Monster"
               ]
             },
             {
-              "$type": "GAJFNLEHCIP",
+              "$type": "ByTargetGlobalValue",
               "key": "_ANIMAL_ENTITY_TYPE",
-              "ratio": 0.0,
-              "COJNFMPPGEF": "NoneOrEqual"
+              "value": 0,
+              "compareType": "NoneOrEqual"
             }
           ]
         },
@@ -339,7 +312,7 @@
           "$type": "Predicated",
           "targetPredicates": [
             {
-              "$type": "CJNPIFMFIMI"
+              "$type": "ByHasAttackTarget"
             }
           ],
           "successActions": [
@@ -363,47 +336,36 @@
       "$type": "ConfigAbility",
       "abilityName": "Avatar_Eula_ElementalArt_ExtraAttack_2",
       "abilitySpecials": {
-        "ElementalArt_Extra_Damage": 0.0,
-        "Elemental_Burst_Judgment_BaseDamage": 0.0,
-        "PermanentSkill_1_Judgment_Ratio": 0.0
+        "ElementalArt_Extra_Damage": 0,
+        "Elemental_Burst_Judgment_BaseDamage": 0,
+        "PermanentSkill_1_Judgment_Ratio": 0
       },
       "modifiers": {
         "HasTarget": {
           "modifierName": "",
-          "duration": 0.6000000238418579,
-          "bonusCriticalHurt": 100.0,
-          "thinkInterval": 0.4000000059604645,
+          "duration": 0.6,
+          "elementDurability": 100,
+          "thinkInterval": 0.4,
           "onAdded": [
             {
               "$type": "SetGlobalPos",
               "target": "SelfAttackTarget",
               "key": "_ABILITY_Eula_ElementalArt_ExtraAttack_Pos_2",
               "born": {
-                "$type": "LMJBKHPGHOK",
-                "offset": {
-                  "JLPLBJEDLIJ": 0.0,
-                  "JAEOEBKKIHF": 0.0,
-                  "GHNJCMBDCCH": 0.0
-                },
-                "KNOFKKLIOHF": true
+                "$type": "ConfigBornBySelectedPoint",
+                "onGround": true
               },
               "setTarget": false
             },
             {
               "$type": "FireEffect",
-              "healLimitedByCasterMaxHPRatio": "Eff_Avatar_Lady_Claymore_Eula_ElementalArt_ExtraAttack_1",
+              "effectPattern": "Eff_Avatar_Lady_Claymore_Eula_ElementalArt_ExtraAttack_1",
               "born": {
-                "$type": "HAGCFKDNOKI",
-                "offset": {
-                  "JLPLBJEDLIJ": 0.0,
-                  "JAEOEBKKIHF": 0.0,
-                  "GHNJCMBDCCH": 0.0
-                },
-                "KNOFKKLIOHF": true,
-                "LNAFDGLLOPP": "_ABILITY_Eula_ElementalArt_ExtraAttack_Pos_2",
-                "NKDPBGCAGPJ": ""
-              },
-              "IKGGKJEGMFO": -1.0
+                "$type": "ConfigBornByGlobalValue",
+                "onGround": true,
+                "positionKey": "_ABILITY_Eula_ElementalArt_ExtraAttack_Pos_2",
+                "directionKey": ""
+              }
             }
           ],
           "onThinkInterval": [
@@ -412,43 +374,38 @@
               "target": "Caster",
               "attackEvent": {
                 "attackPattern": {
-                  "$type": "GLPECNPHIEF",
+                  "$type": "ConfigAttackSphere",
                   "triggerType": "TriggerNoRepeat",
                   "born": {
-                    "$type": "HAGCFKDNOKI",
-                    "offset": {
-                      "JLPLBJEDLIJ": 0.0,
-                      "JAEOEBKKIHF": 0.0,
-                      "GHNJCMBDCCH": 0.0
-                    },
-                    "KNOFKKLIOHF": true,
-                    "LNAFDGLLOPP": "_ABILITY_Eula_ElementalArt_ExtraAttack_Pos_2",
-                    "NKDPBGCAGPJ": ""
+                    "$type": "ConfigBornByGlobalValue",
+                    "onGround": true,
+                    "positionKey": "_ABILITY_Eula_ElementalArt_ExtraAttack_Pos_2",
+                    "directionKey": ""
                   },
-                  "EFKOBJIIIFC": 3.5
+                  "radius": 3.5
                 },
                 "attackInfo": {
                   "attackTag": "Elemental_Art",
                   "attenuationTag": "Elemental_Art",
                   "attenuationGroup": "default",
                   "attackProperty": {
-                    "BKJNKFMJHPH": "ElementalArt_Extra_Damage",
-                    "KCNHHOEGDKO": 0.0,
+                    "damagePercentage": "ElementalArt_Extra_Damage",
+                    "damagePercentageRatio": 0,
                     "elementType": "Ice",
-                    "bonusCriticalHurt": 25.0,
+                    "elementDurability": 25,
                     "strikeType": "Default",
-                    "enBreak": 50.0
+                    "enBreak": 50
                   },
                   "hitPattern": {
                     "onHitEffectName": "default",
                     "hitImpulseType": "LV1",
-                    "hitHaltTimeScale": 0.05000000074505806
+                    "hitHaltTimeScale": 0.05
                   },
                   "cameraShake": {
                     "shakeType": "CustomVector",
-                    "shakeRange": 0.36000001430511475,
-                    "shakeTime": 0.11999999731779099,
-                    "shakeDistance": 30.0
+                    "shakeRange": 0.36,
+                    "shakeTime": 0.12,
+                    "shakeDistance": 30
                   },
                   "canBeModifiedBy": "OriginOwner"
                 }
@@ -459,23 +416,17 @@
         },
         "NoTarget": {
           "modifierName": "",
-          "duration": 0.6000000238418579,
-          "bonusCriticalHurt": 100.0,
-          "thinkInterval": 0.4000000059604645,
+          "duration": 0.6,
+          "elementDurability": 100,
+          "thinkInterval": 0.4,
           "onAdded": [
             {
               "$type": "FireEffect",
-              "healLimitedByCasterMaxHPRatio": "Eff_Avatar_Lady_Claymore_Eula_ElementalArt_ExtraAttack_1",
+              "effectPattern": "Eff_Avatar_Lady_Claymore_Eula_ElementalArt_ExtraAttack_1",
               "born": {
-                "$type": "OCBPONGOAGA",
-                "offset": {
-                  "JLPLBJEDLIJ": 0.0,
-                  "JAEOEBKKIHF": 0.0,
-                  "GHNJCMBDCCH": 0.0
-                },
-                "KNOFKKLIOHF": true
-              },
-              "IKGGKJEGMFO": -1.0
+                "$type": "ConfigBornBySelf",
+                "onGround": true
+              }
             }
           ],
           "onThinkInterval": [
@@ -484,41 +435,36 @@
               "target": "Caster",
               "attackEvent": {
                 "attackPattern": {
-                  "$type": "GLPECNPHIEF",
+                  "$type": "ConfigAttackSphere",
                   "triggerType": "TriggerNoRepeat",
                   "born": {
-                    "$type": "OCBPONGOAGA",
-                    "offset": {
-                      "JLPLBJEDLIJ": 0.0,
-                      "JAEOEBKKIHF": 0.0,
-                      "GHNJCMBDCCH": 0.0
-                    },
-                    "KNOFKKLIOHF": true
+                    "$type": "ConfigBornBySelf",
+                    "onGround": true
                   },
-                  "EFKOBJIIIFC": 3.5
+                  "radius": 3.5
                 },
                 "attackInfo": {
                   "attackTag": "Elemental_Art",
                   "attenuationTag": "Elemental_Art",
                   "attenuationGroup": "default",
                   "attackProperty": {
-                    "BKJNKFMJHPH": "ElementalArt_Extra_Damage",
-                    "KCNHHOEGDKO": 0.0,
+                    "damagePercentage": "ElementalArt_Extra_Damage",
+                    "damagePercentageRatio": 0,
                     "elementType": "Ice",
-                    "bonusCriticalHurt": 25.0,
+                    "elementDurability": 25,
                     "strikeType": "Default",
-                    "enBreak": 50.0
+                    "enBreak": 50
                   },
                   "hitPattern": {
                     "onHitEffectName": "default",
                     "hitImpulseType": "LV1",
-                    "hitHaltTimeScale": 0.05000000074505806
+                    "hitHaltTimeScale": 0.05
                   },
                   "cameraShake": {
                     "shakeType": "CustomVector",
-                    "shakeRange": 0.36000001430511475,
-                    "shakeTime": 0.11999999731779099,
-                    "shakeDistance": 30.0
+                    "shakeRange": 0.36,
+                    "shakeTime": 0.12,
+                    "shakeDistance": 30
                   },
                   "canBeModifiedBy": "OriginOwner"
                 }
@@ -529,23 +475,23 @@
         },
         "Eula_PermanentSkill_1_Attack": {
           "modifierName": "",
-          "duration": 1.2000000476837158,
-          "bonusCriticalHurt": 100.0,
-          "thinkInterval": 0.800000011920929,
+          "duration": 1.2,
+          "elementDurability": 100,
+          "thinkInterval": 0.8,
           "onThinkInterval": [
             {
               "$type": "SetSelfAttackTarget",
               "otherTargets": {
-                "$type": "HBMHGLGNKAH",
+                "$type": "SelectTargetsByShape",
                 "topLimit": 1,
                 "sortType": "Nearest",
                 "shapeName": "CircleLockEnemy",
                 "campTargetType": "Enemy",
-                "AMHFCCEDFII": 1.0
+                "sizeRatio": 1
               },
               "predicates": [
                 {
-                  "$type": "AHEJBDFBPMH",
+                  "$type": "ByEntityTypes",
                   "entityTypes": [
                     "Monster"
                   ]
@@ -556,7 +502,7 @@
               "$type": "Predicated",
               "targetPredicates": [
                 {
-                  "$type": "CJNPIFMFIMI"
+                  "$type": "ByHasAttackTarget"
                 }
               ],
               "successActions": [
@@ -576,89 +522,73 @@
         },
         "Eula_PermanentSkill_1_Attack_HasTarget": {
           "modifierName": "",
-          "duration": 1.0,
-          "bonusCriticalHurt": 100.0,
+          "duration": 1,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "SetGlobalPos",
               "target": "SelfAttackTarget",
               "key": "_ABILITY_Eula_PermanentSkill_1_Attack_Pos",
               "born": {
-                "$type": "LMJBKHPGHOK",
-                "offset": {
-                  "JLPLBJEDLIJ": 0.0,
-                  "JAEOEBKKIHF": 0.0,
-                  "GHNJCMBDCCH": 0.0
-                },
-                "KNOFKKLIOHF": true
+                "$type": "ConfigBornBySelectedPoint",
+                "onGround": true
               },
               "setTarget": false
             },
             {
               "$type": "FireEffect",
-              "healLimitedByCasterMaxHPRatio": "Eff_Avatar_Lady_Claymore_Eula_PermanentSkill_1_Attack",
+              "effectPattern": "Eff_Avatar_Lady_Claymore_Eula_PermanentSkill_1_Attack",
               "born": {
-                "$type": "HAGCFKDNOKI",
-                "offset": {
-                  "JLPLBJEDLIJ": 0.0,
-                  "JAEOEBKKIHF": 0.0,
-                  "GHNJCMBDCCH": 0.0
-                },
-                "KNOFKKLIOHF": true,
-                "LNAFDGLLOPP": "_ABILITY_Eula_PermanentSkill_1_Attack_Pos",
-                "NKDPBGCAGPJ": ""
-              },
-              "IKGGKJEGMFO": -1.0
+                "$type": "ConfigBornByGlobalValue",
+                "onGround": true,
+                "positionKey": "_ABILITY_Eula_PermanentSkill_1_Attack_Pos",
+                "directionKey": ""
+              }
             },
             {
               "$type": "TriggerAttackEvent",
               "target": "OriginOwner",
               "attackEvent": {
                 "attackPattern": {
-                  "$type": "GLPECNPHIEF",
+                  "$type": "ConfigAttackSphere",
                   "triggerType": "TriggerNoRepeat",
                   "born": {
-                    "$type": "HAGCFKDNOKI",
-                    "offset": {
-                      "JLPLBJEDLIJ": 0.0,
-                      "JAEOEBKKIHF": 0.0,
-                      "GHNJCMBDCCH": 0.0
-                    },
-                    "KNOFKKLIOHF": true,
-                    "LNAFDGLLOPP": "_ABILITY_Eula_PermanentSkill_1_Attack_Pos",
-                    "NKDPBGCAGPJ": ""
+                    "$type": "ConfigBornByGlobalValue",
+                    "onGround": true,
+                    "positionKey": "_ABILITY_Eula_PermanentSkill_1_Attack_Pos",
+                    "directionKey": ""
                   },
-                  "EFKOBJIIIFC": 6.5
+                  "radius": 6.5
                 },
                 "attackInfo": {
                   "attackTag": "Elemental_Burst",
                   "attenuationTag": "",
                   "attenuationGroup": "default",
                   "attackProperty": {
-                    "BKJNKFMJHPH": [
+                    "damagePercentage": [
                       "Elemental_Burst_Judgment_BaseDamage",
                       "PermanentSkill_1_Judgment_Ratio",
                       "MUL"
                     ],
-                    "KCNHHOEGDKO": 0.0,
+                    "damagePercentageRatio": 0,
                     "elementRank": 1.5,
-                    "bonusCriticalHurt": 50.0,
+                    "elementDurability": 50,
                     "strikeType": "Blunt",
-                    "enBreak": 180.0,
+                    "enBreak": 180,
                     "attackType": "Range"
                   },
                   "hitPattern": {
                     "onHitEffectName": "default",
                     "hitImpulseType": "LV3",
-                    "hitHaltTimeScale": 0.019999999552965164
+                    "hitHaltTimeScale": 0.02
                   },
                   "cameraShake": {
                     "shakeType": "CustomVector",
-                    "shakeRange": 0.36000001430511475,
-                    "shakeTime": 0.11999999731779099,
-                    "shakeDistance": 30.0,
+                    "shakeRange": 0.36,
+                    "shakeTime": 0.12,
+                    "shakeDistance": 30,
                     "shakeDir": {
-                      "z": 1.0
+                      "z": 1
                     }
                   },
                   "canBeModifiedBy": "OriginOwner"
@@ -670,70 +600,65 @@
         },
         "Eula_PermanentSkill_1_Attack_NoTarget": {
           "modifierName": "",
-          "duration": 1.0,
-          "bonusCriticalHurt": 100.0,
+          "duration": 1,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "FireEffect",
-              "healLimitedByCasterMaxHPRatio": "Eff_Avatar_Lady_Claymore_Eula_PermanentSkill_1_Attack",
+              "effectPattern": "Eff_Avatar_Lady_Claymore_Eula_PermanentSkill_1_Attack",
               "born": {
-                "$type": "OCBPONGOAGA",
+                "$type": "ConfigBornBySelf",
                 "offset": {
-                  "JLPLBJEDLIJ": 0.0,
-                  "JAEOEBKKIHF": 0.0,
-                  "GHNJCMBDCCH": 2.0
+                  "z": 2
                 },
-                "KNOFKKLIOHF": true
-              },
-              "IKGGKJEGMFO": -1.0
+                "onGround": true
+              }
             },
             {
               "$type": "TriggerAttackEvent",
               "target": "OriginOwner",
               "attackEvent": {
                 "attackPattern": {
-                  "$type": "GLPECNPHIEF",
+                  "$type": "ConfigAttackSphere",
                   "triggerType": "TriggerNoRepeat",
                   "born": {
-                    "$type": "OCBPONGOAGA",
+                    "$type": "ConfigBornBySelf",
                     "offset": {
-                      "JLPLBJEDLIJ": 0.0,
-                      "JAEOEBKKIHF": 0.0,
-                      "GHNJCMBDCCH": 2.0
+                      "z": 2
                     },
-                    "KNOFKKLIOHF": true
+                    "onGround": true
                   },
-                  "EFKOBJIIIFC": 6.5
+                  "radius": 6.5
                 },
                 "attackInfo": {
                   "attackTag": "Elemental_Burst",
                   "attenuationTag": "",
                   "attenuationGroup": "default",
                   "attackProperty": {
-                    "BKJNKFMJHPH": [
+                    "damagePercentage": [
                       "Elemental_Burst_Judgment_BaseDamage",
                       "PermanentSkill_1_Judgment_Ratio",
                       "MUL"
                     ],
-                    "KCNHHOEGDKO": 0.0,
+                    "damagePercentageRatio": 0,
                     "elementRank": 1.5,
-                    "bonusCriticalHurt": 50.0,
+                    "elementDurability": 50,
                     "strikeType": "Blunt",
-                    "enBreak": 180.0,
+                    "enBreak": 180,
                     "attackType": "Range"
                   },
                   "hitPattern": {
                     "onHitEffectName": "default",
                     "hitImpulseType": "LV3",
-                    "hitHaltTimeScale": 0.019999999552965164
+                    "hitHaltTimeScale": 0.02
                   },
                   "cameraShake": {
                     "shakeType": "CustomVector",
-                    "shakeRange": 0.36000001430511475,
-                    "shakeTime": 0.11999999731779099,
-                    "shakeDistance": 30.0,
+                    "shakeRange": 0.36,
+                    "shakeTime": 0.12,
+                    "shakeDistance": 30,
                     "shakeDir": {
-                      "z": 1.0
+                      "z": 1
                     }
                   },
                   "canBeModifiedBy": "OriginOwner"
@@ -748,25 +673,25 @@
         {
           "$type": "SetSelfAttackTarget",
           "otherTargets": {
-            "$type": "HBMHGLGNKAH",
+            "$type": "SelectTargetsByShape",
             "topLimit": 1,
             "sortType": "Nearest",
             "shapeName": "CircleLockEnemy",
             "campTargetType": "Enemy",
-            "AMHFCCEDFII": 1.0
+            "sizeRatio": 1
           },
           "predicates": [
             {
-              "$type": "AHEJBDFBPMH",
+              "$type": "ByEntityTypes",
               "entityTypes": [
                 "Monster"
               ]
             },
             {
-              "$type": "GAJFNLEHCIP",
+              "$type": "ByTargetGlobalValue",
               "key": "_ANIMAL_ENTITY_TYPE",
-              "ratio": 0.0,
-              "COJNFMPPGEF": "NoneOrEqual"
+              "value": 0,
+              "compareType": "NoneOrEqual"
             }
           ]
         },
@@ -774,7 +699,7 @@
           "$type": "Predicated",
           "targetPredicates": [
             {
-              "$type": "CJNPIFMFIMI"
+              "$type": "ByHasAttackTarget"
             }
           ],
           "successActions": [
@@ -794,8 +719,8 @@
           "$type": "ApplyModifier",
           "predicates": [
             {
-              "$type": "LHPALKFCLPD",
-              "MDPBMMIACJI": "Eula_PermanentSkill_1"
+              "$type": "ByUnlockTalentParam",
+              "talentParam": "Eula_PermanentSkill_1"
             }
           ],
           "modifierName": "Eula_PermanentSkill_1_Attack"
@@ -820,22 +745,22 @@
             "Eula_ElementalArt_Burst"
           ],
           "chargeLoopDurations": [
-            0.05000000074505806
+            0.05
           ]
         }
       ],
       "abilitySpecials": {
-        "ElementalArt_Extra_Damage": 0.0,
-        "BaseDuration": 0.0,
-        "DefenceDown_MaxDuration": 0.0,
-        "Eula_ElementalArt_MaxCount": 2.0,
-        "PhysicalAddHurt_BaseDuration": 0.0,
-        "Elemental_Burst_Judgment_BaseDamage": 0.0,
-        "PermanentSkill_1_Judgment_Ratio": 0.0,
-        "Eula_Constellation_2_PhysicalAddHurtDelta": 0.0,
-        "Eula_ElementalArt_PhysicalSubHurtDelta": 0.0,
-        "Eula_ElementalArt_IceSubHurtDelta": 0.0,
-        "PhysicalAddHurt_MaxDuration": 0.0
+        "ElementalArt_Extra_Damage": 0,
+        "BaseDuration": 0,
+        "DefenceDown_MaxDuration": 0,
+        "Eula_ElementalArt_MaxCount": 2,
+        "PhysicalAddHurt_BaseDuration": 0,
+        "Elemental_Burst_Judgment_BaseDamage": 0,
+        "PermanentSkill_1_Judgment_Ratio": 0,
+        "Eula_Constellation_2_PhysicalAddHurtDelta": 0,
+        "Eula_ElementalArt_PhysicalSubHurtDelta": 0,
+        "Eula_ElementalArt_IceSubHurtDelta": 0,
+        "PhysicalAddHurt_MaxDuration": 0
       },
       "modifiers": {
         "UNIQUE_Eula_ElementalArt_Burst_DefenceDown": {
@@ -843,7 +768,7 @@
           "modifierName": "",
           "isUnique": true,
           "duration": "BaseDuration",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "properties": {
             "Actor_PhysicalSubHurtDelta": "Eula_ElementalArt_PhysicalSubHurtDelta",
             "Actor_IceSubHurtDelta": "Eula_ElementalArt_IceSubHurtDelta"
@@ -857,12 +782,12 @@
           "isUnique": true,
           "duration": [
             "PhysicalAddHurt_BaseDuration",
-            6.0,
+            6,
             "ADD"
           ],
-          "bonusCriticalHurt": [
+          "elementDurability": [
             "PhysicalAddHurt_BaseDuration",
-            6.0,
+            6,
             "ADD"
           ],
           "thinkInterval": 0.5,
@@ -873,8 +798,8 @@
             {
               "$type": "AttachModifier",
               "otherTargets": {
-                "$type": "PAEPEJBKKJM",
-                "MLFGOMGGKLF": [
+                "$type": "SelectTargetsByEquipParts",
+                "equipPartNames": [
                   "equip01",
                   "equip02",
                   "sheathPoint"
@@ -887,8 +812,8 @@
             {
               "$type": "AttachModifier",
               "otherTargets": {
-                "$type": "PAEPEJBKKJM",
-                "MLFGOMGGKLF": [
+                "$type": "SelectTargetsByEquipParts",
+                "equipPartNames": [
                   "equip01",
                   "equip02",
                   "sheathPoint"
@@ -902,80 +827,79 @@
         "UNIQUE_Eula_Talent_Weapon_Fx": {
           "modifierName": "",
           "isUnique": true,
-          "duration": 0.6000000238418579,
-          "bonusCriticalHurt": 100.0,
+          "duration": 0.6,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "AttachEffect",
-              "healLimitedByCasterMaxHPRatio": "Eff_Avatar_Lady_Claymore_Eula_Talent_Weapon",
-              "IKGGKJEGMFO": -1.0
+              "effectPattern": "Eff_Avatar_Lady_Claymore_Eula_Talent_Weapon"
             }
           ]
         },
         "Eula_ElementalArt_ExtraAttack_1": {
           "modifierName": "",
-          "duration": 1.0,
-          "bonusCriticalHurt": 100.0,
+          "duration": 1,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "RemoveUniqueModifier",
               "otherTargets": {
-                "$type": "HBMHGLGNKAH",
+                "$type": "SelectTargetsByShape",
                 "shapeName": "CircleR7",
                 "campTargetType": "Enemy",
-                "AMHFCCEDFII": 1.0
+                "sizeRatio": 1
               },
               "predicates": [
                 {
-                  "$type": "AHEJBDFBPMH",
+                  "$type": "ByEntityTypes",
                   "entityTypes": [
                     "Monster"
                   ]
                 },
                 {
-                  "$type": "GAJFNLEHCIP",
+                  "$type": "ByTargetGlobalValue",
                   "key": "_ANIMAL_ENTITY_TYPE",
-                  "ratio": 0.0,
-                  "COJNFMPPGEF": "NoneOrEqual"
+                  "value": 0,
+                  "compareType": "NoneOrEqual"
                 }
               ],
               "modifierName": "UNIQUE_Eula_ElementalArt_Burst_DefenceDown"
             },
             {
               "$type": "AddElementDurability",
-              "RotationDampTime": true,
+              "doOffStage": true,
               "predicates": [
                 {
-                  "$type": "LHPALKFCLPD",
-                  "MDPBMMIACJI": "Avatar_Eula_Constellation_1"
+                  "$type": "ByUnlockTalentParam",
+                  "talentParam": "Avatar_Eula_Constellation_1"
                 }
               ],
-              "ratio": "PhysicalAddHurt_BaseDuration",
+              "value": "PhysicalAddHurt_BaseDuration",
               "modifierName": "UNIQUE_Eula_Talent_PhysicalAddHurt",
               "useLimitRange": true,
               "maxValue": "PhysicalAddHurt_MaxDuration",
-              "minValue": 0.0
+              "minValue": 0
             },
             {
               "$type": "ApplyModifier",
               "otherTargets": {
-                "$type": "HBMHGLGNKAH",
+                "$type": "SelectTargetsByShape",
                 "shapeName": "CircleR7",
                 "campTargetType": "Enemy",
-                "AMHFCCEDFII": 1.0
+                "sizeRatio": 1
               },
               "predicates": [
                 {
-                  "$type": "AHEJBDFBPMH",
+                  "$type": "ByEntityTypes",
                   "entityTypes": [
                     "Monster"
                   ]
                 },
                 {
-                  "$type": "GAJFNLEHCIP",
+                  "$type": "ByTargetGlobalValue",
                   "key": "_ANIMAL_ENTITY_TYPE",
-                  "ratio": 0.0,
-                  "COJNFMPPGEF": "NoneOrEqual"
+                  "value": 0,
+                  "compareType": "NoneOrEqual"
                 }
               ],
               "modifierName": "UNIQUE_Eula_ElementalArt_Burst_DefenceDown"
@@ -984,8 +908,8 @@
               "$type": "ApplyModifier",
               "predicates": [
                 {
-                  "$type": "LHPALKFCLPD",
-                  "MDPBMMIACJI": "Avatar_Eula_Constellation_1"
+                  "$type": "ByUnlockTalentParam",
+                  "talentParam": "Avatar_Eula_Constellation_1"
                 }
               ],
               "modifierName": "UNIQUE_Eula_Talent_PhysicalAddHurt"
@@ -993,11 +917,9 @@
             {
               "$type": "CreateGadget",
               "born": {
-                "$type": "OCBPONGOAGA",
+                "$type": "ConfigBornBySelf",
                 "offset": {
-                  "JLPLBJEDLIJ": 0.0,
-                  "JAEOEBKKIHF": 0.0,
-                  "GHNJCMBDCCH": 2.0
+                  "z": 2
                 }
               },
               "gadgetID": 41051003,
@@ -1008,32 +930,30 @@
         },
         "Eula_ElementalArt_ExtraAttack_2": {
           "modifierName": "",
-          "duration": 0.20000000298023224,
-          "bonusCriticalHurt": 100.0,
+          "duration": 0.2,
+          "elementDurability": 100,
           "onRemoved": [
             {
               "$type": "AddElementDurability",
-              "RotationDampTime": true,
+              "doOffStage": true,
               "predicates": [
                 {
-                  "$type": "LHPALKFCLPD",
-                  "MDPBMMIACJI": "Avatar_Eula_Constellation_1"
+                  "$type": "ByUnlockTalentParam",
+                  "talentParam": "Avatar_Eula_Constellation_1"
                 }
               ],
-              "ratio": "PhysicalAddHurt_BaseDuration",
+              "value": "PhysicalAddHurt_BaseDuration",
               "modifierName": "UNIQUE_Eula_Talent_PhysicalAddHurt",
               "useLimitRange": true,
               "maxValue": "PhysicalAddHurt_MaxDuration",
-              "minValue": 0.0
+              "minValue": 0
             },
             {
               "$type": "CreateGadget",
               "born": {
-                "$type": "OCBPONGOAGA",
+                "$type": "ConfigBornBySelf",
                 "offset": {
-                  "JLPLBJEDLIJ": 0.0,
-                  "JAEOEBKKIHF": 0.0,
-                  "GHNJCMBDCCH": 2.0
+                  "z": 2
                 }
               },
               "gadgetID": 41051004,
@@ -1046,28 +966,28 @@
       "onAbilityStart": [
         {
           "$type": "ApplyModifier",
-          "RotationDampTime": true,
+          "doOffStage": true,
           "predicates": [
             {
-              "$type": "GAJFNLEHCIP",
+              "$type": "ByTargetGlobalValue",
               "key": "_ABILITY_Eula_ElementalArt_Mark_Count",
-              "ratio": 1.0,
-              "LAGKIHAPDPI": true,
-              "COJNFMPPGEF": "MoreThanAndEqual"
+              "value": 1,
+              "forceByCaster": true,
+              "compareType": "MoreThanAndEqual"
             }
           ],
           "modifierName": "Eula_ElementalArt_ExtraAttack_1"
         },
         {
           "$type": "ApplyModifier",
-          "RotationDampTime": true,
+          "doOffStage": true,
           "predicates": [
             {
-              "$type": "GAJFNLEHCIP",
+              "$type": "ByTargetGlobalValue",
               "key": "_ABILITY_Eula_ElementalArt_Mark_Count",
-              "ratio": 2.0,
-              "LAGKIHAPDPI": true,
-              "COJNFMPPGEF": "MoreThanAndEqual"
+              "value": 2,
+              "forceByCaster": true,
+              "compareType": "MoreThanAndEqual"
             }
           ],
           "modifierName": "Eula_ElementalArt_ExtraAttack_2"
@@ -1079,12 +999,12 @@
         },
         {
           "$type": "RemoveUniqueModifier",
-          "RotationDampTime": true,
+          "doOffStage": true,
           "modifierName": "UNIQUE_Eula_ElementalArt_Mark_Count"
         },
         {
           "$type": "RemoveUniqueModifier",
-          "RotationDampTime": true,
+          "doOffStage": true,
           "modifierName": "UNIQUE_Eula_ElementalArt_Mark_Count"
         }
       ]
@@ -1098,9 +1018,9 @@
         {
           "$type": "AttachModifierToSelfGlobalValueMixin",
           "globalValueKey": "_ABILITY_Eula_ElementalArt_Mark_Count",
-          "defaultGlobalValueOnCreate": 0.0,
+          "defaultGlobalValueOnCreate": 0,
           "valueSteps": [
-            -1.0,
+            -1,
             0.5,
             1.5,
             2.5,
@@ -1117,43 +1037,43 @@
         }
       ],
       "abilitySpecials": {
-        "Eula_ElementalArt_MaxCount": 2.0,
-        "Eula_ElementalArt_Mark_DefencekUp_1": 0.0,
-        "Eula_ElementalArt_Mark_DefencekUp_2": 0.0,
-        "Eula_ElementalArt_Mark_DefencekUp_3": 0.0,
-        "Eula_ElementalArt_Mark_DefencekUp_4": 0.0
+        "Eula_ElementalArt_MaxCount": 2,
+        "Eula_ElementalArt_Mark_DefencekUp_1": 0,
+        "Eula_ElementalArt_Mark_DefencekUp_2": 0,
+        "Eula_ElementalArt_Mark_DefencekUp_3": 0,
+        "Eula_ElementalArt_Mark_DefencekUp_4": 0
       },
       "modifiers": {
         "Eula_ElementalArt_SetMark": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAttackLanded": [
             {
               "$type": "Predicated",
               "target": "Target",
               "targetPredicates": [
                 {
-                  "$type": "PPCNNOLOBJB",
+                  "$type": "ByAttackTags",
                   "attackTags": [
                     "Elemental_Art"
                   ]
                 },
                 {
-                  "$type": "GAJFNLEHCIP",
+                  "$type": "ByTargetGlobalValue",
                   "key": "_ANIMAL_ENTITY_TYPE",
-                  "ratio": 0.0,
-                  "COJNFMPPGEF": "NoneOrEqual"
+                  "value": 0,
+                  "compareType": "NoneOrEqual"
                 },
                 {
-                  "$type": "AHEJBDFBPMH",
+                  "$type": "ByEntityTypes",
                   "entityTypes": [
                     "Monster"
                   ]
                 },
                 {
-                  "$type": "DEIAKOJABBD",
+                  "$type": "ByHitEnBreak",
                   "logic": "Equal",
-                  "MBHFEPDHFJL": 120.0
+                  "enBreak": 120
                 }
               ],
               "successActions": [
@@ -1169,8 +1089,8 @@
         "Eula_ElementalArt_Mark_Add": {
           "stacking": "Unique",
           "modifierName": "",
-          "duration": 0.30000001192092896,
-          "bonusCriticalHurt": 100.0,
+          "duration": 0.3,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "ApplyModifier",
@@ -1182,42 +1102,42 @@
           "stacking": "MultipleAllRefresh",
           "stackingOption": {
             "abilitySpecialName": "",
-            "maxModifierNumForMultipleType": 2.0
+            "maxModifierNumForMultipleType": 2
           },
           "modifierName": "",
           "isUnique": true,
-          "duration": 18.0,
-          "bonusCriticalHurt": 100.0,
+          "duration": 18,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "AddGlobalValue",
-              "RotationDampTime": true,
-              "ratio": 1.0,
+              "doOffStage": true,
+              "value": 1,
               "key": "_ABILITY_Eula_ElementalArt_Mark_Count",
               "useLimitRange": true,
               "maxValue": "Eula_ElementalArt_MaxCount",
-              "minValue": 0.0
+              "minValue": 0
             }
           ],
           "onRemoved": [
             {
               "$type": "AddGlobalValue",
-              "RotationDampTime": true,
-              "ratio": -2.0,
+              "doOffStage": true,
+              "value": -2,
               "key": "_ABILITY_Eula_ElementalArt_Mark_Count",
               "useLimitRange": true,
               "maxValue": "Eula_ElementalArt_MaxCount",
-              "minValue": 0.0
+              "minValue": 0
             }
           ]
         },
         "Blank": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0
+          "elementDurability": 100
         },
         "Eula_ElementalArt_Mark_1": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "properties": {
             "Actor_DefenceRatio": "Eula_ElementalArt_Mark_DefencekUp_1",
             "Actor_EndureDelta": 0.5
@@ -1225,26 +1145,24 @@
           "onAdded": [
             {
               "$type": "SetAnimatorTrigger",
-              "RotationDampTime": true,
+              "doOffStage": true,
               "canBeHandledOnRecover": true,
               "triggerID": "Mark_1",
               "MPTriggerOnRemote": true
             },
             {
               "$type": "FireEffect",
-              "healLimitedByCasterMaxHPRatio": "Eff_Avatar_Lady_Claymore_Eula_EelementalArt_Blast",
-              "IKGGKJEGMFO": -1.0
+              "effectPattern": "Eff_Avatar_Lady_Claymore_Eula_EelementalArt_Blast"
             },
             {
               "$type": "FireEffect",
-              "healLimitedByCasterMaxHPRatio": "Eff_Avatar_Lady_Claymore_Eula_CoolHeart_Head_1",
-              "IKGGKJEGMFO": -1.0
+              "effectPattern": "Eff_Avatar_Lady_Claymore_Eula_CoolHeart_Head_1"
             }
           ],
           "onRemoved": [
             {
               "$type": "SetAnimatorTrigger",
-              "RotationDampTime": true,
+              "doOffStage": true,
               "triggerID": "Mark_End_1",
               "MPTriggerOnRemote": true
             }
@@ -1253,11 +1171,11 @@
         },
         "Eula_ElementalArt_Mark_2": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "properties": {
             "Actor_DefenceRatio": [
               "Eula_ElementalArt_Mark_DefencekUp_2",
-              2.0,
+              2,
               "MUL"
             ],
             "Actor_EndureDelta": 0.5
@@ -1265,31 +1183,28 @@
           "onAdded": [
             {
               "$type": "SetAnimatorTrigger",
-              "RotationDampTime": true,
+              "doOffStage": true,
               "canBeHandledOnRecover": true,
               "triggerID": "Mark_2",
               "MPTriggerOnRemote": true
             },
             {
               "$type": "FireEffect",
-              "healLimitedByCasterMaxHPRatio": "Eff_Avatar_Lady_Claymore_Eula_EelementalArt_Blast_2",
-              "IKGGKJEGMFO": -1.0
+              "effectPattern": "Eff_Avatar_Lady_Claymore_Eula_EelementalArt_Blast_2"
             },
             {
               "$type": "FireEffect",
-              "healLimitedByCasterMaxHPRatio": "Eff_Avatar_Lady_Claymore_Eula_CoolHeart_Head_2",
-              "IKGGKJEGMFO": -1.0
+              "effectPattern": "Eff_Avatar_Lady_Claymore_Eula_CoolHeart_Head_2"
             },
             {
               "$type": "AttachEffect",
-              "healLimitedByCasterMaxHPRatio": "Eff_Avatar_Lady_Claymore_Eula_ElementalArt_SnowDust_2",
-              "IKGGKJEGMFO": -1.0
+              "effectPattern": "Eff_Avatar_Lady_Claymore_Eula_ElementalArt_SnowDust_2"
             }
           ],
           "onRemoved": [
             {
               "$type": "SetAnimatorTrigger",
-              "RotationDampTime": true,
+              "doOffStage": true,
               "triggerID": "Mark_End_2",
               "MPTriggerOnRemote": true
             }
@@ -1300,34 +1215,33 @@
               "target": "Target",
               "targetPredicates": [
                 {
-                  "$type": "PPCNNOLOBJB",
+                  "$type": "ByAttackTags",
                   "attackTags": [
                     "Elemental_Art"
                   ]
                 },
                 {
-                  "$type": "GAJFNLEHCIP",
+                  "$type": "ByTargetGlobalValue",
                   "key": "_ANIMAL_ENTITY_TYPE",
-                  "ratio": 0.0,
-                  "COJNFMPPGEF": "NoneOrEqual"
+                  "value": 0,
+                  "compareType": "NoneOrEqual"
                 },
                 {
-                  "$type": "AHEJBDFBPMH",
+                  "$type": "ByEntityTypes",
                   "entityTypes": [
                     "Monster"
                   ]
                 },
                 {
-                  "$type": "DEIAKOJABBD",
+                  "$type": "ByHitEnBreak",
                   "logic": "Equal",
-                  "MBHFEPDHFJL": 120.0
+                  "enBreak": 120
                 }
               ],
               "successActions": [
                 {
                   "$type": "FireEffect",
-                  "healLimitedByCasterMaxHPRatio": "Eff_Avatar_Lady_Claymore_Eula_CoolHeart_Head_2",
-                  "IKGGKJEGMFO": -1.0
+                  "effectPattern": "Eff_Avatar_Lady_Claymore_Eula_CoolHeart_Head_2"
                 }
               ]
             }
@@ -1336,7 +1250,7 @@
         },
         "Eula_ElementalArt_Mark_3": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "properties": {
             "Actor_DefenceRatio": "Eula_ElementalArt_Mark_DefencekUp_3"
           },
@@ -1344,7 +1258,7 @@
         },
         "Eula_ElementalArt_Mark_4": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "properties": {
             "Actor_DefenceRatio": "Eula_ElementalArt_Mark_DefencekUp_4"
           },
@@ -1352,11 +1266,11 @@
         },
         "SetRenderersEnable_Mdoifier": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "TriggerSetRenderersEnable",
-              "RotationDampTime": true,
+              "doOffStage": true,
               "canBeHandledOnRecover": true,
               "renderNames": [
                 "Body_CloakEffectMesh"
@@ -1369,11 +1283,11 @@
       "onAdded": [
         {
           "$type": "AddGlobalValue",
-          "ratio": 0.0,
+          "value": 0,
           "key": "_ABILITY_Eula_ElementalArt_Mark_Count",
           "useLimitRange": true,
-          "maxValue": 0.0,
-          "minValue": 0.0
+          "maxValue": 0,
+          "minValue": 0
         },
         {
           "$type": "ApplyModifier",
@@ -1393,13 +1307,13 @@
       "onKill": [
         {
           "$type": "SetAnimatorTrigger",
-          "RotationDampTime": true,
+          "doOffStage": true,
           "predicates": [
             {
-              "$type": "GAJFNLEHCIP",
+              "$type": "ByTargetGlobalValue",
               "key": "_ABILITY_Eula_ElementalArt_Mark_Count",
-              "ratio": 1.0,
-              "LAGKIHAPDPI": true
+              "value": 1,
+              "forceByCaster": true
             }
           ],
           "triggerID": "Mark_End_1",
@@ -1407,13 +1321,13 @@
         },
         {
           "$type": "SetAnimatorTrigger",
-          "RotationDampTime": true,
+          "doOffStage": true,
           "predicates": [
             {
-              "$type": "GAJFNLEHCIP",
+              "$type": "ByTargetGlobalValue",
               "key": "_ABILITY_Eula_ElementalArt_Mark_Count",
-              "ratio": 2.0,
-              "LAGKIHAPDPI": true
+              "value": 2,
+              "forceByCaster": true
             }
           ],
           "triggerID": "Mark_End_2",
@@ -1425,10 +1339,10 @@
           "$type": "SetAnimatorTrigger",
           "predicates": [
             {
-              "$type": "GAJFNLEHCIP",
+              "$type": "ByTargetGlobalValue",
               "key": "_ABILITY_Eula_ElementalArt_Mark_Count",
-              "ratio": 1.0,
-              "LAGKIHAPDPI": true
+              "value": 1,
+              "forceByCaster": true
             }
           ],
           "triggerID": "Mark_1",
@@ -1438,23 +1352,22 @@
           "$type": "FireEffect",
           "predicates": [
             {
-              "$type": "GAJFNLEHCIP",
+              "$type": "ByTargetGlobalValue",
               "key": "_ABILITY_Eula_ElementalArt_Mark_Count",
-              "ratio": 1.0,
-              "LAGKIHAPDPI": true
+              "value": 1,
+              "forceByCaster": true
             }
           ],
-          "healLimitedByCasterMaxHPRatio": "Eff_Avatar_Lady_Claymore_Eula_CoolHeart_Head_1",
-          "IKGGKJEGMFO": -1.0
+          "effectPattern": "Eff_Avatar_Lady_Claymore_Eula_CoolHeart_Head_1"
         },
         {
           "$type": "SetAnimatorTrigger",
           "predicates": [
             {
-              "$type": "GAJFNLEHCIP",
+              "$type": "ByTargetGlobalValue",
               "key": "_ABILITY_Eula_ElementalArt_Mark_Count",
-              "ratio": 2.0,
-              "LAGKIHAPDPI": true
+              "value": 2,
+              "forceByCaster": true
             }
           ],
           "triggerID": "Mark_2",
@@ -1464,14 +1377,13 @@
           "$type": "FireEffect",
           "predicates": [
             {
-              "$type": "GAJFNLEHCIP",
+              "$type": "ByTargetGlobalValue",
               "key": "_ABILITY_Eula_ElementalArt_Mark_Count",
-              "ratio": 2.0,
-              "LAGKIHAPDPI": true
+              "value": 2,
+              "forceByCaster": true
             }
           ],
-          "healLimitedByCasterMaxHPRatio": "Eff_Avatar_Lady_Claymore_Eula_CoolHeart_Head_2",
-          "IKGGKJEGMFO": -1.0
+          "effectPattern": "Eff_Avatar_Lady_Claymore_Eula_CoolHeart_Head_2"
         }
       ]
     }
@@ -1481,39 +1393,39 @@
       "$type": "ConfigAbility",
       "abilityName": "Avatar_Eula_ElementalArt_Click",
       "abilitySpecials": {
-        "ElementalArt_Click_Damage": 0.0
+        "ElementalArt_Click_Damage": 0
       },
       "modifiers": {
         "Eula_ElementalArt_Click_GenerateElemBall_Handler": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAttackLanded": [
             {
               "$type": "Predicated",
               "target": "Target",
               "targetPredicates": [
                 {
-                  "$type": "PPCNNOLOBJB",
+                  "$type": "ByAttackTags",
                   "attackTags": [
                     "Elemental_Art"
                   ]
                 },
                 {
-                  "$type": "AHEJBDFBPMH",
+                  "$type": "ByEntityTypes",
                   "entityTypes": [
                     "Monster"
                   ]
                 },
                 {
-                  "$type": "GAJFNLEHCIP",
+                  "$type": "ByTargetGlobalValue",
                   "key": "_ANIMAL_ENTITY_TYPE",
-                  "ratio": 0.0,
-                  "COJNFMPPGEF": "NoneOrEqual"
+                  "value": 0,
+                  "compareType": "NoneOrEqual"
                 },
                 {
-                  "$type": "DEIAKOJABBD",
+                  "$type": "ByHitEnBreak",
                   "logic": "Equal",
-                  "MBHFEPDHFJL": 120.0
+                  "enBreak": 120
                 }
               ],
               "successActions": [
@@ -1529,8 +1441,8 @@
         "Eula_ElementalArt_Click_DropBall": {
           "stacking": "Unique",
           "modifierName": "",
-          "duration": 0.30000001192092896,
-          "bonusCriticalHurt": 100.0,
+          "duration": 0.3,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "Randomed",
@@ -1540,15 +1452,13 @@
                   "$type": "GenerateElemBall",
                   "configID": 2022,
                   "born": {
-                    "$type": "OPOAHPBLGFG",
+                    "$type": "ConfigBornByTarget",
                     "offset": {
-                      "JLPLBJEDLIJ": 0.0,
-                      "JAEOEBKKIHF": 0.0,
-                      "GHNJCMBDCCH": 1.0
+                      "z": 1
                     }
                   },
-                  "value": 2.0,
-                  "baseEnergy": 3.0
+                  "ratio": 2,
+                  "baseEnergy": 3
                 }
               ],
               "failActions": [
@@ -1556,15 +1466,13 @@
                   "$type": "GenerateElemBall",
                   "configID": 2022,
                   "born": {
-                    "$type": "OPOAHPBLGFG",
+                    "$type": "ConfigBornByTarget",
                     "offset": {
-                      "JLPLBJEDLIJ": 0.0,
-                      "JAEOEBKKIHF": 0.0,
-                      "GHNJCMBDCCH": 1.0
+                      "z": 1
                     }
                   },
-                  "value": 1.0,
-                  "baseEnergy": 3.0
+                  "ratio": 1,
+                  "baseEnergy": 3
                 }
               ]
             }
@@ -1581,51 +1489,49 @@
         {
           "$type": "AvatarSkillStart",
           "skillID": 10512,
-          "cdDelta": 1.0,
-          "costStaminaDelta": 1.0
+          "cdRatio": 1,
+          "costStaminaRatio": 1
         },
         {
           "$type": "TriggerAttackEvent",
           "attackEvent": {
             "attackPattern": {
-              "$type": "FJDNOOLGCFK",
+              "$type": "ConfigAttackCircle",
               "triggerType": "TriggerNoRepeat",
               "born": {
-                "$type": "OCBPONGOAGA",
+                "$type": "ConfigBornBySelf",
                 "offset": {
-                  "JLPLBJEDLIJ": 0.0,
-                  "JAEOEBKKIHF": 0.0,
-                  "GHNJCMBDCCH": 1.0
+                  "z": 1
                 }
               },
-              "height": 1.7999999523162842,
-              "EFKOBJIIIFC": 3.5
+              "height": 1.8,
+              "radius": 3.5
             },
             "attackInfo": {
               "attackTag": "Elemental_Art",
               "attenuationTag": "",
               "attenuationGroup": "default",
               "attackProperty": {
-                "BKJNKFMJHPH": "ElementalArt_Click_Damage",
-                "KCNHHOEGDKO": 0.0,
+                "damagePercentage": "ElementalArt_Click_Damage",
+                "damagePercentageRatio": 0,
                 "elementType": "Ice",
                 "elementRank": 1.5,
-                "bonusCriticalHurt": 25.0,
+                "elementDurability": 25,
                 "strikeType": "Blunt",
-                "enBreak": 120.0,
+                "enBreak": 120,
                 "attackType": "Melee"
               },
               "hitPattern": {
                 "onHitEffectName": "default",
                 "hitImpulseType": "LV3",
-                "hitHaltTime": 0.09000000357627869,
-                "hitHaltTimeScale": 0.009999999776482582,
+                "hitHaltTime": 0.09,
+                "hitHaltTimeScale": 0.01,
                 "canBeDefenceHalt": true
               },
               "cameraShake": {
-                "shakeRange": 0.36000001430511475,
-                "shakeTime": 0.11999999731779099,
-                "shakeDistance": 30.0
+                "shakeRange": 0.36,
+                "shakeTime": 0.12,
+                "shakeDistance": 30
               }
             }
           },
@@ -1639,40 +1545,40 @@
       "$type": "ConfigAbility",
       "abilityName": "Avatar_Eula_ElementalArt_Burst",
       "abilitySpecials": {
-        "ElementalArt_Burst_Damage": 0.0,
+        "ElementalArt_Burst_Damage": 0,
         "SkillStart_Ratio": 2.5
       },
       "modifiers": {
         "Eula_ElementalArt_Burst_GenerateElemBall_Handler": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAttackLanded": [
             {
               "$type": "Predicated",
               "target": "Target",
               "targetPredicates": [
                 {
-                  "$type": "PPCNNOLOBJB",
+                  "$type": "ByAttackTags",
                   "attackTags": [
                     "Elemental_Art"
                   ]
                 },
                 {
-                  "$type": "AHEJBDFBPMH",
+                  "$type": "ByEntityTypes",
                   "entityTypes": [
                     "Monster"
                   ]
                 },
                 {
-                  "$type": "GAJFNLEHCIP",
+                  "$type": "ByTargetGlobalValue",
                   "key": "_ANIMAL_ENTITY_TYPE",
-                  "ratio": 0.0,
-                  "COJNFMPPGEF": "NoneOrEqual"
+                  "value": 0,
+                  "compareType": "NoneOrEqual"
                 },
                 {
-                  "$type": "DEIAKOJABBD",
+                  "$type": "ByHitEnBreak",
                   "logic": "Equal",
-                  "MBHFEPDHFJL": 150.0
+                  "enBreak": 150
                 }
               ],
               "successActions": [
@@ -1689,7 +1595,7 @@
           "stacking": "Unique",
           "modifierName": "",
           "duration": 0.5,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "Randomed",
@@ -1699,15 +1605,13 @@
                   "$type": "GenerateElemBall",
                   "configID": 2022,
                   "born": {
-                    "$type": "OPOAHPBLGFG",
+                    "$type": "ConfigBornByTarget",
                     "offset": {
-                      "JLPLBJEDLIJ": 0.0,
-                      "JAEOEBKKIHF": 0.0,
-                      "GHNJCMBDCCH": 1.0
+                      "z": 1
                     }
                   },
-                  "value": 3.0,
-                  "baseEnergy": 3.0
+                  "ratio": 3,
+                  "baseEnergy": 3
                 }
               ],
               "failActions": [
@@ -1715,15 +1619,13 @@
                   "$type": "GenerateElemBall",
                   "configID": 2022,
                   "born": {
-                    "$type": "OPOAHPBLGFG",
+                    "$type": "ConfigBornByTarget",
                     "offset": {
-                      "JLPLBJEDLIJ": 0.0,
-                      "JAEOEBKKIHF": 0.0,
-                      "GHNJCMBDCCH": 1.0
+                      "z": 1
                     }
                   },
-                  "value": 2.0,
-                  "baseEnergy": 3.0
+                  "ratio": 2,
+                  "baseEnergy": 3
                 }
               ]
             }
@@ -1740,51 +1642,49 @@
         {
           "$type": "AvatarSkillStart",
           "skillID": 10512,
-          "cdDelta": "SkillStart_Ratio",
-          "costStaminaDelta": 1.0
+          "cdRatio": "SkillStart_Ratio",
+          "costStaminaRatio": 1
         },
         {
           "$type": "TriggerAttackEvent",
           "attackEvent": {
             "attackPattern": {
-              "$type": "FJDNOOLGCFK",
+              "$type": "ConfigAttackCircle",
               "triggerType": "TriggerNoRepeat",
               "born": {
-                "$type": "OCBPONGOAGA",
+                "$type": "ConfigBornBySelf",
                 "offset": {
-                  "JLPLBJEDLIJ": 0.0,
-                  "JAEOEBKKIHF": 0.0,
-                  "GHNJCMBDCCH": 1.0
+                  "z": 1
                 }
               },
-              "height": 1.7999999523162842,
-              "EFKOBJIIIFC": 5.5
+              "height": 1.8,
+              "radius": 5.5
             },
             "attackInfo": {
               "attackTag": "Elemental_Art",
               "attenuationTag": "",
               "attenuationGroup": "default",
               "attackProperty": {
-                "BKJNKFMJHPH": "ElementalArt_Burst_Damage",
-                "KCNHHOEGDKO": 0.0,
+                "damagePercentage": "ElementalArt_Burst_Damage",
+                "damagePercentageRatio": 0,
                 "elementType": "Ice",
                 "elementRank": 1.5,
-                "bonusCriticalHurt": 25.0,
+                "elementDurability": 25,
                 "strikeType": "Blunt",
-                "enBreak": 150.0,
+                "enBreak": 150,
                 "attackType": "Melee"
               },
               "hitPattern": {
                 "onHitEffectName": "default",
                 "hitImpulseType": "LV5",
-                "hitHaltTime": 0.11999999731779099,
-                "hitHaltTimeScale": 0.009999999776482582,
+                "hitHaltTime": 0.12,
+                "hitHaltTimeScale": 0.01,
                 "canBeDefenceHalt": true
               },
               "cameraShake": {
-                "shakeRange": 0.36000001430511475,
-                "shakeTime": 0.11999999731779099,
-                "shakeDistance": 30.0
+                "shakeRange": 0.36,
+                "shakeTime": 0.12,
+                "shakeDistance": 30
               }
             }
           },
@@ -1853,51 +1753,51 @@
         {
           "$type": "ModifyDamageMixin",
           "ignoreEventInfo": true,
-          "KCNHHOEGDKO": "Eula_Constellation_4_DamagePercentage",
+          "damagePercentageRatio": "Eula_Constellation_4_DamagePercentage",
           "predicates": [
             {
-              "$type": "HMFCODMNDOL",
+              "$type": "ByTargetHPRatio",
               "logic": "LesserOrEqual",
-              "OOIBKLOBEMF": "HPRatio"
+              "HPRatio": "HPRatio"
             },
             {
-              "$type": "MIDNFAMMOOF",
+              "$type": "ByAttackType",
               "attackType": "Range"
             },
             {
-              "$type": "PPCNNOLOBJB",
+              "$type": "ByAttackTags",
               "attackTags": [
                 "Elemental_Burst"
               ]
             },
             {
-              "$type": "LHPALKFCLPD",
-              "MDPBMMIACJI": "Eula_Constellation_4"
+              "$type": "ByUnlockTalentParam",
+              "talentParam": "Eula_Constellation_4"
             }
           ]
         }
       ],
       "abilitySpecials": {
-        "DamoclesSword_Max_Damage_Ratio": 0.0,
-        "Chance": 0.0,
-        "Eula_Constellation_4_DamagePercentage": 0.0,
+        "DamoclesSword_Max_Damage_Ratio": 0,
+        "Chance": 0,
+        "Eula_Constellation_4_DamagePercentage": 0,
         "HPRatio": 0.5
       },
       "modifiers": {
         "Eula_ElementalBurst_Judgment_Handler": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAttackLanded": [
             {
               "$type": "Predicated",
               "target": "Target",
               "targetPredicates": [
                 {
-                  "$type": "HPEGPGABBEN",
-                  "FGEJEAJGPJL": 0.0
+                  "$type": "ByHitDamage",
+                  "damage": 0
                 },
                 {
-                  "$type": "PPCNNOLOBJB",
+                  "$type": "ByAttackTags",
                   "attackTags": [
                     "NormalAttack_01",
                     "NormalAttack_02",
@@ -1909,24 +1809,24 @@
                   ]
                 },
                 {
-                  "$type": "AHEJBDFBPMH",
+                  "$type": "ByEntityTypes",
                   "entityTypes": [
                     "Monster"
                   ]
                 },
                 {
-                  "$type": "GAJFNLEHCIP",
+                  "$type": "ByTargetGlobalValue",
                   "key": "_ANIMAL_ENTITY_TYPE",
-                  "ratio": 0.0,
-                  "COJNFMPPGEF": "NoneOrEqual"
+                  "value": 0,
+                  "compareType": "NoneOrEqual"
                 },
                 {
-                  "$type": "KKEFAMFCBOK",
+                  "$type": "ByNot",
                   "predicates": [
                     {
-                      "$type": "DEIAKOJABBD",
+                      "$type": "ByHitEnBreak",
                       "logic": "Equal",
-                      "MBHFEPDHFJL": 0.0
+                      "enBreak": 0
                     }
                   ]
                 }
@@ -1935,7 +1835,7 @@
                 {
                   "$type": "ApplyModifier",
                   "otherTargets": {
-                    "$type": "CPNEIGOMFEB",
+                    "$type": "SelectTargetsByChildren",
                     "configID": 41051002
                   },
                   "modifierName": "Eula_ElementalBurst_AddGlobalValueToGadget"
@@ -1946,34 +1846,34 @@
         },
         "Eula_ElementalBurst_AddGlobalValueToGadget": {
           "modifierName": "",
-          "duration": 0.10000000149011612,
-          "bonusCriticalHurt": 100.0,
+          "duration": 0.1,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "AddGlobalValue",
-              "ratio": 1.0,
+              "value": 1,
               "key": "_ABILITY_DAMOCLESSWORD_DAMAGE_RATIO",
               "useLimitRange": true,
               "maxValue": "DamoclesSword_Max_Damage_Ratio",
-              "minValue": 0.0
+              "minValue": 0
             },
             {
               "$type": "Randomed",
               "predicates": [
                 {
-                  "$type": "LHPALKFCLPD",
-                  "MDPBMMIACJI": "Eula_Constellation_6_1"
+                  "$type": "ByUnlockTalentParam",
+                  "talentParam": "Eula_Constellation_6_1"
                 }
               ],
               "chance": "Chance",
               "successActions": [
                 {
                   "$type": "AddGlobalValue",
-                  "ratio": 1.0,
+                  "value": 1,
                   "key": "_ABILITY_DAMOCLESSWORD_DAMAGE_RATIO",
                   "useLimitRange": true,
                   "maxValue": "DamoclesSword_Max_Damage_Ratio",
-                  "minValue": 0.0
+                  "minValue": 0
                 }
               ]
             }
@@ -1981,52 +1881,49 @@
         },
         "Camera": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "AvatarEnterCameraShot",
               "predicates": [
                 {
-                  "$type": "EPABEKOECBA",
+                  "$type": "ByAttackNotHitScene",
                   "attackPattern": {
-                    "$type": "FJDNOOLGCFK",
+                    "$type": "ConfigAttackCircle",
                     "triggerType": "TriggerNoRepeat",
                     "born": {
-                      "$type": "OCBPONGOAGA",
+                      "$type": "ConfigBornBySelf",
                       "offset": {
-                        "JLPLBJEDLIJ": 0.0,
-                        "JAEOEBKKIHF": 1.0,
-                        "GHNJCMBDCCH": 0.0
+                        "y": 1
                       }
                     },
-                    "height": 0.20000000298023224,
-                    "EFKOBJIIIFC": 1.399999976158142
+                    "height": 0.2,
+                    "radius": 1.4
                   }
                 },
                 {
-                  "$type": "EPABEKOECBA",
+                  "$type": "ByAttackNotHitScene",
                   "attackPattern": {
-                    "$type": "CCFPHKOOMAK",
+                    "$type": "ConfigAttackBox",
                     "triggerType": "TriggerNoRepeat",
                     "born": {
-                      "$type": "OCBPONGOAGA",
+                      "$type": "ConfigBornBySelf",
                       "offset": {
-                        "JLPLBJEDLIJ": 0.0,
-                        "JAEOEBKKIHF": 1.0,
-                        "GHNJCMBDCCH": -4.0
+                        "y": 1,
+                        "z": -4
                       }
                     },
                     "size": {
-                      "JLPLBJEDLIJ": 2.0,
-                      "JAEOEBKKIHF": 2.0,
-                      "GHNJCMBDCCH": 8.0
+                      "x": 2,
+                      "y": 2,
+                      "z": 8
                     }
                   }
                 },
                 {
-                  "$type": "FMGPIOPJDIK",
-                  "COJNFMPPGEF": "LessAndEqual",
-                  "KHIPFDOOMIB": 0.5
+                  "$type": "ByAvatarInWaterDepth",
+                  "compareType": "LessAndEqual",
+                  "depth": 0.5
                 }
               ],
               "cameraMoveCfgPath": "Camera_Eula_ElementalBurst"
@@ -2047,13 +1944,13 @@
             },
             {
               "$type": "AvatarExitCameraShot",
-              "RotationDampTime": true
+              "doOffStage": true
             },
             {
               "$type": "AvatarCameraParam",
               "cameraParam": {
-                "forceRadius": 6.0,
-                "forceRadiusDuration": 0.0,
+                "forceRadius": 6,
+                "forceRadiusDuration": 0,
                 "shouldKeepForceRadius": true
               }
             }
@@ -2061,7 +1958,7 @@
         },
         "Emotion_Controller": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "ControlEmotion",
@@ -2077,29 +1974,28 @@
           "onRemoved": [
             {
               "$type": "ControlEmotion",
-              "RotationDampTime": true
+              "doOffStage": true
             },
             {
               "$type": "EnableHeadControl",
-              "RotationDampTime": true,
+              "doOffStage": true,
               "enable": true
             }
           ]
         },
         "Eula_ElementalBurst_Weapon_Fx": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "FireEffect",
-              "healLimitedByCasterMaxHPRatio": "Eff_Avatar_Lady_Claymore_Eula_EelementalBurst_Camera_DamoclesSword",
-              "IKGGKJEGMFO": -1.0
+              "effectPattern": "Eff_Avatar_Lady_Claymore_Eula_EelementalBurst_Camera_DamoclesSword"
             }
           ]
         },
         "Elemental_Burst_Invincible": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "state": "Invincible",
           "onAdded": [
             {
@@ -2110,27 +2006,26 @@
         },
         "WeatherControl": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "TriggerWeatherMixin",
               "type": "Skill",
               "weatherPattern": "Weather_Eula_ElementalBurst",
-              "transDuration": 0.699999988079071,
-              "duration": 2.0
+              "transDuration": 0.7,
+              "duration": 2
             }
           ],
           "onAdded": [
             {
               "$type": "FireEffect",
-              "healLimitedByCasterMaxHPRatio": "Eff_Avatar_Lady_Claymore_Eula_EelementalBurst_Cast",
-              "IKGGKJEGMFO": -1.0
+              "effectPattern": "Eff_Avatar_Lady_Claymore_Eula_EelementalBurst_Cast"
             }
           ]
         },
         "HideWeapon": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "TriggerHideWeapon",
@@ -2144,7 +2039,7 @@
           "onRemoved": [
             {
               "$type": "TriggerHideWeapon",
-              "RotationDampTime": true,
+              "doOffStage": true,
               "visible": true,
               "partNames": [
                 "equip01",
@@ -2156,42 +2051,37 @@
         },
         "Eula_ElementalBurst_Push": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "TriggerAttackEvent",
               "attackEvent": {
                 "attackPattern": {
-                  "$type": "FJDNOOLGCFK",
+                  "$type": "ConfigAttackCircle",
                   "triggerType": "TriggerNoRepeat",
-                  "MJJCGNFGCIH": true,
+                  "ignoreMassive": true,
                   "born": {
-                    "$type": "OCBPONGOAGA",
-                    "offset": {
-                      "JLPLBJEDLIJ": 0.0,
-                      "JAEOEBKKIHF": 0.0,
-                      "GHNJCMBDCCH": 0.0
-                    }
+                    "$type": "ConfigBornBySelf"
                   },
-                  "EFKOBJIIIFC": 4.0
+                  "radius": 4
                 },
                 "attackInfo": {
                   "attackTag": "",
                   "attenuationTag": "",
                   "attenuationGroup": "default",
                   "attackProperty": {
-                    "BKJNKFMJHPH": 0.0,
-                    "KCNHHOEGDKO": 0.0,
-                    "bonusCriticalHurt": 100.0,
+                    "damagePercentage": 0,
+                    "damagePercentageRatio": 0,
+                    "elementDurability": 100,
                     "strikeType": "Blunt",
-                    "enBreak": 400.0,
+                    "enBreak": 400,
                     "attackType": "Melee"
                   },
                   "hitPattern": {
                     "onHitEffectName": "",
                     "hitImpulseType": "LV3",
                     "retreatType": "ByHitDirection",
-                    "hitHaltTimeScale": 0.009999999776482582
+                    "hitHaltTimeScale": 0.01
                   }
                 }
               },
@@ -2207,24 +2097,19 @@
         },
         {
           "$type": "AddGlobalValue",
-          "RotationDampTime": true,
-          "ratio": 1.0,
+          "doOffStage": true,
+          "value": 1,
           "key": "_Is_Eula",
           "useLimitRange": true,
-          "maxValue": 1.0,
-          "minValue": 0.0
+          "maxValue": 1,
+          "minValue": 0
         }
       ],
       "onAbilityStart": [
         {
           "$type": "CreateGadget",
           "born": {
-            "$type": "OPOAHPBLGFG",
-            "offset": {
-              "JLPLBJEDLIJ": 0.0,
-              "JAEOEBKKIHF": 0.0,
-              "GHNJCMBDCCH": 0.0
-            }
+            "$type": "ConfigBornByTarget"
           },
           "gadgetID": 41051002,
           "campID": 1001,
@@ -2234,19 +2119,19 @@
           "$type": "ModifyAvatarSkillCD",
           "predicates": [
             {
-              "$type": "LHPALKFCLPD",
-              "MDPBMMIACJI": "Eula_PermanentSkill_2"
+              "$type": "ByUnlockTalentParam",
+              "talentParam": "Eula_PermanentSkill_2"
             }
           ],
           "skillID": 10512,
-          "cdDelta": -1.0
+          "cdRatio": -1
         },
         {
           "$type": "TriggerAbility",
           "predicates": [
             {
-              "$type": "LHPALKFCLPD",
-              "MDPBMMIACJI": "Eula_PermanentSkill_2"
+              "$type": "ByUnlockTalentParam",
+              "talentParam": "Eula_PermanentSkill_2"
             }
           ],
           "abilityName": "Avatar_Eula_ElementalArt_SetMark"
@@ -2260,14 +2145,14 @@
           }
         }
       ],
-      "BDCNMFKCMMB": [
+      "onAvatarOut": [
         {
           "$type": "RemoveUniqueModifier",
           "otherTargets": {
-            "$type": "CPNEIGOMFEB",
+            "$type": "SelectTargetsByChildren",
             "configID": 41051002
           },
-          "RotationDampTime": true,
+          "doOffStage": true,
           "modifierName": "UNIQUE_DamoclesSword_Timer"
         }
       ]
@@ -2281,12 +2166,12 @@
         "CameraEffect": {
           "modifierName": "",
           "duration": 1.5,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "TriggerPostProcessEffectMixin",
               "postEffectAssetName": "PostEffect_Avatar_Eula_ElementalBurst_ScreenEffect",
-              "duration": 3.0
+              "duration": 3
             }
           ]
         }
@@ -2310,54 +2195,49 @@
       "$type": "ConfigAbility",
       "abilityName": "Avatar_Eula_ElementalBurst_Attack",
       "abilitySpecials": {
-        "Elemental_Burst_Damage": 0.0,
-        "Eula_ElementalArt_MaxCount": 2.0
+        "Elemental_Burst_Damage": 0,
+        "Eula_ElementalArt_MaxCount": 2
       },
       "onAbilityStart": [
         {
           "$type": "ActCameraRadialBlur",
           "cameraRadialBlur": {
             "power": 1.5,
-            "blurTime": 0.6000000238418579,
-            "fadeTime": 0.10000000149011612
+            "blurTime": 0.6,
+            "fadeTime": 0.1
           }
         },
         {
           "$type": "AvatarSkillStart",
           "skillID": 10515,
-          "cdDelta": 1.0,
-          "costStaminaDelta": 1.0
+          "cdRatio": 1,
+          "costStaminaRatio": 1
         },
         {
           "$type": "TriggerAttackEvent",
           "attackEvent": {
             "attackPattern": {
-              "$type": "FJDNOOLGCFK",
+              "$type": "ConfigAttackCircle",
               "triggerType": "TriggerNoRepeat",
-              "HGLDAKONGHC": 0.5,
+              "massiveAttackRatio": 0.5,
               "born": {
-                "$type": "OCBPONGOAGA",
-                "offset": {
-                  "JLPLBJEDLIJ": 0.0,
-                  "JAEOEBKKIHF": 0.0,
-                  "GHNJCMBDCCH": 0.0
-                }
+                "$type": "ConfigBornBySelf"
               },
-              "height": 3.0,
-              "EFKOBJIIIFC": 8.0
+              "height": 3,
+              "radius": 8
             },
             "attackInfo": {
               "attackTag": "Elemental_Burst",
               "attenuationTag": "",
               "attenuationGroup": "default",
               "attackProperty": {
-                "BKJNKFMJHPH": "Elemental_Burst_Damage",
-                "KCNHHOEGDKO": 0.0,
+                "damagePercentage": "Elemental_Burst_Damage",
+                "damagePercentageRatio": 0,
                 "elementType": "Ice",
                 "elementRank": 1.5,
-                "bonusCriticalHurt": 50.0,
+                "elementDurability": 50,
                 "strikeType": "Blunt",
-                "enBreak": 0.0,
+                "enBreak": 0,
                 "attackType": "Melee"
               },
               "hitPattern": {
@@ -2365,19 +2245,19 @@
                 "hitImpulseType": "LV6",
                 "overrideHitImpulse": {
                   "hitLevel": "Air",
-                  "IDBIEBFJKNL": 0.0,
-                  "hitImpulseY": 800.0
+                  "hitImpulseX": 0,
+                  "hitImpulseY": 800
                 },
-                "hitHaltTimeScale": 0.019999999552965164
+                "hitHaltTimeScale": 0.02
               },
               "forceCameraShake": true,
               "cameraShake": {
                 "shakeType": "CustomVector",
-                "shakeRange": 0.36000001430511475,
-                "shakeTime": 0.11999999731779099,
-                "shakeDistance": 30.0,
+                "shakeRange": 0.36,
+                "shakeTime": 0.12,
+                "shakeDistance": 30,
                 "shakeDir": {
-                  "x": -1.0
+                  "x": -1
                 }
               }
             }
@@ -2386,8 +2266,7 @@
         },
         {
           "$type": "FireEffect",
-          "healLimitedByCasterMaxHPRatio": "Eff_Avatar_Lady_Claymore_Eula_EelementalBurst_Impact",
-          "IKGGKJEGMFO": -1.0
+          "effectPattern": "Eff_Avatar_Lady_Claymore_Eula_EelementalBurst_Impact"
         }
       ]
     }
@@ -2400,9 +2279,9 @@
         {
           "$type": "AttachModifierToSelfGlobalValueMixin",
           "globalValueKey": "_ABILITY_DAMOCLESSWORD_DAMAGE_RATIO",
-          "defaultGlobalValueOnCreate": 0.0,
+          "defaultGlobalValueOnCreate": 0,
           "valueSteps": [
-            -1.0,
+            -1,
             3.5,
             7.5,
             10.5,
@@ -2422,32 +2301,32 @@
               {
                 "$type": "SendEffectTrigger",
                 "parameter": "Level_2",
-                "MGDFBMEDEHH": "",
-                "healLimitedByCasterMaxHPRatio": "Eff_Avatar_Lady_Claymore_Eula_EelementalBurst_DamoclesSword"
+                "attachPoint": "",
+                "effectPattern": "Eff_Avatar_Lady_Claymore_Eula_EelementalBurst_DamoclesSword"
               }
             ],
             [
               {
                 "$type": "SendEffectTrigger",
                 "parameter": "Level_3",
-                "MGDFBMEDEHH": "",
-                "healLimitedByCasterMaxHPRatio": "Eff_Avatar_Lady_Claymore_Eula_EelementalBurst_DamoclesSword"
+                "attachPoint": "",
+                "effectPattern": "Eff_Avatar_Lady_Claymore_Eula_EelementalBurst_DamoclesSword"
               }
             ],
             [
               {
                 "$type": "SendEffectTrigger",
                 "parameter": "Level_4",
-                "MGDFBMEDEHH": "",
-                "healLimitedByCasterMaxHPRatio": "Eff_Avatar_Lady_Claymore_Eula_EelementalBurst_DamoclesSword"
+                "attachPoint": "",
+                "effectPattern": "Eff_Avatar_Lady_Claymore_Eula_EelementalBurst_DamoclesSword"
               }
             ],
             [
               {
                 "$type": "SendEffectTrigger",
                 "parameter": "Level_5",
-                "MGDFBMEDEHH": "",
-                "healLimitedByCasterMaxHPRatio": "Eff_Avatar_Lady_Claymore_Eula_EelementalBurst_DamoclesSword"
+                "attachPoint": "",
+                "effectPattern": "Eff_Avatar_Lady_Claymore_Eula_EelementalBurst_DamoclesSword"
               }
             ]
           ],
@@ -2455,39 +2334,37 @@
         }
       ],
       "abilitySpecials": {
-        "Elemental_Burst_Judgment_BaseDamage": 0.0,
-        "Elemental_Burst_Judgment_Ratio": 0.0,
-        "Elemental_Burst_Judgment_Damage_Factor": 0.0,
-        "Eula_Constellation_6_DamoclesSword_Ratio": 0.0,
-        "ComboCount": 0.0,
-        "DamoclesSword_Max_Damage_Ratio": 0.0
+        "Elemental_Burst_Judgment_BaseDamage": 0,
+        "Elemental_Burst_Judgment_Ratio": 0,
+        "Elemental_Burst_Judgment_Damage_Factor": 0,
+        "Eula_Constellation_6_DamoclesSword_Ratio": 0,
+        "ComboCount": 0,
+        "DamoclesSword_Max_Damage_Ratio": 0
       },
       "modifiers": {
         "DamoclesSword_Fx": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "AttachEffect",
-              "healLimitedByCasterMaxHPRatio": "Eff_Avatar_Lady_Claymore_Eula_EelementalBurst_DamoclesSword",
-              "IKGGKJEGMFO": -1.0
+              "effectPattern": "Eff_Avatar_Lady_Claymore_Eula_EelementalBurst_DamoclesSword"
             },
             {
               "$type": "AttachEffect",
-              "healLimitedByCasterMaxHPRatio": "Eff_Avatar_Lady_Claymore_Eula_EelementalBurst_DamoclesSword_Explode",
-              "IKGGKJEGMFO": -1.0
+              "effectPattern": "Eff_Avatar_Lady_Claymore_Eula_EelementalBurst_DamoclesSword_Explode"
             }
           ]
         },
         "Blank": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0
+          "elementDurability": 100
         },
         "UNIQUE_DamoclesSword_Timer": {
           "modifierName": "",
           "isUnique": true,
           "duration": 7.5,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onRemoved": [
             {
               "$type": "SetGlobalValueToOverrideMap",
@@ -2502,122 +2379,117 @@
               "$type": "SendEffectTrigger",
               "predicates": [
                 {
-                  "$type": "GAJFNLEHCIP",
+                  "$type": "ByTargetGlobalValue",
                   "target": "Self",
                   "key": "_ABILITY_DAMOCLESSWORD_DAMAGE_RATIO",
-                  "ratio": 6.0,
-                  "COJNFMPPGEF": "LessAndEqual"
+                  "value": 6,
+                  "compareType": "LessAndEqual"
                 }
               ],
               "parameter": "Attack01",
-              "MGDFBMEDEHH": "",
-              "healLimitedByCasterMaxHPRatio": "Eff_Avatar_Lady_Claymore_Eula_EelementalBurst_DamoclesSword"
+              "attachPoint": "",
+              "effectPattern": "Eff_Avatar_Lady_Claymore_Eula_EelementalBurst_DamoclesSword"
             },
             {
               "$type": "SendEffectTrigger",
               "predicates": [
                 {
-                  "$type": "GAJFNLEHCIP",
+                  "$type": "ByTargetGlobalValue",
                   "target": "Self",
                   "key": "_ABILITY_DAMOCLESSWORD_DAMAGE_RATIO",
-                  "ratio": 6.0,
-                  "COJNFMPPGEF": "LessAndEqual"
+                  "value": 6,
+                  "compareType": "LessAndEqual"
                 }
               ],
               "parameter": "Attack01",
-              "MGDFBMEDEHH": "",
-              "healLimitedByCasterMaxHPRatio": "Eff_Avatar_Lady_Claymore_Eula_EelementalBurst_DamoclesSword_Explode"
+              "attachPoint": "",
+              "effectPattern": "Eff_Avatar_Lady_Claymore_Eula_EelementalBurst_DamoclesSword_Explode"
             },
             {
               "$type": "SendEffectTrigger",
               "predicates": [
                 {
-                  "$type": "GAJFNLEHCIP",
+                  "$type": "ByTargetGlobalValue",
                   "target": "Self",
                   "key": "_ABILITY_DAMOCLESSWORD_DAMAGE_RATIO",
-                  "ratio": 7.0,
-                  "COJNFMPPGEF": "MoreThanAndEqual"
+                  "value": 7,
+                  "compareType": "MoreThanAndEqual"
                 }
               ],
               "parameter": "Attack02",
-              "MGDFBMEDEHH": "",
-              "healLimitedByCasterMaxHPRatio": "Eff_Avatar_Lady_Claymore_Eula_EelementalBurst_DamoclesSword"
+              "attachPoint": "",
+              "effectPattern": "Eff_Avatar_Lady_Claymore_Eula_EelementalBurst_DamoclesSword"
             },
             {
               "$type": "SendEffectTrigger",
               "predicates": [
                 {
-                  "$type": "GAJFNLEHCIP",
+                  "$type": "ByTargetGlobalValue",
                   "target": "Self",
                   "key": "_ABILITY_DAMOCLESSWORD_DAMAGE_RATIO",
-                  "ratio": 7.0,
-                  "COJNFMPPGEF": "MoreThanAndEqual"
+                  "value": 7,
+                  "compareType": "MoreThanAndEqual"
                 }
               ],
               "parameter": "Attack02",
-              "MGDFBMEDEHH": "",
-              "healLimitedByCasterMaxHPRatio": "Eff_Avatar_Lady_Claymore_Eula_EelementalBurst_DamoclesSword_Explode"
+              "attachPoint": "",
+              "effectPattern": "Eff_Avatar_Lady_Claymore_Eula_EelementalBurst_DamoclesSword_Explode"
             },
             {
               "$type": "DummyAction",
-              "RotationDampTime": true
+              "doOffStage": true
             }
           ]
         },
         "DamoclesSword_Damage": {
           "modifierName": "",
-          "duration": 0.800000011920929,
-          "bonusCriticalHurt": 100.0,
-          "thinkInterval": 0.550000011920929,
+          "duration": 0.8,
+          "elementDurability": 100,
+          "thinkInterval": 0.55,
           "onThinkInterval": [
             {
               "$type": "TriggerAttackEvent",
               "target": "Owner",
               "attackEvent": {
                 "attackPattern": {
-                  "$type": "GLPECNPHIEF",
+                  "$type": "ConfigAttackSphere",
                   "triggerType": "TriggerNoRepeat",
                   "born": {
-                    "$type": "OCBPONGOAGA",
-                    "offset": {
-                      "JLPLBJEDLIJ": 0.0,
-                      "JAEOEBKKIHF": 0.0,
-                      "GHNJCMBDCCH": 0.0
-                    }
+                    "$type": "ConfigBornBySelf"
                   },
-                  "EFKOBJIIIFC": 6.5
+                  "radius": 6.5
                 },
                 "attackInfo": {
                   "attackTag": "Elemental_Burst",
                   "attenuationTag": "",
                   "attenuationGroup": "default",
                   "attackProperty": {
-                    "BKJNKFMJHPH": [
+                    "damagePercentage": [
                       "Elemental_Burst_Judgment_BaseDamage",
                       "Elemental_Burst_Judgment_Ratio",
                       "Elemental_Burst_Judgment_Damage_Factor",
                       "MUL",
                       "ADD"
                     ],
-                    "KCNHHOEGDKO": 0.0,
-                    "bonusCriticalHurt": 50.0,
+                    "damagePercentageRatio": 0,
+                    "elementDurability": 50,
                     "strikeType": "Blunt",
-                    "enBreak": 400.0,
+                    "enBreak": 400,
                     "attackType": "Range"
                   },
                   "hitPattern": {
                     "onHitEffectName": "default",
                     "hitImpulseType": "LV6",
-                    "hitHaltTimeScale": 0.019999999552965164
+                    "hitHaltTimeScale": 0.02
                   },
                   "forceCameraShake": true,
                   "cameraShake": {
                     "shakeType": "CustomVector",
-                    "shakeRange": 0.36000001430511475,
-                    "shakeTime": 0.11999999731779099,
-                    "shakeDistance": 30.0,
+                    "shakeRange": 0.36,
+                    "shakeTime": 0.12,
+                    "shakeDistance": 30,
                     "shakeDir": {
-                      "x": -1.0
+                      "x": -1
                     }
                   },
                   "canBeModifiedBy": "Owner"
@@ -2637,8 +2509,8 @@
         },
         "Eula_ElementalBurst_KeepCombo_Handler": {
           "modifierName": "",
-          "duration": 7.0,
-          "bonusCriticalHurt": 100.0,
+          "duration": 7,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "AttachToStateIDMixin",
@@ -2661,109 +2533,109 @@
         },
         "PushCombo": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "AddGlobalValue",
               "predicates": [
                 {
-                  "$type": "IIOFJMDOHBA",
+                  "$type": "ByAnimatorInt",
                   "logic": "LesserOrEqual",
-                  "ratio": 0,
+                  "value": 0,
                   "parameter": "ComboCount"
                 }
               ],
-              "ratio": 0.0,
+              "value": 0,
               "key": "_ABILITY_Eula_ComboCount",
               "useLimitRange": true,
-              "maxValue": 0.0,
-              "minValue": 0.0
+              "maxValue": 0,
+              "minValue": 0
             },
             {
               "$type": "AddGlobalValue",
               "predicates": [
                 {
-                  "$type": "IIOFJMDOHBA",
+                  "$type": "ByAnimatorInt",
                   "logic": "Equal",
-                  "ratio": 1,
+                  "value": 1,
                   "parameter": "ComboCount"
                 }
               ],
-              "ratio": 1.0,
+              "value": 1,
               "key": "_ABILITY_Eula_ComboCount",
               "useLimitRange": true,
-              "maxValue": 1.0,
-              "minValue": 0.0
+              "maxValue": 1,
+              "minValue": 0
             },
             {
               "$type": "AddGlobalValue",
               "predicates": [
                 {
-                  "$type": "IIOFJMDOHBA",
+                  "$type": "ByAnimatorInt",
                   "logic": "Equal",
-                  "ratio": 2,
+                  "value": 2,
                   "parameter": "ComboCount"
                 }
               ],
-              "ratio": 2.0,
+              "value": 2,
               "key": "_ABILITY_Eula_ComboCount",
               "useLimitRange": true,
-              "maxValue": 2.0,
-              "minValue": 0.0
+              "maxValue": 2,
+              "minValue": 0
             },
             {
               "$type": "AddGlobalValue",
               "predicates": [
                 {
-                  "$type": "IIOFJMDOHBA",
+                  "$type": "ByAnimatorInt",
                   "logic": "Equal",
-                  "ratio": 3,
+                  "value": 3,
                   "parameter": "ComboCount"
                 }
               ],
-              "ratio": 3.0,
+              "value": 3,
               "key": "_ABILITY_Eula_ComboCount",
               "useLimitRange": true,
-              "maxValue": 3.0,
-              "minValue": 0.0
+              "maxValue": 3,
+              "minValue": 0
             },
             {
               "$type": "AddGlobalValue",
               "predicates": [
                 {
-                  "$type": "IIOFJMDOHBA",
+                  "$type": "ByAnimatorInt",
                   "logic": "Equal",
-                  "ratio": 4,
+                  "value": 4,
                   "parameter": "ComboCount"
                 }
               ],
-              "ratio": 4.0,
+              "value": 4,
               "key": "_ABILITY_Eula_ComboCount",
               "useLimitRange": true,
-              "maxValue": 4.0,
-              "minValue": 0.0
+              "maxValue": 4,
+              "minValue": 0
             },
             {
               "$type": "AddGlobalValue",
               "predicates": [
                 {
-                  "$type": "IIOFJMDOHBA",
+                  "$type": "ByAnimatorInt",
                   "logic": "GreaterOrEqual",
-                  "ratio": 5,
+                  "value": 5,
                   "parameter": "ComboCount"
                 }
               ],
-              "ratio": 0.0,
+              "value": 0,
               "key": "_ABILITY_Eula_ComboCount",
               "useLimitRange": true,
-              "maxValue": 0.0,
-              "minValue": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         "PopCombo": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "SetGlobalValueToOverrideMap",
@@ -2773,20 +2645,20 @@
             {
               "$type": "SetAnimatorInt",
               "intID": "ComboCount",
-              "ratio": "ComboCount"
+              "value": "ComboCount"
             }
           ],
           "onRemoved": [
             {
               "$type": "SetAnimatorInt",
               "intID": "ComboCount",
-              "ratio": 0.0
+              "value": 0
             }
           ]
         },
         "ChangeFollowDampTime_Handler": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "AttachToAnimatorStateIDMixin",
@@ -2813,28 +2685,28 @@
         },
         "ChangeFollowDampTime": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "ChangeFollowDampTime",
-              "healLimitedByCasterMaxHPRatio": "Eff_Avatar_Lady_Claymore_Eula_EelementalBurst_DamoclesSword",
-              "LMBMHMGHLPI": 4.0
+              "effectPattern": "Eff_Avatar_Lady_Claymore_Eula_EelementalBurst_DamoclesSword",
+              "LMBMHMGHLPI": 4
             }
           ],
           "onRemoved": [
             {
               "$type": "ChangeFollowDampTime",
-              "healLimitedByCasterMaxHPRatio": "Eff_Avatar_Lady_Claymore_Eula_EelementalBurst_DamoclesSword",
-              "LMBMHMGHLPI": 0.20000000298023224
+              "effectPattern": "Eff_Avatar_Lady_Claymore_Eula_EelementalBurst_DamoclesSword",
+              "LMBMHMGHLPI": 0.2
             }
           ]
         },
         "Eula_EelementalBurst_ClearEndura": {
           "modifierName": "",
-          "duration": 8.0,
-          "bonusCriticalHurt": 100.0,
+          "duration": 8,
+          "elementDurability": 100,
           "properties": {
-            "Actor_EndureDelta": 0.0
+            "Actor_EndureDelta": 0
           },
           "onAdded": [
             {
@@ -2844,24 +2716,24 @@
         },
         "Eula_Detector": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
-          "thinkInterval": 1.0,
+          "elementDurability": 100,
+          "thinkInterval": 1,
           "onThinkInterval": [
             {
               "$type": "Predicated",
               "target": "CurLocalAvatar",
               "targetPredicates": [
                 {
-                  "$type": "GAJFNLEHCIP",
+                  "$type": "ByTargetGlobalValue",
                   "key": "_Is_Eula",
-                  "ratio": 0.0,
-                  "COJNFMPPGEF": "NoneOrEqual"
+                  "value": 0,
+                  "compareType": "NoneOrEqual"
                 }
               ],
               "successActions": [
                 {
                   "$type": "KillSelf",
-                  "duration": 2.0
+                  "duration": 2
                 }
               ]
             }
@@ -2884,25 +2756,25 @@
         },
         {
           "$type": "AddGlobalValue",
-          "ratio": 0.0,
+          "value": 0,
           "key": "_ABILITY_DAMOCLESSWORD_DAMAGE_RATIO",
           "useLimitRange": true,
           "maxValue": "DamoclesSword_Max_Damage_Ratio",
-          "minValue": 0.0
+          "minValue": 0
         },
         {
           "$type": "AddGlobalValue",
           "predicates": [
             {
-              "$type": "LHPALKFCLPD",
-              "MDPBMMIACJI": "Eula_Constellation_6"
+              "$type": "ByUnlockTalentParam",
+              "talentParam": "Eula_Constellation_6"
             }
           ],
-          "ratio": "Eula_Constellation_6_DamoclesSword_Ratio",
+          "value": "Eula_Constellation_6_DamoclesSword_Ratio",
           "key": "_ABILITY_DAMOCLESSWORD_DAMAGE_RATIO",
           "useLimitRange": true,
           "maxValue": "DamoclesSword_Max_Damage_Ratio",
-          "minValue": 0.0
+          "minValue": 0
         },
         {
           "$type": "AttachModifier",
@@ -2926,66 +2798,66 @@
           "attackTags": [
             "NormalAttack_01"
           ],
-          "BKJNKFMJHPH": "Attack01",
-          "KCNHHOEGDKO": 0.0
+          "damagePercentage": "Attack01",
+          "damagePercentageRatio": 0
         },
         {
           "$type": "ModifyDamageMixin",
           "attackTags": [
             "NormalAttack_02"
           ],
-          "BKJNKFMJHPH": "Attack02",
-          "KCNHHOEGDKO": 0.0
+          "damagePercentage": "Attack02",
+          "damagePercentageRatio": 0
         },
         {
           "$type": "ModifyDamageMixin",
           "attackTags": [
             "NormalAttack_03"
           ],
-          "BKJNKFMJHPH": "Attack03",
-          "KCNHHOEGDKO": 0.0
+          "damagePercentage": "Attack03",
+          "damagePercentageRatio": 0
         },
         {
           "$type": "ModifyDamageMixin",
           "attackTags": [
             "NormalAttack_04"
           ],
-          "BKJNKFMJHPH": "Attack04",
-          "KCNHHOEGDKO": 0.0
+          "damagePercentage": "Attack04",
+          "damagePercentageRatio": 0
         },
         {
           "$type": "ModifyDamageMixin",
           "attackTags": [
             "NormalAttack_05"
           ],
-          "BKJNKFMJHPH": "Attack05",
-          "KCNHHOEGDKO": 0.0
+          "damagePercentage": "Attack05",
+          "damagePercentageRatio": 0
         },
         {
           "$type": "ModifyDamageMixin",
           "animEventNames": [
             "ExtraAttack1"
           ],
-          "BKJNKFMJHPH": "ExtraAttack1",
-          "KCNHHOEGDKO": 0.0
+          "damagePercentage": "ExtraAttack1",
+          "damagePercentageRatio": 0
         },
         {
           "$type": "ModifyDamageMixin",
           "animEventNames": [
             "ExtraAttack2"
           ],
-          "BKJNKFMJHPH": "ExtraAttack2",
-          "KCNHHOEGDKO": 0.0
+          "damagePercentage": "ExtraAttack2",
+          "damagePercentageRatio": 0
         }
       ],
       "abilitySpecials": {
-        "Attack01": 0.0,
-        "Attack02": 0.0,
-        "Attack03": 0.0,
-        "Attack04": 0.0,
-        "Attack05": 0.0,
-        "ExtraAttack1": 0.0,
-        "ExtraAttack2": 0.0
+        "Attack01": 0,
+        "Attack02": 0,
+        "Attack03": 0,
+        "Attack04": 0,
+        "Attack05": 0,
+        "ExtraAttack1": 0,
+        "ExtraAttack2": 0
       }
     }
   },
@@ -3084,54 +2956,51 @@
         }
       ],
       "abilitySpecials": {
-        "FallingAnthem_Normal_Loop_Damage": 0.0,
-        "FallingAnthem_Normal_Rank_1_Damage": 0.0,
-        "FallingAnthem_Normal_Rank_2_Damage": 0.0,
-        "FallingAnthem_Altitude_Lv0": 20.0,
-        "FallingAnthem_Altitude_Lv1": 40.0,
-        "FallingAnthem_Altitude_Lv2": 60.0,
-        "FallingAnthem_Altitude_Lv3": 100.0,
-        "FallingAnthem_Altitude_Lv4": 200.0,
-        "FallingAnthem_FallingDamageRatio_Lv0": -1.0,
-        "FallingAnthem_FallingDamageRatio_Lv1": -1.0,
-        "FallingAnthem_FallingDamageRatio_Lv2": -0.8999999761581421,
-        "FallingAnthem_FallingDamageRatio_Lv3": -0.800000011920929,
-        "FallingAnthem_FallingDamageRatio_Lv4": -0.6000000238418579,
-        "FallingAnthem_FallingDamageRatio": 0.0
+        "FallingAnthem_Normal_Loop_Damage": 0,
+        "FallingAnthem_Normal_Rank_1_Damage": 0,
+        "FallingAnthem_Normal_Rank_2_Damage": 0,
+        "FallingAnthem_Altitude_Lv0": 20,
+        "FallingAnthem_Altitude_Lv1": 40,
+        "FallingAnthem_Altitude_Lv2": 60,
+        "FallingAnthem_Altitude_Lv3": 100,
+        "FallingAnthem_Altitude_Lv4": 200,
+        "FallingAnthem_FallingDamageRatio_Lv0": -1,
+        "FallingAnthem_FallingDamageRatio_Lv1": -1,
+        "FallingAnthem_FallingDamageRatio_Lv2": -0.9,
+        "FallingAnthem_FallingDamageRatio_Lv3": -0.8,
+        "FallingAnthem_FallingDamageRatio_Lv4": -0.6,
+        "FallingAnthem_FallingDamageRatio": 0
       },
       "modifiers": {
         "FallingAnthem_AttachSelfEffect": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "AttachEffect",
-              "healLimitedByCasterMaxHPRatio": "Eff_Avatar_Claymore_FallAnthem_Self_02",
-              "IKGGKJEGMFO": -1.0
+              "effectPattern": "Eff_Avatar_Claymore_FallAnthem_Self_02"
             }
           ]
         },
         "FallingAnthem_BS_Material": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "FireEffect",
-              "healLimitedByCasterMaxHPRatio": "Eff_Avatar_Claymore_FallAnthem_Self",
-              "IKGGKJEGMFO": -1.0
+              "effectPattern": "Eff_Avatar_Claymore_FallAnthem_Self"
             },
             {
               "$type": "FireEffect",
-              "healLimitedByCasterMaxHPRatio": "Eff_Avatar_Claymore_FallAnthem_BS",
-              "IKGGKJEGMFO": -1.0
+              "effectPattern": "Eff_Avatar_Claymore_FallAnthem_BS"
             }
           ]
         },
         "FallingAnthem_BS_VelocityForce_Initialize": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "properties": {
-            "Actor_AddGravityScale": -2.0
+            "Actor_AddGravityScale": -2
           },
           "onAdded": [
             {
@@ -3144,42 +3013,40 @@
         },
         "FallingAnthem_LoopDamage": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
-          "thinkInterval": 0.30000001192092896,
+          "elementDurability": 100,
+          "thinkInterval": 0.3,
           "onThinkInterval": [
             {
               "$type": "TriggerAttackEvent",
               "attackEvent": {
                 "attackPattern": {
-                  "$type": "GLPECNPHIEF",
+                  "$type": "ConfigAttackSphere",
                   "triggerType": "TriggerNoRepeat",
                   "born": {
-                    "$type": "OCBPONGOAGA",
+                    "$type": "ConfigBornBySelf",
                     "offset": {
-                      "JLPLBJEDLIJ": 0.0,
-                      "JAEOEBKKIHF": 0.0,
-                      "GHNJCMBDCCH": 1.0
+                      "z": 1
                     }
                   },
-                  "EFKOBJIIIFC": 1.0
+                  "radius": 1
                 },
                 "attackInfo": {
                   "attackTag": "FallingAttack",
                   "attenuationTag": "",
                   "attenuationGroup": "default",
                   "attackProperty": {
-                    "BKJNKFMJHPH": "FallingAnthem_Normal_Loop_Damage",
-                    "KCNHHOEGDKO": 0.0,
-                    "bonusCriticalHurt": 0.0,
+                    "damagePercentage": "FallingAnthem_Normal_Loop_Damage",
+                    "damagePercentageRatio": 0,
+                    "elementDurability": 0,
                     "overrideByWeapon": true,
                     "strikeType": "Slash",
-                    "enBreak": 35.0,
+                    "enBreak": 35,
                     "attackType": "Melee"
                   },
                   "hitPattern": {
                     "onHitEffectName": "default",
                     "hitImpulseType": "LV2",
-                    "hitHaltTimeScale": 0.019999999552965164
+                    "hitHaltTimeScale": 0.02
                   }
                 }
               },
@@ -3189,7 +3056,7 @@
         },
         "FallingAnthem_FallingDamageImmune_01": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "ClearGlobalValue",
@@ -3199,12 +3066,12 @@
               "$type": "AddGlobalValue",
               "predicates": [
                 {
-                  "$type": "GNNHCDJEMOF",
+                  "$type": "ByTargetAltitude",
                   "logic": "LesserOrEqual",
-                  "ratio": "FallingAnthem_Altitude_Lv0"
+                  "value": "FallingAnthem_Altitude_Lv0"
                 }
               ],
-              "ratio": "FallingAnthem_FallingDamageRatio_Lv0",
+              "value": "FallingAnthem_FallingDamageRatio_Lv0",
               "key": "_ABILITY_FallingAttack_Altitude",
               "useLimitRange": true,
               "maxValue": "FallingAnthem_FallingDamageRatio_Lv0",
@@ -3214,16 +3081,16 @@
               "$type": "AddGlobalValue",
               "predicates": [
                 {
-                  "$type": "GNNHCDJEMOF",
+                  "$type": "ByTargetAltitude",
                   "logic": "LesserOrEqual",
-                  "ratio": "FallingAnthem_Altitude_Lv1"
+                  "value": "FallingAnthem_Altitude_Lv1"
                 },
                 {
-                  "$type": "GNNHCDJEMOF",
-                  "ratio": "FallingAnthem_Altitude_Lv0"
+                  "$type": "ByTargetAltitude",
+                  "value": "FallingAnthem_Altitude_Lv0"
                 }
               ],
-              "ratio": "FallingAnthem_FallingDamageRatio_Lv1",
+              "value": "FallingAnthem_FallingDamageRatio_Lv1",
               "key": "_ABILITY_FallingAttack_Altitude",
               "useLimitRange": true,
               "maxValue": "FallingAnthem_FallingDamageRatio_Lv1",
@@ -3233,16 +3100,16 @@
               "$type": "AddGlobalValue",
               "predicates": [
                 {
-                  "$type": "GNNHCDJEMOF",
+                  "$type": "ByTargetAltitude",
                   "logic": "LesserOrEqual",
-                  "ratio": "FallingAnthem_Altitude_Lv2"
+                  "value": "FallingAnthem_Altitude_Lv2"
                 },
                 {
-                  "$type": "GNNHCDJEMOF",
-                  "ratio": "FallingAnthem_Altitude_Lv1"
+                  "$type": "ByTargetAltitude",
+                  "value": "FallingAnthem_Altitude_Lv1"
                 }
               ],
-              "ratio": "FallingAnthem_FallingDamageRatio_Lv2",
+              "value": "FallingAnthem_FallingDamageRatio_Lv2",
               "key": "_ABILITY_FallingAttack_Altitude",
               "useLimitRange": true,
               "maxValue": "FallingAnthem_FallingDamageRatio_Lv2",
@@ -3252,16 +3119,16 @@
               "$type": "AddGlobalValue",
               "predicates": [
                 {
-                  "$type": "GNNHCDJEMOF",
+                  "$type": "ByTargetAltitude",
                   "logic": "LesserOrEqual",
-                  "ratio": "FallingAnthem_Altitude_Lv3"
+                  "value": "FallingAnthem_Altitude_Lv3"
                 },
                 {
-                  "$type": "GNNHCDJEMOF",
-                  "ratio": "FallingAnthem_Altitude_Lv2"
+                  "$type": "ByTargetAltitude",
+                  "value": "FallingAnthem_Altitude_Lv2"
                 }
               ],
-              "ratio": "FallingAnthem_FallingDamageRatio_Lv3",
+              "value": "FallingAnthem_FallingDamageRatio_Lv3",
               "key": "_ABILITY_FallingAttack_Altitude",
               "useLimitRange": true,
               "maxValue": "FallingAnthem_FallingDamageRatio_Lv3",
@@ -3271,11 +3138,11 @@
               "$type": "AddGlobalValue",
               "predicates": [
                 {
-                  "$type": "GNNHCDJEMOF",
-                  "ratio": "FallingAnthem_Altitude_Lv3"
+                  "$type": "ByTargetAltitude",
+                  "value": "FallingAnthem_Altitude_Lv3"
                 }
               ],
-              "ratio": "FallingAnthem_FallingDamageRatio_Lv4",
+              "value": "FallingAnthem_FallingDamageRatio_Lv4",
               "key": "_ABILITY_FallingAttack_Altitude",
               "useLimitRange": true,
               "maxValue": "FallingAnthem_FallingDamageRatio_Lv4",
@@ -3289,7 +3156,7 @@
         },
         "FallingAnthem_FallingDamageImmune_02": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "SetGlobalValueToOverrideMap",
@@ -3304,21 +3171,21 @@
         },
         "FallingAnthem_FallingDamageImmune_03": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "properties": {
             "Actor_FallingDamageRatio": "FallingAnthem_FallingDamageRatio"
           }
         },
         "FallingAnthem_Loop_Normal": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "AttachModifierToSelfGlobalValueMixin",
               "globalValueKey": "_ABILITY_FallingAnthem_UseCamera",
-              "defaultGlobalValueOnCreate": 0.0,
+              "defaultGlobalValueOnCreate": 0,
               "valueSteps": [
-                -1.0,
+                -1,
                 0.5,
                 1.5
               ],
@@ -3331,29 +3198,27 @@
         },
         "FallingAnthem_Loop_Normal_Rank_1": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "FireEffect",
-              "healLimitedByCasterMaxHPRatio": "Eff_Avatar_Claymore_FallAnthem_Loop_01",
-              "IKGGKJEGMFO": -1.0
+              "effectPattern": "Eff_Avatar_Claymore_FallAnthem_Loop_01"
             }
           ]
         },
         "FallingAnthem_Loop_Normal_Rank_2": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "AttachEffect",
-              "healLimitedByCasterMaxHPRatio": "Eff_Avatar_Claymore_FallAnthem_Loop_02",
-              "IKGGKJEGMFO": -1.0
+              "effectPattern": "Eff_Avatar_Claymore_FallAnthem_Loop_02"
             }
           ]
         },
         "Inertia": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "ApplyInertiaVelocityMixin",
@@ -3364,94 +3229,94 @@
         },
         "FallingAnthem_Height_Detect": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "AddGlobalValue",
               "predicates": [
                 {
-                  "$type": "GNNHCDJEMOF",
+                  "$type": "ByTargetAltitude",
                   "logic": "LesserOrEqual",
-                  "ratio": 2.4000000953674316
+                  "value": 2.4
                 }
               ],
-              "ratio": 0.0,
+              "value": 0,
               "key": "_ABILITY_FallingAnthem_UseCamera",
               "useLimitRange": true,
-              "maxValue": 0.0,
-              "minValue": 0.0
+              "maxValue": 0,
+              "minValue": 0
             },
             {
               "$type": "AddGlobalValue",
               "predicates": [
                 {
-                  "$type": "GNNHCDJEMOF",
-                  "ratio": 2.4000000953674316
+                  "$type": "ByTargetAltitude",
+                  "value": 2.4
                 }
               ],
-              "ratio": 5.0,
+              "value": 5,
               "key": "_ABILITY_FallingAnthem_UseCamera",
               "useLimitRange": true,
-              "maxValue": 1.0,
-              "minValue": 0.0
+              "maxValue": 1,
+              "minValue": 0
             },
             {
               "$type": "SetAnimatorFloat",
               "predicates": [
                 {
-                  "$type": "GNNHCDJEMOF",
+                  "$type": "ByTargetAltitude",
                   "logic": "LesserOrEqual",
-                  "ratio": 2.4000000953674316
+                  "value": 2.4
                 }
               ],
               "floatID": "FallingAnthem_UseCamera",
-              "ratio": 0.0
+              "value": 0
             },
             {
               "$type": "SetAnimatorFloat",
               "predicates": [
                 {
-                  "$type": "GNNHCDJEMOF",
-                  "ratio": 2.4000000953674316
+                  "$type": "ByTargetAltitude",
+                  "value": 2.4
                 }
               ],
               "floatID": "FallingAnthem_UseCamera",
-              "ratio": 1.0
+              "value": 1
             }
           ],
           "onRemoved": [
             {
               "$type": "SetAnimatorFloat",
               "floatID": "FallingAnthem_UseCamera",
-              "ratio": 0.0
+              "value": 0
             },
             {
               "$type": "AddGlobalValue",
-              "ratio": 0.0,
+              "value": 0,
               "key": "_ABILITY_FallingAnthem_UseCamera",
               "useLimitRange": true,
-              "maxValue": 0.0,
-              "minValue": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         "FallingAnthem_OverHead_Camera": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "AvatarCameraParam",
               "predicates": [
                 {
-                  "$type": "ELDJNKEGOHH",
+                  "$type": "ByAnimatorFloat",
                   "logic": "Equal",
-                  "ratio": 1.0,
+                  "value": 1,
                   "parameter": "FallingAnthem_UseCamera"
                 }
               ],
               "cameraParam": {
                 "forceRadius": 4.5,
-                "forceRadiusDuration": 0.20000000298023224,
+                "forceRadiusDuration": 0.2,
                 "shouldKeepForceRadius": true
               }
             }
@@ -3459,31 +3324,31 @@
         },
         "FallingAnthem_OverHead_Camera_Remover": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "AvatarExitCameraShot",
-              "RotationDampTime": true
+              "doOffStage": true
             }
           ]
         },
         "FallingAnthem_Landed_Camera": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "AvatarCameraParam",
               "predicates": [
                 {
-                  "$type": "ELDJNKEGOHH",
+                  "$type": "ByAnimatorFloat",
                   "logic": "Equal",
-                  "ratio": 1.0,
+                  "value": 1,
                   "parameter": "FallingAnthem_UseCamera"
                 }
               ],
               "cameraParam": {
-                "forceRadius": 6.0,
-                "forceRadiusDuration": 0.10000000149011612,
+                "forceRadius": 6,
+                "forceRadiusDuration": 0.1,
                 "shouldKeepForceRadius": true
               }
             }
@@ -3491,7 +3356,7 @@
         },
         "FallingAnthem_ClearVelocityForce": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "RemoveVelocityForce",
@@ -3508,59 +3373,58 @@
           "$type": "TriggerAttackEvent",
           "predicates": [
             {
-              "$type": "GAJFNLEHCIP",
+              "$type": "ByTargetGlobalValue",
               "key": "_ABILITY_FallingAnthem_UseCamera",
-              "ratio": 0.0,
-              "LAGKIHAPDPI": true,
-              "COJNFMPPGEF": "NoneOrEqual"
+              "value": 0,
+              "forceByCaster": true,
+              "compareType": "NoneOrEqual"
             }
           ],
           "attackEvent": {
             "attackPattern": {
-              "$type": "FJDNOOLGCFK",
+              "$type": "ConfigAttackCircle",
               "triggerType": "TriggerNoRepeat",
               "born": {
-                "$type": "OPOAHPBLGFG",
+                "$type": "ConfigBornByTarget",
                 "offset": {
-                  "JLPLBJEDLIJ": 0.0,
-                  "JAEOEBKKIHF": -0.5,
-                  "GHNJCMBDCCH": 1.0
+                  "y": -0.5,
+                  "z": 1
                 }
               },
-              "height": 2.0,
-              "EFKOBJIIIFC": 3.0
+              "height": 2,
+              "radius": 3
             },
             "attackInfo": {
               "attackTag": "FallingAttack",
               "attenuationTag": "",
               "attenuationGroup": "default",
               "attackProperty": {
-                "BKJNKFMJHPH": "FallingAnthem_Normal_Rank_1_Damage",
-                "KCNHHOEGDKO": 0.0,
-                "bonusCriticalHurt": 25.0,
+                "damagePercentage": "FallingAnthem_Normal_Rank_1_Damage",
+                "damagePercentageRatio": 0,
+                "elementDurability": 25,
                 "overrideByWeapon": true,
                 "strikeType": "Blunt",
-                "enBreak": 150.0,
+                "enBreak": 150,
                 "attackType": "Melee"
               },
               "hitPattern": {
                 "onHitEffectName": "none",
                 "hitImpulseType": "LV4",
-                "hitHaltTimeScale": 0.10000000149011612
+                "hitHaltTimeScale": 0.1
               },
               "forceCameraShake": true,
               "cameraShake": {
                 "shakeType": "CustomVector",
-                "shakeRange": 0.23999999463558197,
-                "shakeTime": 0.11999999731779099,
-                "shakeDistance": 30.0,
+                "shakeRange": 0.24,
+                "shakeTime": 0.12,
+                "shakeDistance": 30,
                 "shakeDir": {
-                  "y": 1.0
+                  "y": 1
                 },
                 "extension": {
-                  "baseCycle": 0.23999999463558197,
-                  "cycleDamping": 0.0,
-                  "rangeAttenuation": 0.30000001192092896
+                  "baseCycle": 0.24,
+                  "cycleDamping": 0,
+                  "rangeAttenuation": 0.3
                 }
               }
             }
@@ -3571,59 +3435,58 @@
           "$type": "TriggerAttackEvent",
           "predicates": [
             {
-              "$type": "GAJFNLEHCIP",
+              "$type": "ByTargetGlobalValue",
               "key": "_ABILITY_FallingAnthem_UseCamera",
-              "ratio": 1.0,
-              "LAGKIHAPDPI": true
+              "value": 1,
+              "forceByCaster": true
             }
           ],
           "attackEvent": {
             "attackPattern": {
-              "$type": "FJDNOOLGCFK",
+              "$type": "ConfigAttackCircle",
               "triggerType": "TriggerNoRepeat",
               "born": {
-                "$type": "OPOAHPBLGFG",
+                "$type": "ConfigBornByTarget",
                 "offset": {
-                  "JLPLBJEDLIJ": 0.0,
-                  "JAEOEBKKIHF": -0.5,
-                  "GHNJCMBDCCH": 1.0
+                  "y": -0.5,
+                  "z": 1
                 }
               },
-              "height": 2.0,
-              "EFKOBJIIIFC": 5.0
+              "height": 2,
+              "radius": 5
             },
             "attackInfo": {
               "attackTag": "FallingAttack",
               "attenuationTag": "",
               "attenuationGroup": "default",
               "attackProperty": {
-                "BKJNKFMJHPH": "FallingAnthem_Normal_Rank_2_Damage",
-                "KCNHHOEGDKO": 0.0,
-                "bonusCriticalHurt": 25.0,
+                "damagePercentage": "FallingAnthem_Normal_Rank_2_Damage",
+                "damagePercentageRatio": 0,
+                "elementDurability": 25,
                 "overrideByWeapon": true,
                 "strikeType": "Blunt",
-                "enBreak": 200.0,
+                "enBreak": 200,
                 "attackType": "Melee"
               },
               "hitPattern": {
                 "onHitEffectName": "none",
                 "hitImpulseType": "LV7",
-                "hitHaltTimeScale": 0.10000000149011612
+                "hitHaltTimeScale": 0.1
               },
               "forceCameraShake": true,
               "cameraShake": {
                 "shakeType": "CustomVector",
                 "shakeRange": 0.5,
-                "shakeTime": 0.20000000298023224,
-                "shakeDistance": 30.0,
+                "shakeTime": 0.2,
+                "shakeDistance": 30,
                 "shakeDir": {
-                  "y": 1.0,
-                  "z": 1.0
+                  "y": 1,
+                  "z": 1
                 },
                 "extension": {
-                  "baseCycle": 0.4000000059604645,
-                  "cycleDamping": 0.0,
-                  "rangeAttenuation": 0.30000001192092896
+                  "baseCycle": 0.4,
+                  "cycleDamping": 0,
+                  "rangeAttenuation": 0.3
                 }
               }
             }
@@ -3634,28 +3497,26 @@
           "$type": "FireEffect",
           "predicates": [
             {
-              "$type": "GAJFNLEHCIP",
+              "$type": "ByTargetGlobalValue",
               "key": "_ABILITY_FallingAnthem_UseCamera",
-              "ratio": 0.0,
-              "LAGKIHAPDPI": true,
-              "COJNFMPPGEF": "NoneOrEqual"
+              "value": 0,
+              "forceByCaster": true,
+              "compareType": "NoneOrEqual"
             }
           ],
-          "healLimitedByCasterMaxHPRatio": "Eff_Avatar_Claymore_FallAnthem_Strike_01",
-          "IKGGKJEGMFO": -1.0
+          "effectPattern": "Eff_Avatar_Claymore_FallAnthem_Strike_01"
         },
         {
           "$type": "FireEffect",
           "predicates": [
             {
-              "$type": "GAJFNLEHCIP",
+              "$type": "ByTargetGlobalValue",
               "key": "_ABILITY_FallingAnthem_UseCamera",
-              "ratio": 1.0,
-              "LAGKIHAPDPI": true
+              "value": 1,
+              "forceByCaster": true
             }
           ],
-          "healLimitedByCasterMaxHPRatio": "Eff_Avatar_Claymore_FallAnthem_Strike_02",
-          "IKGGKJEGMFO": -1.0
+          "effectPattern": "Eff_Avatar_Claymore_FallAnthem_Strike_02"
         }
       ]
     }

@@ -1,13 +1,13 @@
 [
   {
     "Default": {
-      "$type": "MoleMole.Config.ConfigAbility",
+      "$type": "ConfigAbility",
       "abilityName": "Activity_FilmfestBallGame_TeamAbility",
       "abilityMixins": [
         {
-          "$type": "MoleMole.Config.AttachModifierToSelfGlobalValueMixin",
+          "$type": "AttachModifierToSelfGlobalValueMixin",
           "globalValueKey": "GV_JumpUpBuff",
-          "gvInTalk": 0.0,
+          "defaultGlobalValueOnCreate": 0,
           "valueSteps": [
             0.5,
             1.5
@@ -17,12 +17,12 @@
           ]
         },
         {
-          "$type": "MoleMole.Config.AttachModifierToSelfGlobalValueNoInitMixin",
+          "$type": "AttachModifierToSelfGlobalValueNoInitMixin",
           "globalValueKey": "SGV_BallGame_Player",
           "valueSteps": [
             -0.5,
             0.5,
-            999.0
+            999
           ],
           "modifierNameSteps": [
             "FilmfestBallGame_ClearIndicator",
@@ -31,41 +31,41 @@
           "MFJNNNHGMJD": true
         },
         {
-          "$type": "MoleMole.Config.CurLocalAvatarMixinV2",
+          "$type": "CurLocalAvatarMixinV2",
           "modifierName": "FilmfestBallGame_Sprint_ReduceCost"
         },
         {
-          "$type": "MoleMole.Config.CurLocalAvatarMixinV2",
+          "$type": "CurLocalAvatarMixinV2",
           "modifierName": "FilmfestBallGame_Fly_ForbidFly"
         },
         {
-          "$type": "MoleMole.Config.AttachModifierToPredicateMixin",
+          "$type": "AttachModifierToPredicateMixin",
           "predicates": [
             {
               "$type": "CFGBONPNELL",
               "predicates": [
                 {
-                  "$type": "POOFKGMBLNA",
+                  "$type": "ByTargetGlobalValue",
                   "target": "Self",
                   "key": "GV_GateForbidArea_GateMark",
-                  "param3": 0.0,
+                  "value": 0,
                   "compareType": "MoreThan"
                 },
                 {
-                  "$type": "POOFKGMBLNA",
+                  "$type": "ByTargetGlobalValue",
                   "target": "Self",
                   "key": "SGV_BallGame_Player",
-                  "param3": 0.0,
+                  "value": 0,
                   "compareType": "MoreThan"
                 },
                 {
-                  "$type": "FLLFBKEHJMH",
+                  "$type": "ByNot",
                   "predicates": [
                     {
-                      "$type": "POOFKGMBLNA",
+                      "$type": "ByTargetGlobalValue",
                       "target": "Self",
                       "key": "GV_GateForbidArea_GateMark",
-                      "param3": "SGV_BallGame_Player"
+                      "value": "SGV_BallGame_Player"
                     }
                   ]
                 }
@@ -75,7 +75,7 @@
           "modifierName": "FilmfestBallGame_PlayerInOthersArea"
         },
         {
-          "$type": "MoleMole.Config.CurLocalAvatarMixinV2",
+          "$type": "CurLocalAvatarMixinV2",
           "modifierName": "FilmfestBallGame_TeleportState"
         }
       ],
@@ -87,84 +87,84 @@
       "modifiers": {
         "FilmfestBallGame_TeleportState": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
-              "$type": "MoleMole.Config.AttachToStateIDMixin",
+              "$type": "AttachToStateIDMixin",
               "stateIDs": [
                 "ActivitySkill_CommonMove"
               ],
               "modifierName": "FilmfestBallGame_PlayerTeleporting",
-              "BILMCNCKIAO": ""
+              "__unk_Q2081332355": ""
             }
           ]
         },
         "FilmfestBallGame_PlayerTeleporting": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "state": "IsGhostToEnemy",
           "onAdded": [
             {
-              "$type": "MoleMole.Config.AddGlobalValueV2",
+              "$type": "AddGlobalValueV2",
               "target": "Team",
-              "param3": 1.0,
+              "value": 1,
               "key": "_FilmfestBallGame_PunishmentCount",
               "useLimitRange": true,
-              "param2": 10.0,
-              "triggerID": 0.0
+              "maxValue": 10,
+              "minValue": 0
             },
             {
-              "$type": "MoleMole.Config.SetGlobalValueV2",
+              "$type": "SetGlobalValueV2",
               "target": "Team",
-              "param3": 0.0,
+              "value": 0,
               "key": "GV_GateForbidArea_GateMark",
-              "param2": 0.0,
-              "triggerID": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ],
           "onRemoved": [
             {
-              "$type": "MoleMole.Config.SetGlobalValueV2",
+              "$type": "SetGlobalValueV2",
               "target": "Team",
-              "param3": 0.0,
+              "value": 0,
               "key": "GV_GateForbidArea_GateMark",
-              "param2": 0.0,
-              "triggerID": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         "FilmfestBallGame_PunishScore": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
-          "thinkInterval": 1.0,
+          "elementDurability": 100,
+          "thinkInterval": 1,
           "onThinkInterval": [
             {
-              "$type": "MoleMole.Config.Predicated",
+              "$type": "Predicated",
               "target": "Team",
               "targetPredicates": [
                 {
-                  "$type": "LMBGIDDHLDM",
+                  "$type": "ByHasModifier",
                   "modifierName": "FilmfestBallGame_PlayerInOthersArea"
                 }
               ],
               "successActions": [
                 {
-                  "$type": "MoleMole.Config.AddGlobalValueV2",
-                  "param3": 1.0,
+                  "$type": "AddGlobalValueV2",
+                  "value": 1,
                   "key": "_FilmfestBallGame_AreaWarning",
                   "useLimitRange": true,
-                  "param2": 11.0,
-                  "triggerID": 0.0
+                  "maxValue": 11,
+                  "minValue": 0
                 }
               ],
               "failActions": [
                 {
-                  "$type": "MoleMole.Config.AddGlobalValueV2",
-                  "param3": -1.0,
+                  "$type": "AddGlobalValueV2",
+                  "value": -1,
                   "key": "_FilmfestBallGame_AreaWarning",
                   "useLimitRange": true,
-                  "param2": 11.0,
-                  "triggerID": 0.0
+                  "maxValue": 11,
+                  "minValue": 0
                 }
               ]
             }
@@ -172,15 +172,15 @@
         },
         "FilmfestBallGame_PlayerInOthersArea_Fatal": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
-              "$type": "MoleMole.Config.AttachModifierToSelfGlobalValueNoInitMixin",
+              "$type": "AttachModifierToSelfGlobalValueNoInitMixin",
               "globalValueKey": "_FilmfestBallGame_AreaWarning",
               "valueSteps": [
                 2.5,
                 4.5,
-                9999.0
+                9999
               ],
               "modifierNameSteps": [
                 "FilmfestBallGame_PlayerInOthersArea_Warning",
@@ -192,15 +192,15 @@
         },
         "FilmfestBallGame_PlayerInOthersArea_Normal": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
-              "$type": "MoleMole.Config.AttachModifierToSelfGlobalValueNoInitMixin",
+              "$type": "AttachModifierToSelfGlobalValueNoInitMixin",
               "globalValueKey": "_FilmfestBallGame_AreaWarning",
               "valueSteps": [
                 4.5,
                 6.5,
-                9999.0
+                9999
               ],
               "modifierNameSteps": [
                 "FilmfestBallGame_PlayerInOthersArea_Warning",
@@ -212,15 +212,15 @@
         },
         "FilmfestBallGame_PlayerInOthersArea": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
-              "$type": "MoleMole.Config.AttachModifierToSelfGlobalValueNoInitMixin",
+              "$type": "AttachModifierToSelfGlobalValueNoInitMixin",
               "globalValueKey": "_FilmfestBallGame_PunishmentCount",
               "valueSteps": [
                 -0.5,
                 2.5,
-                9999.0
+                9999
               ],
               "modifierNameSteps": [
                 "FilmfestBallGame_PlayerInOthersArea_Normal",
@@ -231,30 +231,30 @@
           ],
           "onAdded": [
             {
-              "$type": "MoleMole.Config.Predicated",
+              "$type": "Predicated",
               "targetPredicates": [
                 {
-                  "$type": "FLLFBKEHJMH",
+                  "$type": "ByNot",
                   "predicates": [
                     {
-                      "$type": "POOFKGMBLNA",
+                      "$type": "ByTargetGlobalValue",
                       "target": "Self",
                       "key": "GV_GateForbidArea_GateMark",
-                      "param3": "GV_GateForbidArea_PrevGateMark"
+                      "value": "GV_GateForbidArea_PrevGateMark"
                     }
                   ]
                 }
               ],
               "successActions": [
                 {
-                  "$type": "MoleMole.Config.SetGlobalValueV2",
-                  "param3": 0.0,
+                  "$type": "SetGlobalValueV2",
+                  "value": 0,
                   "key": "_FilmfestBallGame_AreaWarning",
-                  "param2": 0.0,
-                  "triggerID": 0.0
+                  "maxValue": 0,
+                  "minValue": 0
                 },
                 {
-                  "$type": "MoleMole.Config.CopyGlobalValue",
+                  "$type": "CopyGlobalValue",
                   "srcTarget": "Self",
                   "dstTarget": "Self",
                   "srcKey": "GV_GateForbidArea_GateMark",
@@ -266,7 +266,7 @@
         },
         "FilmfestBallGame_PlayerInOthersArea_Warning": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "MoleMole.Config.ShowReminder",
@@ -277,7 +277,7 @@
         },
         "FilmfestBallGame_PlayerInOthersArea_Punish": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "MoleMole.Config.ServerLuaCall",
@@ -285,24 +285,24 @@
               "funcName": "SLC_Filmfest_BallGame_Punish",
               "paramNum": 1,
               "param1": "GV_GateForbidArea_GateMark",
-              "KEEFCBAAODF": 0.0,
-              "LABHKHBCHFB": 0.0
+              "KEEFCBAAODF": 0,
+              "LABHKHBCHFB": 0
             },
             {
-              "$type": "MoleMole.Config.SetGlobalValueV2",
-              "param3": 0.0,
+              "$type": "SetGlobalValueV2",
+              "value": 0,
               "key": "GV_GateForbidArea_GateMark",
-              "param2": 0.0,
-              "triggerID": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         "FilmfestBallGame_ClearIndicator": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "MoleMole.Config.KillGadget",
+              "$type": "KillGadget",
               "gadgetInfo": {
                 "configID": 70331050
               }
@@ -311,22 +311,22 @@
         },
         "FilmfestBallGame_CreateIndicator": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "MoleMole.Config.CreateGadget",
+              "$type": "CreateGadget",
               "predicates": [
                 {
-                  "$type": "POOFKGMBLNA",
+                  "$type": "ByTargetGlobalValue",
                   "key": "SGV_BallGame_Player",
-                  "param3": 1.0
+                  "value": 1
                 }
               ],
               "born": {
                 "$type": "IKBDMAPPAIK",
                 "worldPos": {
-                  "x": 200.0,
-                  "y": 16.799999237060547,
+                  "x": 200,
+                  "y": 16.8,
                   "z": 216.5
                 }
               },
@@ -334,39 +334,39 @@
               "campID": 5001
             },
             {
-              "$type": "MoleMole.Config.CreateGadget",
+              "$type": "CreateGadget",
               "predicates": [
                 {
-                  "$type": "POOFKGMBLNA",
+                  "$type": "ByTargetGlobalValue",
                   "key": "SGV_BallGame_Player",
-                  "param3": 2.0
+                  "value": 2
                 }
               ],
               "born": {
                 "$type": "IKBDMAPPAIK",
                 "worldPos": {
                   "x": 216.5,
-                  "y": 16.799999237060547,
-                  "z": 200.0
+                  "y": 16.8,
+                  "z": 200
                 }
               },
               "gadgetID": 70331050,
               "campID": 5001
             },
             {
-              "$type": "MoleMole.Config.CreateGadget",
+              "$type": "CreateGadget",
               "predicates": [
                 {
-                  "$type": "POOFKGMBLNA",
+                  "$type": "ByTargetGlobalValue",
                   "key": "SGV_BallGame_Player",
-                  "param3": 3.0
+                  "value": 3
                 }
               ],
               "born": {
                 "$type": "IKBDMAPPAIK",
                 "worldPos": {
-                  "x": 200.0,
-                  "y": 16.799999237060547,
+                  "x": 200,
+                  "y": 16.8,
                   "z": 183.5
                 }
               },
@@ -374,20 +374,20 @@
               "campID": 5001
             },
             {
-              "$type": "MoleMole.Config.CreateGadget",
+              "$type": "CreateGadget",
               "predicates": [
                 {
-                  "$type": "POOFKGMBLNA",
+                  "$type": "ByTargetGlobalValue",
                   "key": "SGV_BallGame_Player",
-                  "param3": 4.0
+                  "value": 4
                 }
               ],
               "born": {
                 "$type": "IKBDMAPPAIK",
                 "worldPos": {
                   "x": 183.5,
-                  "y": 16.799999237060547,
-                  "z": 200.0
+                  "y": 16.8,
+                  "z": 200
                 }
               },
               "gadgetID": 70331050,
@@ -396,19 +396,19 @@
           ],
           "onReconnect": [
             {
-              "$type": "MoleMole.Config.CreateGadget",
+              "$type": "CreateGadget",
               "predicates": [
                 {
-                  "$type": "POOFKGMBLNA",
+                  "$type": "ByTargetGlobalValue",
                   "key": "SGV_BallGame_Player",
-                  "param3": 1.0
+                  "value": 1
                 }
               ],
               "born": {
                 "$type": "IKBDMAPPAIK",
                 "worldPos": {
-                  "x": 200.0,
-                  "y": 16.799999237060547,
+                  "x": 200,
+                  "y": 16.8,
                   "z": 216.5
                 }
               },
@@ -416,39 +416,39 @@
               "campID": 5001
             },
             {
-              "$type": "MoleMole.Config.CreateGadget",
+              "$type": "CreateGadget",
               "predicates": [
                 {
-                  "$type": "POOFKGMBLNA",
+                  "$type": "ByTargetGlobalValue",
                   "key": "SGV_BallGame_Player",
-                  "param3": 2.0
+                  "value": 2
                 }
               ],
               "born": {
                 "$type": "IKBDMAPPAIK",
                 "worldPos": {
                   "x": 216.5,
-                  "y": 16.799999237060547,
-                  "z": 200.0
+                  "y": 16.8,
+                  "z": 200
                 }
               },
               "gadgetID": 70331050,
               "campID": 5001
             },
             {
-              "$type": "MoleMole.Config.CreateGadget",
+              "$type": "CreateGadget",
               "predicates": [
                 {
-                  "$type": "POOFKGMBLNA",
+                  "$type": "ByTargetGlobalValue",
                   "key": "SGV_BallGame_Player",
-                  "param3": 3.0
+                  "value": 3
                 }
               ],
               "born": {
                 "$type": "IKBDMAPPAIK",
                 "worldPos": {
-                  "x": 200.0,
-                  "y": 16.799999237060547,
+                  "x": 200,
+                  "y": 16.8,
                   "z": 183.5
                 }
               },
@@ -456,20 +456,20 @@
               "campID": 5001
             },
             {
-              "$type": "MoleMole.Config.CreateGadget",
+              "$type": "CreateGadget",
               "predicates": [
                 {
-                  "$type": "POOFKGMBLNA",
+                  "$type": "ByTargetGlobalValue",
                   "key": "SGV_BallGame_Player",
-                  "param3": 4.0
+                  "value": 4
                 }
               ],
               "born": {
                 "$type": "IKBDMAPPAIK",
                 "worldPos": {
                   "x": 183.5,
-                  "y": 16.799999237060547,
-                  "z": 200.0
+                  "y": 16.8,
+                  "z": 200
                 }
               },
               "gadgetID": 70331050,
@@ -479,7 +479,7 @@
         },
         "FilmfestBallGame_Fly_ForbidFly": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "MoleMole.Config.ForbidAvatarFlyMixin"
@@ -490,14 +490,14 @@
           "stacking": "Unique",
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "MoleMole.Config.ModifyCameraMaxDistanceMixin",
-              "maxDistance": 10.0,
+              "maxDistance": 10,
               "resetToMaxOnStart": true,
               "lerpInDuration": 0.5,
-              "lerpOutDuration": 2.0
+              "lerpOutDuration": 2
             }
           ]
         },
@@ -505,17 +505,17 @@
           "stacking": "Unique",
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
-              "$type": "MoleMole.Config.CurLocalAvatarMixinV2",
+              "$type": "CurLocalAvatarMixinV2",
               "modifierName": "FilmfestBallGame_Billboard_Avator"
             }
           ]
         },
         "FilmfestBallGame_Billboard_Avator": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "MoleMole.Config.ChangeBillboardMixin",
@@ -523,12 +523,12 @@
                 "$type": "BEIGNEFIOCI",
                 "attachPoint": "BillboardAttach",
                 "offset": {
-                  "y": 2.0
+                  "y": 2
                 },
                 "radiusOffset": 0.5,
-                "showDistance": 80.0,
+                "showDistance": 80,
                 "prefabPluginName": "FilmfestBallGame",
-                "damageRatio": "FilmfestBallgame"
+                "type": "FilmfestBallgame"
               }
             }
           ]
@@ -537,41 +537,40 @@
           "stacking": "Unique",
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
-              "$type": "MoleMole.Config.CurLocalAvatarMixinV2",
+              "$type": "CurLocalAvatarMixinV2",
               "modifierName": "FilmfestBallGame_RocketJump_Avator"
             }
           ]
         },
         "FilmfestBallGame_RocketJump_Avator": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
-              "$type": "MoleMole.Config.AttachToStateIDMixin",
+              "$type": "AttachToStateIDMixin",
               "stateIDs": [
                 "Jump"
               ],
               "modifierName": "FilmfestBallGame_RocketJumpEffect",
-              "BILMCNCKIAO": ""
+              "__unk_Q2081332355": ""
             }
           ],
           "onAdded": [
             {
-              "$type": "MoleMole.Config.AttachEffect",
-              "rotationDampTime": "Eff_SceneObj_JumpUp_01_Buff",
-              "NHGDGLICLFB": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_JumpUp_01_Buff"
             },
             {
               "$type": "MoleMole.Config.EnableRocketJump",
               "canBeHandledOnRecover": true,
-              "damageRatio": "DungeonJump",
+              "type": "DungeonJump",
               "enable": true,
               "extention": {
                 "xzMultiplier": 2.5,
-                "yMultiplier": 3.0
+                "yMultiplier": 3
               }
             }
           ],
@@ -579,35 +578,34 @@
             {
               "$type": "MoleMole.Config.EnableRocketJump",
               "target": "CurTeamAvatars",
-              "temperature": true,
-              "damageRatio": "DungeonJump"
+              "doOffStage": true,
+              "type": "DungeonJump"
             }
           ]
         },
         "FilmfestBallGame_RocketJumpEffect": {
           "modifierName": "",
-          "elementDurability": 0.5,
-          "bonusCriticalHurt": 100.0,
+          "duration": 0.5,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "MoleMole.Config.ServerLuaCall",
               "luaCallType": "CurGalleryControlGroup",
               "funcName": "SLC_Filmfest_BallGame_DoJump",
-              "param1": 0.0,
-              "KEEFCBAAODF": 0.0,
-              "LABHKHBCHFB": 0.0
+              "param1": 0,
+              "KEEFCBAAODF": 0,
+              "LABHKHBCHFB": 0
             },
             {
-              "$type": "MoleMole.Config.FireEffect",
-              "rotationDampTime": "Eff_Stages_Level_Common_Jumpplatform_01_Active",
-              "NHGDGLICLFB": -1.0
+              "$type": "FireEffect",
+              "effectPattern": "Eff_Stages_Level_Common_Jumpplatform_01_Active"
             }
           ]
         },
         "UNIQUE_FilmfestBallGame_Forbid": {
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "MoleMole.Config.HideAvatarSkillMixin",
@@ -642,35 +640,35 @@
         },
         "FilmfestBallGame_Sprint_ReduceCost": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
-          "thinkInterval": 1.0,
+          "elementDurability": 100,
+          "thinkInterval": 1,
           "properties": {
-            "Actor_CostStaminaRatio": -1.0
+            "Actor_CostStaminaRatio": -1
           },
           "onThinkInterval": [
             {
-              "$type": "MoleMole.Config.ReviveStamina",
+              "$type": "ReviveStamina",
               "target": "CurLocalAvatar",
-              "temperature": true,
-              "param3": 100.0
+              "doOffStage": true,
+              "value": 100
             }
           ]
         },
         "UNIQUE_FilmfestBallGame_Immune_Avatar": {
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "properties": {
-            "Actor_FallingDamageRatio": -1.0
+            "Actor_FallingDamageRatio": -1
           }
         },
         "UNIQUE_FilmfestBallGame_Immune": {
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
-              "$type": "MoleMole.Config.CurLocalAvatarMixinV2",
+              "$type": "CurLocalAvatarMixinV2",
               "modifierName": "UNIQUE_FilmfestBallGame_Immune_Avatar"
             }
           ]
@@ -678,39 +676,39 @@
       },
       "onAdded": [
         {
-          "$type": "MoleMole.Config.AttachModifier",
+          "$type": "AttachModifier",
           "modifierName": "UNIQUE_FilmfestBallGame_CameraFix"
         },
         {
-          "$type": "MoleMole.Config.AttachModifier",
+          "$type": "AttachModifier",
           "modifierName": "UNIQUE_FilmfestBallGame_Forbid"
         },
         {
-          "$type": "MoleMole.Config.AttachModifier",
+          "$type": "AttachModifier",
           "modifierName": "UNIQUE_FilmfestBallGame_Billboard"
         },
         {
-          "$type": "MoleMole.Config.AttachModifier",
+          "$type": "AttachModifier",
           "modifierName": "UNIQUE_FilmfestBallGame_Immune"
         },
         {
-          "$type": "MoleMole.Config.AttachModifier",
+          "$type": "AttachModifier",
           "modifierName": "FilmfestBallGame_PunishScore"
         },
         {
-          "$type": "MoleMole.Config.SetGlobalValueV2",
-          "param3": 0.0,
+          "$type": "SetGlobalValueV2",
+          "value": 0,
           "key": "_FilmfestBallGame_AreaWarning",
           "useLimitRange": true,
-          "param2": 11.0,
-          "triggerID": 0.0
+          "maxValue": 11,
+          "minValue": 0
         },
         {
-          "$type": "MoleMole.Config.SetGlobalValueV2",
-          "param3": 0.0,
+          "$type": "SetGlobalValueV2",
+          "value": 0,
           "key": "_FilmfestBallGame_PunishmentCount",
-          "param2": 0.0,
-          "triggerID": 0.0
+          "maxValue": 0,
+          "minValue": 0
         }
       ],
       "isDynamicAbility": true
@@ -718,7 +716,7 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.ConfigAbility",
+      "$type": "ConfigAbility",
       "abilityName": "Activity_FilmfestBallGame_TeamAbility_PlayerMark_01",
       "onAdded": [
         {
@@ -728,9 +726,9 @@
             247711001
           ],
           "funcName": "SLC_Filmfest_BallGame_GetPlayerIndex",
-          "param1": 0.0,
-          "KEEFCBAAODF": 0.0,
-          "LABHKHBCHFB": 0.0
+          "param1": 0,
+          "KEEFCBAAODF": 0,
+          "LABHKHBCHFB": 0
         }
       ],
       "isDynamicAbility": true
@@ -738,7 +736,7 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.ConfigAbility",
+      "$type": "ConfigAbility",
       "abilityName": "Activity_FilmfestBallGame_TeamAbility_PlayerMark_02",
       "onAdded": [
         {
@@ -748,9 +746,9 @@
             247712001
           ],
           "funcName": "SLC_Filmfest_BallGame_GetPlayerIndex",
-          "param1": 0.0,
-          "KEEFCBAAODF": 0.0,
-          "LABHKHBCHFB": 0.0
+          "param1": 0,
+          "KEEFCBAAODF": 0,
+          "LABHKHBCHFB": 0
         }
       ],
       "isDynamicAbility": true
@@ -758,7 +756,7 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.ConfigAbility",
+      "$type": "ConfigAbility",
       "abilityName": "Activity_FilmfestBallGame_TeamAbility_PlayerMark_03",
       "onAdded": [
         {
@@ -768,9 +766,9 @@
             247713001
           ],
           "funcName": "SLC_Filmfest_BallGame_GetPlayerIndex",
-          "param1": 0.0,
-          "KEEFCBAAODF": 0.0,
-          "LABHKHBCHFB": 0.0
+          "param1": 0,
+          "KEEFCBAAODF": 0,
+          "LABHKHBCHFB": 0
         }
       ],
       "isDynamicAbility": true
@@ -778,7 +776,7 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.ConfigAbility",
+      "$type": "ConfigAbility",
       "abilityName": "Activity_FilmfestBallGame_TeamAbility_PlayerMark_04",
       "onAdded": [
         {
@@ -788,9 +786,9 @@
             247714001
           ],
           "funcName": "SLC_Filmfest_BallGame_GetPlayerIndex",
-          "param1": 0.0,
-          "KEEFCBAAODF": 0.0,
-          "LABHKHBCHFB": 0.0
+          "param1": 0,
+          "KEEFCBAAODF": 0,
+          "LABHKHBCHFB": 0
         }
       ],
       "isDynamicAbility": true
@@ -798,7 +796,7 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.ConfigAbility",
+      "$type": "ConfigAbility",
       "abilityName": "Activity_FilmfestBallGame_TeamAbility_PlayerMark_05",
       "onAdded": [
         {
@@ -808,9 +806,9 @@
             247715001
           ],
           "funcName": "SLC_Filmfest_BallGame_GetPlayerIndex",
-          "param1": 0.0,
-          "KEEFCBAAODF": 0.0,
-          "LABHKHBCHFB": 0.0
+          "param1": 0,
+          "KEEFCBAAODF": 0,
+          "LABHKHBCHFB": 0
         }
       ],
       "isDynamicAbility": true
@@ -818,38 +816,38 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.ConfigAbility",
+      "$type": "ConfigAbility",
       "abilityName": "Activity_FilmfestSniper_AvatarAbility",
       "modifiers": {
         "UNIQUE_FilmfestSniper_Invincible": {
           "stacking": "Unique",
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "state": "LockHP"
         },
         "UNIQUE_FilmfestSniper_IsGhost": {
           "stacking": "Unique",
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "state": "IsGhostToEnemy"
         },
         "UNIQUE_FilmfestSniper_IsGhostToAllied": {
           "stacking": "Unique",
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "state": "IsGhostToAllied"
         },
         "UNIQUE_FilmfestSniper_Immobilize": {
           "stacking": "Unique",
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "properties": {
-            "Animator_MoveSpeedRatio": -1.0,
-            "Animator_OverallSpeedRatioMultiplied": 0.0
+            "Animator_MoveSpeedRatio": -1,
+            "Animator_OverallSpeedRatioMultiplied": 0
           },
           "state": "ElementDeadTime"
         },
@@ -857,10 +855,10 @@
           "stacking": "Unique",
           "modifierName": "",
           "isUnique": true,
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
-              "$type": "MoleMole.Config.EntityInVisibleMixin",
+              "$type": "EntityInVisibleMixin",
               "reason": "Gallary",
               "disableAudio": true
             }
@@ -868,38 +866,38 @@
           "state": "DenyLockOn",
           "onAdded": [
             {
-              "$type": "MoleMole.Config.AttachModifier",
+              "$type": "AttachModifier",
               "modifierName": "UNIQUE_FilmfestSniper_Immobilize"
             },
             {
-              "$type": "MoleMole.Config.AttachModifier",
+              "$type": "AttachModifier",
               "modifierName": "UNIQUE_FilmfestSniper_Invincible"
             },
             {
-              "$type": "MoleMole.Config.AttachModifier",
+              "$type": "AttachModifier",
               "modifierName": "UNIQUE_FilmfestSniper_IsGhost"
             },
             {
-              "$type": "MoleMole.Config.AttachModifier",
+              "$type": "AttachModifier",
               "modifierName": "UNIQUE_FilmfestSniper_IsGhostToAllied"
             },
             {
-              "$type": "MoleMole.Config.EnablePushColliderName",
+              "$type": "EnablePushColliderName",
               "pushColliderNames": [
                 "MoveCollider"
               ]
             },
             {
-              "$type": "MoleMole.Config.TriggerSetPassThrough",
-              "temperature": true
+              "$type": "TriggerSetPassThrough",
+              "doOffStage": true
             },
             {
-              "$type": "MoleMole.Config.EnableHDMesh",
+              "$type": "EnableHDMesh",
               "hdMeshKey": "Default"
             },
             {
               "$type": "MoleMole.Config.EnableHitBoxByName",
-              "temperature": true,
+              "doOffStage": true,
               "hitBoxNames": [
                 "HitBox",
                 "HitBox_Skill"
@@ -908,7 +906,7 @@
           ],
           "onRemoved": [
             {
-              "$type": "MoleMole.Config.EnablePushColliderName",
+              "$type": "EnablePushColliderName",
               "pushColliderNames": [
                 "MoveCollider"
               ],
@@ -919,7 +917,7 @@
       },
       "onAdded": [
         {
-          "$type": "MoleMole.Config.AttachModifier",
+          "$type": "AttachModifier",
           "modifierName": "UNIQUE_FilmfestSniper_AvatarState"
         }
       ],
@@ -928,20 +926,20 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.ConfigAbility",
+      "$type": "ConfigAbility",
       "abilityName": "Activity_FilmfestBattle_TeamAbility_01",
       "abilityMixins": [
         {
           "$type": "MoleMole.Config.ServerUpdateGlobalValueMixin",
           "key": "GV_FilmfestBattle_Charge",
           "useLimitRange": true,
-          "param2": 60.0,
-          "triggerID": 0.0
+          "maxValue": 60,
+          "minValue": 0
         },
         {
-          "$type": "MoleMole.Config.AttachModifierToSelfGlobalValueMixin",
+          "$type": "AttachModifierToSelfGlobalValueMixin",
           "globalValueKey": "GV_FilmfestBattle_Charge",
-          "gvInTalk": 0.0,
+          "defaultGlobalValueOnCreate": 0,
           "valueSteps": [
             59.5,
             60.5
@@ -954,16 +952,16 @@
       "modifiers": {
         "FilmfestBattle_Timer": {
           "modifierName": "",
-          "elementDurability": 20.0,
-          "bonusCriticalHurt": 100.0,
+          "duration": 20,
+          "elementDurability": 100,
           "onRemoved": [
             {
-              "$type": "MoleMole.Config.Predicated",
+              "$type": "Predicated",
               "targetPredicates": [
                 {
-                  "$type": "POOFKGMBLNA",
+                  "$type": "ByTargetGlobalValue",
                   "key": "GV_FilmfestBattle_Charge",
-                  "param3": 60.0,
+                  "value": 60,
                   "compareType": "MoreThanAndEqual"
                 }
               ],
@@ -978,13 +976,13 @@
         },
         "FilmfestBattle_IsCharge": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "MoleMole.Config.Predicated",
+              "$type": "Predicated",
               "targetPredicates": [
                 {
-                  "$type": "LMBGIDDHLDM",
+                  "$type": "ByHasModifier",
                   "modifierName": "FilmfestBattle_Timer"
                 }
               ],
@@ -1004,11 +1002,11 @@
           "skillID": 20080
         },
         {
-          "$type": "MoleMole.Config.SetGlobalValueV2",
-          "param3": 0.0,
+          "$type": "SetGlobalValueV2",
+          "value": 0,
           "key": "GV_FilmfestBattle_Charge",
-          "param2": 0.0,
-          "triggerID": 0.0
+          "maxValue": 0,
+          "minValue": 0
         },
         {
           "$type": "MoleMole.Config.SetExtraAbilityEnable",
@@ -1022,7 +1020,7 @@
       ],
       "onAbilityStart": [
         {
-          "$type": "MoleMole.Config.AttachModifier",
+          "$type": "AttachModifier",
           "modifierName": "FilmfestBattle_Timer"
         },
         {
@@ -1032,21 +1030,21 @@
           "$type": "MoleMole.Config.ServerLuaCall",
           "luaCallType": "CurGalleryControlGroup",
           "funcName": "SLC_FilmfestBattle_ChargeSkill",
-          "param1": 0.0,
-          "KEEFCBAAODF": 0.0,
-          "LABHKHBCHFB": 0.0
+          "param1": 0,
+          "KEEFCBAAODF": 0,
+          "LABHKHBCHFB": 0
         },
         {
-          "$type": "MoleMole.Config.TriggerAbility",
+          "$type": "TriggerAbility",
           "target": "Team",
           "abilityName": "ActivityAbility_FilmfestBattle_Level_1"
         },
         {
-          "$type": "MoleMole.Config.SetGlobalValueV2",
-          "param3": 0.0,
+          "$type": "SetGlobalValueV2",
+          "value": 0,
           "key": "GV_FilmfestBattle_Charge",
-          "param2": 0.0,
-          "triggerID": 0.0
+          "maxValue": 0,
+          "minValue": 0
         }
       ],
       "isDynamicAbility": true
@@ -1054,20 +1052,20 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.ConfigAbility",
+      "$type": "ConfigAbility",
       "abilityName": "Activity_FilmfestBattle_TeamAbility_02",
       "abilityMixins": [
         {
           "$type": "MoleMole.Config.ServerUpdateGlobalValueMixin",
           "key": "GV_FilmfestBattle_Charge",
           "useLimitRange": true,
-          "param2": 60.0,
-          "triggerID": 0.0
+          "maxValue": 60,
+          "minValue": 0
         },
         {
-          "$type": "MoleMole.Config.AttachModifierToSelfGlobalValueMixin",
+          "$type": "AttachModifierToSelfGlobalValueMixin",
           "globalValueKey": "GV_FilmfestBattle_Charge",
-          "gvInTalk": 0.0,
+          "defaultGlobalValueOnCreate": 0,
           "valueSteps": [
             59.5,
             60.5
@@ -1080,16 +1078,16 @@
       "modifiers": {
         "FilmfestBattle_Timer": {
           "modifierName": "",
-          "elementDurability": 20.0,
-          "bonusCriticalHurt": 100.0,
+          "duration": 20,
+          "elementDurability": 100,
           "onRemoved": [
             {
-              "$type": "MoleMole.Config.Predicated",
+              "$type": "Predicated",
               "targetPredicates": [
                 {
-                  "$type": "POOFKGMBLNA",
+                  "$type": "ByTargetGlobalValue",
                   "key": "GV_FilmfestBattle_Charge",
-                  "param3": 60.0,
+                  "value": 60,
                   "compareType": "MoreThanAndEqual"
                 }
               ],
@@ -1104,13 +1102,13 @@
         },
         "FilmfestBattle_IsCharge": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "MoleMole.Config.Predicated",
+              "$type": "Predicated",
               "targetPredicates": [
                 {
-                  "$type": "LMBGIDDHLDM",
+                  "$type": "ByHasModifier",
                   "modifierName": "FilmfestBattle_Timer"
                 }
               ],
@@ -1130,11 +1128,11 @@
           "skillID": 20081
         },
         {
-          "$type": "MoleMole.Config.SetGlobalValueV2",
-          "param3": 0.0,
+          "$type": "SetGlobalValueV2",
+          "value": 0,
           "key": "GV_FilmfestBattle_Charge",
-          "param2": 0.0,
-          "triggerID": 0.0
+          "maxValue": 0,
+          "minValue": 0
         },
         {
           "$type": "MoleMole.Config.SetExtraAbilityEnable",
@@ -1148,7 +1146,7 @@
       ],
       "onAbilityStart": [
         {
-          "$type": "MoleMole.Config.AttachModifier",
+          "$type": "AttachModifier",
           "modifierName": "FilmfestBattle_Timer"
         },
         {
@@ -1158,21 +1156,21 @@
           "$type": "MoleMole.Config.ServerLuaCall",
           "luaCallType": "CurGalleryControlGroup",
           "funcName": "SLC_FilmfestBattle_ChargeSkill",
-          "param1": 0.0,
-          "KEEFCBAAODF": 0.0,
-          "LABHKHBCHFB": 0.0
+          "param1": 0,
+          "KEEFCBAAODF": 0,
+          "LABHKHBCHFB": 0
         },
         {
-          "$type": "MoleMole.Config.TriggerAbility",
+          "$type": "TriggerAbility",
           "target": "Team",
           "abilityName": "ActivityAbility_FilmfestBattle_Level_2"
         },
         {
-          "$type": "MoleMole.Config.SetGlobalValueV2",
-          "param3": 0.0,
+          "$type": "SetGlobalValueV2",
+          "value": 0,
           "key": "GV_FilmfestBattle_Charge",
-          "param2": 0.0,
-          "triggerID": 0.0
+          "maxValue": 0,
+          "minValue": 0
         }
       ],
       "isDynamicAbility": true
@@ -1180,20 +1178,20 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.ConfigAbility",
+      "$type": "ConfigAbility",
       "abilityName": "Activity_FilmfestBattle_TeamAbility_03",
       "abilityMixins": [
         {
           "$type": "MoleMole.Config.ServerUpdateGlobalValueMixin",
           "key": "GV_FilmfestBattle_Charge",
           "useLimitRange": true,
-          "param2": 60.0,
-          "triggerID": 0.0
+          "maxValue": 60,
+          "minValue": 0
         },
         {
-          "$type": "MoleMole.Config.AttachModifierToSelfGlobalValueMixin",
+          "$type": "AttachModifierToSelfGlobalValueMixin",
           "globalValueKey": "GV_FilmfestBattle_Charge",
-          "gvInTalk": 0.0,
+          "defaultGlobalValueOnCreate": 0,
           "valueSteps": [
             59.5,
             60.5
@@ -1206,16 +1204,16 @@
       "modifiers": {
         "FilmfestBattle_Timer": {
           "modifierName": "",
-          "elementDurability": 20.0,
-          "bonusCriticalHurt": 100.0,
+          "duration": 20,
+          "elementDurability": 100,
           "onRemoved": [
             {
-              "$type": "MoleMole.Config.Predicated",
+              "$type": "Predicated",
               "targetPredicates": [
                 {
-                  "$type": "POOFKGMBLNA",
+                  "$type": "ByTargetGlobalValue",
                   "key": "GV_FilmfestBattle_Charge",
-                  "param3": 60.0,
+                  "value": 60,
                   "compareType": "MoreThanAndEqual"
                 }
               ],
@@ -1230,13 +1228,13 @@
         },
         "FilmfestBattle_IsCharge": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "MoleMole.Config.Predicated",
+              "$type": "Predicated",
               "targetPredicates": [
                 {
-                  "$type": "LMBGIDDHLDM",
+                  "$type": "ByHasModifier",
                   "modifierName": "FilmfestBattle_Timer"
                 }
               ],
@@ -1256,11 +1254,11 @@
           "skillID": 20082
         },
         {
-          "$type": "MoleMole.Config.SetGlobalValueV2",
-          "param3": 0.0,
+          "$type": "SetGlobalValueV2",
+          "value": 0,
           "key": "GV_FilmfestBattle_Charge",
-          "param2": 0.0,
-          "triggerID": 0.0
+          "maxValue": 0,
+          "minValue": 0
         },
         {
           "$type": "MoleMole.Config.SetExtraAbilityEnable",
@@ -1274,7 +1272,7 @@
       ],
       "onAbilityStart": [
         {
-          "$type": "MoleMole.Config.AttachModifier",
+          "$type": "AttachModifier",
           "modifierName": "FilmfestBattle_Timer"
         },
         {
@@ -1284,21 +1282,21 @@
           "$type": "MoleMole.Config.ServerLuaCall",
           "luaCallType": "CurGalleryControlGroup",
           "funcName": "SLC_FilmfestBattle_ChargeSkill",
-          "param1": 0.0,
-          "KEEFCBAAODF": 0.0,
-          "LABHKHBCHFB": 0.0
+          "param1": 0,
+          "KEEFCBAAODF": 0,
+          "LABHKHBCHFB": 0
         },
         {
-          "$type": "MoleMole.Config.TriggerAbility",
+          "$type": "TriggerAbility",
           "target": "Team",
           "abilityName": "ActivityAbility_FilmfestBattle_Level_3"
         },
         {
-          "$type": "MoleMole.Config.SetGlobalValueV2",
-          "param3": 0.0,
+          "$type": "SetGlobalValueV2",
+          "value": 0,
           "key": "GV_FilmfestBattle_Charge",
-          "param2": 0.0,
-          "triggerID": 0.0
+          "maxValue": 0,
+          "minValue": 0
         }
       ],
       "isDynamicAbility": true
@@ -1306,20 +1304,20 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.ConfigAbility",
+      "$type": "ConfigAbility",
       "abilityName": "Activity_FilmfestBattle_TeamAbility_04",
       "abilityMixins": [
         {
           "$type": "MoleMole.Config.ServerUpdateGlobalValueMixin",
           "key": "GV_FilmfestBattle_Charge",
           "useLimitRange": true,
-          "param2": 60.0,
-          "triggerID": 0.0
+          "maxValue": 60,
+          "minValue": 0
         },
         {
-          "$type": "MoleMole.Config.AttachModifierToSelfGlobalValueMixin",
+          "$type": "AttachModifierToSelfGlobalValueMixin",
           "globalValueKey": "GV_FilmfestBattle_Charge",
-          "gvInTalk": 0.0,
+          "defaultGlobalValueOnCreate": 0,
           "valueSteps": [
             59.5,
             60.5
@@ -1332,16 +1330,16 @@
       "modifiers": {
         "FilmfestBattle_Timer": {
           "modifierName": "",
-          "elementDurability": 20.0,
-          "bonusCriticalHurt": 100.0,
+          "duration": 20,
+          "elementDurability": 100,
           "onRemoved": [
             {
-              "$type": "MoleMole.Config.Predicated",
+              "$type": "Predicated",
               "targetPredicates": [
                 {
-                  "$type": "POOFKGMBLNA",
+                  "$type": "ByTargetGlobalValue",
                   "key": "GV_FilmfestBattle_Charge",
-                  "param3": 60.0,
+                  "value": 60,
                   "compareType": "MoreThanAndEqual"
                 }
               ],
@@ -1356,13 +1354,13 @@
         },
         "FilmfestBattle_IsCharge": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "MoleMole.Config.Predicated",
+              "$type": "Predicated",
               "targetPredicates": [
                 {
-                  "$type": "LMBGIDDHLDM",
+                  "$type": "ByHasModifier",
                   "modifierName": "FilmfestBattle_Timer"
                 }
               ],
@@ -1382,11 +1380,11 @@
           "skillID": 20083
         },
         {
-          "$type": "MoleMole.Config.SetGlobalValueV2",
-          "param3": 0.0,
+          "$type": "SetGlobalValueV2",
+          "value": 0,
           "key": "GV_FilmfestBattle_Charge",
-          "param2": 0.0,
-          "triggerID": 0.0
+          "maxValue": 0,
+          "minValue": 0
         },
         {
           "$type": "MoleMole.Config.SetExtraAbilityEnable",
@@ -1400,7 +1398,7 @@
       ],
       "onAbilityStart": [
         {
-          "$type": "MoleMole.Config.AttachModifier",
+          "$type": "AttachModifier",
           "modifierName": "FilmfestBattle_Timer"
         },
         {
@@ -1410,21 +1408,21 @@
           "$type": "MoleMole.Config.ServerLuaCall",
           "luaCallType": "CurGalleryControlGroup",
           "funcName": "SLC_FilmfestBattle_ChargeSkill",
-          "param1": 0.0,
-          "KEEFCBAAODF": 0.0,
-          "LABHKHBCHFB": 0.0
+          "param1": 0,
+          "KEEFCBAAODF": 0,
+          "LABHKHBCHFB": 0
         },
         {
-          "$type": "MoleMole.Config.TriggerAbility",
+          "$type": "TriggerAbility",
           "target": "Team",
           "abilityName": "ActivityAbility_FilmfestBattle_Level_4"
         },
         {
-          "$type": "MoleMole.Config.SetGlobalValueV2",
-          "param3": 0.0,
+          "$type": "SetGlobalValueV2",
+          "value": 0,
           "key": "GV_FilmfestBattle_Charge",
-          "param2": 0.0,
-          "triggerID": 0.0
+          "maxValue": 0,
+          "minValue": 0
         }
       ],
       "isDynamicAbility": true

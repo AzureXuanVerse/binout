@@ -1,24 +1,24 @@
 [
   {
     "Default": {
-      "$type": "LOMEAIKEDCN",
+      "$type": "ConfigAbility",
       "abilityName": "Monster_Oceanid_Falcon_ElementState",
       "modifiers": {
         "UNIQUE_ElementState": {
           "modifierName": "",
-          "forceTriggerWhenChangeAuthority": true,
+          "isUnique": true,
           "elementType": "Water",
-          "FBDJMFGBKBC": 100.0,
+          "elementDurability": 100,
           "isElementDurabilityMutable": false
         }
       },
       "onAdded": [
         {
-          "$type": "BFPEJNOJJMI",
+          "$type": "ApplyModifier",
           "modifierName": "UNIQUE_ElementState"
         },
         {
-          "$type": "BJNPBNMEEKN",
+          "$type": "AttachAbilityStateResistance",
           "resistanceBuffDebuffs": [
             "Struggle",
             "ElementWet"
@@ -29,36 +29,36 @@
   },
   {
     "Default": {
-      "$type": "LOMEAIKEDCN",
+      "$type": "ConfigAbility",
       "abilityName": "Monster_Oceanid_Falcon_Dive",
       "abilityMixins": [
         {
-          "$type": "FKHNFIJKLGM",
+          "$type": "AttachToNormalizedTimeMixin",
           "stateID": "Dive",
           "modifierName": "DiveState",
           "normalizeStart": 0.375,
           "normalizeEnd": 0.75,
-          "GBHKPFDPAML": ""
+          "__unk_Q2081332355": ""
         },
         {
           "$type": "NNMCEOICNCI",
           "steerStateIDs": [
             "Dive"
           ],
-          "endNormalizedTime": 0.3199999928474426,
-          "angularSpeed": 180.0,
+          "endNormalizedTime": 0.32,
+          "angularSpeed": 180,
           "attackTrigger": "",
           "attackDistance": 1.5,
-          "GBHKPFDPAML": ""
+          "__unk_Q2081332355": ""
         }
       ],
       "modifiers": {
         "DiveState": {
           "modifierName": "",
-          "FBDJMFGBKBC": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "GFKHJGBBBPC",
+              "$type": "EnablePushColliderName",
               "pushColliderNames": [
                 "PushCollider"
               ]
@@ -66,7 +66,7 @@
           ],
           "onRemoved": [
             {
-              "$type": "GFKHJGBBBPC",
+              "$type": "EnablePushColliderName",
               "pushColliderNames": [
                 "PushCollider"
               ],
@@ -79,7 +79,7 @@
   },
   {
     "Default": {
-      "$type": "LOMEAIKEDCN",
+      "$type": "ConfigAbility",
       "abilityName": "Monster_Oceanid_Falcon_Steer",
       "abilityMixins": [
         {
@@ -87,49 +87,43 @@
           "steerStateIDs": [
             "NormalIdle"
           ],
-          "angularSpeed": 180.0,
+          "angularSpeed": 180,
           "attackTrigger": "",
           "attackDistance": 1.5,
-          "GBHKPFDPAML": ""
+          "__unk_Q2081332355": ""
         }
       ]
     }
   },
   {
     "Default": {
-      "$type": "LOMEAIKEDCN",
+      "$type": "ConfigAbility",
       "abilityName": "Monster_Oceanid_Falcon_Die",
       "onAbilityStart": [
         {
-          "$type": "MOLBCOBBGBJ",
-          "exclusionPairs": "Eff_Monster_Oceanid_AnimalDie",
+          "$type": "FireEffect",
+          "effectPattern": "Eff_Monster_Oceanid_AnimalDie",
           "born": {
-            "$type": "IJJMJLBNINA",
-            "offset": {
-              "FECHLPEFHJM": 0.0,
-              "IPNCJEJDGHP": 0.0,
-              "HCCKCMLCLLK": 0.0
-            },
+            "$type": "ConfigBornByAttachPoint",
             "direction": {
-              "$type": "LIHJOPKMBHB"
+              "$type": "ConfigDirectionByEntity"
             },
             "attachPointName": "RootNode"
           },
-          "JIJFNGCFCFK": 1.0,
-          "HPFBIEOBCGE": -1.0
+          "scale": 1
         }
       ]
     }
   },
   {
     "Default": {
-      "$type": "LOMEAIKEDCN",
+      "$type": "ConfigAbility",
       "abilityName": "Monster_Oceanid_Falcon_HealHp_Challenge",
       "abilityMixins": [
         {
-          "$type": "GIJAKFCNHDH",
+          "$type": "AttachModifierToSelfGlobalValueMixin",
           "globalValueKey": "_HEALHP_STATE_",
-          "gvInTalk": 1.0,
+          "defaultGlobalValueOnCreate": 1,
           "valueSteps": [
             -0.5,
             0.5,
@@ -142,33 +136,33 @@
         }
       ],
       "abilitySpecials": {
-        "HealHPHigh": 0.15000000596046448
+        "HealHPHigh": 0.15
       },
       "modifiers": {
         "UNIQUE_Falcon_Water_HealHp": {
           "modifierName": "",
-          "forceTriggerWhenChangeAuthority": true,
-          "FBDJMFGBKBC": 100.0,
+          "isUnique": true,
+          "elementDurability": 100,
           "thinkInterval": 1.5,
           "onBeingHit": [
             {
-              "$type": "LFJCGJEHCBA",
+              "$type": "Predicated",
               "targetPredicates": [
                 {
-                  "$type": "FABPFEABCJD",
+                  "$type": "ByTargetGlobalValue",
                   "key": "SGV_MONSTERAFFIX_OCEANID_02_ANIMALHEAL_UP",
-                  "param3": 1.0
+                  "value": 1
                 }
               ],
               "successActions": [
                 {
-                  "$type": "BFPEJNOJJMI",
+                  "$type": "ApplyModifier",
                   "modifierName": "HealHP_Pause_AffixUp"
                 }
               ],
               "failActions": [
                 {
-                  "$type": "BFPEJNOJJMI",
+                  "$type": "ApplyModifier",
                   "modifierName": "HealHP_Pause"
                 }
               ]
@@ -176,25 +170,24 @@
           ],
           "onThinkInterval": [
             {
-              "$type": "LFJCGJEHCBA",
+              "$type": "Predicated",
               "targetPredicates": [
                 {
-                  "$type": "FABPFEABCJD",
+                  "$type": "ByTargetGlobalValue",
                   "key": "SGV_MONSTERAFFIX_OCEANID_02_ANIMALHEAL_UP",
-                  "param3": 1.0
+                  "value": 1
                 }
               ],
               "successActions": [
                 {
-                  "$type": "KFCMCLEBOED",
-                  "PCJLFDIHLKD": "HealHPHigh",
-                  "cdRatio": ""
+                  "$type": "HealHP",
+                  "amountByCasterMaxHPRatio": "HealHPHigh",
+                  "__exp_healTag": ""
                 },
                 {
-                  "$type": "MOLBCOBBGBJ",
-                  "exclusionPairs": "Eff_Monster_Oceanid_Falcon_Heal",
-                  "JIJFNGCFCFK": 1.0,
-                  "HPFBIEOBCGE": -1.0
+                  "$type": "FireEffect",
+                  "effectPattern": "Eff_Monster_Oceanid_Falcon_Heal",
+                  "scale": 1
                 }
               ]
             }
@@ -202,57 +195,57 @@
         },
         "HealHP_Pause": {
           "modifierName": "",
-          "BGBBOJGFNNK": 3.0,
-          "FBDJMFGBKBC": 100.0,
+          "duration": 3,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "GGACJNFACEH",
-              "param3": 0.0,
+              "$type": "AddGlobalValue",
+              "value": 0,
               "key": "_HEALHP_STATE_",
               "useLimitRange": true,
-              "param2": 0.0,
-              "repeatTimes": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ],
           "onRemoved": [
             {
-              "$type": "GGACJNFACEH",
-              "param3": 1.0,
+              "$type": "AddGlobalValue",
+              "value": 1,
               "key": "_HEALHP_STATE_",
               "useLimitRange": true,
-              "param2": 1.0,
-              "repeatTimes": 1.0
+              "maxValue": 1,
+              "minValue": 1
             }
           ]
         },
         "HealHP_Pause_AffixUp": {
           "modifierName": "",
-          "BGBBOJGFNNK": 1.5,
-          "FBDJMFGBKBC": 100.0,
+          "duration": 1.5,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "GGACJNFACEH",
-              "param3": 0.0,
+              "$type": "AddGlobalValue",
+              "value": 0,
               "key": "_HEALHP_STATE_",
               "useLimitRange": true,
-              "param2": 0.0,
-              "repeatTimes": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ],
           "onRemoved": [
             {
-              "$type": "GGACJNFACEH",
-              "param3": 1.0,
+              "$type": "AddGlobalValue",
+              "value": 1,
               "key": "_HEALHP_STATE_",
               "useLimitRange": true,
-              "param2": 1.0,
-              "repeatTimes": 1.0
+              "maxValue": 1,
+              "minValue": 1
             }
           ]
         },
         "Empty": {
           "modifierName": "",
-          "FBDJMFGBKBC": 100.0
+          "elementDurability": 100
         }
       }
     }

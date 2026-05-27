@@ -1,9 +1,9 @@
 [
   {
     "Default": {
-      "$type": "DDKKBPLFIDM",
-      "EIIJMGGKJME": "SceneObj_Homeworld_Interior_Md_Decoration_Fireplace_01_Ability",
-      "DNOLJKGCMDK": [
+      "$type": "ConfigAbility",
+      "abilityName": "SceneObj_Homeworld_Interior_Md_Decoration_Fireplace_01_Ability",
+      "abilityMixins": [
         {
           "$type": "KLDBKNBKKIL",
           "IOAADAMDJMO": [
@@ -14,42 +14,42 @@
           ]
         }
       ],
-      "OJEBMMAGKOF": {
+      "modifiers": {
         "OnHomeEditor": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0
+          "modifierName": "",
+          "elementDurability": 100
         },
         "OnHomeWorld": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "AOBGBMLFACK",
-              "HPDLNIPCGHB": 1.0,
-              "EPDHICCGHAL": "_Homeworld_Cooking",
-              "BFEAMPHKKCE": 0.0,
-              "CMLGDBNFNNO": 0.0
+              "$type": "SetGlobalValue",
+              "value": 1,
+              "key": "_Homeworld_Cooking",
+              "maxValue": 0,
+              "minValue": 0
             },
             {
-              "$type": "ELEIPIAKELP",
-              "PEJCGBFFICP": "Fire_State"
+              "$type": "AttachModifier",
+              "modifierName": "Fire_State"
             }
           ]
         },
         "Fire_State": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "EEEIPAMAIGD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "modifierMixins": [
             {
-              "$type": "JOOBHEHMNDA",
-              "AMOOLHDIAIH": "_Homeworld_Cooking",
-              "HFMGECJKBMM": 0.0,
-              "EALHNKBPCIN": [
+              "$type": "AttachModifierToSelfGlobalValueMixin",
+              "globalValueKey": "_Homeworld_Cooking",
+              "defaultGlobalValueOnCreate": 0,
+              "valueSteps": [
                 -0.5,
                 0.5,
                 1.5
               ],
-              "GCHODBPEJKH": [
+              "modifierNameSteps": [
                 "Fire_Off",
                 "Fire_On"
               ]
@@ -57,65 +57,63 @@
           ]
         },
         "Fire_Off": {
-          "PEJCGBFFICP": "",
-          "LBPCINOGHGB": 5.0,
-          "DJHMCMJNDJL": 100.0,
-          "PJIJPAIFEMN": [
+          "modifierName": "",
+          "duration": 5,
+          "elementDurability": 100,
+          "onRemoved": [
             {
-              "$type": "AOBGBMLFACK",
-              "HPDLNIPCGHB": 1.0,
-              "EPDHICCGHAL": "_Homeworld_Cooking",
-              "BFEAMPHKKCE": 0.0,
-              "CMLGDBNFNNO": 0.0
+              "$type": "SetGlobalValue",
+              "value": 1,
+              "key": "_Homeworld_Cooking",
+              "maxValue": 0,
+              "minValue": 0
             }
           ],
-          "MJFCHEEHDMO": [
+          "onBeingHit": [
             {
-              "$type": "AOBGBMLFACK",
-              "KHPFBKFKIMJ": [
+              "$type": "SetGlobalValue",
+              "predicates": [
                 {
-                  "$type": "KANPCOONAPK",
-                  "PIDMPLHECCI": "Fire"
+                  "$type": "ByHitElement",
+                  "element": "Fire"
                 }
               ],
-              "HPDLNIPCGHB": 1.0,
-              "EPDHICCGHAL": "_Homeworld_Cooking",
-              "BFEAMPHKKCE": 0.0,
-              "CMLGDBNFNNO": 0.0
+              "value": 1,
+              "key": "_Homeworld_Cooking",
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         "Fire_On": {
-          "PEJCGBFFICP": "",
-          "JPNOHJMPEGF": "Fire",
-          "DJHMCMJNDJL": 25.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "elementType": "Fire",
+          "elementDurability": 25,
+          "onAdded": [
             {
-              "$type": "PIIPMJLIHPC",
-              "CGLDJGDLIHP": "Eff_SceneObj_Griller_FireCook_01",
-              "PGCCMJFMBOF": {
-                "$type": "LAMNGOHKHHL",
-                "ABMNEGGKEIC": "FirePoint"
-              },
-              "LMEAGKCCLON": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_Griller_FireCook_01",
+              "born": {
+                "$type": "ConfigBornByAttachPoint",
+                "attachPointName": "FirePoint"
+              }
             }
           ],
-          "PJIJPAIFEMN": [
+          "onRemoved": [
             {
-              "$type": "ALLDMMABLIM",
-              "CGLDJGDLIHP": "Eff_FireBasin_Smoke",
-              "PGCCMJFMBOF": {
-                "$type": "LAMNGOHKHHL",
-                "ABMNEGGKEIC": "FirePoint"
-              },
-              "LMEAGKCCLON": -1.0
+              "$type": "FireEffect",
+              "effectPattern": "Eff_FireBasin_Smoke",
+              "born": {
+                "$type": "ConfigBornByAttachPoint",
+                "attachPointName": "FirePoint"
+              }
             },
             {
-              "$type": "AOBGBMLFACK",
-              "HPDLNIPCGHB": 0.0,
-              "EPDHICCGHAL": "_Homeworld_Cooking",
-              "BFEAMPHKKCE": 0.0,
-              "CMLGDBNFNNO": 0.0
+              "$type": "SetGlobalValue",
+              "value": 0,
+              "key": "_Homeworld_Cooking",
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         }
@@ -124,47 +122,47 @@
   },
   {
     "Default": {
-      "$type": "DDKKBPLFIDM",
-      "EIIJMGGKJME": "SceneObj_Homeworld_Exterior_Common_Decoration_Junk_06_Ability",
-      "OJEBMMAGKOF": {
+      "$type": "ConfigAbility",
+      "abilityName": "SceneObj_Homeworld_Exterior_Common_Decoration_Junk_06_Ability",
+      "modifiers": {
         "LimboState": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "JBABKKGDEKL": "Limbo"
+          "modifierName": "",
+          "elementDurability": 100,
+          "state": "Limbo"
         }
       },
-      "DNEECINBPHM": [
+      "onAdded": [
         {
-          "$type": "ELEIPIAKELP",
-          "PEJCGBFFICP": "LimboState"
+          "$type": "AttachModifier",
+          "modifierName": "LimboState"
         }
       ]
     }
   },
   {
     "Default": {
-      "$type": "DDKKBPLFIDM",
-      "EIIJMGGKJME": "SceneObj_Homeworld_Exterior_Common_Decoration_Stake_01_Ability",
-      "OJEBMMAGKOF": {
+      "$type": "ConfigAbility",
+      "abilityName": "SceneObj_Homeworld_Exterior_Common_Decoration_Stake_01_Ability",
+      "modifiers": {
         "LimboState": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "JBABKKGDEKL": "Limbo"
+          "modifierName": "",
+          "elementDurability": 100,
+          "state": "Limbo"
         }
       },
-      "DNEECINBPHM": [
+      "onAdded": [
         {
-          "$type": "ELEIPIAKELP",
-          "PEJCGBFFICP": "LimboState"
+          "$type": "AttachModifier",
+          "modifierName": "LimboState"
         }
       ]
     }
   },
   {
     "Default": {
-      "$type": "DDKKBPLFIDM",
-      "EIIJMGGKJME": "SceneObj_Homeworld_Exterior_Common_Thing_Field_01_Ability",
-      "DNOLJKGCMDK": [
+      "$type": "ConfigAbility",
+      "abilityName": "SceneObj_Homeworld_Exterior_Common_Thing_Field_01_Ability",
+      "abilityMixins": [
         {
           "$type": "KLDBKNBKKIL",
           "IOAADAMDJMO": [
@@ -175,11 +173,11 @@
           ]
         }
       ],
-      "OJEBMMAGKOF": {
+      "modifiers": {
         "OnHomeEditor": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "OKLMAAMHJID",
               "AHHJGPMLMPC": [
@@ -189,21 +187,21 @@
           ]
         },
         "OnHomeWorld": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "EEEIPAMAIGD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "modifierMixins": [
             {
-              "$type": "JOOBHEHMNDA",
-              "AMOOLHDIAIH": "FarmState",
-              "HFMGECJKBMM": 0.0,
-              "EALHNKBPCIN": [
+              "$type": "AttachModifierToSelfGlobalValueMixin",
+              "globalValueKey": "FarmState",
+              "defaultGlobalValueOnCreate": 0,
+              "valueSteps": [
                 -0.5,
                 0.5,
                 1.5,
                 2.5,
                 3.5
               ],
-              "GCHODBPEJKH": [
+              "modifierNameSteps": [
                 "FarmState0",
                 "FarmState1",
                 "FarmState2",
@@ -213,58 +211,58 @@
           ]
         },
         "FarmState0": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "HGKGGEKHOBB",
-              "PMMKLHAOKCG": "CurLocalAvatar",
-              "PILMKPPOHPN": [
+              "$type": "Predicated",
+              "target": "CurLocalAvatar",
+              "targetPredicates": [
                 {
                   "$type": "AAFLHAFLDMN",
                   "GANOCLLEDDE": true
                 }
               ],
-              "BDJHNHMPGDB": [
+              "successActions": [
                 {
                   "$type": "JFDOHOOIOEH"
                 },
                 {
                   "$type": "GGIAKINLKIF",
-                  "KHPFBKFKIMJ": [
+                  "predicates": [
                     {
-                      "$type": "BEDEFFCBNIG",
-                      "EPDHICCGHAL": "_ABILITY_HomeField_Mark",
-                      "HPDLNIPCGHB": 1.0
+                      "$type": "ByTargetGlobalValue",
+                      "key": "_ABILITY_HomeField_Mark",
+                      "value": 1
                     }
                   ],
                   "DNBEILKJEOI": "UI_HOMEWORLD_FARMFIELD_BUTTONA"
                 },
                 {
                   "$type": "GGIAKINLKIF",
-                  "KHPFBKFKIMJ": [
+                  "predicates": [
                     {
-                      "$type": "BEDEFFCBNIG",
-                      "EPDHICCGHAL": "_ABILITY_HomeField_Mark",
-                      "HPDLNIPCGHB": 2.0
+                      "$type": "ByTargetGlobalValue",
+                      "key": "_ABILITY_HomeField_Mark",
+                      "value": 2
                     }
                   ],
                   "DNBEILKJEOI": "UI_HOMEWORLD_FARMFIELD_BUTTONB"
                 },
                 {
                   "$type": "GGIAKINLKIF",
-                  "KHPFBKFKIMJ": [
+                  "predicates": [
                     {
-                      "$type": "BEDEFFCBNIG",
-                      "EPDHICCGHAL": "_ABILITY_HomeField_Mark",
-                      "HPDLNIPCGHB": 3.0
+                      "$type": "ByTargetGlobalValue",
+                      "key": "_ABILITY_HomeField_Mark",
+                      "value": 3
                     }
                   ],
                   "DNBEILKJEOI": "UI_HOMEWORLD_FARMFIELD_BUTTONC"
                 },
                 {
                   "$type": "JFDOHOOIOEH",
-                  "KEEJFLJBFKM": true
+                  "enable": true
                 }
               ]
             },
@@ -277,25 +275,25 @@
           ]
         },
         "FarmState1": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "HGKGGEKHOBB",
-              "PMMKLHAOKCG": "CurLocalAvatar",
-              "PILMKPPOHPN": [
+              "$type": "Predicated",
+              "target": "CurLocalAvatar",
+              "targetPredicates": [
                 {
                   "$type": "AAFLHAFLDMN",
                   "GANOCLLEDDE": true
                 }
               ],
-              "BDJHNHMPGDB": [
+              "successActions": [
                 {
                   "$type": "JFDOHOOIOEH"
                 },
                 {
                   "$type": "JFDOHOOIOEH",
-                  "KEEJFLJBFKM": true
+                  "enable": true
                 }
               ]
             },
@@ -304,42 +302,41 @@
               "AHHJGPMLMPC": [
                 "FarmSeeding"
               ],
-              "AGGNLAHGDPC": true
+              "setEnable": true
             },
             {
-              "$type": "PIIPMJLIHPC",
-              "KHPFBKFKIMJ": [
+              "$type": "AttachEffect",
+              "predicates": [
                 {
-                  "$type": "BEDEFFCBNIG",
-                  "EPDHICCGHAL": "_ABILITY_HomeField_Mark",
-                  "HPDLNIPCGHB": 3.0
+                  "$type": "ByTargetGlobalValue",
+                  "key": "_ABILITY_HomeField_Mark",
+                  "value": 3
                 }
               ],
-              "CGLDJGDLIHP": "Eff_SceneObj_Homeworld_Field_01_WaterBubble",
-              "LMEAGKCCLON": -1.0
+              "effectPattern": "Eff_SceneObj_Homeworld_Field_01_WaterBubble"
             }
           ]
         },
         "FarmState2": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "HGKGGEKHOBB",
-              "PMMKLHAOKCG": "CurLocalAvatar",
-              "PILMKPPOHPN": [
+              "$type": "Predicated",
+              "target": "CurLocalAvatar",
+              "targetPredicates": [
                 {
                   "$type": "AAFLHAFLDMN",
                   "GANOCLLEDDE": true
                 }
               ],
-              "BDJHNHMPGDB": [
+              "successActions": [
                 {
                   "$type": "JFDOHOOIOEH"
                 },
                 {
                   "$type": "JFDOHOOIOEH",
-                  "KEEJFLJBFKM": true
+                  "enable": true
                 }
               ]
             },
@@ -348,36 +345,35 @@
               "AHHJGPMLMPC": [
                 "FarmSeeding"
               ],
-              "AGGNLAHGDPC": true
+              "setEnable": true
             },
             {
-              "$type": "PIIPMJLIHPC",
-              "KHPFBKFKIMJ": [
+              "$type": "AttachEffect",
+              "predicates": [
                 {
-                  "$type": "BEDEFFCBNIG",
-                  "EPDHICCGHAL": "_ABILITY_HomeField_Mark",
-                  "HPDLNIPCGHB": 3.0
+                  "$type": "ByTargetGlobalValue",
+                  "key": "_ABILITY_HomeField_Mark",
+                  "value": 3
                 }
               ],
-              "CGLDJGDLIHP": "Eff_SceneObj_Homeworld_Field_01_WaterBubble",
-              "LMEAGKCCLON": -1.0
+              "effectPattern": "Eff_SceneObj_Homeworld_Field_01_WaterBubble"
             }
           ]
         },
         "FarmState3": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "HGKGGEKHOBB",
-              "PMMKLHAOKCG": "CurLocalAvatar",
-              "PILMKPPOHPN": [
+              "$type": "Predicated",
+              "target": "CurLocalAvatar",
+              "targetPredicates": [
                 {
                   "$type": "AAFLHAFLDMN",
                   "GANOCLLEDDE": true
                 }
               ],
-              "BDJHNHMPGDB": [
+              "successActions": [
                 {
                   "$type": "JFDOHOOIOEH"
                 }
@@ -388,19 +384,18 @@
               "AHHJGPMLMPC": [
                 "FarmSeeding"
               ],
-              "AGGNLAHGDPC": true
+              "setEnable": true
             },
             {
-              "$type": "PIIPMJLIHPC",
-              "KHPFBKFKIMJ": [
+              "$type": "AttachEffect",
+              "predicates": [
                 {
-                  "$type": "BEDEFFCBNIG",
-                  "EPDHICCGHAL": "_ABILITY_HomeField_Mark",
-                  "HPDLNIPCGHB": 3.0
+                  "$type": "ByTargetGlobalValue",
+                  "key": "_ABILITY_HomeField_Mark",
+                  "value": 3
                 }
               ],
-              "CGLDJGDLIHP": "Eff_SceneObj_Homeworld_Field_01_WaterBubble",
-              "LMEAGKCCLON": -1.0
+              "effectPattern": "Eff_SceneObj_Homeworld_Field_01_WaterBubble"
             }
           ]
         }
@@ -409,96 +404,94 @@
   },
   {
     "Default": {
-      "$type": "DDKKBPLFIDM",
-      "EIIJMGGKJME": "SceneObj_Homeworld_Exterior_Common_Thing_Field_01_Mark",
-      "DNEECINBPHM": [
+      "$type": "ConfigAbility",
+      "abilityName": "SceneObj_Homeworld_Exterior_Common_Thing_Field_01_Mark",
+      "onAdded": [
         {
-          "$type": "AOBGBMLFACK",
-          "HPDLNIPCGHB": 1.0,
-          "EPDHICCGHAL": "_ABILITY_HomeField_Mark",
-          "BFEAMPHKKCE": 0.0,
-          "CMLGDBNFNNO": 0.0
+          "$type": "SetGlobalValue",
+          "value": 1,
+          "key": "_ABILITY_HomeField_Mark",
+          "maxValue": 0,
+          "minValue": 0
         }
       ]
     }
   },
   {
     "Default": {
-      "$type": "DDKKBPLFIDM",
-      "EIIJMGGKJME": "SceneObj_Homeworld_Exterior_Common_Thing_Field_02_Mark",
-      "DNEECINBPHM": [
+      "$type": "ConfigAbility",
+      "abilityName": "SceneObj_Homeworld_Exterior_Common_Thing_Field_02_Mark",
+      "onAdded": [
         {
-          "$type": "AOBGBMLFACK",
-          "HPDLNIPCGHB": 2.0,
-          "EPDHICCGHAL": "_ABILITY_HomeField_Mark",
-          "BFEAMPHKKCE": 0.0,
-          "CMLGDBNFNNO": 0.0
+          "$type": "SetGlobalValue",
+          "value": 2,
+          "key": "_ABILITY_HomeField_Mark",
+          "maxValue": 0,
+          "minValue": 0
         }
       ]
     }
   },
   {
     "Default": {
-      "$type": "DDKKBPLFIDM",
-      "EIIJMGGKJME": "SceneObj_Homeworld_Exterior_Common_Thing_Field_03_Mark",
-      "DNEECINBPHM": [
+      "$type": "ConfigAbility",
+      "abilityName": "SceneObj_Homeworld_Exterior_Common_Thing_Field_03_Mark",
+      "onAdded": [
         {
-          "$type": "AOBGBMLFACK",
-          "HPDLNIPCGHB": 3.0,
-          "EPDHICCGHAL": "_ABILITY_HomeField_Mark",
-          "BFEAMPHKKCE": 0.0,
-          "CMLGDBNFNNO": 0.0
+          "$type": "SetGlobalValue",
+          "value": 3,
+          "key": "_ABILITY_HomeField_Mark",
+          "maxValue": 0,
+          "minValue": 0
         }
       ]
     }
   },
   {
     "Default": {
-      "$type": "DDKKBPLFIDM",
-      "EIIJMGGKJME": "SceneObj_Homeworld_Exterior_Common_Thing_Teleporter_01_Ability",
-      "DNEECINBPHM": [
+      "$type": "ConfigAbility",
+      "abilityName": "SceneObj_Homeworld_Exterior_Common_Thing_Teleporter_01_Ability",
+      "onAdded": [
         {
-          "$type": "PIIPMJLIHPC",
-          "CGLDJGDLIHP": "Eff_SceneObj_PortableTeleport_02",
-          "LMEAGKCCLON": -1.0
+          "$type": "AttachEffect",
+          "effectPattern": "Eff_SceneObj_PortableTeleport_02"
         }
       ]
     }
   },
   {
     "Default": {
-      "$type": "DDKKBPLFIDM",
-      "EIIJMGGKJME": "SceneObj_Homeworld_Exterior_Common_Decoration_Harp_01_Ability",
-      "DNOLJKGCMDK": [
+      "$type": "ConfigAbility",
+      "abilityName": "SceneObj_Homeworld_Exterior_Common_Decoration_Harp_01_Ability",
+      "abilityMixins": [
         {
           "$type": "PBAJOMHCPAH",
           "JBPHALBNNLF": [
             {
-              "$type": "BFIMNGHHDEN",
-              "PEJCGBFFICP": "CloseIntee"
+              "$type": "ApplyModifier",
+              "modifierName": "CloseIntee"
             }
           ]
         }
       ],
-      "OJEBMMAGKOF": {
+      "modifiers": {
         "CloseIntee": {
-          "PEJCGBFFICP": "",
-          "LBPCINOGHGB": 3.0,
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "duration": 3,
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "JFDOHOOIOEH"
             },
             {
-              "$type": "ALLDMMABLIM",
-              "CGLDJGDLIHP": "Eff_SceneObj_Homeworld_Harp_01",
-              "LMEAGKCCLON": -1.0
+              "$type": "FireEffect",
+              "effectPattern": "Eff_SceneObj_Homeworld_Harp_01"
             }
           ],
-          "PJIJPAIFEMN": [
+          "onRemoved": [
             {
               "$type": "JFDOHOOIOEH",
-              "KEEJFLJBFKM": true
+              "enable": true
             }
           ]
         }
@@ -507,38 +500,37 @@
   },
   {
     "Default": {
-      "$type": "DDKKBPLFIDM",
-      "EIIJMGGKJME": "SceneObj_Homeworld_Exterior_GuQin_01",
-      "DNOLJKGCMDK": [
+      "$type": "ConfigAbility",
+      "abilityName": "SceneObj_Homeworld_Exterior_GuQin_01",
+      "abilityMixins": [
         {
           "$type": "PBAJOMHCPAH",
           "JBPHALBNNLF": [
             {
-              "$type": "BFIMNGHHDEN",
-              "PEJCGBFFICP": "CloseIntee"
+              "$type": "ApplyModifier",
+              "modifierName": "CloseIntee"
             }
           ]
         }
       ],
-      "OJEBMMAGKOF": {
+      "modifiers": {
         "CloseIntee": {
-          "PEJCGBFFICP": "",
-          "LBPCINOGHGB": 8.0,
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "duration": 8,
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "JFDOHOOIOEH"
             },
             {
-              "$type": "ALLDMMABLIM",
-              "CGLDJGDLIHP": "Eff_SceneObj_Homeworld_Guqin_01",
-              "LMEAGKCCLON": -1.0
+              "$type": "FireEffect",
+              "effectPattern": "Eff_SceneObj_Homeworld_Guqin_01"
             }
           ],
-          "PJIJPAIFEMN": [
+          "onRemoved": [
             {
               "$type": "JFDOHOOIOEH",
-              "KEEJFLJBFKM": true
+              "enable": true
             }
           ]
         }
@@ -547,9 +539,9 @@
   },
   {
     "Default": {
-      "$type": "DDKKBPLFIDM",
-      "EIIJMGGKJME": "SceneObj_Homeworld_Exterior_Ly_Build_Lift_01",
-      "DNOLJKGCMDK": [
+      "$type": "ConfigAbility",
+      "abilityName": "SceneObj_Homeworld_Exterior_Ly_Build_Lift_01",
+      "abilityMixins": [
         {
           "$type": "CIDMKGAMKFF",
           "IOAADAMDJMO": [
@@ -560,105 +552,105 @@
           ]
         }
       ],
-      "OJEBMMAGKOF": {
+      "modifiers": {
         "KillMovePlat": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "GHKGCICKBBP"
+              "$type": "KillSelf"
             }
           ]
         },
         "ShowMode": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "NKLEMKMNFBC",
-              "EIFHKAKNIBJ": true,
-              "OJJPLPHEMJO": [
+              "$type": "TriggerSetRenderersEnable",
+              "doOffStage": true,
+              "renderNames": [
                 "Homeworld_Exterior_Ly_Build_Lift_02_Vo"
               ],
-              "AGGNLAHGDPC": true
+              "setEnable": true
             },
             {
-              "$type": "BFIMNGHHDEN",
-              "DCHBNFCPPAP": {
-                "$type": "ODJBHFFNHNO",
-                "ODGMMOKFFMI": 77200117
+              "$type": "ApplyModifier",
+              "otherTargets": {
+                "$type": "SelectTargetsByChildren",
+                "configID": 77200117
               },
-              "PEJCGBFFICP": "KillMovePlat"
+              "modifierName": "KillMovePlat"
             }
           ]
         },
         "HideMode": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "NKLEMKMNFBC",
-              "EIFHKAKNIBJ": true,
-              "OJJPLPHEMJO": [
+              "$type": "TriggerSetRenderersEnable",
+              "doOffStage": true,
+              "renderNames": [
                 "Homeworld_Exterior_Ly_Build_Lift_02_Vo"
               ]
             },
             {
-              "$type": "OKPNJIGBCKE",
-              "LHOMKCJFKKI": true,
-              "JHKKFFKBNCH": 77200117,
+              "$type": "CreateGadget",
+              "lifeByOwnerIsAlive": true,
+              "gadgetID": 77200117,
               "CFOMEJJAFIE": true
             }
           ]
         }
       },
-      "IPFFJPIILKO": [
+      "onKill": [
         {
-          "$type": "BFIMNGHHDEN",
-          "DCHBNFCPPAP": {
-            "$type": "ODJBHFFNHNO",
-            "ODGMMOKFFMI": 77200117
+          "$type": "ApplyModifier",
+          "otherTargets": {
+            "$type": "SelectTargetsByChildren",
+            "configID": 77200117
           },
-          "PEJCGBFFICP": "KillMovePlat"
+          "modifierName": "KillMovePlat"
         }
       ]
     }
   },
   {
     "Default": {
-      "$type": "DDKKBPLFIDM",
-      "EIIJMGGKJME": "SceneObj_Homeworld_Exterior_Ly_Build_Lift_02",
-      "DNOLJKGCMDK": [
+      "$type": "ConfigAbility",
+      "abilityName": "SceneObj_Homeworld_Exterior_Ly_Build_Lift_02",
+      "abilityMixins": [
         {
           "$type": "CGMCFBEJMNM"
         }
       ],
-      "OJEBMMAGKOF": {
+      "modifiers": {
         "InMove": {
-          "BOKEOPPFJJC": "Unique",
-          "PEJCGBFFICP": "",
-          "LBPCINOGHGB": 18.0,
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "stacking": "Unique",
+          "modifierName": "",
+          "duration": 18,
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "KKBEIGIJHCG"
             }
           ]
         }
       },
-      "LDPJDHEGIAB": [
+      "onFieldEnter": [
         {
-          "$type": "BFIMNGHHDEN",
-          "PEJCGBFFICP": "InMove"
+          "$type": "ApplyModifier",
+          "modifierName": "InMove"
         }
       ]
     }
   },
   {
     "Default": {
-      "$type": "DDKKBPLFIDM",
-      "EIIJMGGKJME": "SceneObj_Homeworld_Exterior_Common_Thing_Prop_Bonfire_01_Ability",
-      "DNOLJKGCMDK": [
+      "$type": "ConfigAbility",
+      "abilityName": "SceneObj_Homeworld_Exterior_Common_Thing_Prop_Bonfire_01_Ability",
+      "abilityMixins": [
         {
           "$type": "KLDBKNBKKIL",
           "IOAADAMDJMO": [
@@ -669,19 +661,18 @@
           ]
         }
       ],
-      "OJEBMMAGKOF": {
+      "modifiers": {
         "OnHomeEditor": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0
+          "modifierName": "",
+          "elementDurability": 100
         },
         "OnHomeWorld": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "PIIPMJLIHPC",
-              "CGLDJGDLIHP": "Eff_SceneObj_Homeworld_Bonfire_01",
-              "LMEAGKCCLON": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_Homeworld_Bonfire_01"
             }
           ]
         }
@@ -690,9 +681,9 @@
   },
   {
     "Default": {
-      "$type": "DDKKBPLFIDM",
-      "EIIJMGGKJME": "SceneObj_Homeworld_Exterior_Md_Thing_Prop_KleeOven_01_Ability",
-      "DNOLJKGCMDK": [
+      "$type": "ConfigAbility",
+      "abilityName": "SceneObj_Homeworld_Exterior_Md_Thing_Prop_KleeOven_01_Ability",
+      "abilityMixins": [
         {
           "$type": "KLDBKNBKKIL",
           "IOAADAMDJMO": [
@@ -703,42 +694,42 @@
           ]
         }
       ],
-      "OJEBMMAGKOF": {
+      "modifiers": {
         "OnHomeEditor": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0
+          "modifierName": "",
+          "elementDurability": 100
         },
         "OnHomeWorld": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "AOBGBMLFACK",
-              "HPDLNIPCGHB": 1.0,
-              "EPDHICCGHAL": "_Homeworld_Cooking",
-              "BFEAMPHKKCE": 0.0,
-              "CMLGDBNFNNO": 0.0
+              "$type": "SetGlobalValue",
+              "value": 1,
+              "key": "_Homeworld_Cooking",
+              "maxValue": 0,
+              "minValue": 0
             },
             {
-              "$type": "ELEIPIAKELP",
-              "PEJCGBFFICP": "Fire_State"
+              "$type": "AttachModifier",
+              "modifierName": "Fire_State"
             }
           ]
         },
         "Fire_State": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "EEEIPAMAIGD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "modifierMixins": [
             {
-              "$type": "JOOBHEHMNDA",
-              "AMOOLHDIAIH": "_Homeworld_Cooking",
-              "HFMGECJKBMM": 0.0,
-              "EALHNKBPCIN": [
+              "$type": "AttachModifierToSelfGlobalValueMixin",
+              "globalValueKey": "_Homeworld_Cooking",
+              "defaultGlobalValueOnCreate": 0,
+              "valueSteps": [
                 -0.5,
                 0.5,
                 1.5
               ],
-              "GCHODBPEJKH": [
+              "modifierNameSteps": [
                 "Fire_Off",
                 "Fire_On"
               ]
@@ -746,61 +737,59 @@
           ]
         },
         "Fire_Off": {
-          "PEJCGBFFICP": "",
-          "LBPCINOGHGB": 5.0,
-          "DJHMCMJNDJL": 100.0,
-          "PJIJPAIFEMN": [
+          "modifierName": "",
+          "duration": 5,
+          "elementDurability": 100,
+          "onRemoved": [
             {
-              "$type": "AOBGBMLFACK",
-              "HPDLNIPCGHB": 1.0,
-              "EPDHICCGHAL": "_Homeworld_Cooking",
-              "BFEAMPHKKCE": 0.0,
-              "CMLGDBNFNNO": 0.0
+              "$type": "SetGlobalValue",
+              "value": 1,
+              "key": "_Homeworld_Cooking",
+              "maxValue": 0,
+              "minValue": 0
             }
           ],
-          "MJFCHEEHDMO": [
+          "onBeingHit": [
             {
-              "$type": "AOBGBMLFACK",
-              "KHPFBKFKIMJ": [
+              "$type": "SetGlobalValue",
+              "predicates": [
                 {
-                  "$type": "KANPCOONAPK",
-                  "PIDMPLHECCI": "Fire"
+                  "$type": "ByHitElement",
+                  "element": "Fire"
                 }
               ],
-              "HPDLNIPCGHB": 1.0,
-              "EPDHICCGHAL": "_Homeworld_Cooking",
-              "BFEAMPHKKCE": 0.0,
-              "CMLGDBNFNNO": 0.0
+              "value": 1,
+              "key": "_Homeworld_Cooking",
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         "Fire_On": {
-          "PEJCGBFFICP": "",
-          "JPNOHJMPEGF": "Fire",
-          "DJHMCMJNDJL": 25.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "elementType": "Fire",
+          "elementDurability": 25,
+          "onAdded": [
             {
-              "$type": "PIIPMJLIHPC",
-              "CGLDJGDLIHP": "Eff_ScenObj_Homeworld_Exterior_Md_Thing_Prop_KleeOven_01",
-              "LMEAGKCCLON": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_ScenObj_Homeworld_Exterior_Md_Thing_Prop_KleeOven_01"
             }
           ],
-          "PJIJPAIFEMN": [
+          "onRemoved": [
             {
-              "$type": "ALLDMMABLIM",
-              "CGLDJGDLIHP": "Eff_FireBasin_Smoke",
-              "PGCCMJFMBOF": {
-                "$type": "LAMNGOHKHHL",
-                "ABMNEGGKEIC": "FirePoint"
-              },
-              "LMEAGKCCLON": -1.0
+              "$type": "FireEffect",
+              "effectPattern": "Eff_FireBasin_Smoke",
+              "born": {
+                "$type": "ConfigBornByAttachPoint",
+                "attachPointName": "FirePoint"
+              }
             },
             {
-              "$type": "AOBGBMLFACK",
-              "HPDLNIPCGHB": 0.0,
-              "EPDHICCGHAL": "_Homeworld_Cooking",
-              "BFEAMPHKKCE": 0.0,
-              "CMLGDBNFNNO": 0.0
+              "$type": "SetGlobalValue",
+              "value": 0,
+              "key": "_Homeworld_Cooking",
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         }
@@ -809,9 +798,9 @@
   },
   {
     "Default": {
-      "$type": "DDKKBPLFIDM",
-      "EIIJMGGKJME": "SceneObj_Homeworld_Interior_Md_Lamp_Light_MonaStar_01_Ability",
-      "DNOLJKGCMDK": [
+      "$type": "ConfigAbility",
+      "abilityName": "SceneObj_Homeworld_Interior_Md_Lamp_Light_MonaStar_01_Ability",
+      "abilityMixins": [
         {
           "$type": "KLDBKNBKKIL",
           "IOAADAMDJMO": [
@@ -822,19 +811,18 @@
           ]
         }
       ],
-      "OJEBMMAGKOF": {
+      "modifiers": {
         "OnHomeEditor": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0
+          "modifierName": "",
+          "elementDurability": 100
         },
         "OnHomeWorld": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "PIIPMJLIHPC",
-              "CGLDJGDLIHP": "Eff_SceneObj_Homeworld_Interior_MonaStar_01",
-              "LMEAGKCCLON": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_Homeworld_Interior_MonaStar_01"
             }
           ]
         }
@@ -843,9 +831,9 @@
   },
   {
     "Default": {
-      "$type": "DDKKBPLFIDM",
-      "EIIJMGGKJME": "SceneObj_Homeworld_Interior_Xm_Thing_Prop_Kettle_01_Ability",
-      "DNOLJKGCMDK": [
+      "$type": "ConfigAbility",
+      "abilityName": "SceneObj_Homeworld_Interior_Xm_Thing_Prop_Kettle_01_Ability",
+      "abilityMixins": [
         {
           "$type": "KLDBKNBKKIL",
           "IOAADAMDJMO": [
@@ -856,19 +844,18 @@
           ]
         }
       ],
-      "OJEBMMAGKOF": {
+      "modifiers": {
         "OnHomeEditor": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0
+          "modifierName": "",
+          "elementDurability": 100
         },
         "OnHomeWorld": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "PIIPMJLIHPC",
-              "CGLDJGDLIHP": "Eff_SceneObj_Xm_Thing_Kettle_01",
-              "LMEAGKCCLON": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_Xm_Thing_Kettle_01"
             }
           ]
         }
@@ -877,9 +864,9 @@
   },
   {
     "Default": {
-      "$type": "DDKKBPLFIDM",
-      "EIIJMGGKJME": "SceneObj_Homeworld_Exterior_Xm_Build_Dreams_01_Ability",
-      "DNOLJKGCMDK": [
+      "$type": "ConfigAbility",
+      "abilityName": "SceneObj_Homeworld_Exterior_Xm_Build_Dreams_01_Ability",
+      "abilityMixins": [
         {
           "$type": "KLDBKNBKKIL",
           "IOAADAMDJMO": [
@@ -890,19 +877,18 @@
           ]
         }
       ],
-      "OJEBMMAGKOF": {
+      "modifiers": {
         "OnHomeEditor": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0
+          "modifierName": "",
+          "elementDurability": 100
         },
         "OnHomeWorld": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "PIIPMJLIHPC",
-              "CGLDJGDLIHP": "Eff_SceneObj_Xm_Build_Dreams_01",
-              "LMEAGKCCLON": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_Xm_Build_Dreams_01"
             }
           ]
         }
@@ -911,9 +897,9 @@
   },
   {
     "Default": {
-      "$type": "DDKKBPLFIDM",
-      "EIIJMGGKJME": "SceneObj_Homeworld_Exterior_Xm_Decoration_Prop_Brazier_01_Ability",
-      "DNOLJKGCMDK": [
+      "$type": "ConfigAbility",
+      "abilityName": "SceneObj_Homeworld_Exterior_Xm_Decoration_Prop_Brazier_01_Ability",
+      "abilityMixins": [
         {
           "$type": "KLDBKNBKKIL",
           "IOAADAMDJMO": [
@@ -924,19 +910,18 @@
           ]
         }
       ],
-      "OJEBMMAGKOF": {
+      "modifiers": {
         "OnHomeEditor": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0
+          "modifierName": "",
+          "elementDurability": 100
         },
         "OnHomeWorld": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "PIIPMJLIHPC",
-              "CGLDJGDLIHP": "Eff_SceneObj_Homeworld_FireBasin_Xm_01",
-              "LMEAGKCCLON": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_Homeworld_FireBasin_Xm_01"
             }
           ]
         }
@@ -945,9 +930,9 @@
   },
   {
     "Default": {
-      "$type": "DDKKBPLFIDM",
-      "EIIJMGGKJME": "SceneObj_Homeworld_Exterior_Xm_Decoration_Prop_Smhuopen_01_Ability",
-      "DNOLJKGCMDK": [
+      "$type": "ConfigAbility",
+      "abilityName": "SceneObj_Homeworld_Exterior_Xm_Decoration_Prop_Smhuopen_01_Ability",
+      "abilityMixins": [
         {
           "$type": "KLDBKNBKKIL",
           "IOAADAMDJMO": [
@@ -958,19 +943,18 @@
           ]
         }
       ],
-      "OJEBMMAGKOF": {
+      "modifiers": {
         "OnHomeEditor": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0
+          "modifierName": "",
+          "elementDurability": 100
         },
         "OnHomeWorld": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "PIIPMJLIHPC",
-              "CGLDJGDLIHP": "Eff_SceneObj_Homeworld_Smhuopen_02",
-              "LMEAGKCCLON": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_Homeworld_Smhuopen_02"
             }
           ]
         }
@@ -979,9 +963,9 @@
   },
   {
     "Default": {
-      "$type": "DDKKBPLFIDM",
-      "EIIJMGGKJME": "SceneObj_Homeworld_Exterior_Xm_Decoration_Prop_Smhuopen_02_Ability",
-      "DNOLJKGCMDK": [
+      "$type": "ConfigAbility",
+      "abilityName": "SceneObj_Homeworld_Exterior_Xm_Decoration_Prop_Smhuopen_02_Ability",
+      "abilityMixins": [
         {
           "$type": "KLDBKNBKKIL",
           "IOAADAMDJMO": [
@@ -992,19 +976,18 @@
           ]
         }
       ],
-      "OJEBMMAGKOF": {
+      "modifiers": {
         "OnHomeEditor": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0
+          "modifierName": "",
+          "elementDurability": 100
         },
         "OnHomeWorld": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "PIIPMJLIHPC",
-              "CGLDJGDLIHP": "Eff_SceneObj_Homeworld_Smhuopen_01",
-              "LMEAGKCCLON": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_Homeworld_Smhuopen_01"
             }
           ]
         }
@@ -1013,9 +996,9 @@
   },
   {
     "Default": {
-      "$type": "DDKKBPLFIDM",
-      "EIIJMGGKJME": "SceneObj_Homeworld_Interior_Xm_Thing_Prop_CafeStove_01_Ability",
-      "DNOLJKGCMDK": [
+      "$type": "ConfigAbility",
+      "abilityName": "SceneObj_Homeworld_Interior_Xm_Thing_Prop_CafeStove_01_Ability",
+      "abilityMixins": [
         {
           "$type": "KLDBKNBKKIL",
           "IOAADAMDJMO": [
@@ -1026,19 +1009,18 @@
           ]
         }
       ],
-      "OJEBMMAGKOF": {
+      "modifiers": {
         "OnHomeEditor": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0
+          "modifierName": "",
+          "elementDurability": 100
         },
         "OnHomeWorld": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "PIIPMJLIHPC",
-              "CGLDJGDLIHP": "Eff_SceneObj_Homeworld_Smoke_Barbecue_03",
-              "LMEAGKCCLON": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_Homeworld_Smoke_Barbecue_03"
             }
           ]
         }
@@ -1047,9 +1029,9 @@
   },
   {
     "Default": {
-      "$type": "DDKKBPLFIDM",
-      "EIIJMGGKJME": "SceneObj_Homeworld_Exterior_Xm_Thing_Prop_Blueball_01_Ability",
-      "DNOLJKGCMDK": [
+      "$type": "ConfigAbility",
+      "abilityName": "SceneObj_Homeworld_Exterior_Xm_Thing_Prop_Blueball_01_Ability",
+      "abilityMixins": [
         {
           "$type": "KLDBKNBKKIL",
           "IOAADAMDJMO": [
@@ -1060,19 +1042,18 @@
           ]
         }
       ],
-      "OJEBMMAGKOF": {
+      "modifiers": {
         "OnHomeEditor": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0
+          "modifierName": "",
+          "elementDurability": 100
         },
         "OnHomeWorld": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "PIIPMJLIHPC",
-              "CGLDJGDLIHP": "Eff_SceneObj_Homeworld_Blueball_01",
-              "LMEAGKCCLON": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_Homeworld_Blueball_01"
             }
           ]
         }
@@ -1081,9 +1062,9 @@
   },
   {
     "Default": {
-      "$type": "DDKKBPLFIDM",
-      "EIIJMGGKJME": "SceneObj_Homeworld_Interior_Xm_Thing_Build_Stove_01_Ability",
-      "DNOLJKGCMDK": [
+      "$type": "ConfigAbility",
+      "abilityName": "SceneObj_Homeworld_Interior_Xm_Thing_Build_Stove_01_Ability",
+      "abilityMixins": [
         {
           "$type": "KLDBKNBKKIL",
           "IOAADAMDJMO": [
@@ -1094,19 +1075,18 @@
           ]
         }
       ],
-      "OJEBMMAGKOF": {
+      "modifiers": {
         "OnHomeEditor": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0
+          "modifierName": "",
+          "elementDurability": 100
         },
         "OnHomeWorld": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "PIIPMJLIHPC",
-              "CGLDJGDLIHP": "Eff_SceneObj_Homeworld_Stove_Fire_01",
-              "LMEAGKCCLON": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_Homeworld_Stove_Fire_01"
             }
           ]
         }
@@ -1115,9 +1095,9 @@
   },
   {
     "Default": {
-      "$type": "DDKKBPLFIDM",
-      "EIIJMGGKJME": "SceneObj_Homeworld_Interior_Xm_Thing_Prop_BarbecueOven_01_Ability",
-      "DNOLJKGCMDK": [
+      "$type": "ConfigAbility",
+      "abilityName": "SceneObj_Homeworld_Interior_Xm_Thing_Prop_BarbecueOven_01_Ability",
+      "abilityMixins": [
         {
           "$type": "KLDBKNBKKIL",
           "IOAADAMDJMO": [
@@ -1128,19 +1108,18 @@
           ]
         }
       ],
-      "OJEBMMAGKOF": {
+      "modifiers": {
         "OnHomeEditor": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0
+          "modifierName": "",
+          "elementDurability": 100
         },
         "OnHomeWorld": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "PIIPMJLIHPC",
-              "CGLDJGDLIHP": "Eff_SceneObj_Homeworld_Smoke_Xm_XKC_Dpkaorou_01_Vo",
-              "LMEAGKCCLON": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_Homeworld_Smoke_Xm_XKC_Dpkaorou_01_Vo"
             }
           ]
         }
@@ -1149,9 +1128,9 @@
   },
   {
     "Default": {
-      "$type": "DDKKBPLFIDM",
-      "EIIJMGGKJME": "SceneObj_Homeworld_Interior_Xm_Thing_Prop_BarbecueOven_02_Ability",
-      "DNOLJKGCMDK": [
+      "$type": "ConfigAbility",
+      "abilityName": "SceneObj_Homeworld_Interior_Xm_Thing_Prop_BarbecueOven_02_Ability",
+      "abilityMixins": [
         {
           "$type": "KLDBKNBKKIL",
           "IOAADAMDJMO": [
@@ -1162,19 +1141,18 @@
           ]
         }
       ],
-      "OJEBMMAGKOF": {
+      "modifiers": {
         "OnHomeEditor": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0
+          "modifierName": "",
+          "elementDurability": 100
         },
         "OnHomeWorld": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "PIIPMJLIHPC",
-              "CGLDJGDLIHP": "Eff_SceneObj_Homeworld_Smoke_Xm_Indoor_Barbecue_02_Vo",
-              "LMEAGKCCLON": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_Homeworld_Smoke_Xm_Indoor_Barbecue_02_Vo"
             }
           ]
         }
@@ -1183,9 +1161,9 @@
   },
   {
     "Default": {
-      "$type": "DDKKBPLFIDM",
-      "EIIJMGGKJME": "SceneObj_Homeworld_Exterior_Xm_Decoration_Prop_Swing_01_Ability",
-      "DNOLJKGCMDK": [
+      "$type": "ConfigAbility",
+      "abilityName": "SceneObj_Homeworld_Exterior_Xm_Decoration_Prop_Swing_01_Ability",
+      "abilityMixins": [
         {
           "$type": "KLDBKNBKKIL",
           "IOAADAMDJMO": [
@@ -1196,19 +1174,18 @@
           ]
         }
       ],
-      "OJEBMMAGKOF": {
+      "modifiers": {
         "OnHomeEditor": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0
+          "modifierName": "",
+          "elementDurability": 100
         },
         "OnHomeWorld": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "PIIPMJLIHPC",
-              "CGLDJGDLIHP": "Eff_SceneObj_Decoration_Swing_01",
-              "LMEAGKCCLON": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_Decoration_Swing_01"
             }
           ]
         }
@@ -1217,9 +1194,9 @@
   },
   {
     "Default": {
-      "$type": "DDKKBPLFIDM",
-      "EIIJMGGKJME": "SceneObj_Homeworld_Exterior_Ly_Thing_Prop_Soundflower_01_Ability",
-      "DNOLJKGCMDK": [
+      "$type": "ConfigAbility",
+      "abilityName": "SceneObj_Homeworld_Exterior_Ly_Thing_Prop_Soundflower_01_Ability",
+      "abilityMixins": [
         {
           "$type": "KLDBKNBKKIL",
           "IOAADAMDJMO": [
@@ -1230,19 +1207,18 @@
           ]
         }
       ],
-      "OJEBMMAGKOF": {
+      "modifiers": {
         "OnHomeEditor": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0
+          "modifierName": "",
+          "elementDurability": 100
         },
         "OnHomeWorld": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "PIIPMJLIHPC",
-              "CGLDJGDLIHP": "Eff_ScenObj_Homeworld_Exterior_Ly_Thing_Prop_Soundflower_01",
-              "LMEAGKCCLON": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_ScenObj_Homeworld_Exterior_Ly_Thing_Prop_Soundflower_01"
             }
           ]
         }
@@ -1251,15 +1227,15 @@
   },
   {
     "Default": {
-      "$type": "DDKKBPLFIDM",
-      "EIIJMGGKJME": "SceneObj_Homeworld_Ani_Interior_Xm_Decoration_Prop_Baozhu_01",
-      "DNOLJKGCMDK": [
+      "$type": "ConfigAbility",
+      "abilityName": "SceneObj_Homeworld_Ani_Interior_Xm_Decoration_Prop_Baozhu_01",
+      "abilityMixins": [
         {
           "$type": "PBAJOMHCPAH",
           "JBPHALBNNLF": [
             {
-              "$type": "BFIMNGHHDEN",
-              "PEJCGBFFICP": "Baozhu_Intee"
+              "$type": "ApplyModifier",
+              "modifierName": "Baozhu_Intee"
             }
           ]
         },
@@ -1273,35 +1249,35 @@
           ]
         }
       ],
-      "OJEBMMAGKOF": {
+      "modifiers": {
         "Baozhu_State": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "EEEIPAMAIGD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "modifierMixins": [
             {
-              "$type": "JOOBHEHMNDA",
-              "AMOOLHDIAIH": "_GLOBALVALUE_BaozhuState",
-              "HFMGECJKBMM": 0.0,
-              "EALHNKBPCIN": [
+              "$type": "AttachModifierToSelfGlobalValueMixin",
+              "globalValueKey": "_GLOBALVALUE_BaozhuState",
+              "defaultGlobalValueOnCreate": 0,
+              "valueSteps": [
                 -0.5,
                 0.5,
                 1.5
               ],
-              "GCHODBPEJKH": [
+              "modifierNameSteps": [
                 "Baozhu_Off",
                 "Baozhu_On"
               ]
             },
             {
-              "$type": "JOOBHEHMNDA",
-              "AMOOLHDIAIH": "_GLOBALVALUE_BaozhuEffectShow",
-              "HFMGECJKBMM": 0.0,
-              "EALHNKBPCIN": [
+              "$type": "AttachModifierToSelfGlobalValueMixin",
+              "globalValueKey": "_GLOBALVALUE_BaozhuEffectShow",
+              "defaultGlobalValueOnCreate": 0,
+              "valueSteps": [
                 -0.5,
                 0.5,
                 1.5
               ],
-              "GCHODBPEJKH": [
+              "modifierNameSteps": [
                 "Baozhu_EffectOff",
                 "Baozhu_EffectOn"
               ]
@@ -1309,165 +1285,164 @@
           ]
         },
         "Baozhu_Intee": {
-          "BOKEOPPFJJC": "Unique",
-          "PEJCGBFFICP": "",
-          "LBPCINOGHGB": 1.0,
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "stacking": "Unique",
+          "modifierName": "",
+          "duration": 1,
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "JFDOHOOIOEH"
             },
             {
-              "$type": "HGKGGEKHOBB",
-              "PILMKPPOHPN": [
+              "$type": "Predicated",
+              "targetPredicates": [
                 {
-                  "$type": "BEDEFFCBNIG",
-                  "EPDHICCGHAL": "_GLOBALVALUE_BaozhuState",
-                  "HPDLNIPCGHB": 0.0,
-                  "NECALNHGCCP": "NoneOrEqual"
+                  "$type": "ByTargetGlobalValue",
+                  "key": "_GLOBALVALUE_BaozhuState",
+                  "value": 0,
+                  "compareType": "NoneOrEqual"
                 }
               ],
-              "BDJHNHMPGDB": [
+              "successActions": [
                 {
-                  "$type": "AOBGBMLFACK",
-                  "HPDLNIPCGHB": 1.0,
-                  "EPDHICCGHAL": "_GLOBALVALUE_BaozhuState",
-                  "BFEAMPHKKCE": 0.0,
-                  "CMLGDBNFNNO": 0.0
+                  "$type": "SetGlobalValue",
+                  "value": 1,
+                  "key": "_GLOBALVALUE_BaozhuState",
+                  "maxValue": 0,
+                  "minValue": 0
                 }
               ],
-              "BLCNENOAPBF": [
+              "failActions": [
                 {
-                  "$type": "AOBGBMLFACK",
-                  "HPDLNIPCGHB": 0.0,
-                  "EPDHICCGHAL": "_GLOBALVALUE_BaozhuState",
-                  "BFEAMPHKKCE": 0.0,
-                  "CMLGDBNFNNO": 0.0
+                  "$type": "SetGlobalValue",
+                  "value": 0,
+                  "key": "_GLOBALVALUE_BaozhuState",
+                  "maxValue": 0,
+                  "minValue": 0
                 }
               ]
             }
           ],
-          "PJIJPAIFEMN": [
+          "onRemoved": [
             {
               "$type": "JFDOHOOIOEH",
-              "KEEJFLJBFKM": true
+              "enable": true
             }
           ]
         },
         "Baozhu_Off": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "GGIAKINLKIF",
               "DNBEILKJEOI": "UI_HOMEWORLD_BAOZHU_TURN_ON_BUTTON"
             },
             {
-              "$type": "AOBGBMLFACK",
-              "HPDLNIPCGHB": 0.0,
-              "EPDHICCGHAL": "_GLOBALVALUE_BaozhuEffectShow",
-              "BFEAMPHKKCE": 0.0,
-              "CMLGDBNFNNO": 0.0
+              "$type": "SetGlobalValue",
+              "value": 0,
+              "key": "_GLOBALVALUE_BaozhuEffectShow",
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         "Baozhu_On": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "GGIAKINLKIF",
               "DNBEILKJEOI": "UI_HOMEWORLD_BAOZHU_TURN_OFF_BUTTON"
             },
             {
-              "$type": "AOBGBMLFACK",
-              "HPDLNIPCGHB": 1.0,
-              "EPDHICCGHAL": "_GLOBALVALUE_BaozhuEffectShow",
-              "BFEAMPHKKCE": 0.0,
-              "CMLGDBNFNNO": 0.0
+              "$type": "SetGlobalValue",
+              "value": 1,
+              "key": "_GLOBALVALUE_BaozhuEffectShow",
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         "Baozhu_EffectOff": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0
+          "modifierName": "",
+          "elementDurability": 100
         },
         "Baozhu_EffectOn": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "PIIPMJLIHPC",
-              "CGLDJGDLIHP": "Eff_SceneObj_Homeworld_TrainerCompetitionBead_01",
-              "PGCCMJFMBOF": {
-                "$type": "LAMNGOHKHHL",
-                "ABMNEGGKEIC": "EffectNode"
-              },
-              "LMEAGKCCLON": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_Homeworld_TrainerCompetitionBead_01",
+              "born": {
+                "$type": "ConfigBornByAttachPoint",
+                "attachPointName": "EffectNode"
+              }
             }
           ]
         },
         "OnHomeEditor": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "AOBGBMLFACK",
-              "HPDLNIPCGHB": 0.0,
-              "EPDHICCGHAL": "_GLOBALVALUE_BaozhuEffectShow",
-              "BFEAMPHKKCE": 0.0,
-              "CMLGDBNFNNO": 0.0
+              "$type": "SetGlobalValue",
+              "value": 0,
+              "key": "_GLOBALVALUE_BaozhuEffectShow",
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         "OnHomeWorld": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "AOBGBMLFACK",
-              "KHPFBKFKIMJ": [
+              "$type": "SetGlobalValue",
+              "predicates": [
                 {
-                  "$type": "BEDEFFCBNIG",
-                  "PMMKLHAOKCG": "Self",
-                  "EPDHICCGHAL": "_GLOBALVALUE_BaozhuState",
-                  "HPDLNIPCGHB": 1.0
+                  "$type": "ByTargetGlobalValue",
+                  "target": "Self",
+                  "key": "_GLOBALVALUE_BaozhuState",
+                  "value": 1
                 }
               ],
-              "HPDLNIPCGHB": 1.0,
-              "EPDHICCGHAL": "_GLOBALVALUE_BaozhuEffectShow",
-              "BFEAMPHKKCE": 0.0,
-              "CMLGDBNFNNO": 0.0
+              "value": 1,
+              "key": "_GLOBALVALUE_BaozhuEffectShow",
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         }
       },
-      "DNEECINBPHM": [
+      "onAdded": [
         {
-          "$type": "AOBGBMLFACK",
-          "HPDLNIPCGHB": 0.0,
-          "EPDHICCGHAL": "_GLOBALVALUE_BaozhuState",
-          "BFEAMPHKKCE": 0.0,
-          "CMLGDBNFNNO": 0.0
+          "$type": "SetGlobalValue",
+          "value": 0,
+          "key": "_GLOBALVALUE_BaozhuState",
+          "maxValue": 0,
+          "minValue": 0
         },
         {
-          "$type": "ELEIPIAKELP",
-          "PEJCGBFFICP": "Baozhu_State"
+          "$type": "AttachModifier",
+          "modifierName": "Baozhu_State"
         }
       ]
     }
   },
   {
     "Default": {
-      "$type": "DDKKBPLFIDM",
-      "EIIJMGGKJME": "SceneObj_Homeworld_Exterior_Dq_Thing_Prop_Shipsoul_01_Ability",
-      "DNOLJKGCMDK": [
+      "$type": "ConfigAbility",
+      "abilityName": "SceneObj_Homeworld_Exterior_Dq_Thing_Prop_Shipsoul_01_Ability",
+      "abilityMixins": [
         {
           "$type": "PBAJOMHCPAH",
           "JBPHALBNNLF": [
             {
-              "$type": "BFIMNGHHDEN",
-              "PEJCGBFFICP": "ShipsoulShow"
+              "$type": "ApplyModifier",
+              "modifierName": "ShipsoulShow"
             },
             {
               "$type": "JFDOHOOIOEH"
@@ -1484,37 +1459,35 @@
           ]
         }
       ],
-      "OJEBMMAGKOF": {
+      "modifiers": {
         "ShipsoulShow": {
-          "PEJCGBFFICP": "",
-          "LBPCINOGHGB": 7.0,
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "duration": 7,
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "ALLDMMABLIM",
-              "CGLDJGDLIHP": "Eff_SceneObj_Homeworld_Shipsoul_02",
-              "LMEAGKCCLON": -1.0
+              "$type": "FireEffect",
+              "effectPattern": "Eff_SceneObj_Homeworld_Shipsoul_02"
             }
           ],
-          "PJIJPAIFEMN": [
+          "onRemoved": [
             {
               "$type": "JFDOHOOIOEH",
-              "KEEJFLJBFKM": true
+              "enable": true
             }
           ]
         },
         "OnHomeEditor": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0
+          "modifierName": "",
+          "elementDurability": 100
         },
         "OnHomeWorld": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "PIIPMJLIHPC",
-              "CGLDJGDLIHP": "Eff_SceneObj_Homeworld_Shipsoul_01",
-              "LMEAGKCCLON": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_Homeworld_Shipsoul_01"
             }
           ]
         }
@@ -1523,15 +1496,15 @@
   },
   {
     "Default": {
-      "$type": "DDKKBPLFIDM",
-      "EIIJMGGKJME": "SceneObj_Homeworld_Exterior_Ly_Thing_Prop_Fireworks_01",
-      "DNOLJKGCMDK": [
+      "$type": "ConfigAbility",
+      "abilityName": "SceneObj_Homeworld_Exterior_Ly_Thing_Prop_Fireworks_01",
+      "abilityMixins": [
         {
           "$type": "PBAJOMHCPAH",
           "JBPHALBNNLF": [
             {
-              "$type": "BFIMNGHHDEN",
-              "PEJCGBFFICP": "FireHanabi_Pre"
+              "$type": "ApplyModifier",
+              "modifierName": "FireHanabi_Pre"
             },
             {
               "$type": "JFDOHOOIOEH"
@@ -1539,152 +1512,138 @@
           ]
         }
       ],
-      "OJEBMMAGKOF": {
+      "modifiers": {
         "Empty": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0
+          "modifierName": "",
+          "elementDurability": 100
         },
         "Hanabi01": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "ALLDMMABLIM",
-              "CGLDJGDLIHP": "Eff_SceneObj_Homeworld_Ly_Fireworks_01_Fire",
-              "PGCCMJFMBOF": {
-                "$type": "LAMNGOHKHHL",
-                "HBCDGKBFJKD": {
-                  "$type": "ABDMODFNLJF",
+              "$type": "FireEffect",
+              "effectPattern": "Eff_SceneObj_Homeworld_Ly_Fireworks_01_Fire",
+              "born": {
+                "$type": "ConfigBornByAttachPoint",
+                "direction": {
+                  "$type": "ConfigDirectionByDefault",
                   "CJLAOBJJMGJ": {
-                    "GCAICJCAEGC": 0.0,
-                    "OHEABNAJGMK": 0.0,
-                    "GCFAGHEGMOK": -8.0
+                    "z": -8
                   }
                 },
-                "ABMNEGGKEIC": "FireEffectPoint"
-              },
-              "LMEAGKCCLON": -1.0
+                "attachPointName": "FireEffectPoint"
+              }
             }
           ]
         },
         "Hanabi02": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "ALLDMMABLIM",
-              "CGLDJGDLIHP": "Eff_SceneObj_Homeworld_Ly_Fireworks_01_Fire",
-              "PGCCMJFMBOF": {
-                "$type": "LAMNGOHKHHL",
-                "HBCDGKBFJKD": {
-                  "$type": "ABDMODFNLJF",
+              "$type": "FireEffect",
+              "effectPattern": "Eff_SceneObj_Homeworld_Ly_Fireworks_01_Fire",
+              "born": {
+                "$type": "ConfigBornByAttachPoint",
+                "direction": {
+                  "$type": "ConfigDirectionByDefault",
                   "CJLAOBJJMGJ": {
-                    "GCAICJCAEGC": 0.0,
-                    "OHEABNAJGMK": 0.0,
-                    "GCFAGHEGMOK": -4.0
+                    "z": -4
                   }
                 },
-                "ABMNEGGKEIC": "FireEffectPoint"
-              },
-              "LMEAGKCCLON": -1.0
+                "attachPointName": "FireEffectPoint"
+              }
             }
           ]
         },
         "Hanabi03": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "ALLDMMABLIM",
-              "CGLDJGDLIHP": "Eff_SceneObj_Homeworld_Ly_Fireworks_01_Fire",
-              "PGCCMJFMBOF": {
-                "$type": "LAMNGOHKHHL",
-                "ABMNEGGKEIC": "FireEffectPoint"
-              },
-              "LMEAGKCCLON": -1.0
+              "$type": "FireEffect",
+              "effectPattern": "Eff_SceneObj_Homeworld_Ly_Fireworks_01_Fire",
+              "born": {
+                "$type": "ConfigBornByAttachPoint",
+                "attachPointName": "FireEffectPoint"
+              }
             }
           ]
         },
         "Hanabi04": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "ALLDMMABLIM",
-              "CGLDJGDLIHP": "Eff_SceneObj_Homeworld_Ly_Fireworks_01_Fire",
-              "PGCCMJFMBOF": {
-                "$type": "LAMNGOHKHHL",
-                "HBCDGKBFJKD": {
-                  "$type": "ABDMODFNLJF",
+              "$type": "FireEffect",
+              "effectPattern": "Eff_SceneObj_Homeworld_Ly_Fireworks_01_Fire",
+              "born": {
+                "$type": "ConfigBornByAttachPoint",
+                "direction": {
+                  "$type": "ConfigDirectionByDefault",
                   "CJLAOBJJMGJ": {
-                    "GCAICJCAEGC": 0.0,
-                    "OHEABNAJGMK": 0.0,
-                    "GCFAGHEGMOK": 4.0
+                    "z": 4
                   }
                 },
-                "ABMNEGGKEIC": "FireEffectPoint"
-              },
-              "LMEAGKCCLON": -1.0
+                "attachPointName": "FireEffectPoint"
+              }
             }
           ]
         },
         "Hanabi05": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "ALLDMMABLIM",
-              "CGLDJGDLIHP": "Eff_SceneObj_Homeworld_Ly_Fireworks_01_Fire",
-              "PGCCMJFMBOF": {
-                "$type": "LAMNGOHKHHL",
-                "HBCDGKBFJKD": {
-                  "$type": "ABDMODFNLJF",
+              "$type": "FireEffect",
+              "effectPattern": "Eff_SceneObj_Homeworld_Ly_Fireworks_01_Fire",
+              "born": {
+                "$type": "ConfigBornByAttachPoint",
+                "direction": {
+                  "$type": "ConfigDirectionByDefault",
                   "CJLAOBJJMGJ": {
-                    "GCAICJCAEGC": 0.0,
-                    "OHEABNAJGMK": 0.0,
-                    "GCFAGHEGMOK": 8.0
+                    "z": 8
                   }
                 },
-                "ABMNEGGKEIC": "FireEffectPoint"
-              },
-              "LMEAGKCCLON": -1.0
+                "attachPointName": "FireEffectPoint"
+              }
             }
           ]
         },
         "FireHanabi_Pre": {
-          "PEJCGBFFICP": "",
-          "LBPCINOGHGB": 5.0,
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "duration": 5,
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "PIIPMJLIHPC",
-              "CGLDJGDLIHP": "Eff_SceneObj_Homeworld_Ly_Fireworks_01_Pre",
-              "PGCCMJFMBOF": {
-                "$type": "LAMNGOHKHHL",
-                "ABMNEGGKEIC": "PreEffectPoint"
-              },
-              "LMEAGKCCLON": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_Homeworld_Ly_Fireworks_01_Pre",
+              "born": {
+                "$type": "ConfigBornByAttachPoint",
+                "attachPointName": "PreEffectPoint"
+              }
             }
           ],
-          "PJIJPAIFEMN": [
+          "onRemoved": [
             {
-              "$type": "BFIMNGHHDEN",
-              "PEJCGBFFICP": "FireHanabi"
+              "$type": "ApplyModifier",
+              "modifierName": "FireHanabi"
             }
           ]
         },
         "FireHanabi": {
-          "PEJCGBFFICP": "",
-          "LBPCINOGHGB": 15.0,
-          "DJHMCMJNDJL": 100.0,
-          "NKIHJHNDJBI": 3.0,
-          "EEEIPAMAIGD": [
+          "modifierName": "",
+          "duration": 15,
+          "elementDurability": 100,
+          "thinkInterval": 3,
+          "modifierMixins": [
             {
-              "$type": "JOOBHEHMNDA",
-              "AMOOLHDIAIH": "_Fire_Count",
-              "HFMGECJKBMM": 0.0,
-              "EALHNKBPCIN": [
-                0.0,
+              "$type": "AttachModifierToSelfGlobalValueMixin",
+              "globalValueKey": "_Fire_Count",
+              "defaultGlobalValueOnCreate": 0,
+              "valueSteps": [
+                0,
                 0.5,
                 1.5,
                 2.5,
@@ -1692,7 +1651,7 @@
                 4.5,
                 5.5
               ],
-              "GCHODBPEJKH": [
+              "modifierNameSteps": [
                 "Empty",
                 "Hanabi01",
                 "Hanabi02",
@@ -1702,63 +1661,63 @@
               ]
             }
           ],
-          "DNEECINBPHM": [
+          "onAdded": [
             {
-              "$type": "CHPEJGKPFCH",
-              "HPDLNIPCGHB": 1.0,
-              "EPDHICCGHAL": "_Fire_Count",
-              "ECNPJNGBKAC": true,
-              "BFEAMPHKKCE": 5.0,
-              "CMLGDBNFNNO": 0.0
+              "$type": "AddGlobalValue",
+              "value": 1,
+              "key": "_Fire_Count",
+              "useLimitRange": true,
+              "maxValue": 5,
+              "minValue": 0
             }
           ],
-          "PJIJPAIFEMN": [
+          "onRemoved": [
             {
               "$type": "JFDOHOOIOEH",
-              "KEEJFLJBFKM": true
+              "enable": true
             },
             {
-              "$type": "AOBGBMLFACK",
-              "HPDLNIPCGHB": 0.0,
-              "EPDHICCGHAL": "_Fire_Count",
-              "BFEAMPHKKCE": 0.0,
-              "CMLGDBNFNNO": 0.0
+              "$type": "SetGlobalValue",
+              "value": 0,
+              "key": "_Fire_Count",
+              "maxValue": 0,
+              "minValue": 0
             }
           ],
-          "DKDBJMBJGIJ": [
+          "onThinkInterval": [
             {
-              "$type": "CHPEJGKPFCH",
-              "HPDLNIPCGHB": 1.0,
-              "EPDHICCGHAL": "_Fire_Count",
-              "ECNPJNGBKAC": true,
-              "BFEAMPHKKCE": 5.0,
-              "CMLGDBNFNNO": 0.0
+              "$type": "AddGlobalValue",
+              "value": 1,
+              "key": "_Fire_Count",
+              "useLimitRange": true,
+              "maxValue": 5,
+              "minValue": 0
             }
           ]
         }
       },
-      "DNEECINBPHM": [
+      "onAdded": [
         {
-          "$type": "AOBGBMLFACK",
-          "HPDLNIPCGHB": 0.0,
-          "EPDHICCGHAL": "_Fire_Count",
-          "BFEAMPHKKCE": 0.0,
-          "CMLGDBNFNNO": 0.0
+          "$type": "SetGlobalValue",
+          "value": 0,
+          "key": "_Fire_Count",
+          "maxValue": 0,
+          "minValue": 0
         }
       ]
     }
   },
   {
     "Default": {
-      "$type": "DDKKBPLFIDM",
-      "EIIJMGGKJME": "SceneObj_Homeworld_Exterior_Dq_Thing_Prop_Fireworks_01",
-      "DNOLJKGCMDK": [
+      "$type": "ConfigAbility",
+      "abilityName": "SceneObj_Homeworld_Exterior_Dq_Thing_Prop_Fireworks_01",
+      "abilityMixins": [
         {
           "$type": "PBAJOMHCPAH",
           "JBPHALBNNLF": [
             {
-              "$type": "BFIMNGHHDEN",
-              "PEJCGBFFICP": "FireHanabi_Pre"
+              "$type": "ApplyModifier",
+              "modifierName": "FireHanabi_Pre"
             },
             {
               "$type": "JFDOHOOIOEH"
@@ -1766,152 +1725,138 @@
           ]
         }
       ],
-      "OJEBMMAGKOF": {
+      "modifiers": {
         "Empty": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0
+          "modifierName": "",
+          "elementDurability": 100
         },
         "Hanabi01": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "ALLDMMABLIM",
-              "CGLDJGDLIHP": "Eff_SceneObj_Homeworld_Dq_Fireworks_01_Fire",
-              "PGCCMJFMBOF": {
-                "$type": "LAMNGOHKHHL",
-                "HBCDGKBFJKD": {
-                  "$type": "ABDMODFNLJF",
+              "$type": "FireEffect",
+              "effectPattern": "Eff_SceneObj_Homeworld_Dq_Fireworks_01_Fire",
+              "born": {
+                "$type": "ConfigBornByAttachPoint",
+                "direction": {
+                  "$type": "ConfigDirectionByDefault",
                   "CJLAOBJJMGJ": {
-                    "GCAICJCAEGC": 0.0,
-                    "OHEABNAJGMK": 0.0,
-                    "GCFAGHEGMOK": -8.0
+                    "z": -8
                   }
                 },
-                "ABMNEGGKEIC": "FireEffectPoint"
-              },
-              "LMEAGKCCLON": -1.0
+                "attachPointName": "FireEffectPoint"
+              }
             }
           ]
         },
         "Hanabi02": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "ALLDMMABLIM",
-              "CGLDJGDLIHP": "Eff_SceneObj_Homeworld_Dq_Fireworks_01_Fire",
-              "PGCCMJFMBOF": {
-                "$type": "LAMNGOHKHHL",
-                "HBCDGKBFJKD": {
-                  "$type": "ABDMODFNLJF",
+              "$type": "FireEffect",
+              "effectPattern": "Eff_SceneObj_Homeworld_Dq_Fireworks_01_Fire",
+              "born": {
+                "$type": "ConfigBornByAttachPoint",
+                "direction": {
+                  "$type": "ConfigDirectionByDefault",
                   "CJLAOBJJMGJ": {
-                    "GCAICJCAEGC": 0.0,
-                    "OHEABNAJGMK": 0.0,
-                    "GCFAGHEGMOK": -4.0
+                    "z": -4
                   }
                 },
-                "ABMNEGGKEIC": "FireEffectPoint"
-              },
-              "LMEAGKCCLON": -1.0
+                "attachPointName": "FireEffectPoint"
+              }
             }
           ]
         },
         "Hanabi03": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "ALLDMMABLIM",
-              "CGLDJGDLIHP": "Eff_SceneObj_Homeworld_Dq_Fireworks_01_Fire",
-              "PGCCMJFMBOF": {
-                "$type": "LAMNGOHKHHL",
-                "ABMNEGGKEIC": "FireEffectPoint"
-              },
-              "LMEAGKCCLON": -1.0
+              "$type": "FireEffect",
+              "effectPattern": "Eff_SceneObj_Homeworld_Dq_Fireworks_01_Fire",
+              "born": {
+                "$type": "ConfigBornByAttachPoint",
+                "attachPointName": "FireEffectPoint"
+              }
             }
           ]
         },
         "Hanabi04": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "ALLDMMABLIM",
-              "CGLDJGDLIHP": "Eff_SceneObj_Homeworld_Dq_Fireworks_01_Fire",
-              "PGCCMJFMBOF": {
-                "$type": "LAMNGOHKHHL",
-                "HBCDGKBFJKD": {
-                  "$type": "ABDMODFNLJF",
+              "$type": "FireEffect",
+              "effectPattern": "Eff_SceneObj_Homeworld_Dq_Fireworks_01_Fire",
+              "born": {
+                "$type": "ConfigBornByAttachPoint",
+                "direction": {
+                  "$type": "ConfigDirectionByDefault",
                   "CJLAOBJJMGJ": {
-                    "GCAICJCAEGC": 0.0,
-                    "OHEABNAJGMK": 0.0,
-                    "GCFAGHEGMOK": 4.0
+                    "z": 4
                   }
                 },
-                "ABMNEGGKEIC": "FireEffectPoint"
-              },
-              "LMEAGKCCLON": -1.0
+                "attachPointName": "FireEffectPoint"
+              }
             }
           ]
         },
         "Hanabi05": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "ALLDMMABLIM",
-              "CGLDJGDLIHP": "Eff_SceneObj_Homeworld_Dq_Fireworks_01_Fire",
-              "PGCCMJFMBOF": {
-                "$type": "LAMNGOHKHHL",
-                "HBCDGKBFJKD": {
-                  "$type": "ABDMODFNLJF",
+              "$type": "FireEffect",
+              "effectPattern": "Eff_SceneObj_Homeworld_Dq_Fireworks_01_Fire",
+              "born": {
+                "$type": "ConfigBornByAttachPoint",
+                "direction": {
+                  "$type": "ConfigDirectionByDefault",
                   "CJLAOBJJMGJ": {
-                    "GCAICJCAEGC": 0.0,
-                    "OHEABNAJGMK": 0.0,
-                    "GCFAGHEGMOK": 8.0
+                    "z": 8
                   }
                 },
-                "ABMNEGGKEIC": "FireEffectPoint"
-              },
-              "LMEAGKCCLON": -1.0
+                "attachPointName": "FireEffectPoint"
+              }
             }
           ]
         },
         "FireHanabi_Pre": {
-          "PEJCGBFFICP": "",
-          "LBPCINOGHGB": 5.0,
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "duration": 5,
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "PIIPMJLIHPC",
-              "CGLDJGDLIHP": "Eff_SceneObj_Homeworld_Dq_Fireworks_01_Pre",
-              "PGCCMJFMBOF": {
-                "$type": "LAMNGOHKHHL",
-                "ABMNEGGKEIC": "PreEffectPoint"
-              },
-              "LMEAGKCCLON": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_Homeworld_Dq_Fireworks_01_Pre",
+              "born": {
+                "$type": "ConfigBornByAttachPoint",
+                "attachPointName": "PreEffectPoint"
+              }
             }
           ],
-          "PJIJPAIFEMN": [
+          "onRemoved": [
             {
-              "$type": "BFIMNGHHDEN",
-              "PEJCGBFFICP": "FireHanabi"
+              "$type": "ApplyModifier",
+              "modifierName": "FireHanabi"
             }
           ]
         },
         "FireHanabi": {
-          "PEJCGBFFICP": "",
-          "LBPCINOGHGB": 15.0,
-          "DJHMCMJNDJL": 100.0,
-          "NKIHJHNDJBI": 3.0,
-          "EEEIPAMAIGD": [
+          "modifierName": "",
+          "duration": 15,
+          "elementDurability": 100,
+          "thinkInterval": 3,
+          "modifierMixins": [
             {
-              "$type": "JOOBHEHMNDA",
-              "AMOOLHDIAIH": "_Fire_Count",
-              "HFMGECJKBMM": 0.0,
-              "EALHNKBPCIN": [
-                0.0,
+              "$type": "AttachModifierToSelfGlobalValueMixin",
+              "globalValueKey": "_Fire_Count",
+              "defaultGlobalValueOnCreate": 0,
+              "valueSteps": [
+                0,
                 0.5,
                 1.5,
                 2.5,
@@ -1919,7 +1864,7 @@
                 4.5,
                 5.5
               ],
-              "GCHODBPEJKH": [
+              "modifierNameSteps": [
                 "Empty",
                 "Hanabi01",
                 "Hanabi02",
@@ -1929,57 +1874,57 @@
               ]
             }
           ],
-          "DNEECINBPHM": [
+          "onAdded": [
             {
-              "$type": "CHPEJGKPFCH",
-              "HPDLNIPCGHB": 1.0,
-              "EPDHICCGHAL": "_Fire_Count",
-              "ECNPJNGBKAC": true,
-              "BFEAMPHKKCE": 5.0,
-              "CMLGDBNFNNO": 0.0
+              "$type": "AddGlobalValue",
+              "value": 1,
+              "key": "_Fire_Count",
+              "useLimitRange": true,
+              "maxValue": 5,
+              "minValue": 0
             }
           ],
-          "PJIJPAIFEMN": [
+          "onRemoved": [
             {
               "$type": "JFDOHOOIOEH",
-              "KEEJFLJBFKM": true
+              "enable": true
             },
             {
-              "$type": "AOBGBMLFACK",
-              "HPDLNIPCGHB": 0.0,
-              "EPDHICCGHAL": "_Fire_Count",
-              "BFEAMPHKKCE": 0.0,
-              "CMLGDBNFNNO": 0.0
+              "$type": "SetGlobalValue",
+              "value": 0,
+              "key": "_Fire_Count",
+              "maxValue": 0,
+              "minValue": 0
             }
           ],
-          "DKDBJMBJGIJ": [
+          "onThinkInterval": [
             {
-              "$type": "CHPEJGKPFCH",
-              "HPDLNIPCGHB": 1.0,
-              "EPDHICCGHAL": "_Fire_Count",
-              "ECNPJNGBKAC": true,
-              "BFEAMPHKKCE": 5.0,
-              "CMLGDBNFNNO": 0.0
+              "$type": "AddGlobalValue",
+              "value": 1,
+              "key": "_Fire_Count",
+              "useLimitRange": true,
+              "maxValue": 5,
+              "minValue": 0
             }
           ]
         }
       },
-      "DNEECINBPHM": [
+      "onAdded": [
         {
-          "$type": "AOBGBMLFACK",
-          "HPDLNIPCGHB": 0.0,
-          "EPDHICCGHAL": "_Fire_Count",
-          "BFEAMPHKKCE": 0.0,
-          "CMLGDBNFNNO": 0.0
+          "$type": "SetGlobalValue",
+          "value": 0,
+          "key": "_Fire_Count",
+          "maxValue": 0,
+          "minValue": 0
         }
       ]
     }
   },
   {
     "Default": {
-      "$type": "DDKKBPLFIDM",
-      "EIIJMGGKJME": "SceneObj_Homeworld_Exterior_Xm_Build_Tiejiangpu_01",
-      "DNOLJKGCMDK": [
+      "$type": "ConfigAbility",
+      "abilityName": "SceneObj_Homeworld_Exterior_Xm_Build_Tiejiangpu_01",
+      "abilityMixins": [
         {
           "$type": "KLDBKNBKKIL",
           "IOAADAMDJMO": [
@@ -1990,19 +1935,18 @@
           ]
         }
       ],
-      "OJEBMMAGKOF": {
+      "modifiers": {
         "OnHomeEditor": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0
+          "modifierName": "",
+          "elementDurability": 100
         },
         "OnHomeWorld": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "PIIPMJLIHPC",
-              "CGLDJGDLIHP": "Eff_SceneObj_Homeworld_Fire_Basin_Vo",
-              "LMEAGKCCLON": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_Homeworld_Fire_Basin_Vo"
             }
           ]
         }
@@ -2011,9 +1955,9 @@
   },
   {
     "Default": {
-      "$type": "DDKKBPLFIDM",
-      "EIIJMGGKJME": "SceneObj_Homeworld_Exterior_Xm_Thing_Prop_Claypot_01",
-      "DNOLJKGCMDK": [
+      "$type": "ConfigAbility",
+      "abilityName": "SceneObj_Homeworld_Exterior_Xm_Thing_Prop_Claypot_01",
+      "abilityMixins": [
         {
           "$type": "KLDBKNBKKIL",
           "IOAADAMDJMO": [
@@ -2024,42 +1968,42 @@
           ]
         }
       ],
-      "OJEBMMAGKOF": {
+      "modifiers": {
         "OnHomeEditor": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0
+          "modifierName": "",
+          "elementDurability": 100
         },
         "OnHomeWorld": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "AOBGBMLFACK",
-              "HPDLNIPCGHB": 1.0,
-              "EPDHICCGHAL": "_Homeworld_Cooking",
-              "BFEAMPHKKCE": 0.0,
-              "CMLGDBNFNNO": 0.0
+              "$type": "SetGlobalValue",
+              "value": 1,
+              "key": "_Homeworld_Cooking",
+              "maxValue": 0,
+              "minValue": 0
             },
             {
-              "$type": "ELEIPIAKELP",
-              "PEJCGBFFICP": "Fire_State"
+              "$type": "AttachModifier",
+              "modifierName": "Fire_State"
             }
           ]
         },
         "Fire_State": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "EEEIPAMAIGD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "modifierMixins": [
             {
-              "$type": "JOOBHEHMNDA",
-              "AMOOLHDIAIH": "_Homeworld_Cooking",
-              "HFMGECJKBMM": 0.0,
-              "EALHNKBPCIN": [
+              "$type": "AttachModifierToSelfGlobalValueMixin",
+              "globalValueKey": "_Homeworld_Cooking",
+              "defaultGlobalValueOnCreate": 0,
+              "valueSteps": [
                 -0.5,
                 0.5,
                 1.5
               ],
-              "GCHODBPEJKH": [
+              "modifierNameSteps": [
                 "Fire_Off",
                 "Fire_On"
               ]
@@ -2067,65 +2011,63 @@
           ]
         },
         "Fire_Off": {
-          "PEJCGBFFICP": "",
-          "LBPCINOGHGB": 5.0,
-          "DJHMCMJNDJL": 100.0,
-          "PJIJPAIFEMN": [
+          "modifierName": "",
+          "duration": 5,
+          "elementDurability": 100,
+          "onRemoved": [
             {
-              "$type": "AOBGBMLFACK",
-              "HPDLNIPCGHB": 1.0,
-              "EPDHICCGHAL": "_Homeworld_Cooking",
-              "BFEAMPHKKCE": 0.0,
-              "CMLGDBNFNNO": 0.0
+              "$type": "SetGlobalValue",
+              "value": 1,
+              "key": "_Homeworld_Cooking",
+              "maxValue": 0,
+              "minValue": 0
             }
           ],
-          "MJFCHEEHDMO": [
+          "onBeingHit": [
             {
-              "$type": "AOBGBMLFACK",
-              "KHPFBKFKIMJ": [
+              "$type": "SetGlobalValue",
+              "predicates": [
                 {
-                  "$type": "KANPCOONAPK",
-                  "PIDMPLHECCI": "Fire"
+                  "$type": "ByHitElement",
+                  "element": "Fire"
                 }
               ],
-              "HPDLNIPCGHB": 1.0,
-              "EPDHICCGHAL": "_Homeworld_Cooking",
-              "BFEAMPHKKCE": 0.0,
-              "CMLGDBNFNNO": 0.0
+              "value": 1,
+              "key": "_Homeworld_Cooking",
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         "Fire_On": {
-          "PEJCGBFFICP": "",
-          "JPNOHJMPEGF": "Fire",
-          "DJHMCMJNDJL": 25.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "elementType": "Fire",
+          "elementDurability": 25,
+          "onAdded": [
             {
-              "$type": "PIIPMJLIHPC",
-              "CGLDJGDLIHP": "Eff_Xm_Thing_Prop_Claypot_01_Cook",
-              "PGCCMJFMBOF": {
-                "$type": "LAMNGOHKHHL",
-                "ABMNEGGKEIC": "FirePoint"
-              },
-              "LMEAGKCCLON": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_Xm_Thing_Prop_Claypot_01_Cook",
+              "born": {
+                "$type": "ConfigBornByAttachPoint",
+                "attachPointName": "FirePoint"
+              }
             }
           ],
-          "PJIJPAIFEMN": [
+          "onRemoved": [
             {
-              "$type": "ALLDMMABLIM",
-              "CGLDJGDLIHP": "Eff_FireBasin_Smoke",
-              "PGCCMJFMBOF": {
-                "$type": "LAMNGOHKHHL",
-                "ABMNEGGKEIC": "FirePoint"
-              },
-              "LMEAGKCCLON": -1.0
+              "$type": "FireEffect",
+              "effectPattern": "Eff_FireBasin_Smoke",
+              "born": {
+                "$type": "ConfigBornByAttachPoint",
+                "attachPointName": "FirePoint"
+              }
             },
             {
-              "$type": "AOBGBMLFACK",
-              "HPDLNIPCGHB": 0.0,
-              "EPDHICCGHAL": "_Homeworld_Cooking",
-              "BFEAMPHKKCE": 0.0,
-              "CMLGDBNFNNO": 0.0
+              "$type": "SetGlobalValue",
+              "value": 0,
+              "key": "_Homeworld_Cooking",
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         }
@@ -2134,9 +2076,9 @@
   },
   {
     "Default": {
-      "$type": "DDKKBPLFIDM",
-      "EIIJMGGKJME": "SceneObj_Homeworld_Interior_Xm_Thing_Prop_SumeruStove_01",
-      "DNOLJKGCMDK": [
+      "$type": "ConfigAbility",
+      "abilityName": "SceneObj_Homeworld_Interior_Xm_Thing_Prop_SumeruStove_01",
+      "abilityMixins": [
         {
           "$type": "KLDBKNBKKIL",
           "IOAADAMDJMO": [
@@ -2147,42 +2089,42 @@
           ]
         }
       ],
-      "OJEBMMAGKOF": {
+      "modifiers": {
         "OnHomeEditor": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0
+          "modifierName": "",
+          "elementDurability": 100
         },
         "OnHomeWorld": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "AOBGBMLFACK",
-              "HPDLNIPCGHB": 1.0,
-              "EPDHICCGHAL": "_Homeworld_Cooking",
-              "BFEAMPHKKCE": 0.0,
-              "CMLGDBNFNNO": 0.0
+              "$type": "SetGlobalValue",
+              "value": 1,
+              "key": "_Homeworld_Cooking",
+              "maxValue": 0,
+              "minValue": 0
             },
             {
-              "$type": "ELEIPIAKELP",
-              "PEJCGBFFICP": "Fire_State"
+              "$type": "AttachModifier",
+              "modifierName": "Fire_State"
             }
           ]
         },
         "Fire_State": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "EEEIPAMAIGD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "modifierMixins": [
             {
-              "$type": "JOOBHEHMNDA",
-              "AMOOLHDIAIH": "_Homeworld_Cooking",
-              "HFMGECJKBMM": 0.0,
-              "EALHNKBPCIN": [
+              "$type": "AttachModifierToSelfGlobalValueMixin",
+              "globalValueKey": "_Homeworld_Cooking",
+              "defaultGlobalValueOnCreate": 0,
+              "valueSteps": [
                 -0.5,
                 0.5,
                 1.5
               ],
-              "GCHODBPEJKH": [
+              "modifierNameSteps": [
                 "Fire_Off",
                 "Fire_On"
               ]
@@ -2190,65 +2132,63 @@
           ]
         },
         "Fire_Off": {
-          "PEJCGBFFICP": "",
-          "LBPCINOGHGB": 5.0,
-          "DJHMCMJNDJL": 100.0,
-          "PJIJPAIFEMN": [
+          "modifierName": "",
+          "duration": 5,
+          "elementDurability": 100,
+          "onRemoved": [
             {
-              "$type": "AOBGBMLFACK",
-              "HPDLNIPCGHB": 1.0,
-              "EPDHICCGHAL": "_Homeworld_Cooking",
-              "BFEAMPHKKCE": 0.0,
-              "CMLGDBNFNNO": 0.0
+              "$type": "SetGlobalValue",
+              "value": 1,
+              "key": "_Homeworld_Cooking",
+              "maxValue": 0,
+              "minValue": 0
             }
           ],
-          "MJFCHEEHDMO": [
+          "onBeingHit": [
             {
-              "$type": "AOBGBMLFACK",
-              "KHPFBKFKIMJ": [
+              "$type": "SetGlobalValue",
+              "predicates": [
                 {
-                  "$type": "KANPCOONAPK",
-                  "PIDMPLHECCI": "Fire"
+                  "$type": "ByHitElement",
+                  "element": "Fire"
                 }
               ],
-              "HPDLNIPCGHB": 1.0,
-              "EPDHICCGHAL": "_Homeworld_Cooking",
-              "BFEAMPHKKCE": 0.0,
-              "CMLGDBNFNNO": 0.0
+              "value": 1,
+              "key": "_Homeworld_Cooking",
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         "Fire_On": {
-          "PEJCGBFFICP": "",
-          "JPNOHJMPEGF": "Fire",
-          "DJHMCMJNDJL": 25.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "elementType": "Fire",
+          "elementDurability": 25,
+          "onAdded": [
             {
-              "$type": "PIIPMJLIHPC",
-              "CGLDJGDLIHP": "Eff_SceneObj_Homeworld_SumeruStove_01_FireCook",
-              "PGCCMJFMBOF": {
-                "$type": "LAMNGOHKHHL",
-                "ABMNEGGKEIC": "FirePoint"
-              },
-              "LMEAGKCCLON": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_Homeworld_SumeruStove_01_FireCook",
+              "born": {
+                "$type": "ConfigBornByAttachPoint",
+                "attachPointName": "FirePoint"
+              }
             }
           ],
-          "PJIJPAIFEMN": [
+          "onRemoved": [
             {
-              "$type": "ALLDMMABLIM",
-              "CGLDJGDLIHP": "Eff_FireBasin_Smoke",
-              "PGCCMJFMBOF": {
-                "$type": "LAMNGOHKHHL",
-                "ABMNEGGKEIC": "FirePoint"
-              },
-              "LMEAGKCCLON": -1.0
+              "$type": "FireEffect",
+              "effectPattern": "Eff_FireBasin_Smoke",
+              "born": {
+                "$type": "ConfigBornByAttachPoint",
+                "attachPointName": "FirePoint"
+              }
             },
             {
-              "$type": "AOBGBMLFACK",
-              "HPDLNIPCGHB": 0.0,
-              "EPDHICCGHAL": "_Homeworld_Cooking",
-              "BFEAMPHKKCE": 0.0,
-              "CMLGDBNFNNO": 0.0
+              "$type": "SetGlobalValue",
+              "value": 0,
+              "key": "_Homeworld_Cooking",
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         }
@@ -2257,173 +2197,171 @@
   },
   {
     "Default": {
-      "$type": "DDKKBPLFIDM",
-      "EIIJMGGKJME": "SceneObj_Homeworld_Exterior_Common_Prop_Thing_XmGrownBridge_01",
-      "OJEBMMAGKOF": {
+      "$type": "ConfigAbility",
+      "abilityName": "SceneObj_Homeworld_Exterior_Common_Prop_Thing_XmGrownBridge_01",
+      "modifiers": {
         "XmGrownBridge_StateHandle": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "EEEIPAMAIGD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "modifierMixins": [
             {
-              "$type": "JOOBHEHMNDA",
-              "AMOOLHDIAIH": "XmGrownBridge_State",
-              "HFMGECJKBMM": 0.0,
-              "EALHNKBPCIN": [
+              "$type": "AttachModifierToSelfGlobalValueMixin",
+              "globalValueKey": "XmGrownBridge_State",
+              "defaultGlobalValueOnCreate": 0,
+              "valueSteps": [
                 -0.5,
                 0.5,
                 1.5
               ],
-              "GCHODBPEJKH": [
+              "modifierNameSteps": [
                 "XmGrownBridge_Off",
                 "XmGrownBridge_On"
               ]
             }
           ],
-          "DNEECINBPHM": [
+          "onAdded": [
             {
-              "$type": "PIIPMJLIHPC",
-              "CGLDJGDLIHP": "Eff_SceneObj_Homeworld_Xm_CaneVine_01",
-              "LMEAGKCCLON": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_Homeworld_Xm_CaneVine_01"
             }
           ]
         },
         "XmGrownBridge_On": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MOBGNHFHNAL",
-              "EIFHKAKNIBJ": true,
-              "KMJJNGEHKOD": "GadgetState",
-              "CCHDFMLMFPB": "",
-              "OMNDEBJIOCP": "Int",
-              "DLLBGDKBMIL": 201,
-              "CGLDJGDLIHP": "Eff_SceneObj_Homeworld_Xm_CaneVine_01"
+              "$type": "SendEffectTrigger",
+              "doOffStage": true,
+              "parameter": "GadgetState",
+              "attachPoint": "",
+              "type": "Int",
+              "value": 201,
+              "effectPattern": "Eff_SceneObj_Homeworld_Xm_CaneVine_01"
             }
           ]
         },
         "XmGrownBridge_Off": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MOBGNHFHNAL",
-              "EIFHKAKNIBJ": true,
-              "KMJJNGEHKOD": "GadgetState",
-              "CCHDFMLMFPB": "",
-              "OMNDEBJIOCP": "Int",
-              "CGLDJGDLIHP": "Eff_SceneObj_Homeworld_Xm_CaneVine_01"
+              "$type": "SendEffectTrigger",
+              "doOffStage": true,
+              "parameter": "GadgetState",
+              "attachPoint": "",
+              "type": "Int",
+              "effectPattern": "Eff_SceneObj_Homeworld_Xm_CaneVine_01"
             }
           ]
         }
       },
-      "DNEECINBPHM": [
+      "onAdded": [
         {
-          "$type": "AOBGBMLFACK",
-          "HPDLNIPCGHB": 0.0,
-          "EPDHICCGHAL": "XmGrownBridge_State",
-          "BFEAMPHKKCE": 0.0,
-          "CMLGDBNFNNO": 0.0
+          "$type": "SetGlobalValue",
+          "value": 0,
+          "key": "XmGrownBridge_State",
+          "maxValue": 0,
+          "minValue": 0
         },
         {
-          "$type": "ELEIPIAKELP",
-          "PEJCGBFFICP": "XmGrownBridge_StateHandle"
+          "$type": "AttachModifier",
+          "modifierName": "XmGrownBridge_StateHandle"
         }
       ],
-      "LDPJDHEGIAB": [
+      "onFieldEnter": [
         {
-          "$type": "AOBGBMLFACK",
-          "HPDLNIPCGHB": 1.0,
-          "EPDHICCGHAL": "XmGrownBridge_State",
-          "BFEAMPHKKCE": 0.0,
-          "CMLGDBNFNNO": 0.0
+          "$type": "SetGlobalValue",
+          "value": 1,
+          "key": "XmGrownBridge_State",
+          "maxValue": 0,
+          "minValue": 0
         }
       ],
       "ODBPCAKIEKM": [
         {
-          "$type": "AOBGBMLFACK",
-          "HPDLNIPCGHB": 0.0,
-          "EPDHICCGHAL": "XmGrownBridge_State",
-          "BFEAMPHKKCE": 0.0,
-          "CMLGDBNFNNO": 0.0
+          "$type": "SetGlobalValue",
+          "value": 0,
+          "key": "XmGrownBridge_State",
+          "maxValue": 0,
+          "minValue": 0
         }
       ]
     }
   },
   {
     "Default": {
-      "$type": "DDKKBPLFIDM",
-      "EIIJMGGKJME": "SceneObj_Homeland_AYuanDu_Jump_Mat",
-      "OJEBMMAGKOF": {
+      "$type": "ConfigAbility",
+      "abilityName": "SceneObj_Homeland_AYuanDu_Jump_Mat",
+      "modifiers": {
         "DefaultState": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "EEEIPAMAIGD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "modifierMixins": [
             {
               "$type": "BCOHMPDFLMO",
-              "EIIJMGGKJME": "Avatar_Trampoline_Jump_Controller",
+              "abilityName": "Avatar_Trampoline_Jump_Controller",
               "LJMHFJBILPA": ""
             }
           ]
         }
       },
-      "DNEECINBPHM": [
+      "onAdded": [
         {
-          "$type": "ELEIPIAKELP",
-          "PEJCGBFFICP": "DefaultState"
+          "$type": "AttachModifier",
+          "modifierName": "DefaultState"
         }
       ]
     }
   },
   {
     "Default": {
-      "$type": "DDKKBPLFIDM",
-      "EIIJMGGKJME": "SceneObj_Homeland_OwlGuard_01",
-      "DNOLJKGCMDK": [
+      "$type": "ConfigAbility",
+      "abilityName": "SceneObj_Homeland_OwlGuard_01",
+      "abilityMixins": [
         {
           "$type": "IPEGHKHJNMP",
           "HHIMGHDKCBA": 201,
-          "PEJCGBFFICP": "LightEffect"
+          "modifierName": "LightEffect"
         },
         {
           "$type": "PBAJOMHCPAH",
           "JBPHALBNNLF": [
             {
-              "$type": "BFIMNGHHDEN",
-              "PEJCGBFFICP": "LightEffect"
+              "$type": "ApplyModifier",
+              "modifierName": "LightEffect"
             }
           ]
         }
       ],
-      "OJEBMMAGKOF": {
+      "modifiers": {
         "LightEffect": {
-          "PEJCGBFFICP": "",
-          "LBPCINOGHGB": 5.0,
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "duration": 5,
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "PIIPMJLIHPC",
-              "CGLDJGDLIHP": "Eff_SceneObj_Homeworld_FilmOwl_03",
-              "LMEAGKCCLON": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_Homeworld_FilmOwl_03"
             },
             {
               "$type": "JFDOHOOIOEH"
             },
             {
-              "$type": "DFHFEMNGANP",
-              "CMOCNBDEJGD": "GadgetState",
-              "HPDLNIPCGHB": 201.0
+              "$type": "SetAnimatorInt",
+              "intID": "GadgetState",
+              "value": 201
             }
           ],
-          "PJIJPAIFEMN": [
+          "onRemoved": [
             {
               "$type": "JFDOHOOIOEH",
-              "KEEJFLJBFKM": true
+              "enable": true
             },
             {
-              "$type": "DFHFEMNGANP",
-              "CMOCNBDEJGD": "GadgetState",
-              "HPDLNIPCGHB": 0.0
+              "$type": "SetAnimatorInt",
+              "intID": "GadgetState",
+              "value": 0
             }
           ]
         }
@@ -2432,198 +2370,195 @@
   },
   {
     "Default": {
-      "$type": "DDKKBPLFIDM",
-      "EIIJMGGKJME": "SceneObj_Homeland_BombPlay_Bomb",
-      "OJEBMMAGKOF": {
+      "$type": "ConfigAbility",
+      "abilityName": "SceneObj_Homeland_BombPlay_Bomb",
+      "modifiers": {
         "BombBoxLoop": {
-          "PEJCGBFFICP": "",
-          "JPNOHJMPEGF": "Wood",
-          "DJHMCMJNDJL": 1.0,
-          "PJIJPAIFEMN": [
+          "modifierName": "",
+          "elementType": "Wood",
+          "elementDurability": 1,
+          "onRemoved": [
             {
-              "$type": "ALLDMMABLIM",
-              "CGLDJGDLIHP": "Eff_SceneObj_Homeworld_BombBarrel_01_Explode",
-              "LMEAGKCCLON": -1.0
+              "$type": "FireEffect",
+              "effectPattern": "Eff_SceneObj_Homeworld_BombBarrel_01_Explode"
             },
             {
               "$type": "MOFCCILIPGH"
             },
             {
-              "$type": "HNMEPMFMCEP",
-              "EEBDJIHOMKG": {
-                "MNACMFPGGJM": {
-                  "$type": "BHDHGOPPAPF",
-                  "KIALPPECALL": "TriggerNoRepeat",
-                  "KAJAIANOBDP": true,
-                  "PGCCMJFMBOF": {
-                    "$type": "PNNEAJJGDMO",
-                    "KFHPDJBPILF": {
-                      "GCAICJCAEGC": 0.0,
-                      "OHEABNAJGMK": 0.5,
-                      "GCFAGHEGMOK": 0.0
+              "$type": "TriggerAttackEvent",
+              "attackEvent": {
+                "attackPattern": {
+                  "$type": "ConfigAttackSphere",
+                  "triggerType": "TriggerNoRepeat",
+                  "ignoreMassive": true,
+                  "born": {
+                    "$type": "ConfigBornByTarget",
+                    "offset": {
+                      "y": 0.5
                     }
                   },
-                  "LAGKLBKPJOD": 6.0
+                  "radius": 6
                 },
-                "MKDNKDGFHOB": {
-                  "NCHHOHMMGLO": "",
-                  "FBHEHNEKCEC": "",
-                  "JJDHKGHLAPG": "default",
-                  "ECAAIDPICHF": {
-                    "BHIHBFJCJMF": 0.0,
-                    "MPFFDBKNGKK": 0.0,
-                    "DJHMCMJNDJL": 50.0,
-                    "GIDLGFOGCPI": "Blunt",
-                    "OOCKJPLEGJK": 9999999.0
+                "attackInfo": {
+                  "attackTag": "",
+                  "attenuationTag": "",
+                  "attenuationGroup": "default",
+                  "attackProperty": {
+                    "damagePercentage": 0,
+                    "damagePercentageRatio": 0,
+                    "elementDurability": 50,
+                    "strikeType": "Blunt",
+                    "enBreak": 9999999
                   },
-                  "NBOPNJKHONH": {
-                    "EFMEOMPPGGB": "default",
-                    "IMPBPALEIPI": "LV6",
-                    "MGAHMIHLGPO": 0.05000000074505806
+                  "hitPattern": {
+                    "onHitEffectName": "default",
+                    "hitImpulseType": "LV6",
+                    "hitHaltTimeScale": 0.05
                   },
-                  "EPCGKKCGCAG": true,
-                  "EJGFDAAGMMB": {
-                    "BGKHGAABBML": 0.36000001430511475,
-                    "NNMNPIKPKIA": 0.36000001430511475
+                  "forceCameraShake": true,
+                  "cameraShake": {
+                    "shakeRange": 0.36,
+                    "shakeTime": 0.36
                   }
                 }
               },
-              "HDHMLBLHGPD": "All"
+              "targetType": "All"
             },
             {
-              "$type": "GHKGCICKBBP",
-              "KNBINPKEGGM": 0.10000000149011612,
+              "$type": "KillSelf",
+              "duration": 0.1,
               "PEDOJAPLEPG": true
             }
           ],
-          "MJFCHEEHDMO": [
+          "onBeingHit": [
             {
-              "$type": "HGKGGEKHOBB",
-              "PMMKLHAOKCG": "Target",
-              "PILMKPPOHPN": [
+              "$type": "Predicated",
+              "target": "Target",
+              "targetPredicates": [
                 {
-                  "$type": "BEDEFFCBNIG",
-                  "PMMKLHAOKCG": "TargetOriginOwner",
-                  "EPDHICCGHAL": "GV_Avatar_HM_In_Shoot_Bomb",
-                  "HPDLNIPCGHB": 1.0
+                  "$type": "ByTargetGlobalValue",
+                  "target": "TargetOriginOwner",
+                  "key": "GV_Avatar_HM_In_Shoot_Bomb",
+                  "value": 1
                 }
               ],
-              "BDJHNHMPGDB": [
+              "successActions": [
                 {
                   "$type": "ELPBPFELHIF",
-                  "PMMKLHAOKCG": "TargetOriginOwner",
+                  "target": "TargetOriginOwner",
                   "FBCMKJKDBFL": "FromGroup",
                   "NFFBAJAEIOJ": "SLC_OnBombKill",
-                  "EILMHFHJPOJ": 0.0,
-                  "NCDNHCKPDNG": 0.0,
-                  "PAGOHKMJFFD": 0.0
+                  "EILMHFHJPOJ": 0,
+                  "NCDNHCKPDNG": 0,
+                  "PAGOHKMJFFD": 0
                 },
                 {
-                  "$type": "EAGLLGFBBCL",
-                  "MMAENINDNGC": "hm_bomb_hit_by_targetOwner"
+                  "$type": "DebugLog",
+                  "content": "hm_bomb_hit_by_targetOwner"
                 },
                 {
-                  "$type": "PMBLFEECDEC",
-                  "KHPFBKFKIMJ": [
+                  "$type": "RemoveModifier",
+                  "predicates": [
                     {
-                      "$type": "IKDEONFGFAF",
-                      "KHPFBKFKIMJ": [
+                      "$type": "ByNot",
+                      "predicates": [
                         {
-                          "$type": "FOJLCKCGMPM",
-                          "FJJKDHKEGEF": "Equal",
-                          "AIGPLNOCCHI": 0.0
+                          "$type": "ByHitDamage",
+                          "logic": "Equal",
+                          "damage": 0
                         }
                       ]
                     }
                   ],
-                  "PEJCGBFFICP": "BombBoxLoop"
+                  "modifierName": "BombBoxLoop"
                 }
               ]
             },
             {
-              "$type": "HGKGGEKHOBB",
-              "PMMKLHAOKCG": "Target",
-              "PILMKPPOHPN": [
+              "$type": "Predicated",
+              "target": "Target",
+              "targetPredicates": [
                 {
-                  "$type": "BEDEFFCBNIG",
-                  "EPDHICCGHAL": "GV_Avatar_HM_In_Shoot_Bomb",
-                  "HPDLNIPCGHB": 1.0
+                  "$type": "ByTargetGlobalValue",
+                  "key": "GV_Avatar_HM_In_Shoot_Bomb",
+                  "value": 1
                 }
               ],
-              "BDJHNHMPGDB": [
+              "successActions": [
                 {
                   "$type": "ELPBPFELHIF",
-                  "PMMKLHAOKCG": "Target",
+                  "target": "Target",
                   "FBCMKJKDBFL": "FromGroup",
                   "NFFBAJAEIOJ": "SLC_OnBombKill",
-                  "EILMHFHJPOJ": 0.0,
-                  "NCDNHCKPDNG": 0.0,
-                  "PAGOHKMJFFD": 0.0
+                  "EILMHFHJPOJ": 0,
+                  "NCDNHCKPDNG": 0,
+                  "PAGOHKMJFFD": 0
                 },
                 {
-                  "$type": "PMBLFEECDEC",
-                  "KHPFBKFKIMJ": [
+                  "$type": "RemoveModifier",
+                  "predicates": [
                     {
-                      "$type": "IKDEONFGFAF",
-                      "KHPFBKFKIMJ": [
+                      "$type": "ByNot",
+                      "predicates": [
                         {
-                          "$type": "FOJLCKCGMPM",
-                          "FJJKDHKEGEF": "Equal",
-                          "AIGPLNOCCHI": 0.0
+                          "$type": "ByHitDamage",
+                          "logic": "Equal",
+                          "damage": 0
                         }
                       ]
                     }
                   ],
-                  "PEJCGBFFICP": "BombBoxLoop"
+                  "modifierName": "BombBoxLoop"
                 }
               ]
             }
           ],
           "LGIJGGPOJPC": [
             {
-              "$type": "PMBLFEECDEC",
-              "PEJCGBFFICP": "BombBoxLoop"
+              "$type": "RemoveModifier",
+              "modifierName": "BombBoxLoop"
             }
           ]
         }
       },
-      "DNEECINBPHM": [
+      "onAdded": [
         {
-          "$type": "BFIMNGHHDEN",
-          "PEJCGBFFICP": "BombBoxLoop"
+          "$type": "ApplyModifier",
+          "modifierName": "BombBoxLoop"
         }
       ]
     }
   },
   {
     "Default": {
-      "$type": "DDKKBPLFIDM",
-      "EIIJMGGKJME": "SceneObj_Homeworld_BombPlay_Board",
-      "DNOLJKGCMDK": [
+      "$type": "ConfigAbility",
+      "abilityName": "SceneObj_Homeworld_BombPlay_Board",
+      "abilityMixins": [
         {
           "$type": "PBAJOMHCPAH",
           "JBPHALBNNLF": [
             {
-              "$type": "BFIMNGHHDEN",
-              "PEJCGBFFICP": "State_Intee_CD"
+              "$type": "ApplyModifier",
+              "modifierName": "State_Intee_CD"
             }
           ]
         }
       ],
-      "OJEBMMAGKOF": {
+      "modifiers": {
         "State_Intee_CD": {
-          "PEJCGBFFICP": "",
-          "LBPCINOGHGB": 4.0,
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "duration": 4,
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "JFDOHOOIOEH"
             }
           ],
-          "PJIJPAIFEMN": [
+          "onRemoved": [
             {
               "$type": "JFDOHOOIOEH",
-              "KEEJFLJBFKM": true
+              "enable": true
             }
           ]
         }
@@ -2632,64 +2567,63 @@
   },
   {
     "Default": {
-      "$type": "DDKKBPLFIDM",
-      "EIIJMGGKJME": "SceneObj_Homeworld_Interior_Common_Thing_Prop_Fishbowl_01",
-      "DNOLJKGCMDK": [
+      "$type": "ConfigAbility",
+      "abilityName": "SceneObj_Homeworld_Interior_Common_Thing_Prop_Fishbowl_01",
+      "abilityMixins": [
         {
           "$type": "PBAJOMHCPAH",
           "JBPHALBNNLF": [
             {
-              "$type": "BFIMNGHHDEN",
-              "PEJCGBFFICP": "Knock"
+              "$type": "ApplyModifier",
+              "modifierName": "Knock"
             }
           ]
         }
       ],
-      "OJEBMMAGKOF": {
+      "modifiers": {
         "Knock": {
-          "PEJCGBFFICP": "",
-          "LBPCINOGHGB": 2.0,
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "duration": 2,
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "MOFCCILIPGH",
-              "CGMOKGGAKHA": 100.0
+              "CGMOKGGAKHA": 100
             },
             {
               "$type": "JFDOHOOIOEH"
             },
             {
-              "$type": "LPMKLBJOEGG",
-              "JPOIGIBNCBJ": {
-                "$type": "COOHIMCBOJK",
-                "JPOIGIBNCBJ": {
-                  "MLONDJJHAAK": "Play_amb_sceneObj_sfx_fishbowl_01"
+              "$type": "TriggerAudio",
+              "operation": {
+                "$type": "ConfigAudioEventOp",
+                "operation": {
+                  "text": "Play_amb_sceneObj_sfx_fishbowl_01"
                 }
               }
             }
           ],
-          "PJIJPAIFEMN": [
+          "onRemoved": [
             {
               "$type": "JFDOHOOIOEH",
-              "KEEJFLJBFKM": true
+              "enable": true
             }
           ]
         }
       },
-      "DNEECINBPHM": [
+      "onAdded": [
         {
-          "$type": "PIIPMJLIHPC",
-          "CGLDJGDLIHP": "Eff_SceneObj_Fishbowl_01",
-          "LMEAGKCCLON": -1.0
+          "$type": "AttachEffect",
+          "effectPattern": "Eff_SceneObj_Fishbowl_01"
         }
       ]
     }
   },
   {
     "Default": {
-      "$type": "DDKKBPLFIDM",
-      "EIIJMGGKJME": "SceneObj_Homeworld_Exterior_Common_Thing_Prop_AyuanBlow_01_Ability",
-      "DNOLJKGCMDK": [
+      "$type": "ConfigAbility",
+      "abilityName": "SceneObj_Homeworld_Exterior_Common_Thing_Prop_AyuanBlow_01_Ability",
+      "abilityMixins": [
         {
           "$type": "KLDBKNBKKIL",
           "IOAADAMDJMO": [
@@ -2700,19 +2634,18 @@
           ]
         }
       ],
-      "OJEBMMAGKOF": {
+      "modifiers": {
         "OnHomeEditor": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0
+          "modifierName": "",
+          "elementDurability": 100
         },
         "OnHomeWorld": {
-          "PEJCGBFFICP": "",
-          "DJHMCMJNDJL": 100.0,
-          "DNEECINBPHM": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "PIIPMJLIHPC",
-              "CGLDJGDLIHP": "Eff_ScenObj_Homeworld_Exterior_Ly_Thing_Prop_Soundflower_01",
-              "LMEAGKCCLON": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_ScenObj_Homeworld_Exterior_Ly_Thing_Prop_Soundflower_01"
             }
           ]
         }

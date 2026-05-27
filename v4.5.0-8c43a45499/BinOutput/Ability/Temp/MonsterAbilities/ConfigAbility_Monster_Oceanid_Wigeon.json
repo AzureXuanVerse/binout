@@ -3,17 +3,17 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Monster_Oceanid_Wigeon_AreaDamage",
-      "KBODACCMEFE": [
+      "abilityMixins": [
         {
           "$type": "AttachModifierToSelfGlobalValueMixin",
-          "AOJHAGMBDNP": "_AREADAMAGE_STATE_",
-          "MCAEKKJBNNJ": 0.0,
-          "FCPOANIDKOM": [
+          "globalValueKey": "_AREADAMAGE_STATE_",
+          "defaultGlobalValueOnCreate": 0,
+          "valueSteps": [
             -0.5,
             0.5,
             1.5
           ],
-          "NGIGIMPCHOO": [
+          "modifierNameSteps": [
             "Empty",
             "Wigeon_Water_AreaDamage"
           ]
@@ -24,7 +24,7 @@
             "ElementFrozen",
             "ElementPetrifaction"
           ],
-          "BGIONAIMBCJ": "SpecialStateDetect"
+          "modifierName": "SpecialStateDetect"
         },
         {
           "$type": "AttachToPoseIDMixin",
@@ -34,130 +34,129 @@
             3,
             4
           ],
-          "BGIONAIMBCJ": "AreaDamageHandler"
+          "modifierName": "AreaDamageHandler"
         }
       ],
-      "CLHBPEHHEJB": {
+      "abilitySpecials": {
         "AreaDamageRatio": 0.25
       },
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "Wigeon_Water_AreaDamage": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "ANPDJHOGAFE": 0.75,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "thinkInterval": 0.75,
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_Monster_Oceanid_Wigeon_WaterAuraLoop",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_Monster_Oceanid_Wigeon_WaterAuraLoop"
             }
           ],
-          "MDPGEKAIFIM": [
+          "onThinkInterval": [
             {
               "$type": "DamageByAttackValue",
-              "musicSubStates": {
-                "$type": "HGNAFICLGFP",
-                "IBPOJODNMHO": "CircleR4H2",
-                "CHPLPFBEPDN": "Enemy",
-                "CHGLFBPDMKF": 1.0
+              "otherTargets": {
+                "$type": "SelectTargetsByShape",
+                "shapeName": "CircleR4H2",
+                "campTargetType": "Enemy",
+                "sizeRatio": 1
               },
-              "OIAMOBFMPAB": {
-                "KNOKCFHALLI": "",
-                "HOKPLNACNKG": "",
-                "ILLFBEHPCJA": "default",
-                "BAPFFKCLDPC": {
-                  "OLLFABADCKH": 0.5,
-                  "PDHAKJCMPHB": 0.0,
+              "attackInfo": {
+                "attackTag": "",
+                "attenuationTag": "",
+                "attenuationGroup": "default",
+                "attackProperty": {
+                  "damagePercentage": 0.5,
+                  "damagePercentageRatio": 0,
                   "elementType": "Water",
-                  "ONIHJPOMNHA": 25.0,
-                  "GAOIEGMFFDJ": "Default",
-                  "FFIIMACIKEA": 1.0,
-                  "AEOLDMAMNLM": 0.0
+                  "elementDurability": 25,
+                  "strikeType": "Default",
+                  "enBreak": 1,
+                  "__exp_arkhe": 0
                 },
-                "OCHEEDIDOHI": {
-                  "AIDMNBLLAIJ": "Eff_Monster_Oceanid_AnimalHit",
-                  "OEGAJNNFFPO": "LV1",
-                  "EPGLCHLENNG": 0.05000000074505806
+                "hitPattern": {
+                  "onHitEffectName": "Eff_Monster_Oceanid_AnimalHit",
+                  "hitImpulseType": "LV1",
+                  "hitHaltTimeScale": 0.05
                 }
               }
             }
           ]
         },
         "SpecialStateDetect": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AddGlobalValue",
-              "value": 0.0,
-              "NGGCNKPAODB": "_AREADAMAGE_STATE_",
-              "AJKBEKOCMKF": true,
-              "LBHGJKHHAKP": 0.0,
-              "EMGNPOKHMNN": 0.0
+              "value": 0,
+              "key": "_AREADAMAGE_STATE_",
+              "useLimitRange": true,
+              "maxValue": 0,
+              "minValue": 0
             }
           ],
-          "NFKOGKMAIIE": [
+          "onRemoved": [
             {
               "$type": "AddGlobalValue",
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "BLIEHOICPMH",
-                  "FLEEHCIOPKA": [
+                  "$type": "ByNot",
+                  "predicates": [
                     {
-                      "$type": "OMPKIEPKGPF",
-                      "NGGCNKPAODB": "_MONSTERAFFIX_OCEANID_ANIMAL_SPMASK",
-                      "value": 1.0
+                      "$type": "ByTargetGlobalValue",
+                      "key": "_MONSTERAFFIX_OCEANID_ANIMAL_SPMASK",
+                      "value": 1
                     }
                   ]
                 }
               ],
-              "value": 1.0,
-              "NGGCNKPAODB": "_AREADAMAGE_STATE_",
-              "AJKBEKOCMKF": true,
-              "LBHGJKHHAKP": 1.0,
-              "EMGNPOKHMNN": 1.0
+              "value": 1,
+              "key": "_AREADAMAGE_STATE_",
+              "useLimitRange": true,
+              "maxValue": 1,
+              "minValue": 1
             }
           ]
         },
         "AreaDamageHandler": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AddGlobalValue",
-              "value": 0.0,
-              "NGGCNKPAODB": "_AREADAMAGE_STATE_",
-              "AJKBEKOCMKF": true,
-              "LBHGJKHHAKP": 0.0,
-              "EMGNPOKHMNN": 0.0
+              "value": 0,
+              "key": "_AREADAMAGE_STATE_",
+              "useLimitRange": true,
+              "maxValue": 0,
+              "minValue": 0
             }
           ],
-          "NFKOGKMAIIE": [
+          "onRemoved": [
             {
               "$type": "AddGlobalValue",
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "BLIEHOICPMH",
-                  "FLEEHCIOPKA": [
+                  "$type": "ByNot",
+                  "predicates": [
                     {
-                      "$type": "OMPKIEPKGPF",
-                      "NGGCNKPAODB": "_MONSTERAFFIX_OCEANID_ANIMAL_SPMASK",
-                      "value": 1.0
+                      "$type": "ByTargetGlobalValue",
+                      "key": "_MONSTERAFFIX_OCEANID_ANIMAL_SPMASK",
+                      "value": 1
                     }
                   ]
                 }
               ],
-              "value": 1.0,
-              "NGGCNKPAODB": "_AREADAMAGE_STATE_",
-              "AJKBEKOCMKF": true,
-              "LBHGJKHHAKP": 1.0,
-              "EMGNPOKHMNN": 1.0
+              "value": 1,
+              "key": "_AREADAMAGE_STATE_",
+              "useLimitRange": true,
+              "maxValue": 1,
+              "minValue": 1
             }
           ]
         },
         "Empty": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0
+          "modifierName": "",
+          "elementDurability": 100
         }
       }
     }
@@ -166,14 +165,14 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Monster_Oceanid_Wigeon_Steer",
-      "KBODACCMEFE": [
+      "abilityMixins": [
         {
           "$type": "SteerAttackMixin",
           "LMMLIKMOKHL": [
             "Turn"
           ],
-          "GGMOCFABGPD": 0.800000011920929,
-          "KNPBDOFJKKB": 180.0,
+          "GGMOCFABGPD": 0.8,
+          "angularSpeed": 180,
           "APILILGPPAD": "",
           "AJLDCMPMJIK": 1.5
         },
@@ -183,7 +182,7 @@
             "Peck"
           ],
           "GGMOCFABGPD": 0.5,
-          "KNPBDOFJKKB": 120.0,
+          "angularSpeed": 120,
           "APILILGPPAD": "",
           "AJLDCMPMJIK": 1.5
         },
@@ -192,7 +191,7 @@
           "LMMLIKMOKHL": [
             "NormalMove"
           ],
-          "KNPBDOFJKKB": 300.0,
+          "angularSpeed": 300,
           "APILILGPPAD": "",
           "AJLDCMPMJIK": 1.5
         }
@@ -203,30 +202,29 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Monster_Oceanid_Wigeon_ElementState",
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "UNIQUE_ElementState": {
-          "BGIONAIMBCJ": "",
-          "defaultDistanceBetweenAvatarAndCamera": true,
+          "modifierName": "",
+          "isUnique": true,
           "elementType": "Water",
-          "ONIHJPOMNHA": 100.0,
+          "elementDurability": 100,
           "isElementDurabilityMutable": false
         },
         "Monster_Oceanid_Wigeon_CommonEffect": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_Monster_Oceanid_Wigeon_CommonEffectLoop",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_Monster_Oceanid_Wigeon_CommonEffectLoop"
             }
           ]
         }
       },
-      "NLFIGALMIPD": [
+      "onAdded": [
         {
           "$type": "ApplyModifier",
-          "BGIONAIMBCJ": "UNIQUE_ElementState"
+          "modifierName": "UNIQUE_ElementState"
         },
         {
           "$type": "AttachAbilityStateResistance",
@@ -237,19 +235,19 @@
         },
         {
           "$type": "ApplyModifier",
-          "FLEEHCIOPKA": [
+          "predicates": [
             {
-              "$type": "BLIEHOICPMH",
-              "FLEEHCIOPKA": [
+              "$type": "ByNot",
+              "predicates": [
                 {
-                  "$type": "OMPKIEPKGPF",
-                  "NGGCNKPAODB": "_MONSTERAFFIX_OCEANID_ANIMAL_FOOTEFFECT_OFF",
-                  "value": 1.0
+                  "$type": "ByTargetGlobalValue",
+                  "key": "_MONSTERAFFIX_OCEANID_ANIMAL_FOOTEFFECT_OFF",
+                  "value": 1
                 }
               ]
             }
           ],
-          "BGIONAIMBCJ": "Monster_Oceanid_Wigeon_CommonEffect"
+          "modifierName": "Monster_Oceanid_Wigeon_CommonEffect"
         }
       ]
     }
@@ -258,31 +256,29 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Animal_Wigeon_EscapeRandom",
-      "KBODACCMEFE": [
+      "abilityMixins": [
         {
           "$type": "AttachToNormalizedTimeMixin",
-          "GEAPDIDEKFG": "EscapeBS",
-          "BGIONAIMBCJ": "Animal_Wigeon_EscapeTurn",
-          "BPKNANBNBBJ": 0.75
+          "stateID": "EscapeBS",
+          "modifierName": "Animal_Wigeon_EscapeTurn",
+          "normalizeStart": 0.75
         }
       ],
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "Animal_Wigeon_EscapeTurn": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "Randomed",
-              "NGLFOHEEJEJ": 0.5,
+              "chance": 0.5,
               "successActions": [
                 {
                   "$type": "TurnDirectionToPos",
-                  "OPOOFGHHJAE": {
-                    "$type": "DELDMCFKBBL",
+                  "toPos": {
+                    "$type": "ConfigBornBySelf",
                     "offset": {
-                      "NEEHMANEJKM": 3.0,
-                      "KKKLBADAPPB": 0.0,
-                      "GENNNOANKOO": 0.0
+                      "x": 3
                     }
                   }
                 }
@@ -290,12 +286,10 @@
               "failActions": [
                 {
                   "$type": "TurnDirectionToPos",
-                  "OPOOFGHHJAE": {
-                    "$type": "DELDMCFKBBL",
+                  "toPos": {
+                    "$type": "ConfigBornBySelf",
                     "offset": {
-                      "NEEHMANEJKM": -3.0,
-                      "KKKLBADAPPB": 0.0,
-                      "GENNNOANKOO": 0.0
+                      "x": -3
                     }
                   }
                 }
@@ -310,15 +304,15 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Monster_Oceanid_Wigeon_FreeAlert",
-      "DEOJHLMNLFC": [
+      "onAbilityStart": [
         {
           "$type": "SetPoseBool",
-          "CMLNMLEDGPA": "FreeAlert",
+          "boolID": "FreeAlert",
           "value": true
         },
         {
           "$type": "SetPoseBool",
-          "CMLNMLEDGPA": "Free"
+          "boolID": "Free"
         }
       ]
     }
@@ -327,133 +321,132 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Monster_Oceanid_Wigeon_HealHp_Challenge",
-      "KBODACCMEFE": [
+      "abilityMixins": [
         {
           "$type": "AttachModifierToSelfGlobalValueMixin",
-          "AOJHAGMBDNP": "_HEALHP_STATE_",
-          "MCAEKKJBNNJ": 1.0,
-          "FCPOANIDKOM": [
+          "globalValueKey": "_HEALHP_STATE_",
+          "defaultGlobalValueOnCreate": 1,
+          "valueSteps": [
             -0.5,
             0.5,
             1.5
           ],
-          "NGIGIMPCHOO": [
+          "modifierNameSteps": [
             "Empty",
             "UNIQUE_Wigeon_Water_HealHp"
           ]
         }
       ],
-      "CLHBPEHHEJB": {
-        "HealHPHigh": 0.15000000596046448
+      "abilitySpecials": {
+        "HealHPHigh": 0.15
       },
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "UNIQUE_Wigeon_Water_HealHp": {
-          "BGIONAIMBCJ": "",
-          "defaultDistanceBetweenAvatarAndCamera": true,
-          "ONIHJPOMNHA": 100.0,
-          "ANPDJHOGAFE": 1.5,
-          "EOMGJKEEICG": [
+          "modifierName": "",
+          "isUnique": true,
+          "elementDurability": 100,
+          "thinkInterval": 1.5,
+          "onBeingHit": [
             {
               "$type": "Predicated",
-              "EGMDPEHBAOA": [
+              "targetPredicates": [
                 {
-                  "$type": "OMPKIEPKGPF",
-                  "NGGCNKPAODB": "SGV_MONSTERAFFIX_OCEANID_02_ANIMALHEAL_UP",
-                  "value": 1.0
+                  "$type": "ByTargetGlobalValue",
+                  "key": "SGV_MONSTERAFFIX_OCEANID_02_ANIMALHEAL_UP",
+                  "value": 1
                 }
               ],
               "successActions": [
                 {
                   "$type": "ApplyModifier",
-                  "BGIONAIMBCJ": "HealHP_Pause_AffixUp"
+                  "modifierName": "HealHP_Pause_AffixUp"
                 }
               ],
               "failActions": [
                 {
                   "$type": "ApplyModifier",
-                  "BGIONAIMBCJ": "HealHP_Pause"
+                  "modifierName": "HealHP_Pause"
                 }
               ]
             }
           ],
-          "MDPGEKAIFIM": [
+          "onThinkInterval": [
             {
               "$type": "Predicated",
-              "EGMDPEHBAOA": [
+              "targetPredicates": [
                 {
-                  "$type": "OMPKIEPKGPF",
-                  "NGGCNKPAODB": "SGV_MONSTERAFFIX_OCEANID_02_ANIMALHEAL_UP",
-                  "value": 1.0
+                  "$type": "ByTargetGlobalValue",
+                  "key": "SGV_MONSTERAFFIX_OCEANID_02_ANIMALHEAL_UP",
+                  "value": 1
                 }
               ],
               "successActions": [
                 {
                   "$type": "HealHP",
-                  "LILCLBLMACF": "HealHPHigh",
-                  "IHHGNLPEAOJ": ""
+                  "amountByCasterMaxHPRatio": "HealHPHigh",
+                  "__exp_healTag": ""
                 },
                 {
                   "$type": "FireEffect",
-                  "LHHFHDEJOHC": "Eff_Monster_Oceanid_Boar_Heal",
-                  "PCLAEGHPNHE": -1.0
+                  "effectPattern": "Eff_Monster_Oceanid_Boar_Heal"
                 }
               ]
             }
           ]
         },
         "HealHP_Pause": {
-          "BGIONAIMBCJ": "",
-          "FAFCPJJAIGK": 3.0,
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "duration": 3,
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AddGlobalValue",
-              "value": 0.0,
-              "NGGCNKPAODB": "_HEALHP_STATE_",
-              "AJKBEKOCMKF": true,
-              "LBHGJKHHAKP": 0.0,
-              "EMGNPOKHMNN": 0.0
+              "value": 0,
+              "key": "_HEALHP_STATE_",
+              "useLimitRange": true,
+              "maxValue": 0,
+              "minValue": 0
             }
           ],
-          "NFKOGKMAIIE": [
+          "onRemoved": [
             {
               "$type": "AddGlobalValue",
-              "value": 1.0,
-              "NGGCNKPAODB": "_HEALHP_STATE_",
-              "AJKBEKOCMKF": true,
-              "LBHGJKHHAKP": 1.0,
-              "EMGNPOKHMNN": 1.0
+              "value": 1,
+              "key": "_HEALHP_STATE_",
+              "useLimitRange": true,
+              "maxValue": 1,
+              "minValue": 1
             }
           ]
         },
         "HealHP_Pause_AffixUp": {
-          "BGIONAIMBCJ": "",
-          "FAFCPJJAIGK": 1.5,
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "duration": 1.5,
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AddGlobalValue",
-              "value": 0.0,
-              "NGGCNKPAODB": "_HEALHP_STATE_",
-              "AJKBEKOCMKF": true,
-              "LBHGJKHHAKP": 0.0,
-              "EMGNPOKHMNN": 0.0
+              "value": 0,
+              "key": "_HEALHP_STATE_",
+              "useLimitRange": true,
+              "maxValue": 0,
+              "minValue": 0
             }
           ],
-          "NFKOGKMAIIE": [
+          "onRemoved": [
             {
               "$type": "AddGlobalValue",
-              "value": 1.0,
-              "NGGCNKPAODB": "_HEALHP_STATE_",
-              "AJKBEKOCMKF": true,
-              "LBHGJKHHAKP": 1.0,
-              "EMGNPOKHMNN": 1.0
+              "value": 1,
+              "key": "_HEALHP_STATE_",
+              "useLimitRange": true,
+              "maxValue": 1,
+              "minValue": 1
             }
           ]
         },
         "Empty": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0
+          "modifierName": "",
+          "elementDurability": 100
         }
       }
     }
@@ -462,77 +455,77 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Monster_Oceanid_Affix_DeathExplode",
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "UNIQUE_Oceanid_Affix_DeathExplode": {
-          "BGIONAIMBCJ": "",
-          "defaultDistanceBetweenAvatarAndCamera": true,
-          "ONIHJPOMNHA": 100.0,
-          "CLOIGOBCDJK": [
+          "modifierName": "",
+          "isUnique": true,
+          "elementDurability": 100,
+          "modifierMixins": [
             {
               "$type": "ServerCreateGadgetOnKillMixin",
               "FAAAONFINLK": [
                 42005025
               ],
               "campID": 4001,
-              "CHPLPFBEPDN": "Enemy"
+              "campTargetType": "Enemy"
             }
           ]
         },
         "Oceanid_Affix_DeathExplode_DelayCheck": {
-          "BGIONAIMBCJ": "",
-          "FAFCPJJAIGK": 2.0,
-          "ONIHJPOMNHA": 100.0,
-          "ANPDJHOGAFE": 0.20000000298023224,
-          "MDPGEKAIFIM": [
+          "modifierName": "",
+          "duration": 2,
+          "elementDurability": 100,
+          "thinkInterval": 0.2,
+          "onThinkInterval": [
             {
               "$type": "ApplyModifier",
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "CDPHOKIPLGH",
-                  "FLEEHCIOPKA": [
+                  "$type": "ByAny",
+                  "predicates": [
                     {
-                      "$type": "OMPKIEPKGPF",
-                      "NGGCNKPAODB": "SGV_MONSTERAFFIX_OCEANID_02_ANIMAL_DEATHEXPLODE",
-                      "value": 1.0
+                      "$type": "ByTargetGlobalValue",
+                      "key": "SGV_MONSTERAFFIX_OCEANID_02_ANIMAL_DEATHEXPLODE",
+                      "value": 1
                     },
                     {
-                      "$type": "OMPKIEPKGPF",
-                      "NGGCNKPAODB": "_MONSTERAFFIX_OCEANID_02_ANIMAL_DEATHEXPLODE",
-                      "value": 1.0
+                      "$type": "ByTargetGlobalValue",
+                      "key": "_MONSTERAFFIX_OCEANID_02_ANIMAL_DEATHEXPLODE",
+                      "value": 1
                     }
                   ]
                 }
               ],
-              "BGIONAIMBCJ": "UNIQUE_Oceanid_Affix_DeathExplode"
+              "modifierName": "UNIQUE_Oceanid_Affix_DeathExplode"
             }
           ]
         }
       },
-      "NLFIGALMIPD": [
+      "onAdded": [
         {
           "$type": "ApplyModifier",
-          "FLEEHCIOPKA": [
+          "predicates": [
             {
-              "$type": "CDPHOKIPLGH",
-              "FLEEHCIOPKA": [
+              "$type": "ByAny",
+              "predicates": [
                 {
-                  "$type": "OMPKIEPKGPF",
-                  "NGGCNKPAODB": "SGV_MONSTERAFFIX_OCEANID_02_ANIMAL_DEATHEXPLODE",
-                  "value": 1.0
+                  "$type": "ByTargetGlobalValue",
+                  "key": "SGV_MONSTERAFFIX_OCEANID_02_ANIMAL_DEATHEXPLODE",
+                  "value": 1
                 },
                 {
-                  "$type": "OMPKIEPKGPF",
-                  "NGGCNKPAODB": "_MONSTERAFFIX_OCEANID_02_ANIMAL_DEATHEXPLODE",
-                  "value": 1.0
+                  "$type": "ByTargetGlobalValue",
+                  "key": "_MONSTERAFFIX_OCEANID_02_ANIMAL_DEATHEXPLODE",
+                  "value": 1
                 }
               ]
             }
           ],
-          "BGIONAIMBCJ": "UNIQUE_Oceanid_Affix_DeathExplode"
+          "modifierName": "UNIQUE_Oceanid_Affix_DeathExplode"
         },
         {
           "$type": "ApplyModifier",
-          "BGIONAIMBCJ": "Oceanid_Affix_DeathExplode_DelayCheck"
+          "modifierName": "Oceanid_Affix_DeathExplode_DelayCheck"
         }
       ]
     }

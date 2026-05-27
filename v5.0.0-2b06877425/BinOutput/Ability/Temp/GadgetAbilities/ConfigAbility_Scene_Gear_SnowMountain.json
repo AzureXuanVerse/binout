@@ -1,13 +1,13 @@
 [
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Ljxs_Property_Ani_Prop_IceSolidBulk_03",
       "modifiers": {
         "Ice_Shield": {
           "modifierName": "",
           "elementType": "Ice",
-          "IPFJJJGABPL": 200.0,
+          "elementDurability": 200,
           "modifierMixins": [
             {
               "$type": "CGGHGFIOCKN",
@@ -26,10 +26,10 @@
           ],
           "onBeingHit": [
             {
-              "$type": "NCFFNDHGCMH",
+              "$type": "KillSelf",
               "predicates": [
                 {
-                  "$type": "NNEHDJHMING",
+                  "$type": "ByAttackTags",
                   "attackTags": [
                     "BloodSmash"
                   ]
@@ -37,23 +37,23 @@
               ]
             },
             {
-              "$type": "INBCDALOHMP",
+              "$type": "Predicated",
               "target": "Target",
               "targetPredicates": [
                 {
-                  "$type": "HHHMNCNPBDK",
+                  "$type": "ByAny",
                   "predicates": [
                     {
-                      "$type": "CNGGLKHONAA",
+                      "$type": "ByTargetGlobalValue",
                       "key": "HAS_DULINS_BLOOD_BUFF",
-                      "param3": 1.0,
+                      "value": 1,
                       "compareType": "MoreThanAndEqual"
                     },
                     {
-                      "$type": "CNGGLKHONAA",
+                      "$type": "ByTargetGlobalValue",
                       "target": "OriginOwner",
                       "key": "HAS_DULINS_BLOOD_BUFF",
-                      "param3": 1.0,
+                      "value": 1,
                       "compareType": "MoreThanAndEqual"
                     }
                   ]
@@ -61,7 +61,7 @@
               ],
               "successActions": [
                 {
-                  "$type": "NCFFNDHGCMH"
+                  "$type": "KillSelf"
                 }
               ]
             }
@@ -69,23 +69,23 @@
         },
         "Shield_Recovery": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
-          "thinkInterval": 0.10000000149011612,
+          "elementDurability": 100,
+          "thinkInterval": 0.1,
           "onThinkInterval": [
             {
-              "$type": "ODHJJKENLPE",
-              "param3": 5.0,
+              "$type": "AddElementDurability",
+              "value": 5,
               "modifierName": "Ice_Shield",
               "useLimitRange": true,
-              "param2": 200.0,
-              "repeatTimes": 0.0
+              "maxValue": 200,
+              "minValue": 0
             }
           ]
         }
       },
       "onAdded": [
         {
-          "$type": "PELJALPANCA",
+          "$type": "ApplyModifier",
           "modifierName": "Ice_Shield"
         }
       ]
@@ -93,13 +93,13 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Common_Property_Ani_Prop_IceSolidBulk_01",
       "modifiers": {
         "Ice_Shield": {
           "modifierName": "",
           "elementType": "Ice",
-          "IPFJJJGABPL": 1000.0,
+          "elementDurability": 1000,
           "modifierMixins": [
             {
               "$type": "CGGHGFIOCKN",
@@ -118,15 +118,14 @@
           ],
           "onAdded": [
             {
-              "$type": "ANLOBBMKNIJ",
-              "rotationDampTime": "Eff_SceneObj_IceSolidBulk_01",
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_IceSolidBulk_01",
+              "scale": 1
             }
           ],
           "onRemoved": [
             {
-              "$type": "NCFFNDHGCMH"
+              "$type": "KillSelf"
             }
           ],
           "onBeingHit": [
@@ -136,11 +135,11 @@
               "authorityOnly": true
             },
             {
-              "$type": "INBCDALOHMP",
+              "$type": "Predicated",
               "target": "Target",
               "targetPredicates": [
                 {
-                  "$type": "NNEHDJHMING",
+                  "$type": "ByAttackTags",
                   "attackTags": [
                     "BloodSmash"
                   ]
@@ -148,20 +147,20 @@
               ],
               "successActions": [
                 {
-                  "$type": "NCFFNDHGCMH"
+                  "$type": "KillSelf"
                 }
               ],
               "failActions": [
                 {
-                  "$type": "GFOOGEIKGBI",
+                  "$type": "SendEffectTrigger",
                   "parameter": "Hit",
                   "attachPoint": "",
-                  "damageRatio": "Bool",
+                  "type": "Bool",
                   "value": 1,
-                  "rotationDampTime": "Eff_SceneObj_IceSolidBulk_01"
+                  "effectPattern": "Eff_SceneObj_IceSolidBulk_01"
                 },
                 {
-                  "$type": "PELJALPANCA",
+                  "$type": "ApplyModifier",
                   "modifierName": "ResetBool"
                 }
               ]
@@ -170,41 +169,41 @@
         },
         "ResetBool": {
           "modifierName": "",
-          "elementDurability": 0.20000000298023224,
-          "IPFJJJGABPL": 100.0,
+          "duration": 0.2,
+          "elementDurability": 100,
           "onRemoved": [
             {
-              "$type": "GFOOGEIKGBI",
+              "$type": "SendEffectTrigger",
               "parameter": "Hit",
               "attachPoint": "",
-              "damageRatio": "Bool",
-              "rotationDampTime": "Eff_SceneObj_IceSolidBulk_01"
+              "type": "Bool",
+              "effectPattern": "Eff_SceneObj_IceSolidBulk_01"
             }
           ]
         },
         "Shield_Recovery": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
-          "thinkInterval": 0.10000000149011612,
+          "elementDurability": 100,
+          "thinkInterval": 0.1,
           "onThinkInterval": [
             {
-              "$type": "ODHJJKENLPE",
-              "param3": 50.0,
+              "$type": "AddElementDurability",
+              "value": 50,
               "modifierName": "Ice_Shield",
               "useLimitRange": true,
-              "param2": 1000.0,
-              "repeatTimes": 0.0
+              "maxValue": 1000,
+              "minValue": 0
             }
           ]
         }
       },
       "onAdded": [
         {
-          "$type": "PELJALPANCA",
+          "$type": "ApplyModifier",
           "modifierName": "Ice_Shield"
         },
         {
-          "$type": "OPAOGKPJLIG",
+          "$type": "AttachAbilityStateResistance",
           "resistanceListID": 11001
         }
       ]
@@ -212,13 +211,13 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Common_Property_Ani_Prop_IceSolidBulk_02",
       "modifiers": {
         "Ice_Shield": {
           "modifierName": "",
           "elementType": "Ice",
-          "IPFJJJGABPL": 1000.0,
+          "elementDurability": 1000,
           "modifierMixins": [
             {
               "$type": "CGGHGFIOCKN",
@@ -237,15 +236,14 @@
           ],
           "onAdded": [
             {
-              "$type": "ANLOBBMKNIJ",
-              "rotationDampTime": "Eff_SceneObj_IceSolidBulk_02",
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_IceSolidBulk_02",
+              "scale": 1
             }
           ],
           "onRemoved": [
             {
-              "$type": "NCFFNDHGCMH"
+              "$type": "KillSelf"
             }
           ],
           "onBeingHit": [
@@ -255,11 +253,11 @@
               "authorityOnly": true
             },
             {
-              "$type": "INBCDALOHMP",
+              "$type": "Predicated",
               "target": "Target",
               "targetPredicates": [
                 {
-                  "$type": "NNEHDJHMING",
+                  "$type": "ByAttackTags",
                   "attackTags": [
                     "BloodSmash"
                   ]
@@ -267,20 +265,20 @@
               ],
               "successActions": [
                 {
-                  "$type": "NCFFNDHGCMH"
+                  "$type": "KillSelf"
                 }
               ],
               "failActions": [
                 {
-                  "$type": "GFOOGEIKGBI",
+                  "$type": "SendEffectTrigger",
                   "parameter": "Hit",
                   "attachPoint": "",
-                  "damageRatio": "Bool",
+                  "type": "Bool",
                   "value": 1,
-                  "rotationDampTime": "Eff_SceneObj_IceSolidBulk_02"
+                  "effectPattern": "Eff_SceneObj_IceSolidBulk_02"
                 },
                 {
-                  "$type": "PELJALPANCA",
+                  "$type": "ApplyModifier",
                   "modifierName": "ResetBool"
                 }
               ]
@@ -289,41 +287,41 @@
         },
         "ResetBool": {
           "modifierName": "",
-          "elementDurability": 0.20000000298023224,
-          "IPFJJJGABPL": 100.0,
+          "duration": 0.2,
+          "elementDurability": 100,
           "onRemoved": [
             {
-              "$type": "GFOOGEIKGBI",
+              "$type": "SendEffectTrigger",
               "parameter": "Hit",
               "attachPoint": "",
-              "damageRatio": "Bool",
-              "rotationDampTime": "Eff_SceneObj_IceSolidBulk_02"
+              "type": "Bool",
+              "effectPattern": "Eff_SceneObj_IceSolidBulk_02"
             }
           ]
         },
         "Shield_Recovery": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
-          "thinkInterval": 0.10000000149011612,
+          "elementDurability": 100,
+          "thinkInterval": 0.1,
           "onThinkInterval": [
             {
-              "$type": "ODHJJKENLPE",
-              "param3": 50.0,
+              "$type": "AddElementDurability",
+              "value": 50,
               "modifierName": "Ice_Shield",
               "useLimitRange": true,
-              "param2": 1000.0,
-              "repeatTimes": 0.0
+              "maxValue": 1000,
+              "minValue": 0
             }
           ]
         }
       },
       "onAdded": [
         {
-          "$type": "PELJALPANCA",
+          "$type": "ApplyModifier",
           "modifierName": "Ice_Shield"
         },
         {
-          "$type": "OPAOGKPJLIG",
+          "$type": "AttachAbilityStateResistance",
           "resistanceListID": 11001
         }
       ]
@@ -331,7 +329,7 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Ljxs_Property_Ani_Prop_CelestiaClusterSmall_01",
       "abilityMixins": [
         {
@@ -357,27 +355,26 @@
       "modifiers": {
         "die": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "onKill": [
             {
-              "$type": "KBFEIHEAMBM",
-              "rotationDampTime": "Eff_SceneObj_CelestiaClusterSmall_01_Destroy",
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "$type": "FireEffect",
+              "effectPattern": "Eff_SceneObj_CelestiaClusterSmall_01_Destroy",
+              "scale": 1
             }
           ]
         },
         "Phase1": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
-          "thinkInterval": 0.10000000149011612,
+          "elementDurability": 100,
+          "thinkInterval": 0.1,
           "onAdded": [
             {
-              "$type": "GFOOGEIKGBI",
+              "$type": "SendEffectTrigger",
               "parameter": "State",
               "attachPoint": "",
-              "damageRatio": "Int",
-              "rotationDampTime": "Eff_SceneObj_CelestiaClusterSmall_01_Broken"
+              "type": "Int",
+              "effectPattern": "Eff_SceneObj_CelestiaClusterSmall_01_Broken"
             }
           ],
           "onBeingHit": [
@@ -390,7 +387,7 @@
               "$type": "LBINHEFBJMN",
               "predicates": [
                 {
-                  "$type": "NNEHDJHMING",
+                  "$type": "ByAttackTags",
                   "attackTags": [
                     "BloodSmash"
                   ]
@@ -401,35 +398,35 @@
           ],
           "onThinkInterval": [
             {
-              "$type": "ODHJJKENLPE",
-              "param3": 50.0,
+              "$type": "AddElementDurability",
+              "value": 50,
               "modifierName": "Ice_Shield",
               "useLimitRange": true,
-              "param2": 2000.0,
-              "repeatTimes": 0.0
+              "maxValue": 2000,
+              "minValue": 0
             }
           ]
         },
         "Phase2": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
-          "thinkInterval": 0.10000000149011612,
+          "elementDurability": 100,
+          "thinkInterval": 0.1,
           "onAdded": [
             {
-              "$type": "ODHJJKENLPE",
-              "param3": -2000.0,
+              "$type": "AddElementDurability",
+              "value": -2000,
               "modifierName": "Ice_Shield",
               "useLimitRange": true,
-              "param2": 2000.0,
-              "repeatTimes": 1500.0
+              "maxValue": 2000,
+              "minValue": 1500
             },
             {
-              "$type": "GFOOGEIKGBI",
+              "$type": "SendEffectTrigger",
               "parameter": "State",
               "attachPoint": "",
-              "damageRatio": "Int",
+              "type": "Int",
               "value": 201,
-              "rotationDampTime": "Eff_SceneObj_CelestiaClusterSmall_01_Broken"
+              "effectPattern": "Eff_SceneObj_CelestiaClusterSmall_01_Broken"
             }
           ],
           "onBeingHit": [
@@ -437,7 +434,7 @@
               "$type": "LBINHEFBJMN",
               "predicates": [
                 {
-                  "$type": "NNEHDJHMING",
+                  "$type": "ByAttackTags",
                   "attackTags": [
                     "BloodSmash"
                   ]
@@ -448,35 +445,35 @@
           ],
           "onThinkInterval": [
             {
-              "$type": "ODHJJKENLPE",
-              "param3": 50.0,
+              "$type": "AddElementDurability",
+              "value": 50,
               "modifierName": "Ice_Shield",
               "useLimitRange": true,
-              "param2": 1500.0,
-              "repeatTimes": 0.0
+              "maxValue": 1500,
+              "minValue": 0
             }
           ]
         },
         "Phase3": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
-          "thinkInterval": 0.10000000149011612,
+          "elementDurability": 100,
+          "thinkInterval": 0.1,
           "onAdded": [
             {
-              "$type": "ODHJJKENLPE",
-              "param3": -2000.0,
+              "$type": "AddElementDurability",
+              "value": -2000,
               "modifierName": "Ice_Shield",
               "useLimitRange": true,
-              "param2": 1500.0,
-              "repeatTimes": 1000.0
+              "maxValue": 1500,
+              "minValue": 1000
             },
             {
-              "$type": "GFOOGEIKGBI",
+              "$type": "SendEffectTrigger",
               "parameter": "State",
               "attachPoint": "",
-              "damageRatio": "Int",
+              "type": "Int",
               "value": 202,
-              "rotationDampTime": "Eff_SceneObj_CelestiaClusterSmall_01_Broken"
+              "effectPattern": "Eff_SceneObj_CelestiaClusterSmall_01_Broken"
             }
           ],
           "onBeingHit": [
@@ -484,7 +481,7 @@
               "$type": "LBINHEFBJMN",
               "predicates": [
                 {
-                  "$type": "NNEHDJHMING",
+                  "$type": "ByAttackTags",
                   "attackTags": [
                     "BloodSmash"
                   ]
@@ -495,43 +492,43 @@
           ],
           "onThinkInterval": [
             {
-              "$type": "ODHJJKENLPE",
-              "param3": 50.0,
+              "$type": "AddElementDurability",
+              "value": 50,
               "modifierName": "Ice_Shield",
               "useLimitRange": true,
-              "param2": 1000.0,
-              "repeatTimes": 0.0
+              "maxValue": 1000,
+              "minValue": 0
             }
           ]
         },
         "Phase4": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
-          "thinkInterval": 0.10000000149011612,
+          "elementDurability": 100,
+          "thinkInterval": 0.1,
           "onAdded": [
             {
-              "$type": "ODHJJKENLPE",
-              "param3": -2000.0,
+              "$type": "AddElementDurability",
+              "value": -2000,
               "modifierName": "Ice_Shield",
               "useLimitRange": true,
-              "param2": 1000.0,
-              "repeatTimes": 500.0
+              "maxValue": 1000,
+              "minValue": 500
             },
             {
-              "$type": "GFOOGEIKGBI",
+              "$type": "SendEffectTrigger",
               "parameter": "State",
               "attachPoint": "",
-              "damageRatio": "Int",
+              "type": "Int",
               "value": 203,
-              "rotationDampTime": "Eff_SceneObj_CelestiaClusterSmall_01_Broken"
+              "effectPattern": "Eff_SceneObj_CelestiaClusterSmall_01_Broken"
             }
           ],
           "onBeingHit": [
             {
-              "$type": "NCFFNDHGCMH",
+              "$type": "KillSelf",
               "predicates": [
                 {
-                  "$type": "NNEHDJHMING",
+                  "$type": "ByAttackTags",
                   "attackTags": [
                     "BloodSmash"
                   ]
@@ -541,19 +538,19 @@
           ],
           "onThinkInterval": [
             {
-              "$type": "ODHJJKENLPE",
-              "param3": 50.0,
+              "$type": "AddElementDurability",
+              "value": 50,
               "modifierName": "Ice_Shield",
               "useLimitRange": true,
-              "param2": 500.0,
-              "repeatTimes": 0.0
+              "maxValue": 500,
+              "minValue": 0
             }
           ]
         },
         "Ice_Shield": {
           "modifierName": "",
           "elementType": "Ice",
-          "IPFJJJGABPL": 2000.0,
+          "elementDurability": 2000,
           "modifierMixins": [
             {
               "$type": "BKAAGFNKMLF",
@@ -562,28 +559,27 @@
           ],
           "onRemoved": [
             {
-              "$type": "NCFFNDHGCMH"
+              "$type": "KillSelf"
             }
           ]
         }
       },
       "onAdded": [
         {
-          "$type": "PELJALPANCA",
+          "$type": "ApplyModifier",
           "modifierName": "Ice_Shield"
         },
         {
-          "$type": "PELJALPANCA",
+          "$type": "ApplyModifier",
           "modifierName": "die"
         },
         {
-          "$type": "ANLOBBMKNIJ",
-          "rotationDampTime": "Eff_SceneObj_CelestiaClusterSmall_01_Idle",
-          "PPPDJGDDOGD": 1.0,
-          "AJDILHJFNKE": -1.0
+          "$type": "AttachEffect",
+          "effectPattern": "Eff_SceneObj_CelestiaClusterSmall_01_Idle",
+          "scale": 1
         },
         {
-          "$type": "OPAOGKPJLIG",
+          "$type": "AttachAbilityStateResistance",
           "resistanceListID": 11001
         }
       ]
@@ -591,39 +587,39 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "Heat_Producer_Buff",
       "modifiers": {
         "Burning": {
           "modifierName": "",
           "elementType": "Fire",
-          "IPFJJJGABPL": 15.0,
+          "elementDurability": 15,
           "isElementDurabilityMutable": false,
           "onAdded": [
             {
-              "$type": "LCOEFEMOHLP",
-              "param3": 1.0,
+              "$type": "AddGlobalValue",
+              "value": 1,
               "key": "IS_WARM_POINT",
               "useLimitRange": true,
-              "param2": 1.0,
-              "repeatTimes": 0.0
+              "maxValue": 1,
+              "minValue": 0
             }
           ],
           "onRemoved": [
             {
-              "$type": "LCOEFEMOHLP",
-              "param3": -1.0,
+              "$type": "AddGlobalValue",
+              "value": -1,
               "key": "IS_WARM_POINT",
               "useLimitRange": true,
-              "param2": 1.0,
-              "repeatTimes": 0.0
+              "maxValue": 1,
+              "minValue": 0
             }
           ]
         }
       },
       "onAdded": [
         {
-          "$type": "PELJALPANCA",
+          "$type": "ApplyModifier",
           "modifierName": "Burning"
         }
       ]
@@ -631,13 +627,13 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SnowMountain_Cave_Cold_Buff",
       "modifiers": {
         "WarmBuff": {
           "modifierName": "",
-          "elementDurability": 2.200000047683716,
-          "IPFJJJGABPL": 100.0,
+          "duration": 2.2,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "BCFMIGNCJFK",
@@ -645,28 +641,28 @@
                 "Cold"
               ],
               "trend": "Rise",
-              "hpRatio": 2.0,
-              "damageRatio": "Current"
+              "ratio": 2,
+              "type": "Current"
             }
           ]
         },
         "Burning": {
           "modifierName": "",
           "elementType": "Ice",
-          "IPFJJJGABPL": 15.0,
-          "thinkInterval": 2.0,
+          "elementDurability": 15,
+          "thinkInterval": 2,
           "onThinkInterval": [
             {
-              "$type": "PELJALPANCA",
+              "$type": "ApplyModifier",
               "otherTargets": {
-                "$type": "IJOFJOGLDHE",
+                "$type": "SelectTargetsByShape",
                 "shapeName": "Rect_SnowMountain_Cave",
                 "campTargetType": "All",
-                "doOffStage": 1.0
+                "sizeRatio": 1
               },
               "predicates": [
                 {
-                  "$type": "NIMAPECDNKD",
+                  "$type": "ByEntityTypes",
                   "entityTypes": [
                     "Avatar"
                   ]
@@ -679,7 +675,7 @@
       },
       "onAdded": [
         {
-          "$type": "PELJALPANCA",
+          "$type": "ApplyModifier",
           "modifierName": "Burning"
         }
       ]
@@ -687,13 +683,13 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SnowMountain_Cave_Cold_Buff_02",
       "modifiers": {
         "cold": {
           "modifierName": "",
-          "elementDurability": 1.5,
-          "IPFJJJGABPL": 100.0,
+          "duration": 1.5,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "BCFMIGNCJFK",
@@ -701,19 +697,19 @@
                 "Cold"
               ],
               "trend": "Rise",
-              "hpRatio": 2000.0,
-              "damageRatio": "Current"
+              "ratio": 2000,
+              "type": "Current"
             }
           ]
         }
       },
       "onFieldEnter": [
         {
-          "$type": "PELJALPANCA",
+          "$type": "ApplyModifier",
           "target": "Target",
           "predicates": [
             {
-              "$type": "NIMAPECDNKD",
+              "$type": "ByEntityTypes",
               "entityTypes": [
                 "Avatar"
               ]
@@ -726,15 +722,15 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Ljxs_Property_Prop_InvisibleHeat_03",
       "modifiers": {
         "UNIQUE_WarmBuff": {
           "modifierName": "",
-          "forceTriggerWhenChangeAuthority": true,
-          "elementDurability": 1.0,
-          "IPFJJJGABPL": 100.0,
-          "thinkInterval": 0.20000000298023224,
+          "isUnique": true,
+          "duration": 1,
+          "elementDurability": 100,
+          "thinkInterval": 0.2,
           "modifierMixins": [
             {
               "$type": "BCFMIGNCJFK",
@@ -742,36 +738,36 @@
                 "Cold"
               ],
               "trend": "Rise",
-              "hpRatio": -999.0,
-              "damageRatio": "Current"
+              "ratio": -999,
+              "type": "Current"
             }
           ],
           "onThinkInterval": [
             {
               "$type": "BPCFNMBFJJO",
               "climateType": "Cold",
-              "param3": -5.0
+              "value": -5
             }
           ]
         },
         "Burning": {
           "modifierName": "",
           "elementType": "Fire",
-          "IPFJJJGABPL": 15.0,
+          "elementDurability": 15,
           "isElementDurabilityMutable": false,
           "thinkInterval": 0.5,
           "onThinkInterval": [
             {
-              "$type": "PELJALPANCA",
+              "$type": "ApplyModifier",
               "otherTargets": {
-                "$type": "IJOFJOGLDHE",
+                "$type": "SelectTargetsByShape",
                 "shapeName": "CircleR30",
                 "campTargetType": "All",
-                "doOffStage": 1.0
+                "sizeRatio": 1
               },
               "predicates": [
                 {
-                  "$type": "NIMAPECDNKD",
+                  "$type": "ByEntityTypes",
                   "entityTypes": [
                     "Avatar"
                   ]
@@ -784,7 +780,7 @@
       },
       "onAdded": [
         {
-          "$type": "PELJALPANCA",
+          "$type": "ApplyModifier",
           "modifierName": "Burning"
         }
       ]
@@ -792,41 +788,41 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Ljxs_Property_Prop_InvisibleHeat_02",
       "modifiers": {
         "Burning": {
           "modifierName": "",
-          "elementDurability": 3.0,
-          "IPFJJJGABPL": 100.0,
+          "duration": 3,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "LCOEFEMOHLP",
-              "param3": 1.0,
+              "$type": "AddGlobalValue",
+              "value": 1,
               "key": "IS_WARM_POINT",
               "useLimitRange": true,
-              "param2": 1.0,
-              "repeatTimes": 0.0
+              "maxValue": 1,
+              "minValue": 0
             }
           ],
           "onRemoved": [
             {
-              "$type": "LCOEFEMOHLP",
-              "param3": -1.0,
+              "$type": "AddGlobalValue",
+              "value": -1,
               "key": "IS_WARM_POINT",
               "useLimitRange": true,
-              "param2": 1.0,
-              "repeatTimes": 0.0
+              "maxValue": 1,
+              "minValue": 0
             },
             {
-              "$type": "NCFFNDHGCMH"
+              "$type": "KillSelf"
             }
           ]
         }
       },
       "onAdded": [
         {
-          "$type": "PELJALPANCA",
+          "$type": "ApplyModifier",
           "modifierName": "Burning"
         }
       ]
@@ -834,100 +830,97 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Common_Property_Ani_Prop_AncientHeatSource_01",
       "abilityMixins": [
         {
-          "$type": "EKMHJKDLBJH",
+          "$type": "AttachToStateIDMixin",
           "stateIDs": [
             "IdleEffect"
           ],
           "modifierName": "Effect",
           "isCheckOnAttach": true,
-          "DGFCLAIDIFI": ""
+          "__unk_Q2081332355": ""
         },
         {
-          "$type": "EKMHJKDLBJH",
+          "$type": "AttachToStateIDMixin",
           "stateIDs": [
             "Warm",
             "IdleEffect"
           ],
           "modifierName": "Active",
           "isCheckOnAttach": true,
-          "DGFCLAIDIFI": ""
+          "__unk_Q2081332355": ""
         },
         {
-          "$type": "EKMHJKDLBJH",
+          "$type": "AttachToStateIDMixin",
           "stateIDs": [
             "Lock"
           ],
           "modifierName": "LockEffect",
           "isCheckOnAttach": true,
-          "DGFCLAIDIFI": ""
+          "__unk_Q2081332355": ""
         }
       ],
       "modifiers": {
         "Active": {
           "modifierName": "",
           "elementType": "Fire",
-          "IPFJJJGABPL": 15.0,
+          "elementDurability": 15,
           "isElementDurabilityMutable": false,
           "onAdded": [
             {
-              "$type": "ANLOBBMKNIJ",
-              "rotationDampTime": "Eff_SceneObj_AncientHeatSource_01_Active",
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_AncientHeatSource_01_Active",
+              "scale": 1
             },
             {
-              "$type": "LCOEFEMOHLP",
-              "param3": 1.0,
+              "$type": "AddGlobalValue",
+              "value": 1,
               "key": "IS_WARM_POINT",
               "useLimitRange": true,
-              "param2": 1.0,
-              "repeatTimes": 0.0
+              "maxValue": 1,
+              "minValue": 0
             }
           ],
           "onRemoved": [
             {
-              "$type": "LCOEFEMOHLP",
-              "param3": -1.0,
+              "$type": "AddGlobalValue",
+              "value": -1,
               "key": "IS_WARM_POINT",
               "useLimitRange": true,
-              "param2": 1.0,
-              "repeatTimes": 0.0
+              "maxValue": 1,
+              "minValue": 0
             }
           ]
         },
         "Effect": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0
+          "elementDurability": 100
         },
         "LockEffect": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "ANLOBBMKNIJ",
-              "rotationDampTime": "Eff_Item_SpecialTreasureBox_LockIdle_Little",
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_Item_SpecialTreasureBox_LockIdle_Little",
               "born": {
-                "$type": "KLPANPDGHHA",
+                "$type": "ConfigBornByAttachPoint",
                 "attachPointName": "AttachPoint"
               },
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "scale": 1
             }
           ],
           "onRemoved": [
             {
-              "$type": "KBFEIHEAMBM",
-              "rotationDampTime": "Eff_Item_SpecialTreasureBox_Unlock_Little",
+              "$type": "FireEffect",
+              "effectPattern": "Eff_Item_SpecialTreasureBox_Unlock_Little",
               "born": {
-                "$type": "KLPANPDGHHA",
+                "$type": "ConfigBornByAttachPoint",
                 "attachPointName": "AttachPoint"
               },
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "scale": 1
             }
           ]
         }
@@ -936,7 +929,7 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Common_Property_Ani_Prop_AncientHeatSource_02",
       "abilityMixins": [
         {
@@ -948,45 +941,45 @@
       "modifiers": {
         "Taunting": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
-          "thinkInterval": 2.0,
+          "elementDurability": 100,
+          "thinkInterval": 2,
           "onThinkInterval": [
             {
-              "$type": "GKNNJOEDOOF",
+              "$type": "TriggerTaunt",
               "otherTargets": {
-                "$type": "IJOFJOGLDHE",
+                "$type": "SelectTargetsByShape",
                 "shapeName": "CircleR25",
                 "campTargetType": "Enemy",
-                "doOffStage": 1.0
+                "sizeRatio": 1
               },
               "predicates": [
                 {
-                  "$type": "NIMAPECDNKD",
+                  "$type": "ByEntityTypes",
                   "entityTypes": [
                     "Monster"
                   ]
                 }
               ],
               "tauntLevel": "Ability_TauntLevel_2",
-              "careValue": 10.0
+              "careValue": 10
             }
           ]
         }
       },
       "onAdded": [
         {
-          "$type": "BOBCOJHOKKD",
-          "param3": 1.0,
+          "$type": "SetGlobalValue",
+          "value": 1,
           "key": "_ABILITY_SceneObj_ToMoon_WarmTag",
-          "param2": 0.0,
-          "repeatTimes": 0.0
+          "maxValue": 0,
+          "minValue": 0
         }
       ]
     }
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Common_Property_Ani_Prop_AncientHeatSource_03",
       "abilityMixins": [
         {
@@ -998,27 +991,27 @@
       "modifiers": {
         "Taunting": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
-          "thinkInterval": 2.0,
+          "elementDurability": 100,
+          "thinkInterval": 2,
           "onThinkInterval": [
             {
-              "$type": "GKNNJOEDOOF",
+              "$type": "TriggerTaunt",
               "otherTargets": {
-                "$type": "IJOFJOGLDHE",
+                "$type": "SelectTargetsByShape",
                 "shapeName": "CircleR6.5H5",
                 "campTargetType": "Enemy",
-                "doOffStage": 1.0
+                "sizeRatio": 1
               },
               "predicates": [
                 {
-                  "$type": "NIMAPECDNKD",
+                  "$type": "ByEntityTypes",
                   "entityTypes": [
                     "Monster"
                   ]
                 }
               ],
               "tauntLevel": "Ability_TauntLevel_2",
-              "careValue": 10.0
+              "careValue": 10
             }
           ]
         }
@@ -1027,7 +1020,7 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Common_Property_Prop_HistoryBoard_01",
       "abilityMixins": [
         {
@@ -1043,25 +1036,23 @@
       "modifiers": {
         "Default": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "ANLOBBMKNIJ",
-              "rotationDampTime": "Eff_Item_SpecialTreasureBox_Unlock",
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_Item_SpecialTreasureBox_Unlock",
+              "scale": 1
             }
           ]
         },
         "GearStop": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "ANLOBBMKNIJ",
-              "rotationDampTime": "Eff_Item_SpecialTreasureBox_LockIdle",
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_Item_SpecialTreasureBox_LockIdle",
+              "scale": 1
             }
           ]
         }
@@ -1070,46 +1061,43 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Gear_Platform_FireSeelie",
       "onAdded": [
         {
-          "$type": "ANLOBBMKNIJ",
-          "rotationDampTime": "Eff_SceneObj_FireSeelie_01_MoveTrail",
-          "PPPDJGDDOGD": 1.0,
-          "AJDILHJFNKE": -1.0
+          "$type": "AttachEffect",
+          "effectPattern": "Eff_SceneObj_FireSeelie_01_MoveTrail",
+          "scale": 1
         }
       ],
       "onKill": [
         {
-          "$type": "KBFEIHEAMBM",
-          "rotationDampTime": "Eff_SceneObj_FireSeelie_01_Disappear",
-          "PPPDJGDDOGD": 1.0,
-          "AJDILHJFNKE": -1.0
+          "$type": "FireEffect",
+          "effectPattern": "Eff_SceneObj_FireSeelie_01_Disappear",
+          "scale": 1
         }
       ]
     }
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "FireElfTrack",
       "modifiers": {
         "Footprint_Fire_Modifier": {
           "modifierName": "",
           "elementType": "Fire",
-          "IPFJJJGABPL": 50.0
+          "elementDurability": 50
         }
       },
       "onAdded": [
         {
-          "$type": "ANLOBBMKNIJ",
-          "rotationDampTime": "Eff_SceneObj_FireSeelie_01_Footprint",
-          "PPPDJGDDOGD": 1.0,
-          "AJDILHJFNKE": -1.0
+          "$type": "AttachEffect",
+          "effectPattern": "Eff_SceneObj_FireSeelie_01_Footprint",
+          "scale": 1
         },
         {
-          "$type": "PELJALPANCA",
+          "$type": "ApplyModifier",
           "modifierName": "Footprint_Fire_Modifier"
         }
       ]
@@ -1117,7 +1105,7 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Common_Property_Prop_FireSeeliaLamp_01",
       "abilityMixins": [
         {
@@ -1135,39 +1123,38 @@
         "Burning": {
           "modifierName": "",
           "elementType": "Fire",
-          "IPFJJJGABPL": 15.0,
+          "elementDurability": 15,
           "isElementDurabilityMutable": false,
           "onAdded": [
             {
-              "$type": "LCOEFEMOHLP",
-              "param3": 1.0,
+              "$type": "AddGlobalValue",
+              "value": 1,
               "key": "IS_WARM_POINT",
               "useLimitRange": true,
-              "param2": 1.0,
-              "repeatTimes": 0.0
+              "maxValue": 1,
+              "minValue": 0
             }
           ],
           "onRemoved": [
             {
-              "$type": "LCOEFEMOHLP",
-              "param3": -1.0,
+              "$type": "AddGlobalValue",
+              "value": -1,
               "key": "IS_WARM_POINT",
               "useLimitRange": true,
-              "param2": 1.0,
-              "repeatTimes": 0.0
+              "maxValue": 1,
+              "minValue": 0
             }
           ]
         },
         "GearStart": {
           "modifierName": "",
-          "elementDurability": 0.5,
-          "IPFJJJGABPL": 100.0,
+          "duration": 0.5,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "KBFEIHEAMBM",
-              "rotationDampTime": "Eff_SceneObj_FireSeeliaLamp_01_Active",
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "$type": "FireEffect",
+              "effectPattern": "Eff_SceneObj_FireSeeliaLamp_01_Active",
+              "scale": 1
             }
           ],
           "onRemoved": [
@@ -1179,16 +1166,15 @@
         },
         "GearAction01": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "ANLOBBMKNIJ",
-              "rotationDampTime": "Eff_SceneObj_FireSeeliaLamp_01",
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_FireSeeliaLamp_01",
+              "scale": 1
             },
             {
-              "$type": "PELJALPANCA",
+              "$type": "ApplyModifier",
               "modifierName": "Burning"
             }
           ]
@@ -1198,13 +1184,13 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "Element_IceSeedWind",
       "modifiers": {
         "ColdBuff": {
           "modifierName": "",
-          "elementDurability": 1.0,
-          "IPFJJJGABPL": 100.0,
+          "duration": 1,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "BCFMIGNCJFK",
@@ -1212,27 +1198,27 @@
                 "Cold"
               ],
               "trend": "Rise",
-              "hpRatio": 0.5,
-              "damageRatio": "Current"
+              "ratio": 0.5,
+              "type": "Current"
             }
           ]
         },
         "Active": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "thinkInterval": 0.5,
           "onThinkInterval": [
             {
-              "$type": "PELJALPANCA",
+              "$type": "ApplyModifier",
               "otherTargets": {
-                "$type": "IJOFJOGLDHE",
+                "$type": "SelectTargetsByShape",
                 "shapeName": "CircleR3H5",
                 "campTargetType": "All",
-                "doOffStage": 1.0
+                "sizeRatio": 1
               },
               "predicates": [
                 {
-                  "$type": "NIMAPECDNKD",
+                  "$type": "ByEntityTypes",
                   "entityTypes": [
                     "Avatar"
                   ]
@@ -1245,7 +1231,7 @@
       },
       "onAdded": [
         {
-          "$type": "PELJALPANCA",
+          "$type": "ApplyModifier",
           "modifierName": "Active"
         }
       ]
@@ -1253,7 +1239,7 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Stages_Property_Ani_Prop_IceTotem_01",
       "abilityMixins": [
         {
@@ -1266,7 +1252,7 @@
         "IceMaterial": {
           "modifierName": "",
           "elementType": "Ice",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "CGGHGFIOCKN",
@@ -1287,26 +1273,20 @@
           ],
           "onRemoved": [
             {
-              "$type": "CAKDDHLKOAB",
+              "$type": "TriggerBullet",
               "bulletID": 70900358,
               "born": {
-                "$type": "KLPANPDGHHA",
-                "offset": {
-                  "KGEPIMHBMOL": 0.0,
-                  "JEBHCGDPFEJ": 0.0,
-                  "LPCHALMFFOD": 0.0
-                },
+                "$type": "ConfigBornByAttachPoint",
                 "attachPointName": "AttachPoint"
               }
             },
             {
-              "$type": "KBFEIHEAMBM",
-              "rotationDampTime": "Eff_SceneObj_IceTotem_Destroy",
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "$type": "FireEffect",
+              "effectPattern": "Eff_SceneObj_IceTotem_Destroy",
+              "scale": 1
             },
             {
-              "$type": "PFKNEFGOHIH",
+              "$type": "RemoveModifier",
               "modifierName": "Default_0"
             },
             {
@@ -1317,18 +1297,13 @@
         },
         "MidlePoint": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "CAKDDHLKOAB",
+              "$type": "TriggerBullet",
               "bulletID": 70900358,
               "born": {
-                "$type": "KLPANPDGHHA",
-                "offset": {
-                  "KGEPIMHBMOL": 0.0,
-                  "JEBHCGDPFEJ": 0.0,
-                  "LPCHALMFFOD": 0.0
-                },
+                "$type": "ConfigBornByAttachPoint",
                 "attachPointName": "AttachPoint"
               }
             }
@@ -1336,37 +1311,36 @@
         },
         "StartPoint": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0
+          "elementDurability": 100
         },
         "Default_0": {
           "modifierName": "",
           "elementType": "Ice",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "isElementDurabilityMutable": false,
           "onAdded": [
             {
-              "$type": "ANLOBBMKNIJ",
-              "rotationDampTime": "Eff_SceneObj_RockTotem_Ice",
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_RockTotem_Ice",
+              "scale": 1
             }
           ]
         },
         "Die": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "KBODPNEEFGD",
+              "$type": "RemoveUniqueModifier",
               "otherTargets": {
-                "$type": "IJOFJOGLDHE",
+                "$type": "SelectTargetsByShape",
                 "shapeName": "CircleR120H10",
                 "campTargetType": "AllExceptSelf",
-                "doOffStage": 1.0
+                "sizeRatio": 1
               },
               "predicates": [
                 {
-                  "$type": "NIMAPECDNKD",
+                  "$type": "ByEntityTypes",
                   "entityTypes": [
                     "Monster"
                   ]
@@ -1379,11 +1353,11 @@
       },
       "onAdded": [
         {
-          "$type": "PELJALPANCA",
+          "$type": "ApplyModifier",
           "modifierName": "IceMaterial"
         },
         {
-          "$type": "PELJALPANCA",
+          "$type": "ApplyModifier",
           "modifierName": "Default_0"
         },
         {
@@ -1395,7 +1369,7 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Common_Property_Prop_FrozenDefender_01",
       "abilityMixins": [
         {
@@ -1407,13 +1381,12 @@
       "modifiers": {
         "GearStart": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "ANLOBBMKNIJ",
-              "rotationDampTime": "Eff_SceneObj_FrozenDefender_01",
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_FrozenDefender_01",
+              "scale": 1
             }
           ]
         }
@@ -1422,7 +1395,7 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Ljxs_Property_Prop_CelestiaClusterBig_01",
       "abilityMixins": [
         {
@@ -1433,17 +1406,16 @@
       "modifiers": {
         "Effect": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "ANLOBBMKNIJ",
-              "rotationDampTime": "Eff_SceneObj_CelestiaClusterBig_01_Top",
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_CelestiaClusterBig_01_Top",
               "born": {
-                "$type": "KLPANPDGHHA",
+                "$type": "ConfigBornByAttachPoint",
                 "attachPointName": "AttachPoint"
               },
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "scale": 1
             }
           ]
         }
@@ -1452,7 +1424,7 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Common_Property_Prop_HumanBeacon_01",
       "abilityMixins": [
         {
@@ -1464,13 +1436,12 @@
       "modifiers": {
         "GearStart": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "ANLOBBMKNIJ",
-              "rotationDampTime": "Eff_SceneObj_HumanBeacon_01",
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_HumanBeacon_01",
+              "scale": 1
             }
           ]
         }
@@ -1479,7 +1450,7 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Common_Property_Ani_Prop_FloatingIce_01",
       "abilityMixins": [
         {
@@ -1500,51 +1471,51 @@
       "modifiers": {
         "Default": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "thinkInterval": 0.5,
           "onAdded": [
             {
-              "$type": "LCOEFEMOHLP",
-              "param3": 1.0,
+              "$type": "AddGlobalValue",
+              "value": 1,
               "key": "TRIGGERED",
               "useLimitRange": true,
-              "param2": 1.0,
-              "repeatTimes": 0.0
+              "maxValue": 1,
+              "minValue": 0
             }
           ],
           "onThinkInterval": [
             {
-              "$type": "LCOEFEMOHLP",
-              "param3": 0.0,
+              "$type": "AddGlobalValue",
+              "value": 0,
               "key": "TOTAL_WEIGHT",
               "useLimitRange": true,
-              "param2": 0.0,
-              "repeatTimes": 0.0
+              "maxValue": 0,
+              "minValue": 0
             },
             {
               "$type": "NGEILFMGMEA",
               "otherTargets": {
-                "$type": "IJOFJOGLDHE",
+                "$type": "SelectTargetsByShape",
                 "shapeName": "CircleR1_2",
                 "campTargetType": "AllExceptSelf",
-                "doOffStage": 1.0
+                "sizeRatio": 1
               },
               "key": "TOTAL_WEIGHT"
             },
             {
-              "$type": "INBCDALOHMP",
+              "$type": "Predicated",
               "target": "Caster",
               "targetPredicates": [
                 {
-                  "$type": "CNGGLKHONAA",
+                  "$type": "ByTargetGlobalValue",
                   "key": "TOTAL_WEIGHT",
-                  "param3": 19.0,
+                  "value": 19,
                   "compareType": "MoreThan"
                 },
                 {
-                  "$type": "CNGGLKHONAA",
+                  "$type": "ByTargetGlobalValue",
                   "key": "TRIGGERED",
-                  "param3": 0.0,
+                  "value": 0,
                   "compareType": "MoreThan"
                 }
               ],
@@ -1554,12 +1525,12 @@
                   "param1": 201
                 },
                 {
-                  "$type": "LCOEFEMOHLP",
-                  "param3": -1.0,
+                  "$type": "AddGlobalValue",
+                  "value": -1,
                   "key": "TRIGGERED",
                   "useLimitRange": true,
-                  "param2": 1.0,
-                  "repeatTimes": 0.0
+                  "maxValue": 1,
+                  "minValue": 0
                 }
               ]
             }
@@ -1567,15 +1538,14 @@
         },
         "phase1": {
           "modifierName": "",
-          "elementDurability": 3.0,
-          "IPFJJJGABPL": 100.0,
+          "duration": 3,
+          "elementDurability": 100,
           "thinkInterval": 0.5,
           "onAdded": [
             {
-              "$type": "ANLOBBMKNIJ",
-              "rotationDampTime": "Eff_SceneObj_FloatingIce_01",
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_FloatingIce_01",
+              "scale": 1
             }
           ],
           "onRemoved": [
@@ -1586,37 +1556,37 @@
           ],
           "onThinkInterval": [
             {
-              "$type": "LCOEFEMOHLP",
-              "param3": 0.0,
+              "$type": "AddGlobalValue",
+              "value": 0,
               "key": "TOTAL_WEIGHT",
               "useLimitRange": true,
-              "param2": 0.0,
-              "repeatTimes": 0.0
+              "maxValue": 0,
+              "minValue": 0
             },
             {
               "$type": "NGEILFMGMEA",
               "otherTargets": {
-                "$type": "IJOFJOGLDHE",
+                "$type": "SelectTargetsByShape",
                 "shapeName": "CircleR1_2",
                 "campTargetType": "AllExceptSelf",
-                "doOffStage": 1.0
+                "sizeRatio": 1
               },
               "key": "TOTAL_WEIGHT"
             },
             {
-              "$type": "INBCDALOHMP",
+              "$type": "Predicated",
               "target": "Caster",
               "targetPredicates": [
                 {
-                  "$type": "CNGGLKHONAA",
+                  "$type": "ByTargetGlobalValue",
                   "key": "TOTAL_WEIGHT",
-                  "param3": 19.0,
+                  "value": 19,
                   "compareType": "MoreThan"
                 },
                 {
-                  "$type": "CNGGLKHONAA",
+                  "$type": "ByTargetGlobalValue",
                   "key": "TRIGGERED",
-                  "param3": 0.0,
+                  "value": 0,
                   "compareType": "MoreThan"
                 }
               ],
@@ -1626,12 +1596,12 @@
                   "param1": 201
                 },
                 {
-                  "$type": "LCOEFEMOHLP",
-                  "param3": -1.0,
+                  "$type": "AddGlobalValue",
+                  "value": -1,
                   "key": "TRIGGERED",
                   "useLimitRange": true,
-                  "param2": 1.0,
-                  "repeatTimes": 0.0
+                  "maxValue": 1,
+                  "minValue": 0
                 }
               ]
             }
@@ -1639,56 +1609,55 @@
         },
         "phase2": {
           "modifierName": "",
-          "elementDurability": 10.0,
-          "IPFJJJGABPL": 100.0,
+          "duration": 10,
+          "elementDurability": 100,
           "thinkInterval": 0.5,
           "onAdded": [
             {
-              "$type": "ANLOBBMKNIJ",
-              "rotationDampTime": "Eff_SceneObj_FloatingIce_02",
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_FloatingIce_02",
+              "scale": 1
             }
           ],
           "onRemoved": [
             {
-              "$type": "PELJALPANCA",
+              "$type": "ApplyModifier",
               "modifierName": "Reborn"
             }
           ],
           "onThinkInterval": [
             {
-              "$type": "LCOEFEMOHLP",
-              "param3": 0.0,
+              "$type": "AddGlobalValue",
+              "value": 0,
               "key": "TOTAL_WEIGHT",
               "useLimitRange": true,
-              "param2": 0.0,
-              "repeatTimes": 0.0
+              "maxValue": 0,
+              "minValue": 0
             },
             {
               "$type": "NGEILFMGMEA",
               "otherTargets": {
-                "$type": "IJOFJOGLDHE",
+                "$type": "SelectTargetsByShape",
                 "shapeName": "CircleR1_2",
                 "campTargetType": "AllExceptSelf",
-                "doOffStage": 1.0
+                "sizeRatio": 1
               },
               "key": "TOTAL_WEIGHT"
             },
             {
-              "$type": "INBCDALOHMP",
+              "$type": "Predicated",
               "target": "Caster",
               "targetPredicates": [
                 {
-                  "$type": "CNGGLKHONAA",
+                  "$type": "ByTargetGlobalValue",
                   "key": "TOTAL_WEIGHT",
-                  "param3": 19.0,
+                  "value": 19,
                   "compareType": "MoreThan"
                 },
                 {
-                  "$type": "CNGGLKHONAA",
+                  "$type": "ByTargetGlobalValue",
                   "key": "TRIGGERED",
-                  "param3": 0.0,
+                  "value": 0,
                   "compareType": "MoreThan"
                 }
               ],
@@ -1698,12 +1667,12 @@
                   "param1": 201
                 },
                 {
-                  "$type": "LCOEFEMOHLP",
-                  "param3": -1.0,
+                  "$type": "AddGlobalValue",
+                  "value": -1,
                   "key": "TRIGGERED",
                   "useLimitRange": true,
-                  "param2": 1.0,
-                  "repeatTimes": 0.0
+                  "maxValue": 1,
+                  "minValue": 0
                 }
               ]
             }
@@ -1711,57 +1680,57 @@
         },
         "Reborn": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
-          "thinkInterval": 2.0,
+          "elementDurability": 100,
+          "thinkInterval": 2,
           "onAdded": [
             {
-              "$type": "LCOEFEMOHLP",
-              "param3": 1.0,
+              "$type": "AddGlobalValue",
+              "value": 1,
               "key": "TRIGGERED",
               "useLimitRange": true,
-              "param2": 1.0,
-              "repeatTimes": 0.0
+              "maxValue": 1,
+              "minValue": 0
             }
           ],
           "onThinkInterval": [
             {
-              "$type": "LCOEFEMOHLP",
-              "param3": 0.0,
+              "$type": "AddGlobalValue",
+              "value": 0,
               "key": "CAN_REBORN",
               "useLimitRange": true,
-              "param2": 0.0,
-              "repeatTimes": 0.0
+              "maxValue": 0,
+              "minValue": 0
             },
             {
-              "$type": "INBCDALOHMP",
+              "$type": "Predicated",
               "target": "AllPlayerAvatars",
               "targetPredicates": [
                 {
-                  "$type": "FMBJAJFLDIP",
+                  "$type": "ByTargetPositionToSelfPosition",
                   "logic": "LesserOrEqual",
                   "compareType": "XYZ",
-                  "param3": 1.600000023841858,
-                  "DDALGNLEHOD": ""
+                  "value": 1.6,
+                  "__unk_Q1160719197": ""
                 }
               ],
               "successActions": [
                 {
-                  "$type": "LCOEFEMOHLP",
-                  "param3": 1.0,
+                  "$type": "AddGlobalValue",
+                  "value": 1,
                   "key": "CAN_REBORN",
                   "useLimitRange": true,
-                  "param2": 1.0,
-                  "repeatTimes": 0.0
+                  "maxValue": 1,
+                  "minValue": 0
                 }
               ]
             },
             {
-              "$type": "INBCDALOHMP",
+              "$type": "Predicated",
               "targetPredicates": [
                 {
-                  "$type": "CNGGLKHONAA",
+                  "$type": "ByTargetGlobalValue",
                   "key": "CAN_REBORN",
-                  "param3": 0.0,
+                  "value": 0,
                   "compareType": "MoreThan"
                 }
               ],
@@ -1770,7 +1739,7 @@
                   "$type": "LBINHEFBJMN"
                 },
                 {
-                  "$type": "PFKNEFGOHIH",
+                  "$type": "RemoveModifier",
                   "modifierName": "Reborn"
                 }
               ]
@@ -1782,32 +1751,31 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Stages_Property_Ani_Prop_SnowPile_01",
       "modifiers": {
         "SnowPile": {
           "modifierName": "",
           "elementType": "Ice",
-          "IPFJJJGABPL": 30.0,
+          "elementDurability": 30,
           "isElementDurabilityMutable": false,
           "onBeingHit": [
             {
-              "$type": "INBCDALOHMP",
+              "$type": "Predicated",
               "targetPredicates": [
                 {
-                  "$type": "PNLEEOAGKLD",
+                  "$type": "ByHitElement",
                   "element": "Fire"
                 }
               ],
               "successActions": [
                 {
-                  "$type": "KBFEIHEAMBM",
-                  "rotationDampTime": "Eff_SceneObj_Stages_Property_Ani_Prop_SnowPile_01",
-                  "PPPDJGDDOGD": 1.0,
-                  "AJDILHJFNKE": -1.0
+                  "$type": "FireEffect",
+                  "effectPattern": "Eff_SceneObj_Stages_Property_Ani_Prop_SnowPile_01",
+                  "scale": 1
                 },
                 {
-                  "$type": "NCFFNDHGCMH"
+                  "$type": "KillSelf"
                 }
               ]
             }
@@ -1816,11 +1784,11 @@
       },
       "onAdded": [
         {
-          "$type": "PELJALPANCA",
+          "$type": "ApplyModifier",
           "modifierName": "SnowPile"
         },
         {
-          "$type": "OPAOGKPJLIG",
+          "$type": "AttachAbilityStateResistance",
           "resistanceListID": 11001
         }
       ]
@@ -1828,7 +1796,7 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Stages_Property_Prop_IceStormR25",
       "abilityMixins": [
         {
@@ -1840,19 +1808,19 @@
       "modifiers": {
         "NormalTemperature": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "PFKNEFGOHIH",
+              "$type": "RemoveModifier",
               "otherTargets": {
-                "$type": "IJOFJOGLDHE",
+                "$type": "SelectTargetsByShape",
                 "shapeName": "CircleR25",
                 "campTargetType": "AllExceptSelf",
-                "doOffStage": 1.0
+                "sizeRatio": 1
               },
               "predicates": [
                 {
-                  "$type": "NIMAPECDNKD",
+                  "$type": "ByEntityTypes",
                   "entityTypes": [
                     "Avatar"
                   ]
@@ -1864,7 +1832,7 @@
         },
         "LowTemperature_Avatar": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "BCFMIGNCJFK",
@@ -1872,8 +1840,8 @@
                 "Cold"
               ],
               "trend": "Rise",
-              "hpRatio": 2.0,
-              "damageRatio": "Current"
+              "ratio": 2,
+              "type": "Current"
             }
           ],
           "onAdded": [
@@ -1887,7 +1855,7 @@
       },
       "onFieldEnter": [
         {
-          "$type": "JLDEMMJAMLC",
+          "$type": "AttachModifier",
           "target": "Target",
           "predicates": [
             {
@@ -1900,7 +1868,7 @@
       ],
       "onFieldExit": [
         {
-          "$type": "PFKNEFGOHIH",
+          "$type": "RemoveModifier",
           "target": "Target",
           "modifierName": "LowTemperature_Avatar"
         }
@@ -1909,7 +1877,7 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "Ice_Boss_Region",
       "abilityMixins": [
         {
@@ -1921,19 +1889,19 @@
       "modifiers": {
         "NormalTemperature": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "PFKNEFGOHIH",
+              "$type": "RemoveModifier",
               "otherTargets": {
-                "$type": "IJOFJOGLDHE",
+                "$type": "SelectTargetsByShape",
                 "shapeName": "CircleR30",
                 "campTargetType": "AllExceptSelf",
-                "doOffStage": 1.0
+                "sizeRatio": 1
               },
               "predicates": [
                 {
-                  "$type": "NIMAPECDNKD",
+                  "$type": "ByEntityTypes",
                   "entityTypes": [
                     "Avatar"
                   ]
@@ -1945,7 +1913,7 @@
         },
         "LowTemperature_Avatar": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "BCFMIGNCJFK",
@@ -1953,15 +1921,15 @@
                 "Cold"
               ],
               "trend": "Rise",
-              "hpRatio": 2.0,
-              "damageRatio": "Current"
+              "ratio": 2,
+              "type": "Current"
             }
           ]
         }
       },
       "onFieldEnter": [
         {
-          "$type": "JLDEMMJAMLC",
+          "$type": "AttachModifier",
           "target": "Target",
           "predicates": [
             {
@@ -1972,14 +1940,14 @@
           "modifierName": "LowTemperature_Avatar"
         },
         {
-          "$type": "ELNHKGAPIBJ",
-          "shieldHP": true,
+          "$type": "DebugLog",
+          "doOffStage": true,
           "content": "IceRegionBorn"
         }
       ],
       "onFieldExit": [
         {
-          "$type": "PFKNEFGOHIH",
+          "$type": "RemoveModifier",
           "target": "Target",
           "modifierName": "LowTemperature_Avatar"
         }
@@ -1988,7 +1956,7 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Stages_Property_Prop_IceStormR60",
       "abilityMixins": [
         {
@@ -2000,19 +1968,19 @@
       "modifiers": {
         "NormalTemperature": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "PFKNEFGOHIH",
+              "$type": "RemoveModifier",
               "otherTargets": {
-                "$type": "IJOFJOGLDHE",
+                "$type": "SelectTargetsByShape",
                 "shapeName": "CircleR60",
                 "campTargetType": "AllExceptSelf",
-                "doOffStage": 1.0
+                "sizeRatio": 1
               },
               "predicates": [
                 {
-                  "$type": "NIMAPECDNKD",
+                  "$type": "ByEntityTypes",
                   "entityTypes": [
                     "Avatar"
                   ]
@@ -2024,7 +1992,7 @@
         },
         "LowTemperature_Avatar": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "BCFMIGNCJFK",
@@ -2032,8 +2000,8 @@
                 "Cold"
               ],
               "trend": "Rise",
-              "hpRatio": 2.0,
-              "damageRatio": "Current"
+              "ratio": 2,
+              "type": "Current"
             }
           ],
           "onAdded": [
@@ -2047,7 +2015,7 @@
       },
       "onFieldEnter": [
         {
-          "$type": "JLDEMMJAMLC",
+          "$type": "AttachModifier",
           "target": "Target",
           "predicates": [
             {
@@ -2060,7 +2028,7 @@
       ],
       "onFieldExit": [
         {
-          "$type": "PFKNEFGOHIH",
+          "$type": "RemoveModifier",
           "target": "Target",
           "modifierName": "LowTemperature_Avatar"
         }
@@ -2069,7 +2037,7 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Stages_Property_Prop_IceStormR100",
       "abilityMixins": [
         {
@@ -2081,19 +2049,19 @@
       "modifiers": {
         "NormalTemperature": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "PFKNEFGOHIH",
+              "$type": "RemoveModifier",
               "otherTargets": {
-                "$type": "IJOFJOGLDHE",
+                "$type": "SelectTargetsByShape",
                 "shapeName": "Circle_SnowMountain_Peak",
                 "campTargetType": "AllExceptSelf",
-                "doOffStage": 1.0
+                "sizeRatio": 1
               },
               "predicates": [
                 {
-                  "$type": "NIMAPECDNKD",
+                  "$type": "ByEntityTypes",
                   "entityTypes": [
                     "Avatar"
                   ]
@@ -2105,7 +2073,7 @@
         },
         "LowTemperature_Avatar": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "BCFMIGNCJFK",
@@ -2113,8 +2081,8 @@
                 "Cold"
               ],
               "trend": "Rise",
-              "hpRatio": 2.0,
-              "damageRatio": "Current"
+              "ratio": 2,
+              "type": "Current"
             }
           ],
           "onAdded": [
@@ -2128,7 +2096,7 @@
       },
       "onFieldEnter": [
         {
-          "$type": "JLDEMMJAMLC",
+          "$type": "AttachModifier",
           "target": "Target",
           "predicates": [
             {
@@ -2141,7 +2109,7 @@
       ],
       "onFieldExit": [
         {
-          "$type": "PFKNEFGOHIH",
+          "$type": "RemoveModifier",
           "target": "Target",
           "modifierName": "LowTemperature_Avatar"
         }
@@ -2150,7 +2118,7 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Stages_Property_Prop_WhiteIceStormR120",
       "abilityMixins": [
         {
@@ -2162,19 +2130,19 @@
       "modifiers": {
         "NormalTemperature": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "PFKNEFGOHIH",
+              "$type": "RemoveModifier",
               "otherTargets": {
-                "$type": "IJOFJOGLDHE",
+                "$type": "SelectTargetsByShape",
                 "shapeName": "CircleR120H60",
                 "campTargetType": "AllExceptSelf",
-                "doOffStage": 1.0
+                "sizeRatio": 1
               },
               "predicates": [
                 {
-                  "$type": "NIMAPECDNKD",
+                  "$type": "ByEntityTypes",
                   "entityTypes": [
                     "Avatar"
                   ]
@@ -2186,7 +2154,7 @@
         },
         "LowTemperature_Avatar": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "BCFMIGNCJFK",
@@ -2194,8 +2162,8 @@
                 "Cold"
               ],
               "trend": "Rise",
-              "hpRatio": 2.0,
-              "damageRatio": "Current"
+              "ratio": 2,
+              "type": "Current"
             }
           ],
           "onAdded": [
@@ -2209,7 +2177,7 @@
       },
       "onFieldEnter": [
         {
-          "$type": "JLDEMMJAMLC",
+          "$type": "AttachModifier",
           "target": "Target",
           "predicates": [
             {
@@ -2222,7 +2190,7 @@
       ],
       "onFieldExit": [
         {
-          "$type": "PFKNEFGOHIH",
+          "$type": "RemoveModifier",
           "target": "Target",
           "modifierName": "LowTemperature_Avatar"
         }
@@ -2231,13 +2199,13 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Stages_Property_Prop_RegisvineShield"
     }
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Stages_Property_Prop_IceShieldInactivated",
       "abilityMixins": [
         {
@@ -2249,36 +2217,35 @@
       "modifiers": {
         "Shine": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "ANLOBBMKNIJ",
-              "rotationDampTime": "Eff_SceneObj_IceShieldInactivated_01_Warning",
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_IceShieldInactivated_01_Warning",
+              "scale": 1
             }
           ]
         },
         "Timmer": {
           "modifierName": "",
-          "elementDurability": 20.0,
-          "IPFJJJGABPL": 100.0,
-          "thinkInterval": 15.0,
+          "duration": 20,
+          "elementDurability": 100,
+          "thinkInterval": 15,
           "onRemoved": [
             {
-              "$type": "BOBCOJHOKKD",
-              "param3": 1.0,
+              "$type": "SetGlobalValue",
+              "value": 1,
               "key": "TIME_OUT",
-              "param2": 0.0,
-              "repeatTimes": 0.0
+              "maxValue": 0,
+              "minValue": 0
             },
             {
               "$type": "AHPEKICBIIL",
               "luaCallType": "FromGroup",
               "funcName": "DistoryIceShield",
-              "param1": 0.0,
-              "MGAMDEHMCOL": 0.0,
-              "MMHOHAOGPLP": 0.0
+              "param1": 0,
+              "MGAMDEHMCOL": 0,
+              "MMHOHAOGPLP": 0
             }
           ],
           "onThinkInterval": [
@@ -2290,11 +2257,11 @@
         },
         "ShieldCreate": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0
+          "elementDurability": 100
         },
         "HitCount": {
           "modifierName": "",
-          "IPFJJJGABPL": 20.0,
+          "elementDurability": 20,
           "modifierMixins": [
             {
               "$type": "BKAAGFNKMLF",
@@ -2303,34 +2270,33 @@
           ],
           "onRemoved": [
             {
-              "$type": "NCFFNDHGCMH"
+              "$type": "KillSelf"
             }
           ],
           "onBeingHit": [
             {
-              "$type": "INBCDALOHMP",
+              "$type": "Predicated",
               "target": "Target",
               "targetPredicates": [
                 {
-                  "$type": "CNGGLKHONAA",
+                  "$type": "ByTargetGlobalValue",
                   "key": "HAS_DULINS_BLOOD_BUFF",
-                  "param3": 1.0
+                  "value": 1
                 }
               ],
               "successActions": [
                 {
-                  "$type": "ODHJJKENLPE",
-                  "param3": -10.0,
+                  "$type": "AddElementDurability",
+                  "value": -10,
                   "modifierName": "HitCount",
                   "useLimitRange": true,
-                  "param2": 20.0,
-                  "repeatTimes": 0.0
+                  "maxValue": 20,
+                  "minValue": 0
                 },
                 {
-                  "$type": "KBFEIHEAMBM",
-                  "rotationDampTime": "Eff_SceneObj_CommonIceObj_01_BeHit",
-                  "PPPDJGDDOGD": 1.0,
-                  "AJDILHJFNKE": -1.0
+                  "$type": "FireEffect",
+                  "effectPattern": "Eff_SceneObj_CommonIceObj_01_BeHit",
+                  "scale": 1
                 }
               ]
             }
@@ -2339,110 +2305,106 @@
       },
       "onAdded": [
         {
-          "$type": "PELJALPANCA",
+          "$type": "ApplyModifier",
           "modifierName": "Timmer"
         },
         {
-          "$type": "PELJALPANCA",
+          "$type": "ApplyModifier",
           "modifierName": "ShieldCreate"
         },
         {
-          "$type": "BOBCOJHOKKD",
-          "param3": 0.0,
+          "$type": "SetGlobalValue",
+          "value": 0,
           "key": "HIT_COUNT",
-          "param2": 0.0,
-          "repeatTimes": 0.0
+          "maxValue": 0,
+          "minValue": 0
         },
         {
-          "$type": "ANLOBBMKNIJ",
-          "rotationDampTime": "Eff_SceneObj_IceShieldInactivated_01_Idle",
-          "PPPDJGDDOGD": 1.0,
-          "AJDILHJFNKE": -1.0
+          "$type": "AttachEffect",
+          "effectPattern": "Eff_SceneObj_IceShieldInactivated_01_Idle",
+          "scale": 1
         }
       ],
       "onKill": [
         {
-          "$type": "KBFEIHEAMBM",
-          "rotationDampTime": "Eff_SceneObj_IceShieldInactivated_01_Destroy",
-          "PPPDJGDDOGD": 1.0,
-          "AJDILHJFNKE": -1.0
+          "$type": "FireEffect",
+          "effectPattern": "Eff_SceneObj_IceShieldInactivated_01_Destroy",
+          "scale": 1
         }
       ]
     }
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Stages_Property_Prop_IceShieldActivated",
       "modifiers": {
         "Shield_Controller": {
           "modifierName": "",
-          "elementDurability": 20.0,
-          "IPFJJJGABPL": 100.0,
+          "duration": 20,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "JLDEMMJAMLC",
+              "$type": "AttachModifier",
               "target": "AllTeams",
               "modifierName": "ShieldTag_Controller"
             },
             {
-              "$type": "ANLOBBMKNIJ",
-              "rotationDampTime": "Eff_SceneObj_IceShieldActivated_01",
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_IceShieldActivated_01",
+              "scale": 1
             }
           ],
           "onRemoved": [
             {
-              "$type": "PFKNEFGOHIH",
+              "$type": "RemoveModifier",
               "target": "AllTeams",
               "modifierName": "ShieldTag_Controller"
             },
             {
-              "$type": "NCFFNDHGCMH"
+              "$type": "KillSelf"
             }
           ],
           "onKill": [
             {
-              "$type": "PFKNEFGOHIH",
+              "$type": "RemoveModifier",
               "target": "AllTeams",
               "modifierName": "ShieldTag_Controller"
             },
             {
-              "$type": "KBFEIHEAMBM",
-              "rotationDampTime": "Eff_SceneObj_IceShieldActivated_01_Destroy",
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "$type": "FireEffect",
+              "effectPattern": "Eff_SceneObj_IceShieldActivated_01_Destroy",
+              "scale": 1
             }
           ]
         },
         "ShieldTag_Controller": {
           "modifierName": "",
-          "elementDurability": 20.0,
-          "IPFJJJGABPL": 100.0,
+          "duration": 20,
+          "elementDurability": 100,
           "thinkInterval": 0.5,
           "onAdded": [
             {
-              "$type": "INBCDALOHMP",
+              "$type": "Predicated",
               "targetPredicates": [
                 {
-                  "$type": "FMBJAJFLDIP",
+                  "$type": "ByTargetPositionToSelfPosition",
                   "target": "Applier",
                   "logic": "LesserOrEqual",
                   "compareType": "XYZ",
-                  "param3": 5.0,
-                  "DDALGNLEHOD": ""
+                  "value": 5,
+                  "__unk_Q1160719197": ""
                 }
               ],
               "successActions": [
                 {
-                  "$type": "PELJALPANCA",
+                  "$type": "ApplyModifier",
                   "modifierName": "ShieldTag_Team"
                 }
               ],
               "failActions": [
                 {
-                  "$type": "PFKNEFGOHIH",
+                  "$type": "RemoveModifier",
                   "modifierName": "ShieldTag_Team"
                 }
               ]
@@ -2450,32 +2412,32 @@
           ],
           "onRemoved": [
             {
-              "$type": "PFKNEFGOHIH",
+              "$type": "RemoveModifier",
               "modifierName": "ShieldTag_Team"
             }
           ],
           "onThinkInterval": [
             {
-              "$type": "INBCDALOHMP",
+              "$type": "Predicated",
               "targetPredicates": [
                 {
-                  "$type": "FMBJAJFLDIP",
+                  "$type": "ByTargetPositionToSelfPosition",
                   "target": "Applier",
                   "logic": "LesserOrEqual",
                   "compareType": "XYZ",
-                  "param3": 5.0,
-                  "DDALGNLEHOD": ""
+                  "value": 5,
+                  "__unk_Q1160719197": ""
                 }
               ],
               "successActions": [
                 {
-                  "$type": "PELJALPANCA",
+                  "$type": "ApplyModifier",
                   "modifierName": "ShieldTag_Team"
                 }
               ],
               "failActions": [
                 {
-                  "$type": "PFKNEFGOHIH",
+                  "$type": "RemoveModifier",
                   "modifierName": "ShieldTag_Team"
                 }
               ]
@@ -2484,46 +2446,46 @@
         },
         "ShieldTag_Team": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
-              "$type": "IJKJKFHPENC",
+              "$type": "CurLocalAvatarMixin",
               "modifierName": "ShieldTag"
             }
           ]
         },
         "ShieldTag": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
-              "$type": "PHBONPABPIH",
+              "$type": "RejectAttackMixin",
               "attackTag": "Blizzard"
             }
           ],
           "onAdded": [
             {
-              "$type": "BOBCOJHOKKD",
-              "param3": 1.0,
+              "$type": "SetGlobalValue",
+              "value": 1,
               "key": "_IS_IN_SHIELD_AREA",
-              "param2": 0.0,
-              "repeatTimes": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ],
           "onRemoved": [
             {
-              "$type": "BOBCOJHOKKD",
-              "param3": 0.0,
+              "$type": "SetGlobalValue",
+              "value": 0,
               "key": "_IS_IN_SHIELD_AREA",
-              "param2": 0.0,
-              "repeatTimes": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         }
       },
       "onAdded": [
         {
-          "$type": "PELJALPANCA",
+          "$type": "ApplyModifier",
           "modifierName": "Shield_Controller"
         }
       ]
@@ -2531,7 +2493,7 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "Element_IceSeed_Controller",
       "abilityMixins": [
         {
@@ -2547,8 +2509,8 @@
       "modifiers": {
         "Collect_WindSeed": {
           "modifierName": "",
-          "elementDurability": 0.5,
-          "IPFJJJGABPL": 100.0,
+          "duration": 0.5,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "EBOIIBOMEDP",
@@ -2558,29 +2520,26 @@
         },
         "Default_0": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "ANLOBBMKNIJ",
-              "rotationDampTime": "Eff_Item_IceSeed",
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_Item_IceSeed",
               "born": {
-                "$type": "KLPANPDGHHA",
+                "$type": "ConfigBornByAttachPoint",
                 "offset": {
-                  "KGEPIMHBMOL": 0.0,
-                  "JEBHCGDPFEJ": 0.5,
-                  "LPCHALMFFOD": 0.0
+                  "y": 0.5
                 },
                 "attachPointName": "bornPoint"
               },
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "scale": 1
             }
           ]
         },
         "GearStart": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
-          "thinkInterval": 18.0,
+          "elementDurability": 100,
+          "thinkInterval": 18,
           "onThinkInterval": [
             {
               "$type": "LBINHEFBJMN"
@@ -2589,75 +2548,74 @@
         },
         "Avartr_To_Team": {
           "modifierName": "",
-          "elementDurability": 0.5,
-          "IPFJJJGABPL": 100.0,
+          "duration": 0.5,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "LCOEFEMOHLP",
+              "$type": "AddGlobalValue",
               "target": "Team",
-              "param3": 1.0,
+              "value": 1,
               "key": "_HAS_ELEMFORCE_WIND",
               "useLimitRange": true,
-              "param2": 3.0,
-              "repeatTimes": 0.0
+              "maxValue": 3,
+              "minValue": 0
             },
             {
-              "$type": "KBFEIHEAMBM",
+              "$type": "FireEffect",
               "predicates": [
                 {
-                  "$type": "CNGGLKHONAA",
+                  "$type": "ByTargetGlobalValue",
                   "target": "Team",
                   "key": "_HAS_ELEMFORCE_WIND",
-                  "param3": 2.0,
+                  "value": 2,
                   "compareType": "LessAndEqual"
                 }
               ],
-              "rotationDampTime": "Eff_SceneObj_IceSeed_Pre",
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "effectPattern": "Eff_SceneObj_IceSeed_Pre",
+              "scale": 1
             },
             {
-              "$type": "PELJALPANCA",
+              "$type": "ApplyModifier",
               "target": "Team",
               "predicates": [
                 {
-                  "$type": "CNGGLKHONAA",
+                  "$type": "ByTargetGlobalValue",
                   "target": "Team",
                   "key": "_HAS_ELEMFORCE_WIND",
-                  "param3": 1.0,
+                  "value": 1,
                   "compareType": "LessAndEqual"
                 }
               ],
               "modifierName": "UNIQUE_WindSeed"
             },
             {
-              "$type": "ODHJJKENLPE",
+              "$type": "AddElementDurability",
               "target": "Team",
-              "param3": 50.0,
+              "value": 50,
               "modifierName": "UNIQUE_WindSeed",
               "useLimitRange": true,
-              "param2": 50.0,
-              "repeatTimes": 0.0
+              "maxValue": 50,
+              "minValue": 0
             }
           ]
         },
         "UNIQUE_WindSeed": {
           "stacking": "Unique",
           "modifierName": "",
-          "forceTriggerWhenChangeAuthority": true,
-          "elementDurability": 15.0,
-          "IPFJJJGABPL": 50.0,
+          "isUnique": true,
+          "duration": 15,
+          "elementDurability": 50,
           "modifierMixins": [
             {
               "$type": "CONPFBAANAJ",
               "modifierName": "WindForce_Avatar_Handler"
             },
             {
-              "$type": "MLJAPFBGEEH",
+              "$type": "AttachModifierToSelfGlobalValueMixin",
               "globalValueKey": "_HAS_ELEMFORCE_WIND",
-              "gvInTalk": 0.0,
+              "defaultGlobalValueOnCreate": 0,
               "valueSteps": [
-                0.0,
+                0,
                 1.5,
                 2.5,
                 3.5
@@ -2671,65 +2629,65 @@
           ],
           "onRemoved": [
             {
-              "$type": "BOBCOJHOKKD",
+              "$type": "SetGlobalValue",
               "target": "Team",
-              "param3": 0.0,
+              "value": 0,
               "key": "_HAS_ELEMFORCE_WIND",
-              "param2": 0.0,
-              "repeatTimes": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         "WindForce_Avatar_Handler": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
-              "$type": "LFDMBLDKNMK",
+              "$type": "OnAvatarUseSkillMixin",
               "onTriggerSkill": [
                 {
-                  "$type": "BOBCOJHOKKD",
+                  "$type": "SetGlobalValue",
                   "target": "Team",
                   "predicates": [
                     {
-                      "$type": "PEJAIAPIAJD",
+                      "$type": "ByAvatarElementType",
                       "target": "CurLocalAvatar",
                       "elementType": "Ice"
                     }
                   ],
-                  "param3": 3.0,
+                  "value": 3,
                   "key": "_HAS_ELEMFORCE_WIND",
-                  "param2": 0.0,
-                  "repeatTimes": 0.0
+                  "maxValue": 0,
+                  "minValue": 0
                 }
               ],
               "onTriggerUltimateSkill": [
                 {
-                  "$type": "BOBCOJHOKKD",
+                  "$type": "SetGlobalValue",
                   "target": "Team",
                   "predicates": [
                     {
-                      "$type": "PEJAIAPIAJD",
+                      "$type": "ByAvatarElementType",
                       "target": "CurLocalAvatar",
                       "elementType": "Ice"
                     }
                   ],
-                  "param3": 3.0,
+                  "value": 3,
                   "key": "_HAS_ELEMFORCE_WIND",
-                  "param2": 0.0,
-                  "repeatTimes": 0.0
+                  "maxValue": 0,
+                  "minValue": 0
                 }
               ]
             }
           ],
           "properties": {
-            "Actor_CostStaminaRatio": -0.30000001192092896
+            "Actor_CostStaminaRatio": -0.3
           },
           "isLimitedProperties": true
         },
         "Team_Avatar_Eff1": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "CONPFBAANAJ",
@@ -2739,7 +2697,7 @@
         },
         "Team_Avatar_Eff2": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "CONPFBAANAJ",
@@ -2749,45 +2707,42 @@
         },
         "Avatar_Eff1": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "ANLOBBMKNIJ",
-              "rotationDampTime": "Eff_SceneObj_IceSeed_Around_01",
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_IceSeed_Around_01",
+              "scale": 1
             }
           ]
         },
         "Avatar_Eff2": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "ANLOBBMKNIJ",
-              "rotationDampTime": "Eff_SceneObj_IceSeed_Around_02",
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_IceSeed_Around_02",
+              "scale": 1
             }
           ]
         },
         "Avatar_Eff3": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "ANLOBBMKNIJ",
-              "rotationDampTime": "Eff_SceneObj_IceSeed_Around_03",
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_IceSeed_Around_03",
+              "scale": 1
             }
           ]
         },
         "WindSeed_Explode": {
           "stacking": "Unique",
           "modifierName": "",
-          "elementDurability": 0.10000000149011612,
-          "IPFJJJGABPL": 100.0,
+          "duration": 0.1,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "CONPFBAANAJ",
@@ -2796,19 +2751,18 @@
           ],
           "onAdded": [
             {
-              "$type": "KBFEIHEAMBM",
-              "rotationDampTime": "Eff_Item_IceSeed_Merge",
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "$type": "FireEffect",
+              "effectPattern": "Eff_Item_IceSeed_Merge",
+              "scale": 1
             }
           ],
           "onRemoved": [
             {
-              "$type": "KFCDMIMBBLD",
+              "$type": "CreateGadget",
               "born": {
-                "$type": "IAENDIPDFKD",
+                "$type": "ConfigBornBySelf",
                 "direction": {
-                  "$type": "FNKDGDKJHPC"
+                  "$type": "ConfigDirectionByWorld"
                 }
               },
               "gadgetID": 70690018,
@@ -2816,7 +2770,7 @@
               "campTargetType": "All"
             },
             {
-              "$type": "KBODPNEEFGD",
+              "$type": "RemoveUniqueModifier",
               "target": "Team",
               "modifierName": "UNIQUE_WindSeed"
             }
@@ -2826,7 +2780,7 @@
       },
       "onFieldEnter": [
         {
-          "$type": "PELJALPANCA",
+          "$type": "ApplyModifier",
           "target": "Target",
           "predicates": [
             {
@@ -2837,7 +2791,7 @@
           "modifierName": "Avartr_To_Team"
         },
         {
-          "$type": "PELJALPANCA",
+          "$type": "ApplyModifier",
           "target": "Target",
           "predicates": [
             {
@@ -2856,62 +2810,58 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_CombatInteraction_BombBox02_Smoke",
       "modifiers": {
         "IceBurning": {
           "modifierName": "",
-          "elementDurability": 8.0,
+          "duration": 8,
           "elementType": "Ice",
-          "IPFJJJGABPL": 15.0,
+          "elementDurability": 15,
           "thinkInterval": 0.5,
           "onAdded": [
             {
-              "$type": "ANLOBBMKNIJ",
-              "rotationDampTime": "Eff_SceneObj_BombBarrel_02_IceFog",
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_BombBarrel_02_IceFog",
+              "scale": 1
             }
           ],
           "onRemoved": [
             {
-              "$type": "NCFFNDHGCMH"
+              "$type": "KillSelf"
             }
           ],
           "onThinkInterval": [
             {
-              "$type": "AIFPLABJNMA",
-              "shieldHP": true,
+              "$type": "TriggerAttackEvent",
+              "doOffStage": true,
               "attackEvent": {
                 "attackPattern": {
-                  "$type": "BELNOFAKNBA",
+                  "$type": "ConfigAttackSphere",
                   "triggerType": "TriggerNoRepeat",
                   "ignoreMassive": true,
                   "born": {
-                    "$type": "KLPANPDGHHA",
-                    "offset": {
-                      "LPCHALMFFOD": 0.0
-                    },
+                    "$type": "ConfigBornByAttachPoint",
                     "attachPointName": "RootNode"
                   },
-                  "OAHPDLJIADP": 3.0
+                  "radius": 3
                 },
                 "attackInfo": {
                   "attackTag": "",
                   "attenuationTag": "",
                   "attenuationGroup": "default",
                   "attackProperty": {
-                    "actorGrassSubHurtDelta": 0.014999999664723873,
-                    "actorWindSubHurtDelta": 0.0,
+                    "damagePercentage": 0.015,
+                    "damagePercentageRatio": 0,
                     "elementType": "Ice",
-                    "IPFJJJGABPL": 5.0,
+                    "elementDurability": 5,
                     "strikeType": "Default",
-                    "HMBONGBFIAP": 0.0,
-                    "GLKMCMDJBIK": 0.0
+                    "damageExtra": 0,
+                    "__exp_arkhe": 0
                   },
                   "hitPattern": {
                     "onHitEffectName": "none",
-                    "hitImpulseY": "",
+                    "__unk_Q3893899620": "",
                     "hitImpulseType": "LV0",
                     "hitHaltTimeScale": 0.5
                   }
@@ -2924,7 +2874,7 @@
       },
       "onAdded": [
         {
-          "$type": "PELJALPANCA",
+          "$type": "ApplyModifier",
           "modifierName": "IceBurning"
         }
       ]
@@ -2932,29 +2882,28 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_CombatInteraction_BombBox02",
       "modifiers": {
         "BombBoxLoop": {
           "modifierName": "",
           "elementType": "Ice",
-          "IPFJJJGABPL": 1.0,
+          "elementDurability": 1,
           "onRemoved": [
             {
-              "$type": "KBFEIHEAMBM",
-              "rotationDampTime": "Eff_SceneObj_BombBarrel_02_Explode",
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "$type": "FireEffect",
+              "effectPattern": "Eff_SceneObj_BombBarrel_02_Explode",
+              "scale": 1
             },
             {
               "$type": "IIDNEOBNEJI"
             },
             {
-              "$type": "KFCDMIMBBLD",
+              "$type": "CreateGadget",
               "born": {
-                "$type": "IAENDIPDFKD",
+                "$type": "ConfigBornBySelf",
                 "direction": {
-                  "$type": "FNKDGDKJHPC"
+                  "$type": "ConfigDirectionByWorld"
                 }
               },
               "gadgetID": 70220044,
@@ -2962,95 +2911,93 @@
               "campTargetType": "All"
             },
             {
-              "$type": "AIFPLABJNMA",
+              "$type": "TriggerAttackEvent",
               "attackEvent": {
                 "attackPattern": {
-                  "$type": "BELNOFAKNBA",
+                  "$type": "ConfigAttackSphere",
                   "triggerType": "TriggerNoRepeat",
                   "ignoreMassive": true,
                   "born": {
-                    "$type": "JHEBKCMEMLN",
+                    "$type": "ConfigBornByTarget",
                     "offset": {
-                      "KGEPIMHBMOL": 0.0,
-                      "JEBHCGDPFEJ": 0.5,
-                      "LPCHALMFFOD": 0.0
+                      "y": 0.5
                     }
                   },
-                  "OAHPDLJIADP": 6.0
+                  "radius": 6
                 },
                 "attackInfo": {
                   "attackTag": "",
                   "attenuationTag": "",
                   "attenuationGroup": "default",
                   "attackProperty": {
-                    "actorGrassSubHurtDelta": 1.0,
-                    "actorWindSubHurtDelta": 0.0,
+                    "damagePercentage": 1,
+                    "damagePercentageRatio": 0,
                     "elementType": "Ice",
-                    "IPFJJJGABPL": 50.0,
+                    "elementDurability": 50,
                     "strikeType": "Blunt",
-                    "enBreak": 9999999.0,
-                    "GLKMCMDJBIK": 0.0
+                    "enBreak": 9999999,
+                    "__exp_arkhe": 0
                   },
                   "hitPattern": {
                     "onHitEffectName": "default",
-                    "hitImpulseY": "",
+                    "__unk_Q3893899620": "",
                     "hitImpulseType": "LV6",
-                    "hitHaltTimeScale": 0.05000000074505806
+                    "hitHaltTimeScale": 0.05
                   },
                   "forceCameraShake": true,
                   "cameraShake": {
-                    "shakeRange": 0.36000001430511475,
-                    "shakeTime": 0.36000001430511475
+                    "shakeRange": 0.36,
+                    "shakeTime": 0.36
                   }
                 }
               },
               "targetType": "All"
             },
             {
-              "$type": "AIFPLABJNMA",
+              "$type": "TriggerAttackEvent",
               "attackEvent": {
                 "attackPattern": {
-                  "$type": "BELNOFAKNBA",
+                  "$type": "ConfigAttackSphere",
                   "triggerType": "TriggerNoRepeat",
                   "born": {
-                    "$type": "JHEBKCMEMLN"
+                    "$type": "ConfigBornByTarget"
                   },
-                  "OAHPDLJIADP": 4.0
+                  "radius": 4
                 },
                 "attackInfo": {
                   "attackTag": "",
                   "attenuationTag": "",
                   "attenuationGroup": "default",
                   "attackProperty": {
-                    "actorGrassSubHurtDelta": 0.0,
-                    "actorWindSubHurtDelta": 0.0,
+                    "damagePercentage": 0,
+                    "damagePercentageRatio": 0,
                     "elementType": "Ice",
-                    "IPFJJJGABPL": 50.0,
+                    "elementDurability": 50,
                     "strikeType": "Blunt",
-                    "enBreak": 0.0,
-                    "GLKMCMDJBIK": 0.0
+                    "enBreak": 0,
+                    "__exp_arkhe": 0
                   }
                 }
               },
               "targetType": "All"
             },
             {
-              "$type": "NCFFNDHGCMH",
-              "duration": 1.0,
+              "$type": "KillSelf",
+              "duration": 1,
               "hideEntity": true
             }
           ],
           "onBeingHit": [
             {
-              "$type": "PFKNEFGOHIH",
+              "$type": "RemoveModifier",
               "predicates": [
                 {
-                  "$type": "BCFNGJHILAG",
+                  "$type": "ByNot",
                   "predicates": [
                     {
-                      "$type": "GAGDDICMFEH",
+                      "$type": "ByHitDamage",
                       "logic": "Equal",
-                      "damage": 0.0
+                      "damage": 0
                     }
                   ]
                 }
@@ -3060,7 +3007,7 @@
           ],
           "onCrash": [
             {
-              "$type": "PFKNEFGOHIH",
+              "$type": "RemoveModifier",
               "modifierName": "BombBoxLoop"
             }
           ]
@@ -3068,7 +3015,7 @@
       },
       "onAdded": [
         {
-          "$type": "PELJALPANCA",
+          "$type": "ApplyModifier",
           "modifierName": "BombBoxLoop"
         }
       ]
@@ -3076,113 +3023,110 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_CombatInteraction_BombBox03",
       "modifiers": {
         "BombBoxLoop": {
           "modifierName": "",
           "elementType": "Ice",
-          "IPFJJJGABPL": 1.0,
+          "elementDurability": 1,
           "onRemoved": [
             {
-              "$type": "KBFEIHEAMBM",
-              "rotationDampTime": "Eff_SceneObj_BombBarrel_02_Explode",
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "$type": "FireEffect",
+              "effectPattern": "Eff_SceneObj_BombBarrel_02_Explode",
+              "scale": 1
             },
             {
               "$type": "IIDNEOBNEJI"
             },
             {
-              "$type": "AIFPLABJNMA",
+              "$type": "TriggerAttackEvent",
               "attackEvent": {
                 "attackPattern": {
-                  "$type": "BELNOFAKNBA",
+                  "$type": "ConfigAttackSphere",
                   "triggerType": "TriggerNoRepeat",
                   "ignoreMassive": true,
                   "born": {
-                    "$type": "JHEBKCMEMLN",
+                    "$type": "ConfigBornByTarget",
                     "offset": {
-                      "KGEPIMHBMOL": 0.0,
-                      "JEBHCGDPFEJ": 0.5,
-                      "LPCHALMFFOD": 0.0
+                      "y": 0.5
                     }
                   },
-                  "OAHPDLJIADP": 6.0
+                  "radius": 6
                 },
                 "attackInfo": {
                   "attackTag": "",
                   "attenuationTag": "",
                   "attenuationGroup": "default",
                   "attackProperty": {
-                    "actorGrassSubHurtDelta": 1.0,
-                    "actorWindSubHurtDelta": 0.0,
+                    "damagePercentage": 1,
+                    "damagePercentageRatio": 0,
                     "elementType": "Ice",
-                    "IPFJJJGABPL": 50.0,
+                    "elementDurability": 50,
                     "strikeType": "Blunt",
-                    "enBreak": 9999999.0,
-                    "GLKMCMDJBIK": 0.0
+                    "enBreak": 9999999,
+                    "__exp_arkhe": 0
                   },
                   "hitPattern": {
                     "onHitEffectName": "default",
-                    "hitImpulseY": "",
+                    "__unk_Q3893899620": "",
                     "hitImpulseType": "LV6",
-                    "hitHaltTimeScale": 0.05000000074505806
+                    "hitHaltTimeScale": 0.05
                   },
                   "forceCameraShake": true,
                   "cameraShake": {
-                    "shakeRange": 0.36000001430511475,
-                    "shakeTime": 0.36000001430511475
+                    "shakeRange": 0.36,
+                    "shakeTime": 0.36
                   }
                 }
               },
               "targetType": "All"
             },
             {
-              "$type": "AIFPLABJNMA",
+              "$type": "TriggerAttackEvent",
               "attackEvent": {
                 "attackPattern": {
-                  "$type": "BELNOFAKNBA",
+                  "$type": "ConfigAttackSphere",
                   "triggerType": "TriggerNoRepeat",
                   "born": {
-                    "$type": "JHEBKCMEMLN"
+                    "$type": "ConfigBornByTarget"
                   },
-                  "OAHPDLJIADP": 4.0
+                  "radius": 4
                 },
                 "attackInfo": {
                   "attackTag": "",
                   "attenuationTag": "",
                   "attenuationGroup": "default",
                   "attackProperty": {
-                    "actorGrassSubHurtDelta": 0.0,
-                    "actorWindSubHurtDelta": 0.0,
+                    "damagePercentage": 0,
+                    "damagePercentageRatio": 0,
                     "elementType": "Ice",
-                    "IPFJJJGABPL": 50.0,
+                    "elementDurability": 50,
                     "strikeType": "Blunt",
-                    "enBreak": 0.0,
-                    "GLKMCMDJBIK": 0.0
+                    "enBreak": 0,
+                    "__exp_arkhe": 0
                   }
                 }
               },
               "targetType": "All"
             },
             {
-              "$type": "NCFFNDHGCMH",
-              "duration": 1.0,
+              "$type": "KillSelf",
+              "duration": 1,
               "hideEntity": true
             }
           ],
           "onBeingHit": [
             {
-              "$type": "PFKNEFGOHIH",
+              "$type": "RemoveModifier",
               "predicates": [
                 {
-                  "$type": "BCFNGJHILAG",
+                  "$type": "ByNot",
                   "predicates": [
                     {
-                      "$type": "GAGDDICMFEH",
+                      "$type": "ByHitDamage",
                       "logic": "Equal",
-                      "damage": 0.0
+                      "damage": 0
                     }
                   ]
                 }
@@ -3192,7 +3136,7 @@
           ],
           "onCrash": [
             {
-              "$type": "PFKNEFGOHIH",
+              "$type": "RemoveModifier",
               "modifierName": "BombBoxLoop"
             }
           ]
@@ -3200,7 +3144,7 @@
       },
       "onAdded": [
         {
-          "$type": "PELJALPANCA",
+          "$type": "ApplyModifier",
           "modifierName": "BombBoxLoop"
         }
       ]
@@ -3208,23 +3152,23 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Ljxs_Property_Prop_ColdAirSeal",
       "modifiers": {
         "ColdTrigger": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
-              "$type": "EIMGEIJIDNO",
+              "$type": "WindZoneMixin",
               "shapeName": "CircleR15",
-              "strength": -5.0,
-              "IAELBHDMINN": 2.0,
-              "MMBCLAEOEFB": 0.0,
+              "strength": -5,
+              "attenuation": 2,
+              "innerRadius": 0,
               "targetType": "All",
               "predicates": [
                 {
-                  "$type": "NIMAPECDNKD",
+                  "$type": "ByEntityTypes",
                   "entityTypes": [
                     "Monster",
                     "Avatar"
@@ -3238,7 +3182,7 @@
       },
       "onAdded": [
         {
-          "$type": "PELJALPANCA",
+          "$type": "ApplyModifier",
           "modifierName": "ColdTrigger"
         }
       ]
@@ -3246,32 +3190,32 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Ljxs_Property_Prop_IceSeal",
       "onAbilityStart": [
         {
-          "$type": "CCNPNMMONDO",
+          "$type": "DamageByAttackValue",
           "target": "Target",
           "attackInfo": {
             "attackTag": "_ColdAirSeal_Attack",
             "attenuationTag": "",
             "attenuationGroup": "default",
             "attackProperty": {
-              "actorGrassSubHurtDelta": 0.0,
-              "actorWindSubHurtDelta": 0.0,
+              "damagePercentage": 0,
+              "damagePercentageRatio": 0,
               "elementType": "Ice",
-              "IPFJJJGABPL": 10.0,
+              "elementDurability": 10,
               "strikeType": "Default",
-              "enBreak": 100.0,
-              "HMBONGBFIAP": 100.0,
+              "enBreak": 100,
+              "damageExtra": 100,
               "ignoreLevelDiff": true,
-              "GLKMCMDJBIK": 0.0
+              "__exp_arkhe": 0
             },
             "hitPattern": {
               "onHitEffectName": "default",
-              "hitImpulseY": "",
+              "__unk_Q3893899620": "",
               "hitImpulseType": "LV4",
-              "hitHaltTimeScale": 0.009999999776482582
+              "hitHaltTimeScale": 0.01
             }
           }
         },
@@ -3279,14 +3223,14 @@
           "$type": "BPCFNMBFJJO",
           "target": "Target",
           "climateType": "Cold",
-          "param3": 10.0
+          "value": 10
         }
       ]
     }
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Quest_PetPot_Fox01",
       "abilityMixins": [
         {
@@ -3303,24 +3247,23 @@
       "modifiers": {
         "EffectActivation": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "ANLOBBMKNIJ",
-              "rotationDampTime": "Eff_SearchPoint_Active",
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SearchPoint_Active",
               "born": {
-                "$type": "KLPANPDGHHA",
+                "$type": "ConfigBornByAttachPoint",
                 "attachPointName": "AttachPoint"
               },
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "scale": 1
             }
           ]
         },
         "Protect": {
           "modifierName": "",
-          "elementDurability": 15.0,
-          "IPFJJJGABPL": 100.0,
+          "duration": 15,
+          "elementDurability": 100,
           "onRemoved": [
             {
               "$type": "LBINHEFBJMN"
@@ -3332,7 +3275,7 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Ljxs_Property_Prop_RegisvinePillar",
       "abilityMixins": [
         {
@@ -3342,26 +3285,25 @@
         }
       ],
       "abilitySpecials": {
-        "CurMaxDurability": 400.0,
-        "PerHit": -150.0
+        "CurMaxDurability": 400,
+        "PerHit": -150
       },
       "modifiers": {
         "IceMaterial": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "ANLOBBMKNIJ",
-              "rotationDampTime": "Eff_SceneObj_RegisvinePillar_01",
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_RegisvinePillar_01",
+              "scale": 1
             }
           ]
         },
         "Ice_Shield": {
           "modifierName": "",
           "elementType": "Ice",
-          "IPFJJJGABPL": 400.0,
+          "elementDurability": 400,
           "modifierMixins": [
             {
               "$type": "BKAAGFNKMLF",
@@ -3371,26 +3313,26 @@
           "state": "Limbo",
           "onRemoved": [
             {
-              "$type": "NCFFNDHGCMH"
+              "$type": "KillSelf"
             }
           ],
           "onBeingHit": [
             {
-              "$type": "GFOOGEIKGBI",
+              "$type": "SendEffectTrigger",
               "parameter": "BeHit",
               "attachPoint": "",
-              "rotationDampTime": "Eff_SceneObj_RegisvinePillar_01"
+              "effectPattern": "Eff_SceneObj_RegisvinePillar_01"
             },
             {
-              "$type": "PELJALPANCA",
+              "$type": "ApplyModifier",
               "modifierName": "Shield_Recovery"
             },
             {
-              "$type": "INBCDALOHMP",
+              "$type": "Predicated",
               "target": "Target",
               "targetPredicates": [
                 {
-                  "$type": "NNEHDJHMING",
+                  "$type": "ByAttackTags",
                   "attackTags": [
                     "BloodSmash"
                   ]
@@ -3398,40 +3340,39 @@
               ],
               "successActions": [
                 {
-                  "$type": "NCFFNDHGCMH"
+                  "$type": "KillSelf"
                 }
               ]
             }
           ],
           "onKill": [
             {
-              "$type": "KBFEIHEAMBM",
-              "rotationDampTime": "Eff_SceneObj_RegisvinePillar_01_Die",
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "$type": "FireEffect",
+              "effectPattern": "Eff_SceneObj_RegisvinePillar_01_Die",
+              "scale": 1
             }
           ]
         },
         "Shield_Recovery": {
           "modifierName": "",
-          "elementDurability": 8.0,
-          "IPFJJJGABPL": 100.0,
-          "thinkInterval": 0.10000000149011612,
+          "duration": 8,
+          "elementDurability": 100,
+          "thinkInterval": 0.1,
           "onThinkInterval": [
             {
-              "$type": "ODHJJKENLPE",
-              "param3": 50.0,
+              "$type": "AddElementDurability",
+              "value": 50,
               "modifierName": "Ice_Shield",
               "useLimitRange": true,
-              "param2": 400.0,
-              "repeatTimes": 0.0
+              "maxValue": 400,
+              "minValue": 0
             }
           ]
         }
       },
       "onAdded": [
         {
-          "$type": "PELJALPANCA",
+          "$type": "ApplyModifier",
           "modifierName": "IceMaterial"
         }
       ]
@@ -3439,34 +3380,33 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Common_Property_Prop_HumanJars_01",
       "modifiers": {
         "BombBoxLoop": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "onRemoved": [
             {
-              "$type": "KBFEIHEAMBM",
-              "rotationDampTime": "Eff_SceneObj_HumanJars_01_Destroy",
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "$type": "FireEffect",
+              "effectPattern": "Eff_SceneObj_HumanJars_01_Destroy",
+              "scale": 1
             },
             {
-              "$type": "NCFFNDHGCMH",
-              "duration": 1.0,
+              "$type": "KillSelf",
+              "duration": 1,
               "hideEntity": true
             }
           ],
           "onBeingHit": [
             {
-              "$type": "PFKNEFGOHIH",
+              "$type": "RemoveModifier",
               "modifierName": "BombBoxLoop"
             }
           ],
           "onCrash": [
             {
-              "$type": "PFKNEFGOHIH",
+              "$type": "RemoveModifier",
               "modifierName": "BombBoxLoop"
             }
           ]
@@ -3474,7 +3414,7 @@
       },
       "onAdded": [
         {
-          "$type": "PELJALPANCA",
+          "$type": "ApplyModifier",
           "modifierName": "BombBoxLoop"
         }
       ]
@@ -3482,34 +3422,33 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Common_Property_Prop_HumanJars_02",
       "modifiers": {
         "BombBoxLoop": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "onRemoved": [
             {
-              "$type": "KBFEIHEAMBM",
-              "rotationDampTime": "Eff_SceneObj_HumanJars_02_Destroy",
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "$type": "FireEffect",
+              "effectPattern": "Eff_SceneObj_HumanJars_02_Destroy",
+              "scale": 1
             },
             {
-              "$type": "NCFFNDHGCMH",
-              "duration": 1.0,
+              "$type": "KillSelf",
+              "duration": 1,
               "hideEntity": true
             }
           ],
           "onBeingHit": [
             {
-              "$type": "PFKNEFGOHIH",
+              "$type": "RemoveModifier",
               "modifierName": "BombBoxLoop"
             }
           ],
           "onCrash": [
             {
-              "$type": "PFKNEFGOHIH",
+              "$type": "RemoveModifier",
               "modifierName": "BombBoxLoop"
             }
           ]
@@ -3517,7 +3456,7 @@
       },
       "onAdded": [
         {
-          "$type": "PELJALPANCA",
+          "$type": "ApplyModifier",
           "modifierName": "BombBoxLoop"
         }
       ]
@@ -3525,34 +3464,33 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Common_Property_Prop_HumanJars_03",
       "modifiers": {
         "BombBoxLoop": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "onRemoved": [
             {
-              "$type": "KBFEIHEAMBM",
-              "rotationDampTime": "Eff_SceneObj_HumanJars_03_Destroy",
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "$type": "FireEffect",
+              "effectPattern": "Eff_SceneObj_HumanJars_03_Destroy",
+              "scale": 1
             },
             {
-              "$type": "NCFFNDHGCMH",
-              "duration": 1.0,
+              "$type": "KillSelf",
+              "duration": 1,
               "hideEntity": true
             }
           ],
           "onBeingHit": [
             {
-              "$type": "PFKNEFGOHIH",
+              "$type": "RemoveModifier",
               "modifierName": "BombBoxLoop"
             }
           ],
           "onCrash": [
             {
-              "$type": "PFKNEFGOHIH",
+              "$type": "RemoveModifier",
               "modifierName": "BombBoxLoop"
             }
           ]
@@ -3560,7 +3498,7 @@
       },
       "onAdded": [
         {
-          "$type": "PELJALPANCA",
+          "$type": "ApplyModifier",
           "modifierName": "BombBoxLoop"
         }
       ]
@@ -3568,54 +3506,53 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Common_Property_Prop_WaterBasin_01",
       "modifiers": {
         "BombBoxLoop": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "onRemoved": [
             {
-              "$type": "AIFPLABJNMA",
+              "$type": "TriggerAttackEvent",
               "attackEvent": {
                 "attackPattern": {
-                  "$type": "BELNOFAKNBA",
+                  "$type": "ConfigAttackSphere",
                   "triggerType": "TriggerNoRepeat",
                   "born": {
-                    "$type": "JHEBKCMEMLN"
+                    "$type": "ConfigBornByTarget"
                   },
-                  "OAHPDLJIADP": 5.0
+                  "radius": 5
                 },
                 "attackInfo": {
                   "attackTag": "",
                   "attenuationTag": "",
                   "attenuationGroup": "default",
                   "attackProperty": {
-                    "actorGrassSubHurtDelta": 0.0,
-                    "actorWindSubHurtDelta": 0.0,
+                    "damagePercentage": 0,
+                    "damagePercentageRatio": 0,
                     "elementType": "Water",
-                    "IPFJJJGABPL": 50.0,
+                    "elementDurability": 50,
                     "strikeType": "Blunt",
-                    "enBreak": 0.0,
-                    "GLKMCMDJBIK": 0.0
+                    "enBreak": 0,
+                    "__exp_arkhe": 0
                   }
                 }
               },
               "targetType": "All"
             },
             {
-              "$type": "KBFEIHEAMBM",
-              "rotationDampTime": "Eff_SceneObj_WaterBasin_01_Destroy",
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "$type": "FireEffect",
+              "effectPattern": "Eff_SceneObj_WaterBasin_01_Destroy",
+              "scale": 1
             },
             {
-              "$type": "NCFFNDHGCMH"
+              "$type": "KillSelf"
             }
           ],
           "onBeingHit": [
             {
-              "$type": "PFKNEFGOHIH",
+              "$type": "RemoveModifier",
               "modifierName": "BombBoxLoop"
             }
           ]
@@ -3623,7 +3560,7 @@
       },
       "onAdded": [
         {
-          "$type": "PELJALPANCA",
+          "$type": "ApplyModifier",
           "modifierName": "BombBoxLoop"
         }
       ]
@@ -3631,25 +3568,24 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "Bullet_IceSentryTurrets_Ice_Bullet_Loop",
       "modifiers": {
         "Light": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "ANLOBBMKNIJ",
-              "rotationDampTime": "Eff_SceneObj_IceSentryTurrets_Ice_Bullet",
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_IceSentryTurrets_Ice_Bullet",
+              "scale": 1
             }
           ]
         }
       },
       "onAdded": [
         {
-          "$type": "PELJALPANCA",
+          "$type": "ApplyModifier",
           "modifierName": "Light"
         }
       ]
@@ -3657,11 +3593,11 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "Bullet_IceSentryTurrets_Ice_Bullet_Burst",
       "onAbilityStart": [
         {
-          "$type": "GFANIJMFNOJ",
+          "$type": "FireHitEffect",
           "hitEntity": "",
           "hitScene": {
             "defaultEffect": "Eff_SceneObj_IceSentryTurrets_Ice_Hit",
@@ -3671,38 +3607,38 @@
           }
         },
         {
-          "$type": "AIFPLABJNMA",
+          "$type": "TriggerAttackEvent",
           "attackEvent": {
             "attackPattern": {
-              "$type": "BELNOFAKNBA",
+              "$type": "ConfigAttackSphere",
               "triggerType": "TriggerNoRepeat",
               "born": {
-                "$type": "JGEBAJLEBMO"
+                "$type": "ConfigBornByCollisionPoint"
               },
-              "OAHPDLJIADP": 1.0
+              "radius": 1
             },
             "attackInfo": {
               "attackTag": "",
               "attenuationTag": "",
               "attenuationGroup": "default",
               "attackProperty": {
-                "actorGrassSubHurtDelta": 1.0,
-                "actorWindSubHurtDelta": 0.0,
+                "damagePercentage": 1,
+                "damagePercentageRatio": 0,
                 "elementType": "Ice",
-                "IPFJJJGABPL": 50.0,
+                "elementDurability": 50,
                 "strikeType": "Blunt",
-                "GLKMCMDJBIK": 0.0
+                "__exp_arkhe": 0
               },
               "hitPattern": {
                 "onHitEffectName": "Eff_SceneObj_IceSentryTurrets_Ice_Hit",
-                "hitImpulseY": "",
+                "__unk_Q3893899620": "",
                 "hitImpulseType": "LV3",
-                "hitHaltTimeScale": 0.05000000074505806
+                "hitHaltTimeScale": 0.05
               },
               "forceCameraShake": true,
               "cameraShake": {
-                "shakeRange": 0.36000001430511475,
-                "shakeTime": 0.36000001430511475
+                "shakeRange": 0.36,
+                "shakeTime": 0.36
               }
             }
           },
@@ -3713,52 +3649,52 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Common_Property_Prop_HumanBox_01",
       "modifiers": {
         "WoodMaterial": {
           "modifierName": "",
           "elementType": "Wood",
-          "IPFJJJGABPL": 30.0,
+          "elementDurability": 30,
           "state": "Limbo",
           "onAdded": [
             {
-              "$type": "JLDEMMJAMLC",
+              "$type": "AttachModifier",
               "modifierName": "Die_Effect"
             }
           ],
           "onRemoved": [
             {
-              "$type": "LCOEFEMOHLP",
-              "param3": 1.0,
+              "$type": "AddGlobalValue",
+              "value": 1,
               "key": "_WoodenObject_DeathType",
-              "param2": 0.0,
-              "repeatTimes": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ],
           "onBeingHit": [
             {
-              "$type": "INBCDALOHMP",
+              "$type": "Predicated",
               "targetPredicates": [
                 {
-                  "$type": "BCFNGJHILAG",
+                  "$type": "ByNot",
                   "predicates": [
                     {
-                      "$type": "PNLEEOAGKLD",
+                      "$type": "ByHitElement",
                       "element": "Fire"
                     },
                     {
-                      "$type": "GAGDDICMFEH",
+                      "$type": "ByHitDamage",
                       "logic": "Equal",
-                      "damage": 0.0
+                      "damage": 0
                     }
                   ]
                 },
                 {
-                  "$type": "BCFNGJHILAG",
+                  "$type": "ByNot",
                   "predicates": [
                     {
-                      "$type": "NFJHABGCNHE",
+                      "$type": "ByHasElement",
                       "element": "Fire"
                     }
                   ]
@@ -3766,71 +3702,69 @@
               ],
               "successActions": [
                 {
-                  "$type": "KBFEIHEAMBM",
-                  "rotationDampTime": "Eff_SceneObj_HumanBox_01_Destroy",
-                  "PPPDJGDDOGD": 1.0,
-                  "AJDILHJFNKE": -1.0
+                  "$type": "FireEffect",
+                  "effectPattern": "Eff_SceneObj_HumanBox_01_Destroy",
+                  "scale": 1
                 },
                 {
-                  "$type": "NCFFNDHGCMH"
+                  "$type": "KillSelf"
                 }
               ]
             },
             {
-              "$type": "INBCDALOHMP",
+              "$type": "Predicated",
               "targetPredicates": [
                 {
-                  "$type": "NFJHABGCNHE",
+                  "$type": "ByHasElement",
                   "element": "Water"
                 },
                 {
-                  "$type": "BCFNGJHILAG",
+                  "$type": "ByNot",
                   "predicates": [
                     {
-                      "$type": "GAGDDICMFEH",
+                      "$type": "ByHitDamage",
                       "logic": "Equal",
-                      "damage": 0.0
+                      "damage": 0
                     }
                   ]
                 }
               ],
               "successActions": [
                 {
-                  "$type": "KBFEIHEAMBM",
-                  "rotationDampTime": "Eff_SceneObj_HumanBox_01_Destroy",
-                  "PPPDJGDDOGD": 1.0,
-                  "AJDILHJFNKE": -1.0
+                  "$type": "FireEffect",
+                  "effectPattern": "Eff_SceneObj_HumanBox_01_Destroy",
+                  "scale": 1
                 },
                 {
-                  "$type": "NCFFNDHGCMH"
+                  "$type": "KillSelf"
                 }
               ]
             },
             {
-              "$type": "INBCDALOHMP",
+              "$type": "Predicated",
               "targetPredicates": [
                 {
-                  "$type": "PNLEEOAGKLD",
+                  "$type": "ByHitElement",
                   "element": "Fire"
                 },
                 {
-                  "$type": "BCFNGJHILAG",
+                  "$type": "ByNot",
                   "predicates": [
                     {
-                      "$type": "GAGDDICMFEH",
+                      "$type": "ByHitDamage",
                       "logic": "Equal",
-                      "damage": 0.0
+                      "damage": 0
                     }
                   ]
                 }
               ],
               "successActions": [
                 {
-                  "$type": "KFCDMIMBBLD",
+                  "$type": "CreateGadget",
                   "born": {
-                    "$type": "IAENDIPDFKD",
+                    "$type": "ConfigBornBySelf",
                     "direction": {
-                      "$type": "FNKDGDKJHPC"
+                      "$type": "ConfigDirectionByWorld"
                     }
                   },
                   "gadgetID": 70310024,
@@ -3843,38 +3777,35 @@
         },
         "Die_Effect": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "onRemoved": [
             {
-              "$type": "KBFEIHEAMBM",
+              "$type": "FireEffect",
               "predicates": [
                 {
-                  "$type": "CNGGLKHONAA",
+                  "$type": "ByTargetGlobalValue",
                   "key": "_WoodenObject_DeathType",
-                  "param3": 0.0,
+                  "value": 0,
                   "compareType": "MoreThan"
                 }
               ],
-              "rotationDampTime": "Eff_SceneObj_WoodenObject_BurnOut",
+              "effectPattern": "Eff_SceneObj_WoodenObject_BurnOut",
               "born": {
-                "$type": "IAENDIPDFKD",
+                "$type": "ConfigBornBySelf",
                 "offset": {
-                  "KGEPIMHBMOL": 0.0,
-                  "JEBHCGDPFEJ": 0.75,
-                  "LPCHALMFFOD": 0.0
+                  "y": 0.75
                 },
                 "useRotation": true
               },
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "scale": 1
             },
             {
-              "$type": "NCFFNDHGCMH",
+              "$type": "KillSelf",
               "predicates": [
                 {
-                  "$type": "CNGGLKHONAA",
+                  "$type": "ByTargetGlobalValue",
                   "key": "_WoodenObject_DeathType",
-                  "param3": 0.0,
+                  "value": 0,
                   "compareType": "MoreThan"
                 }
               ]
@@ -3884,105 +3815,102 @@
       },
       "onAdded": [
         {
-          "$type": "PELJALPANCA",
+          "$type": "ApplyModifier",
           "modifierName": "WoodMaterial"
         },
         {
-          "$type": "LCOEFEMOHLP",
-          "param3": 0.0,
+          "$type": "AddGlobalValue",
+          "value": 0,
           "key": "_WoodenObject_DeathType",
-          "param2": 0.0,
-          "repeatTimes": 0.0
+          "maxValue": 0,
+          "minValue": 0
         },
         {
-          "$type": "LCOEFEMOHLP",
-          "param3": 1.0,
+          "$type": "AddGlobalValue",
+          "value": 1,
           "key": "_ABILITY_BURNING_IGNITE_ONLY",
           "useLimitRange": true,
-          "param2": 1.0,
-          "repeatTimes": 1.0
+          "maxValue": 1,
+          "minValue": 1
         }
       ]
     }
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Common_Property_Ani_Prop_PumpkinBomb_01",
       "modifiers": {
         "PumpkinBomb": {
           "modifierName": "",
           "elementType": "Ice",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "onRemoved": [
             {
-              "$type": "KJCHPDPBJHL",
+              "$type": "SetAnimatorBool",
               "boolID": "BeHitFire",
-              "param3": true
+              "value": true
             },
             {
-              "$type": "PELJALPANCA",
+              "$type": "ApplyModifier",
               "modifierName": "PumpkinBomb_Explode"
             }
           ],
           "onBeingHit": [
             {
-              "$type": "PFKNEFGOHIH",
+              "$type": "RemoveModifier",
               "modifierName": "PumpkinBomb"
             }
           ]
         },
         "PumpkinBomb_Explode": {
           "modifierName": "",
-          "elementDurability": 3.0,
-          "IPFJJJGABPL": 100.0,
+          "duration": 3,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "ANLOBBMKNIJ",
-              "rotationDampTime": "Eff_SceneObj_Bombbarrel_02_Active",
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_Bombbarrel_02_Active",
+              "scale": 1
             }
           ],
           "onRemoved": [
             {
-              "$type": "AIFPLABJNMA",
+              "$type": "TriggerAttackEvent",
               "attackEvent": {
                 "attackPattern": {
-                  "$type": "BELNOFAKNBA",
+                  "$type": "ConfigAttackSphere",
                   "triggerType": "TriggerNoRepeat",
                   "born": {
-                    "$type": "JHEBKCMEMLN",
+                    "$type": "ConfigBornByTarget",
                     "offset": {
-                      "KGEPIMHBMOL": 0.0,
-                      "JEBHCGDPFEJ": 0.800000011920929,
-                      "LPCHALMFFOD": 0.0
+                      "y": 0.8
                     }
                   },
-                  "OAHPDLJIADP": 4.0
+                  "radius": 4
                 },
                 "attackInfo": {
                   "attackTag": "",
                   "attenuationTag": "",
                   "attenuationGroup": "default",
                   "attackProperty": {
-                    "actorGrassSubHurtDelta": 1.0,
-                    "actorWindSubHurtDelta": 0.0,
+                    "damagePercentage": 1,
+                    "damagePercentageRatio": 0,
                     "elementType": "Ice",
-                    "IPFJJJGABPL": 50.0,
+                    "elementDurability": 50,
                     "strikeType": "Blunt",
-                    "GLKMCMDJBIK": 0.0
+                    "__exp_arkhe": 0
                   },
                   "hitPattern": {
                     "onHitEffectName": "default",
-                    "hitImpulseY": "",
+                    "__unk_Q3893899620": "",
                     "hitImpulseType": "LV5",
-                    "hitHaltTimeScale": 0.05000000074505806
+                    "hitHaltTimeScale": 0.05
                   },
                   "forceCameraShake": true,
                   "cameraShake": {
-                    "shakeRange": 0.36000001430511475,
-                    "shakeTime": 0.36000001430511475
+                    "shakeRange": 0.36,
+                    "shakeTime": 0.36
                   }
                 }
               },
@@ -3992,22 +3920,19 @@
               "$type": "IIDNEOBNEJI"
             },
             {
-              "$type": "KBFEIHEAMBM",
-              "rotationDampTime": "Eff_SceneObj_BombBarrel_02_Explode",
+              "$type": "FireEffect",
+              "effectPattern": "Eff_SceneObj_BombBarrel_02_Explode",
               "born": {
-                "$type": "JHEBKCMEMLN",
+                "$type": "ConfigBornByTarget",
                 "offset": {
-                  "KGEPIMHBMOL": 0.0,
-                  "JEBHCGDPFEJ": 1.399999976158142,
-                  "LPCHALMFFOD": 0.0
+                  "y": 1.4
                 }
               },
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "scale": 1
             },
             {
-              "$type": "NCFFNDHGCMH",
-              "duration": 1.0,
+              "$type": "KillSelf",
+              "duration": 1,
               "hideEntity": true
             }
           ]
@@ -4015,13 +3940,13 @@
       },
       "onAdded": [
         {
-          "$type": "JLDEMMJAMLC",
+          "$type": "AttachModifier",
           "modifierName": "PumpkinBomb"
         }
       ],
       "onFieldEnter": [
         {
-          "$type": "PFKNEFGOHIH",
+          "$type": "RemoveModifier",
           "modifierName": "PumpkinBomb"
         }
       ]
@@ -4029,7 +3954,7 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Common_Property_Ani_Prop_DunlinsHeart",
       "abilityMixins": [
         {
@@ -4050,37 +3975,34 @@
       "modifiers": {
         "Default_0": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "ANLOBBMKNIJ",
-              "rotationDampTime": "Eff_SceneObj_DunlinsHeart_01",
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_DunlinsHeart_01",
+              "scale": 1
             }
           ]
         },
         "Active": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "ANLOBBMKNIJ",
-              "rotationDampTime": "Eff_SceneObj_DunlinsHeart_Active",
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_DunlinsHeart_Active",
+              "scale": 1
             }
           ]
         },
         "Burst": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "ANLOBBMKNIJ",
-              "rotationDampTime": "Eff_SceneObj_DunlinsHeart_Disappear",
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_DunlinsHeart_Disappear",
+              "scale": 1
             }
           ]
         }
@@ -4089,25 +4011,24 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Gather_Essence_Fly_Gather",
       "modifiers": {
         "Effect": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "KBFEIHEAMBM",
-              "rotationDampTime": "Eff_SceneObj_Ljxs_Essence_03",
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "$type": "FireEffect",
+              "effectPattern": "Eff_SceneObj_Ljxs_Essence_03",
+              "scale": 1
             }
           ]
         }
       },
       "onAdded": [
         {
-          "$type": "PELJALPANCA",
+          "$type": "ApplyModifier",
           "modifierName": "Effect"
         }
       ]
@@ -4115,25 +4036,24 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Event_Kelee_SealR25",
       "modifiers": {
         "AddEffect": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "ANLOBBMKNIJ",
-              "rotationDampTime": "Eff_Stage_SealBorder_BattleHalo_01",
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_Stage_SealBorder_BattleHalo_01",
+              "scale": 1
             }
           ]
         }
       },
       "onAdded": [
         {
-          "$type": "PELJALPANCA",
+          "$type": "ApplyModifier",
           "modifierName": "AddEffect"
         }
       ]
@@ -4141,7 +4061,7 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Common_Property_Ani_Prop_SkyShards_12",
       "abilityMixins": [
         {
@@ -4157,25 +4077,23 @@
       "modifiers": {
         "Default_0": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "ANLOBBMKNIJ",
-              "rotationDampTime": "Eff_SceneObj_CelestiaClusterBig_01",
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_CelestiaClusterBig_01",
+              "scale": 1
             }
           ]
         },
         "Rise": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "ANLOBBMKNIJ",
-              "rotationDampTime": "Eff_SceneObj_CelestiaClusterBig_02",
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_CelestiaClusterBig_02",
+              "scale": 1
             }
           ]
         }
@@ -4184,7 +4102,7 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Stages_Property_Ani_Prop_DropIce_02_01",
       "abilityMixins": [
         {
@@ -4205,23 +4123,20 @@
       "modifiers": {
         "Default_0": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "onRemoved": [
             {
-              "$type": "ANLOBBMKNIJ",
-              "rotationDampTime": "Eff_SceneObj_DropIce_01_Drop",
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_DropIce_01_Drop",
+              "scale": 1
             },
             {
-              "$type": "CAKDDHLKOAB",
+              "$type": "TriggerBullet",
               "bulletID": 70310026,
               "born": {
-                "$type": "KLPANPDGHHA",
+                "$type": "ConfigBornByAttachPoint",
                 "offset": {
-                  "KGEPIMHBMOL": 0.0,
-                  "JEBHCGDPFEJ": -0.30000001192092896,
-                  "LPCHALMFFOD": 0.0
+                  "y": -0.3
                 },
                 "attachPointName": "AttachPoint"
               }
@@ -4236,8 +4151,8 @@
         },
         "PreActive": {
           "modifierName": "",
-          "elementDurability": 6.0,
-          "IPFJJJGABPL": 100.0,
+          "duration": 6,
+          "elementDurability": 100,
           "onRemoved": [
             {
               "$type": "LBINHEFBJMN"
@@ -4246,14 +4161,14 @@
         },
         "Active": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0
+          "elementDurability": 100
         }
       }
     }
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Stages_Property_Ani_Prop_DropIce_02_04",
       "abilityMixins": [
         {
@@ -4274,26 +4189,26 @@
       "modifiers": {
         "Default_0": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "onBeingHit": [
             {
               "$type": "LBINHEFBJMN",
               "param1": 201
             },
             {
-              "$type": "LCOEFEMOHLP",
-              "param3": 1.0,
+              "$type": "AddGlobalValue",
+              "value": 1,
               "key": "IS_SPECIAL_ICE_BULLET",
               "useLimitRange": true,
-              "param2": 1.0,
-              "repeatTimes": 1.0
+              "maxValue": 1,
+              "minValue": 1
             }
           ]
         },
         "PreActive": {
           "modifierName": "",
-          "elementDurability": 6.0,
-          "IPFJJJGABPL": 100.0,
+          "duration": 6,
+          "elementDurability": 100,
           "onRemoved": [
             {
               "$type": "LBINHEFBJMN"
@@ -4302,23 +4217,20 @@
         },
         "Active": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "ANLOBBMKNIJ",
-              "rotationDampTime": "Eff_SceneObj_DropIce_01_Drop",
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_DropIce_01_Drop",
+              "scale": 1
             },
             {
-              "$type": "CAKDDHLKOAB",
+              "$type": "TriggerBullet",
               "bulletID": 70310031,
               "born": {
-                "$type": "KLPANPDGHHA",
+                "$type": "ConfigBornByAttachPoint",
                 "offset": {
-                  "KGEPIMHBMOL": 0.0,
-                  "JEBHCGDPFEJ": -0.30000001192092896,
-                  "LPCHALMFFOD": 0.0
+                  "y": -0.3
                 },
                 "attachPointName": "AttachPoint"
               }
@@ -4334,13 +4246,13 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Stages_Property_Ani_Prop_DropIce_02_03",
       "modifiers": {
         "Effect": {
           "modifierName": "",
           "elementType": "Ice",
-          "IPFJJJGABPL": 50.0,
+          "elementDurability": 50,
           "modifierMixins": [
             {
               "$type": "BKAAGFNKMLF",
@@ -4349,78 +4261,77 @@
           ],
           "onAdded": [
             {
-              "$type": "ANLOBBMKNIJ",
-              "rotationDampTime": "Eff_SceneObj_DropIce_01_Drop",
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_DropIce_01_Drop",
+              "scale": 1
             },
             {
-              "$type": "AIFPLABJNMA",
+              "$type": "TriggerAttackEvent",
               "attackEvent": {
                 "attackPattern": {
-                  "$type": "BELNOFAKNBA",
+                  "$type": "ConfigAttackSphere",
                   "triggerType": "TriggerNoRepeat",
-                  "OAHPDLJIADP": 1.0
+                  "radius": 1
                 },
                 "attackInfo": {
                   "attackTag": "",
                   "attenuationTag": "",
                   "attenuationGroup": "default",
                   "attackProperty": {
-                    "actorGrassSubHurtDelta": 1.0,
-                    "actorWindSubHurtDelta": 0.0,
+                    "damagePercentage": 1,
+                    "damagePercentageRatio": 0,
                     "elementType": "Ice",
-                    "IPFJJJGABPL": 100.0,
+                    "elementDurability": 100,
                     "strikeType": "Blunt",
-                    "GLKMCMDJBIK": 0.0
+                    "__exp_arkhe": 0
                   },
                   "hitPattern": {
                     "onHitEffectName": "Eff_SceneObj_IceSentryTurrets_Ice_Hit",
-                    "hitImpulseY": "",
+                    "__unk_Q3893899620": "",
                     "hitImpulseType": "LV8",
-                    "hitHaltTimeScale": 0.05000000074505806
+                    "hitHaltTimeScale": 0.05
                   },
                   "forceCameraShake": true,
                   "cameraShake": {
-                    "shakeRange": 0.36000001430511475,
-                    "shakeTime": 0.36000001430511475
+                    "shakeRange": 0.36,
+                    "shakeTime": 0.36
                   }
                 }
               },
               "targetType": "AllExceptSelf"
             },
             {
-              "$type": "AIFPLABJNMA",
+              "$type": "TriggerAttackEvent",
               "attackEvent": {
                 "attackPattern": {
-                  "$type": "BELNOFAKNBA",
+                  "$type": "ConfigAttackSphere",
                   "triggerType": "TriggerNoRepeat",
                   "ignoreMassive": true,
-                  "OAHPDLJIADP": 4.0
+                  "radius": 4
                 },
                 "attackInfo": {
                   "attackTag": "",
                   "attenuationTag": "",
                   "attenuationGroup": "default",
                   "attackProperty": {
-                    "actorGrassSubHurtDelta": 1.0,
-                    "actorWindSubHurtDelta": 0.0,
+                    "damagePercentage": 1,
+                    "damagePercentageRatio": 0,
                     "elementType": "Ice",
-                    "IPFJJJGABPL": 50.0,
+                    "elementDurability": 50,
                     "strikeType": "Blunt",
-                    "enBreak": 9999999.0,
-                    "GLKMCMDJBIK": 0.0
+                    "enBreak": 9999999,
+                    "__exp_arkhe": 0
                   },
                   "hitPattern": {
                     "onHitEffectName": "default",
-                    "hitImpulseY": "",
+                    "__unk_Q3893899620": "",
                     "hitImpulseType": "LV6",
-                    "hitHaltTimeScale": 0.05000000074505806
+                    "hitHaltTimeScale": 0.05
                   },
                   "forceCameraShake": true,
                   "cameraShake": {
-                    "shakeRange": 0.36000001430511475,
-                    "shakeTime": 0.36000001430511475
+                    "shakeRange": 0.36,
+                    "shakeTime": 0.36
                   }
                 }
               },
@@ -4429,10 +4340,9 @@
           ],
           "onRemoved": [
             {
-              "$type": "KBFEIHEAMBM",
-              "rotationDampTime": "Eff_SceneObj_DropIce_03_Destroy",
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "$type": "FireEffect",
+              "effectPattern": "Eff_SceneObj_DropIce_03_Destroy",
+              "scale": 1
             },
             {
               "$type": "LBINHEFBJMN",
@@ -4440,29 +4350,28 @@
               "param1": 202
             },
             {
-              "$type": "NCFFNDHGCMH"
+              "$type": "KillSelf"
             }
           ],
           "onBeingHit": [
             {
-              "$type": "ANLOBBMKNIJ",
-              "rotationDampTime": "Eff_SceneObj_DropIce_02_Hit",
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_DropIce_02_Hit",
               "born": {
-                "$type": "DHDAAHGFPHK"
+                "$type": "ConfigBornByHitPoint"
               },
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "scale": 1
             }
           ]
         }
       },
       "onAdded": [
         {
-          "$type": "PELJALPANCA",
+          "$type": "ApplyModifier",
           "modifierName": "Effect"
         },
         {
-          "$type": "OPAOGKPJLIG",
+          "$type": "AttachAbilityStateResistance",
           "resistanceListID": 11001
         }
       ]
@@ -4470,26 +4379,21 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Stages_Property_Ani_Prop_DropIce_02_02",
       "onAbilityStart": [
         {
-          "$type": "KFCDMIMBBLD",
+          "$type": "CreateGadget",
           "born": {
-            "$type": "IAENDIPDFKD",
-            "offset": {
-              "KGEPIMHBMOL": 0.0,
-              "JEBHCGDPFEJ": 0.0,
-              "LPCHALMFFOD": 0.0
-            },
+            "$type": "ConfigBornBySelf",
             "onGround": true,
             "onGroundIgnoreWater": true,
             "direction": {
-              "$type": "AHGNBAPONLA",
+              "$type": "ConfigDirectionByEntity",
               "angleOffset": {
-                "KGEPIMHBMOL": 1.0,
-                "JEBHCGDPFEJ": 1.0,
-                "LPCHALMFFOD": 1.0
+                "x": 1,
+                "y": 1,
+                "z": 1
               }
             },
             "alongGround": true,
@@ -4504,101 +4408,95 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Stages_Property_Ani_Prop_DropIce_02_05",
       "onAbilityStart": [
         {
-          "$type": "ANLOBBMKNIJ",
-          "rotationDampTime": "Eff_SceneObj_DropIce_01_Drop",
-          "PPPDJGDDOGD": 1.0,
-          "AJDILHJFNKE": -1.0
+          "$type": "AttachEffect",
+          "effectPattern": "Eff_SceneObj_DropIce_01_Drop",
+          "scale": 1
         },
         {
-          "$type": "LCOEFEMOHLP",
-          "param3": 1.0,
+          "$type": "AddGlobalValue",
+          "value": 1,
           "key": "IS_SPECIAL_ICE_BULLET",
           "useLimitRange": true,
-          "param2": 1.0,
-          "repeatTimes": 1.0
+          "maxValue": 1,
+          "minValue": 1
         },
         {
-          "$type": "AIFPLABJNMA",
+          "$type": "TriggerAttackEvent",
           "attackEvent": {
             "attackPattern": {
-              "$type": "BELNOFAKNBA",
+              "$type": "ConfigAttackSphere",
               "triggerType": "TriggerNoRepeat",
               "born": {
-                "$type": "JGEBAJLEBMO"
+                "$type": "ConfigBornByCollisionPoint"
               },
-              "OAHPDLJIADP": 1.0
+              "radius": 1
             },
             "attackInfo": {
               "attackTag": "",
               "attenuationTag": "",
               "attenuationGroup": "default",
               "attackProperty": {
-                "actorGrassSubHurtDelta": 1.0,
-                "actorWindSubHurtDelta": 0.0,
+                "damagePercentage": 1,
+                "damagePercentageRatio": 0,
                 "elementType": "Ice",
-                "IPFJJJGABPL": 100.0,
+                "elementDurability": 100,
                 "strikeType": "Blunt",
-                "GLKMCMDJBIK": 0.0
+                "__exp_arkhe": 0
               },
               "hitPattern": {
                 "onHitEffectName": "Eff_SceneObj_IceSentryTurrets_Ice_Hit",
-                "hitImpulseY": "",
+                "__unk_Q3893899620": "",
                 "hitImpulseType": "LV8",
-                "hitHaltTimeScale": 0.05000000074505806
+                "hitHaltTimeScale": 0.05
               },
               "forceCameraShake": true,
               "cameraShake": {
-                "shakeRange": 0.36000001430511475,
-                "shakeTime": 0.36000001430511475
+                "shakeRange": 0.36,
+                "shakeTime": 0.36
               }
             }
           },
           "targetType": "AllExceptSelf"
         },
         {
-          "$type": "AIFPLABJNMA",
+          "$type": "TriggerAttackEvent",
           "attackEvent": {
             "attackPattern": {
-              "$type": "BELNOFAKNBA",
+              "$type": "ConfigAttackSphere",
               "triggerType": "TriggerNoRepeat",
               "ignoreMassive": true,
               "born": {
-                "$type": "JHEBKCMEMLN",
-                "offset": {
-                  "KGEPIMHBMOL": 0.0,
-                  "JEBHCGDPFEJ": 0.0,
-                  "LPCHALMFFOD": 0.0
-                }
+                "$type": "ConfigBornByTarget"
               },
-              "OAHPDLJIADP": 4.0
+              "radius": 4
             },
             "attackInfo": {
               "attackTag": "",
               "attenuationTag": "",
               "attenuationGroup": "default",
               "attackProperty": {
-                "actorGrassSubHurtDelta": 1.0,
-                "actorWindSubHurtDelta": 0.0,
+                "damagePercentage": 1,
+                "damagePercentageRatio": 0,
                 "elementType": "Ice",
-                "IPFJJJGABPL": 50.0,
+                "elementDurability": 50,
                 "strikeType": "Blunt",
-                "enBreak": 9999999.0,
-                "GLKMCMDJBIK": 0.0
+                "enBreak": 9999999,
+                "__exp_arkhe": 0
               },
               "hitPattern": {
                 "onHitEffectName": "default",
-                "hitImpulseY": "",
+                "__unk_Q3893899620": "",
                 "hitImpulseType": "LV6",
-                "hitHaltTimeScale": 0.05000000074505806
+                "hitHaltTimeScale": 0.05
               },
               "forceCameraShake": true,
               "cameraShake": {
-                "shakeRange": 0.36000001430511475,
-                "shakeTime": 0.36000001430511475
+                "shakeRange": 0.36,
+                "shakeTime": 0.36
               }
             }
           },
@@ -4609,7 +4507,7 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Common_Property_Ani_Prop_SnowDungeonPlatform",
       "abilityMixins": [
         {
@@ -4627,28 +4525,27 @@
         "WarmActive": {
           "modifierName": "",
           "elementType": "Fire",
-          "IPFJJJGABPL": 15.0,
+          "elementDurability": 15,
           "thinkInterval": 0.5,
           "onAdded": [
             {
-              "$type": "ANLOBBMKNIJ",
-              "rotationDampTime": "Eff_SceneObj_IceFloor_01_Heat",
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_IceFloor_01_Heat",
+              "scale": 1
             }
           ],
           "onThinkInterval": [
             {
-              "$type": "PELJALPANCA",
+              "$type": "ApplyModifier",
               "otherTargets": {
-                "$type": "IJOFJOGLDHE",
+                "$type": "SelectTargetsByShape",
                 "shapeName": "RectW10L10H30",
                 "campTargetType": "All",
-                "doOffStage": 1.0
+                "sizeRatio": 1
               },
               "predicates": [
                 {
-                  "$type": "NIMAPECDNKD",
+                  "$type": "ByEntityTypes",
                   "entityTypes": [
                     "Avatar"
                   ]
@@ -4660,10 +4557,10 @@
         },
         "UNIQUE_WarmBuff": {
           "modifierName": "",
-          "forceTriggerWhenChangeAuthority": true,
-          "elementDurability": 1.0,
-          "IPFJJJGABPL": 100.0,
-          "thinkInterval": 0.20000000298023224,
+          "isUnique": true,
+          "duration": 1,
+          "elementDurability": 100,
+          "thinkInterval": 0.2,
           "modifierMixins": [
             {
               "$type": "BCFMIGNCJFK",
@@ -4671,43 +4568,42 @@
                 "Cold"
               ],
               "trend": "Rise",
-              "hpRatio": -999.0,
-              "damageRatio": "Current"
+              "ratio": -999,
+              "type": "Current"
             }
           ],
           "onThinkInterval": [
             {
               "$type": "BPCFNMBFJJO",
               "climateType": "Cold",
-              "param3": -5.0
+              "value": -5
             }
           ]
         },
         "ColdActive": {
           "modifierName": "",
           "elementType": "Fire",
-          "IPFJJJGABPL": 15.0,
+          "elementDurability": 15,
           "thinkInterval": 0.5,
           "onAdded": [
             {
-              "$type": "ANLOBBMKNIJ",
-              "rotationDampTime": "Eff_SceneObj_IceFloor_01_Ice",
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_IceFloor_01_Ice",
+              "scale": 1
             }
           ],
           "onThinkInterval": [
             {
-              "$type": "PELJALPANCA",
+              "$type": "ApplyModifier",
               "otherTargets": {
-                "$type": "IJOFJOGLDHE",
+                "$type": "SelectTargetsByShape",
                 "shapeName": "RectW10L10H30",
                 "campTargetType": "All",
-                "doOffStage": 1.0
+                "sizeRatio": 1
               },
               "predicates": [
                 {
-                  "$type": "NIMAPECDNKD",
+                  "$type": "ByEntityTypes",
                   "entityTypes": [
                     "Avatar"
                   ]
@@ -4719,8 +4615,8 @@
         },
         "ColdBuff": {
           "modifierName": "",
-          "elementDurability": 1.0,
-          "IPFJJJGABPL": 100.0,
+          "duration": 1,
+          "elementDurability": 100,
           "modifierMixins": [
             {
               "$type": "BCFMIGNCJFK",
@@ -4728,8 +4624,8 @@
                 "Cold"
               ],
               "trend": "Rise",
-              "hpRatio": 2.0,
-              "damageRatio": "Current"
+              "ratio": 2,
+              "type": "Current"
             }
           ]
         }
@@ -4738,13 +4634,13 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_BulinsBloodOre_Generator",
       "modifiers": {
         "generator": {
           "modifierName": "",
-          "elementDurability": 2.0,
-          "IPFJJJGABPL": 100.0,
+          "duration": 2,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "MFKEIKOOFJP",
@@ -4753,14 +4649,14 @@
           ],
           "onRemoved": [
             {
-              "$type": "NCFFNDHGCMH"
+              "$type": "KillSelf"
             }
           ]
         }
       },
       "onAdded": [
         {
-          "$type": "PELJALPANCA",
+          "$type": "ApplyModifier",
           "modifierName": "generator"
         }
       ]
@@ -4768,7 +4664,7 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Common_Property_Prop_SnowDungeonRemainder",
       "abilityMixins": [
         {
@@ -4780,7 +4676,7 @@
       "modifiers": {
         "Remainder": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "BAKEBEKLLAC",
@@ -4793,25 +4689,24 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "Bullet_CelestiaClusterSmallCore_Bullet_Loop",
       "modifiers": {
         "CelestiaClusterSmallCore_bullet_Loop": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "ANLOBBMKNIJ",
-              "rotationDampTime": "Eff_SceneObj_CelestiaClusterSmall_01_Bullet",
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_SceneObj_CelestiaClusterSmall_01_Bullet",
+              "scale": 1
             }
           ]
         }
       },
       "onAdded": [
         {
-          "$type": "JLDEMMJAMLC",
+          "$type": "AttachModifier",
           "modifierName": "CelestiaClusterSmallCore_bullet_Loop"
         }
       ]
@@ -4819,42 +4714,41 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "Bullet_CelestiaClusterSmallCore_Bullet_Trigger",
       "modifiers": {
         "Fire_Hitted_Effect": {
           "modifierName": "",
-          "elementDurability": 1.0,
-          "IPFJJJGABPL": 100.0,
+          "duration": 1,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "KBFEIHEAMBM",
-              "rotationDampTime": "Eff_SceneObj_CelestiaClusterBig_01_Hit",
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "$type": "FireEffect",
+              "effectPattern": "Eff_SceneObj_CelestiaClusterBig_01_Hit",
+              "scale": 1
             }
           ]
         }
       },
       "onAbilityStart": [
         {
-          "$type": "INBCDALOHMP",
+          "$type": "Predicated",
           "target": "Target",
           "targetPredicates": [
             {
-              "$type": "CNGGLKHONAA",
+              "$type": "ByTargetGlobalValue",
               "key": "Is_BalloonDetination",
-              "param3": 1.0
+              "value": 1
             }
           ],
           "successActions": [
             {
-              "$type": "PELJALPANCA",
+              "$type": "ApplyModifier",
               "target": "Target",
               "modifierName": "Fire_Hitted_Effect"
             },
             {
-              "$type": "NCFFNDHGCMH"
+              "$type": "KillSelf"
             }
           ]
         }
@@ -4863,7 +4757,7 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Ljxs_Property_Ani_Prop_CelestiaClusterSmallCore_01",
       "abilityMixins": [
         {
@@ -4875,30 +4769,25 @@
       "modifiers": {
         "Die": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "MDIAKCCDEAL",
+              "$type": "SetSelfAttackTarget",
               "otherTargets": {
                 "$type": "FHBCCNMKPHK",
                 "value": 2
               }
             },
             {
-              "$type": "CAKDDHLKOAB",
+              "$type": "TriggerBullet",
               "bulletID": 70290048,
               "born": {
-                "$type": "KLPANPDGHHA",
-                "offset": {
-                  "KGEPIMHBMOL": 0.0,
-                  "JEBHCGDPFEJ": 0.0,
-                  "LPCHALMFFOD": 0.0
-                },
+                "$type": "ConfigBornByAttachPoint",
                 "attachPointName": "RootNode"
               }
             },
             {
-              "$type": "ELNHKGAPIBJ",
+              "$type": "DebugLog",
               "content": "1234"
             }
           ]
@@ -4908,70 +4797,70 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Ljxs_Property_Prop_CelestiaCluster_Behit",
       "modifiers": {
         "Behit": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "LCOEFEMOHLP",
-              "param3": 1.0,
+              "$type": "AddGlobalValue",
+              "value": 1,
               "key": "Is_CelestiaClusterSmallCoreDetination",
               "useLimitRange": true,
-              "param2": 1.0,
-              "repeatTimes": 1.0
+              "maxValue": 1,
+              "minValue": 1
             }
           ]
         }
       },
       "onAdded": [
         {
-          "$type": "LCOEFEMOHLP",
-          "param3": 1.0,
+          "$type": "AddGlobalValue",
+          "value": 1,
           "key": "Is_CelestiaClusterSmallCoreDetination",
           "useLimitRange": true,
-          "param2": 1.0,
-          "repeatTimes": 1.0
+          "maxValue": 1,
+          "minValue": 1
         }
       ]
     }
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Environment_GrassMaterial_GrassStacks_SnowMountain",
       "modifiers": {
         "WoodMaterial": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
+          "elementDurability": 100,
           "onBeingHit": [
             {
-              "$type": "INBCDALOHMP",
+              "$type": "Predicated",
               "targetPredicates": [
                 {
-                  "$type": "PNLEEOAGKLD",
+                  "$type": "ByHitElement",
                   "element": "Fire"
                 },
                 {
-                  "$type": "BCFNGJHILAG",
+                  "$type": "ByNot",
                   "predicates": [
                     {
-                      "$type": "GAGDDICMFEH",
+                      "$type": "ByHitDamage",
                       "logic": "Equal",
-                      "damage": 0.0
+                      "damage": 0
                     }
                   ]
                 }
               ],
               "successActions": [
                 {
-                  "$type": "KFCDMIMBBLD",
+                  "$type": "CreateGadget",
                   "born": {
-                    "$type": "IAENDIPDFKD",
+                    "$type": "ConfigBornBySelf",
                     "direction": {
-                      "$type": "FNKDGDKJHPC"
+                      "$type": "ConfigDirectionByWorld"
                     }
                   },
                   "gadgetID": 70310024,
@@ -4979,7 +4868,7 @@
                   "campTargetType": "All"
                 },
                 {
-                  "$type": "PFKNEFGOHIH",
+                  "$type": "RemoveModifier",
                   "modifierName": "WoodMaterial"
                 }
               ]
@@ -4989,7 +4878,7 @@
       },
       "onAdded": [
         {
-          "$type": "PELJALPANCA",
+          "$type": "ApplyModifier",
           "modifierName": "WoodMaterial"
         }
       ]
@@ -4997,7 +4886,7 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_SnowMountain_DorpIceController",
       "abilityMixins": [
         {
@@ -5009,71 +4898,61 @@
       "modifiers": {
         "GearStart": {
           "modifierName": "",
-          "IPFJJJGABPL": 100.0,
-          "thinkInterval": 8.0,
+          "elementDurability": 100,
+          "thinkInterval": 8,
           "onThinkInterval": [
             {
-              "$type": "KBFEIHEAMBM",
-              "rotationDampTime": "Eff_IcePiton_Warning_01",
+              "$type": "FireEffect",
+              "effectPattern": "Eff_IcePiton_Warning_01",
               "born": {
-                "$type": "ICKMMAHFNIM",
+                "$type": "ConfigBornByGlobalValue",
                 "positionKey": "IcePos",
                 "directionKey": ""
               },
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "scale": 1
             },
             {
-              "$type": "KBFEIHEAMBM",
-              "rotationDampTime": "Eff_IcePiton_Pre",
+              "$type": "FireEffect",
+              "effectPattern": "Eff_IcePiton_Pre",
               "born": {
-                "$type": "ICKMMAHFNIM",
+                "$type": "ConfigBornByGlobalValue",
                 "offset": {
-                  "KGEPIMHBMOL": 0.0,
-                  "JEBHCGDPFEJ": 12.0,
-                  "LPCHALMFFOD": 0.0
+                  "y": 12
                 },
                 "direction": {
-                  "$type": "AHGNBAPONLA",
+                  "$type": "ConfigDirectionByEntity",
                   "angleOffset": {
-                    "KGEPIMHBMOL": 90.0,
-                    "JEBHCGDPFEJ": 0.0,
-                    "LPCHALMFFOD": 0.0
+                    "x": 90
                   }
                 },
                 "positionKey": "IcePos",
                 "directionKey": ""
               },
-              "PPPDJGDDOGD": 1.0,
-              "AJDILHJFNKE": -1.0
+              "scale": 1
             },
             {
-              "$type": "PELJALPANCA",
+              "$type": "ApplyModifier",
               "modifierName": "ShootIce"
             }
           ]
         },
         "ShootIce": {
           "modifierName": "",
-          "elementDurability": 0.550000011920929,
-          "IPFJJJGABPL": 100.0,
+          "duration": 0.55,
+          "elementDurability": 100,
           "onRemoved": [
             {
-              "$type": "CAKDDHLKOAB",
+              "$type": "TriggerBullet",
               "bulletID": 70360133,
               "born": {
-                "$type": "ICKMMAHFNIM",
+                "$type": "ConfigBornByGlobalValue",
                 "offset": {
-                  "KGEPIMHBMOL": 0.0,
-                  "JEBHCGDPFEJ": 12.0,
-                  "LPCHALMFFOD": 0.0
+                  "y": 12
                 },
                 "direction": {
-                  "$type": "AHGNBAPONLA",
+                  "$type": "ConfigDirectionByEntity",
                   "angleOffset": {
-                    "KGEPIMHBMOL": 90.0,
-                    "JEBHCGDPFEJ": 0.0,
-                    "LPCHALMFFOD": 0.0
+                    "x": 90
                   }
                 },
                 "positionKey": "IcePos",
@@ -5087,21 +4966,20 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_SnowMountain_DorpIceBullet",
       "onAdded": [
         {
-          "$type": "ANLOBBMKNIJ",
-          "rotationDampTime": "Eff_IcePiton",
-          "PPPDJGDDOGD": 1.0,
-          "AJDILHJFNKE": -1.0
+          "$type": "AttachEffect",
+          "effectPattern": "Eff_IcePiton",
+          "scale": 1
         }
       ],
       "onAbilityStart": [
         {
-          "$type": "KFCDMIMBBLD",
+          "$type": "CreateGadget",
           "born": {
-            "$type": "IAENDIPDFKD"
+            "$type": "ConfigBornBySelf"
           },
           "gadgetID": 70360134,
           "campID": 4001
@@ -5109,54 +4987,53 @@
       ],
       "onKill": [
         {
-          "$type": "KBFEIHEAMBM",
-          "rotationDampTime": "Eff_IcePiton_Ground_Hit",
+          "$type": "FireEffect",
+          "effectPattern": "Eff_IcePiton_Ground_Hit",
           "born": {
-            "$type": "KLPANPDGHHA",
+            "$type": "ConfigBornByAttachPoint",
             "onGround": true,
             "attachPointName": "attachPoint"
           },
-          "PPPDJGDDOGD": 1.0,
-          "AJDILHJFNKE": -1.0
+          "scale": 1
         }
       ]
     }
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_SnowMountain_DorpIceDamage",
       "onAdded": [
         {
           "$type": "BPCFNMBFJJO",
           "otherTargets": {
-            "$type": "IJOFJOGLDHE",
+            "$type": "SelectTargetsByShape",
             "shapeName": "CircleR5",
             "campTargetType": "Enemy",
-            "doOffStage": 1.0
+            "sizeRatio": 1
           },
           "predicates": [
             {
-              "$type": "NIMAPECDNKD",
+              "$type": "ByEntityTypes",
               "entityTypes": [
                 "Avatar"
               ]
             }
           ],
           "climateType": "Cold",
-          "param3": 10.0
+          "value": 10
         },
         {
-          "$type": "CCNPNMMONDO",
+          "$type": "DamageByAttackValue",
           "otherTargets": {
-            "$type": "IJOFJOGLDHE",
+            "$type": "SelectTargetsByShape",
             "shapeName": "CircleR5",
             "campTargetType": "Enemy",
-            "doOffStage": 1.0
+            "sizeRatio": 1
           },
           "predicates": [
             {
-              "$type": "NIMAPECDNKD",
+              "$type": "ByEntityTypes",
               "entityTypes": [
                 "Avatar"
               ]
@@ -5167,24 +5044,24 @@
             "attenuationTag": "",
             "attenuationGroup": "default",
             "attackProperty": {
-              "actorGrassSubHurtDelta": 1.0,
-              "actorWindSubHurtDelta": 0.0,
+              "damagePercentage": 1,
+              "damagePercentageRatio": 0,
               "elementType": "Ice",
-              "IPFJJJGABPL": 20.0,
+              "elementDurability": 20,
               "strikeType": "Blunt",
-              "enBreak": 200.0,
-              "GLKMCMDJBIK": 0.0
+              "enBreak": 200,
+              "__exp_arkhe": 0
             },
             "hitPattern": {
               "onHitEffectName": "default",
-              "hitImpulseY": "",
+              "__unk_Q3893899620": "",
               "hitImpulseType": "LV6",
               "overrideHitImpulse": {
                 "hitLevel": "Air",
-                "IMIJMPGJOGG": 700.0,
-                "BPCDKKBKOBM": 400.0
+                "hitImpulseX": 700,
+                "hitImpulseY": 400
               },
-              "hitHaltTimeScale": 0.05000000074505806
+              "hitHaltTimeScale": 0.05
             }
           }
         }
@@ -5193,13 +5070,13 @@
   },
   {
     "Default": {
-      "$type": "CBPBEHLOHKI",
+      "$type": "ConfigAbility",
       "abilityName": "SnowMountain_Remove_Dulis_Buff",
       "modifiers": {
         "RefreshBuff": {
           "modifierName": "",
-          "elementDurability": 1.0,
-          "IPFJJJGABPL": 100.0,
+          "duration": 1,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "NGODDGAOBJI",
@@ -5218,7 +5095,7 @@
       },
       "onFieldEnter": [
         {
-          "$type": "PELJALPANCA",
+          "$type": "ApplyModifier",
           "target": "TargetTeam",
           "modifierName": "RefreshBuff"
         }

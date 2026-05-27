@@ -3,19 +3,18 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Monster_Cicin_Water_NormalAtk",
-      "DEOJHLMNLFC": [
+      "onAbilityStart": [
         {
           "$type": "TriggerBullet",
-          "PMOEIMCLPBE": 42606004,
-          "CCNCMOGOFAG": {
-            "$type": "DELDMCFKBBL",
+          "bulletID": 42606004,
+          "born": {
+            "$type": "ConfigBornBySelf",
             "offset": {
-              "NEEHMANEJKM": 0.0,
-              "KKKLBADAPPB": 0.20000000298023224,
-              "GENNNOANKOO": 1.2000000476837158
+              "y": 0.2,
+              "z": 1.2
             },
-            "FNHBOFDBNNK": {
-              "$type": "KJNJKKJEMHE",
+            "direction": {
+              "$type": "ConfigDirectionByAttackTarget",
               "FDLFFILMBNE": ""
             }
           }
@@ -27,50 +26,49 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Monster_Cicin_WaterBall_Hit",
-      "DEOJHLMNLFC": [
+      "onAbilityStart": [
         {
           "$type": "RemoveUniqueModifier",
-          "BGIONAIMBCJ": "UNIQUE_Cicin_WaterBall_Loop"
+          "modifierName": "UNIQUE_Cicin_WaterBall_Loop"
         },
         {
           "$type": "FireEffect",
-          "LHHFHDEJOHC": "Eff_Monster_Cicin_Water_WaterBallAS",
-          "PCLAEGHPNHE": -1.0
+          "effectPattern": "Eff_Monster_Cicin_Water_WaterBallAS"
         },
         {
           "$type": "TriggerAttackEvent",
-          "BKFHNENKMAL": true,
-          "FMDHJHAACGM": {
-            "LOPCJCIFFBE": {
-              "$type": "IHKJIHKGECH",
+          "doOffStage": true,
+          "attackEvent": {
+            "attackPattern": {
+              "$type": "ConfigAttackSphere",
               "triggerType": "TriggerNoRepeat",
-              "CCNCMOGOFAG": {
-                "$type": "NCCAHOCNGAN"
+              "born": {
+                "$type": "ConfigBornByCollisionPoint"
               },
-              "GGEJLLOCJDH": 0.5
+              "radius": 0.5
             },
-            "OIAMOBFMPAB": {
-              "KNOKCFHALLI": "",
-              "HOKPLNACNKG": "",
-              "ILLFBEHPCJA": "default",
-              "BAPFFKCLDPC": {
-                "OLLFABADCKH": 1.0,
-                "PDHAKJCMPHB": 0.0,
+            "attackInfo": {
+              "attackTag": "",
+              "attenuationTag": "",
+              "attenuationGroup": "default",
+              "attackProperty": {
+                "damagePercentage": 1,
+                "damagePercentageRatio": 0,
                 "elementType": "Water",
-                "ONIHJPOMNHA": 50.0,
-                "GAOIEGMFFDJ": "Default",
-                "FFIIMACIKEA": 20.0,
-                "AEOLDMAMNLM": 0.0
+                "elementDurability": 50,
+                "strikeType": "Default",
+                "enBreak": 20,
+                "__exp_arkhe": 0
               },
-              "OCHEEDIDOHI": {
-                "AIDMNBLLAIJ": "",
-                "OEGAJNNFFPO": "LV2",
-                "EPGLCHLENNG": 0.05000000074505806
+              "hitPattern": {
+                "onHitEffectName": "",
+                "hitImpulseType": "LV2",
+                "hitHaltTimeScale": 0.05
               },
-              "FAAOHGPLAFO": "OriginOwner"
+              "canBeModifiedBy": "OriginOwner"
             }
           },
-          "PFBJAFHFBDE": "Enemy"
+          "targetType": "Enemy"
         }
       ]
     }
@@ -79,30 +77,29 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Monster_Cicin_WaterBall_Effect",
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "UNIQUE_Cicin_WaterBall_Loop": {
-          "BGIONAIMBCJ": "",
-          "defaultDistanceBetweenAvatarAndCamera": true,
+          "modifierName": "",
+          "isUnique": true,
           "elementType": "Water",
-          "ONIHJPOMNHA": 25.0,
-          "NLFIGALMIPD": [
+          "elementDurability": 25,
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_Monster_Cicin_Water_WaterBall",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_Monster_Cicin_Water_WaterBall"
             }
           ],
-          "NFKOGKMAIIE": [
+          "onRemoved": [
             {
               "$type": "KillSelf"
             }
           ]
         }
       },
-      "NLFIGALMIPD": [
+      "onAdded": [
         {
           "$type": "ApplyModifier",
-          "BGIONAIMBCJ": "UNIQUE_Cicin_WaterBall_Loop"
+          "modifierName": "UNIQUE_Cicin_WaterBall_Loop"
         }
       ]
     }
@@ -111,83 +108,82 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Monster_Cicin_Water_CommonEffect",
-      "KBODACCMEFE": [
+      "abilityMixins": [
         {
           "$type": "AttachToAbilityStateMixin",
           "LGDAFLEHFOH": [
             "ElementFrozen"
           ],
-          "BGIONAIMBCJ": "FrozenDetect"
+          "modifierName": "FrozenDetect"
         }
       ],
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "FrozenDetect": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "TriggerSetRenderersEnable",
-              "NNFGBMNLANP": [
+              "renderNames": [
                 "Wing"
               ]
             },
             {
               "$type": "RemoveModifier",
-              "BGIONAIMBCJ": "CommonEffect"
+              "modifierName": "CommonEffect"
             },
             {
               "$type": "SetPoseBool",
-              "CMLNMLEDGPA": "Frozen",
+              "boolID": "Frozen",
               "value": true
             },
             {
               "$type": "EnablePushColliderName",
-              "MPJLFMGJJEM": [
+              "pushColliderNames": [
                 "PushCollider_Frozen"
               ],
-              "DEHFCFDDEGB": true
+              "setEnable": true
             }
           ],
-          "NFKOGKMAIIE": [
+          "onRemoved": [
             {
               "$type": "TriggerSetRenderersEnable",
-              "NNFGBMNLANP": [
+              "renderNames": [
                 "Wing"
               ],
-              "DEHFCFDDEGB": true
+              "setEnable": true
             },
             {
               "$type": "ApplyModifier",
-              "BGIONAIMBCJ": "CommonEffect"
+              "modifierName": "CommonEffect"
             },
             {
               "$type": "SetPoseBool",
-              "CMLNMLEDGPA": "Frozen"
+              "boolID": "Frozen"
             },
             {
               "$type": "EnablePushColliderName",
-              "MPJLFMGJJEM": [
+              "pushColliderNames": [
                 "PushCollider_Frozen"
               ]
             }
           ]
         },
         "CommonEffect": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_Monster_Cicin_Water_BodyElement",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_Monster_Cicin_Water_BodyElement"
             }
           ]
         }
       },
-      "NLFIGALMIPD": [
+      "onAdded": [
         {
           "$type": "ApplyModifier",
-          "BGIONAIMBCJ": "CommonEffect"
+          "modifierName": "CommonEffect"
         }
       ]
     }

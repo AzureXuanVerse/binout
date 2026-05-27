@@ -1,24 +1,24 @@
 [
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_DirectAttackSandWorm_Sand_01",
-      "LLLCANIGIOE": {
-        "LevelEntity_AvatarDot_SystemValue": 1.0,
+      "abilitySpecials": {
+        "LevelEntity_AvatarDot_SystemValue": 1,
         "Damage_Coefficient_Monster": 1.5,
         "Damage_Coefficient_Player": 1.5,
-        "max_attack_times": 5.0,
-        "Attack_Times": 0.0
+        "max_attack_times": 5,
+        "Attack_Times": 0
       },
-      "BFBDNNJCDLH": {
+      "modifiers": {
         "SandwormAttackController": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "JPIFFPJJEMK": [
+          "elementDurability": 100,
+          "modifierMixins": [
             {
-              "$type": "MoleMole.Config.AttachModifierToGlobalValueMixin",
+              "$type": "AttachModifierToGlobalValueMixin",
               "globalValueKey": "_attack_times",
-              "FJEPHJNDEAI": [
+              "valueSteps": [
                 -0.5,
                 0.5,
                 1.5,
@@ -32,7 +32,7 @@
                 9.5,
                 10.5
               ],
-              "IJEPHCMOAPE": [
+              "modifierNameSteps": [
                 "attack_phase",
                 "attack_wait_phase",
                 "attack_phase",
@@ -47,14 +47,14 @@
               ]
             }
           ],
-          "IODJJGGBAGG": [
+          "onHittingOther": [
             {
-              "$type": "MoleMole.Config.Predicated",
-              "MLDBFKEGPEF": "Other",
-              "CKBKOCJPJMM": [
+              "$type": "Predicated",
+              "target": "Other",
+              "targetPredicates": [
                 {
-                  "$type": "DLLOJMFICPG",
-                  "JBEIOINCLFB": [
+                  "$type": "ByEntityTypes",
+                  "entityTypes": [
                     "Avatar"
                   ]
                 },
@@ -67,35 +67,35 @@
         },
         "attack_phase": {
           "modifierName": "",
-          "duration": 3.0999999046325684,
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "duration": 3.1,
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.Predicated",
-              "CKBKOCJPJMM": [
+              "$type": "Predicated",
+              "targetPredicates": [
                 {
-                  "$type": "IPGGGPIJONN",
+                  "$type": "ByTargetGlobalValue",
                   "key": "SGV_Target_Stragety",
-                  "value": 1.0
+                  "value": 1
                 }
               ],
               "successActions": [
                 {
-                  "$type": "MoleMole.Config.SetSelfAttackTarget",
+                  "$type": "SetSelfAttackTarget",
                   "otherTargets": {
-                    "$type": "DOMPKGOHKNB",
-                    "KHHAHILDJDO": 1,
-                    "GLGMFGMCFNA": [
+                    "$type": "SelectTargetsByShape",
+                    "topLimit": 1,
+                    "entityTypePriority": [
                       "Avatar"
                     ],
                     "shapeName": "CircleR140",
-                    "FAMCBLCIFCJ": "All",
-                    "CONEFMBNECE": 1.0
+                    "campTargetType": "All",
+                    "sizeRatio": 1
                   },
                   "predicates": [
                     {
-                      "$type": "DLLOJMFICPG",
-                      "JBEIOINCLFB": [
+                      "$type": "ByEntityTypes",
+                      "entityTypes": [
                         "Avatar"
                       ]
                     },
@@ -107,28 +107,28 @@
               ],
               "failActions": [
                 {
-                  "$type": "MoleMole.Config.SetSelfAttackTarget"
+                  "$type": "SetSelfAttackTarget"
                 }
               ]
             },
             {
-              "$type": "MoleMole.Config.SetGlobalPos",
-              "MLDBFKEGPEF": "SelfAttackTarget",
+              "$type": "SetGlobalPos",
+              "target": "SelfAttackTarget",
               "key": "_target_pos",
               "born": {
-                "$type": "INKMBJGOPCK",
+                "$type": "ConfigBornByTarget",
                 "onGround": true,
                 "onGroundIgnoreWater": true,
                 "alongGround": true
               },
-              "CIGMKELFHHB": false
+              "setTarget": false
             },
             {
-              "$type": "MoleMole.Config.SetGlobalDir",
-              "MLDBFKEGPEF": "SelfAttackTarget",
+              "$type": "SetGlobalDir",
+              "target": "SelfAttackTarget",
               "key": "_target_dir",
               "born": {
-                "$type": "INKMBJGOPCK",
+                "$type": "ConfigBornByTarget",
                 "onGroundIgnoreWater": true,
                 "direction": {
                   "$type": "GAKKAMGALFF",
@@ -137,97 +137,94 @@
                 },
                 "useRotation": true
               },
-              "CIGMKELFHHB": false
+              "setTarget": false
             },
             {
-              "$type": "MoleMole.Config.Predicated",
-              "CKBKOCJPJMM": [
+              "$type": "Predicated",
+              "targetPredicates": [
                 {
                   "$type": "AMHEBJFNBBJ",
-                  "MLDBFKEGPEF": "Self",
+                  "target": "Self",
                   "logic": "Lesser",
                   "FCDIOOGBBLL": "_target_pos",
-                  "ECJAAKECBCB": 11.0
+                  "ECJAAKECBCB": 11
                 }
               ],
               "successActions": [
                 {
-                  "$type": "MoleMole.Config.FireEffect",
+                  "$type": "FireEffect",
                   "effectPattern": "Eff_Property_Prop_SandwormAttack_PreAttack_Activity",
                   "born": {
-                    "$type": "IPPOJFGKJFD",
-                    "CINDHKBGJMG": "_target_pos",
-                    "DLKPHEEBIKB": "_target_dir"
-                  },
-                  "effectTempleteID": -1.0
+                    "$type": "ConfigBornByGlobalValue",
+                    "positionKey": "_target_pos",
+                    "directionKey": "_target_dir"
+                  }
                 },
                 {
-                  "$type": "MoleMole.Config.ApplyModifier",
+                  "$type": "ApplyModifier",
                   "modifierName": "attack_delayed"
                 }
               ]
             }
           ],
-          "MINFJCDAIBB": [
+          "onRemoved": [
             {
-              "$type": "MoleMole.Config.Predicated",
-              "CKBKOCJPJMM": [
+              "$type": "Predicated",
+              "targetPredicates": [
                 {
                   "$type": "AMHEBJFNBBJ",
-                  "MLDBFKEGPEF": "Self",
+                  "target": "Self",
                   "logic": "Lesser",
                   "FCDIOOGBBLL": "_target_pos",
-                  "ECJAAKECBCB": 11.0
+                  "ECJAAKECBCB": 11
                 }
               ],
               "successActions": [
                 {
                   "$type": "MoleMole.Config.SetSystemValueToOverrideMap",
                   "key": "LevelEntity_AvatarDot_SystemValue",
-                  "KPGKDHAFHFE": "ElementLevelCo"
+                  "type": "ElementLevelCo"
                 },
                 {
-                  "$type": "MoleMole.Config.TriggerAttackEvent",
+                  "$type": "TriggerAttackEvent",
                   "attackEvent": {
                     "attackPattern": {
-                      "$type": "LGEKKELKDAN",
+                      "$type": "ConfigAttackCircle",
                       "triggerType": "TriggerNoRepeat",
                       "ignoreMassive": true,
                       "born": {
-                        "$type": "IPPOJFGKJFD",
+                        "$type": "ConfigBornByGlobalValue",
                         "offset": {
-                          "GOAPOLCAJBP": 0.0,
-                          "FMOPCJGGFMH": -5.0,
-                          "EJJEPFCDDAM": 0.0
+                          "y": -5
                         },
-                        "CINDHKBGJMG": "_target_pos",
-                        "DLKPHEEBIKB": "_target_dir"
+                        "positionKey": "_target_pos",
+                        "directionKey": "_target_dir"
                       },
-                      "height": 9.0,
-                      "MFGGJCPPBGA": 3.0
+                      "height": 9,
+                      "radius": 3
                     },
                     "attackInfo": {
                       "attackTag": "SandwormAttack",
                       "attenuationTag": "",
                       "attenuationGroup": "default",
                       "attackProperty": {
-                        "JMLMDDCBIAO": 0.0,
-                        "damagePercentageRatio": 0.0,
-                        "elementDurability": 0.0,
+                        "damagePercentage": 0,
+                        "damagePercentageRatio": 0,
+                        "elementDurability": 0,
                         "ignoreAttackerProperty": true,
                         "strikeType": "Blunt",
-                        "enBreak": 350.0,
+                        "enBreak": 350,
                         "damageExtra": [
                           "LevelEntity_AvatarDot_SystemValue",
                           "Damage_Coefficient_Monster",
                           "MUL"
                         ],
                         "trueDamage": true,
-                        "damagePercentage": 0.0
+                        "__exp_arkhe": 0
                       },
                       "hitPattern": {
                         "onHitEffectName": "",
-                        "hitImpulseY": "",
+                        "__unk_Q3893899620": "",
                         "hitImpulseType": "LV6"
                       }
                     }
@@ -235,47 +232,45 @@
                   "targetType": "Enemy"
                 },
                 {
-                  "$type": "MoleMole.Config.TriggerAttackEvent",
+                  "$type": "TriggerAttackEvent",
                   "attackEvent": {
                     "attackPattern": {
-                      "$type": "LGEKKELKDAN",
+                      "$type": "ConfigAttackCircle",
                       "triggerType": "TriggerNoRepeat",
                       "ignoreMassive": true,
                       "born": {
-                        "$type": "IPPOJFGKJFD",
+                        "$type": "ConfigBornByGlobalValue",
                         "offset": {
-                          "GOAPOLCAJBP": 0.0,
-                          "FMOPCJGGFMH": -5.0,
-                          "EJJEPFCDDAM": 0.0
+                          "y": -5
                         },
-                        "CINDHKBGJMG": "_target_pos",
-                        "DLKPHEEBIKB": "_target_dir"
+                        "positionKey": "_target_pos",
+                        "directionKey": "_target_dir"
                       },
-                      "height": 9.0,
-                      "MFGGJCPPBGA": 3.0
+                      "height": 9,
+                      "radius": 3
                     },
                     "attackInfo": {
                       "attackTag": "SandwormAttack",
                       "attenuationTag": "",
                       "attenuationGroup": "default",
                       "attackProperty": {
-                        "JMLMDDCBIAO": 0.0,
-                        "damagePercentageRatio": 0.0,
-                        "elementDurability": 0.0,
+                        "damagePercentage": 0,
+                        "damagePercentageRatio": 0,
+                        "elementDurability": 0,
                         "ignoreAttackerProperty": true,
                         "strikeType": "Blunt",
-                        "enBreak": 350.0,
+                        "enBreak": 350,
                         "damageExtra": [
                           "LevelEntity_AvatarDot_SystemValue",
                           "Damage_Coefficient_Monster",
                           "MUL"
                         ],
                         "trueDamage": true,
-                        "damagePercentage": 0.0
+                        "__exp_arkhe": 0
                       },
                       "hitPattern": {
                         "onHitEffectName": "",
-                        "hitImpulseY": "",
+                        "__unk_Q3893899620": "",
                         "hitImpulseType": "LV6"
                       }
                     }
@@ -285,78 +280,77 @@
               ]
             },
             {
-              "$type": "MoleMole.Config.AddGlobalValue",
-              "value": 1.0,
+              "$type": "AddGlobalValue",
+              "value": 1,
               "key": "_attack_times",
-              "maxValue": 0.0,
-              "GCEOGBJIFCP": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         "attack_wait_phase": {
           "modifierName": "",
-          "duration": 3.0,
-          "elementDurability": 100.0,
-          "MINFJCDAIBB": [
+          "duration": 3,
+          "elementDurability": 100,
+          "onRemoved": [
             {
-              "$type": "MoleMole.Config.AddGlobalValue",
-              "value": 1.0,
+              "$type": "AddGlobalValue",
+              "value": 1,
               "key": "_attack_times",
-              "maxValue": 0.0,
-              "GCEOGBJIFCP": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         "attack_end": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.KillSelf"
+              "$type": "KillSelf"
             }
           ]
         },
         "attack_delayed": {
           "modifierName": "",
-          "duration": 2.0,
-          "elementDurability": 100.0,
-          "MINFJCDAIBB": [
+          "duration": 2,
+          "elementDurability": 100,
+          "onRemoved": [
             {
-              "$type": "MoleMole.Config.FireEffect",
+              "$type": "FireEffect",
               "effectPattern": "Eff_Property_Prop_SandwormAttack_Attack",
               "born": {
-                "$type": "IPPOJFGKJFD",
-                "CINDHKBGJMG": "_target_pos",
-                "DLKPHEEBIKB": "_target_dir"
-              },
-              "effectTempleteID": -1.0
+                "$type": "ConfigBornByGlobalValue",
+                "positionKey": "_target_pos",
+                "directionKey": "_target_dir"
+              }
             }
           ]
         }
       },
-      "OAOGLLGGJPD": [
+      "onAdded": [
         {
-          "$type": "MoleMole.Config.SetGlobalValueToOverrideMap",
+          "$type": "SetGlobalValueToOverrideMap",
           "globalValueKey": "SGV_Attack_Times",
-          "FDKJEIGEABF": "Attack_Times"
+          "overrideMapKey": "Attack_Times"
         },
         {
-          "$type": "MoleMole.Config.SetGlobalValue",
+          "$type": "SetGlobalValue",
           "value": [
             "max_attack_times",
-            2.0,
+            2,
             "MUL",
             "Attack_Times",
-            2.0,
+            2,
             "MUL",
             "SUB"
           ],
           "key": "_attack_times",
-          "maxValue": 0.0,
-          "GCEOGBJIFCP": 0.0
+          "maxValue": 0,
+          "minValue": 0
         },
         {
-          "$type": "MoleMole.Config.AttachModifier",
+          "$type": "AttachModifier",
           "modifierName": "SandwormAttackController"
         }
       ]
@@ -364,9 +358,9 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_ChargingStation_Sand_01",
-      "PIDAPNFJNDF": [
+      "abilityMixins": [
         {
           "$type": "MoleMole.Config.AttachToGadgetStateMixin",
           "modifierName": "None"
@@ -382,11 +376,11 @@
           "modifierName": "Ready"
         }
       ],
-      "BFBDNNJCDLH": {
+      "modifiers": {
         "None": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "MoleMole.Config.EnableSceneTransformByName",
               "MKNNBEGONKE": [
@@ -398,58 +392,55 @@
               "MKNNBEGONKE": [
                 "Vo2"
               ],
-              "NJKBCLADIBK": true
+              "setEnable": true
             },
             {
-              "$type": "MoleMole.Config.AttachEffect",
+              "$type": "AttachEffect",
               "effectPattern": "Eff_Item_SpecialTreasureBox_LockIdle",
               "born": {
-                "$type": "JEDNAGFKIDP",
+                "$type": "ConfigBornByAttachPoint",
                 "useRotation": true,
-                "OBNIJLKICKN": "AttachPoint"
-              },
-              "effectTempleteID": -1.0
+                "attachPointName": "AttachPoint"
+              }
             }
           ],
-          "MINFJCDAIBB": [
+          "onRemoved": [
             {
-              "$type": "MoleMole.Config.FireEffect",
+              "$type": "FireEffect",
               "effectPattern": "Eff_Item_SpecialTreasureBox_Unlock",
               "born": {
-                "$type": "JEDNAGFKIDP",
+                "$type": "ConfigBornByAttachPoint",
                 "useRotation": true,
-                "OBNIJLKICKN": "AttachPoint"
-              },
-              "effectTempleteID": -1.0
+                "attachPointName": "AttachPoint"
+              }
             }
           ]
         },
         "Build": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "MINFJCDAIBB": [
+          "elementDurability": 100,
+          "onRemoved": [
             {
-              "$type": "MoleMole.Config.FireEffect",
+              "$type": "FireEffect",
               "effectPattern": "Eff_SceneObj_ChargingStation_01_Building",
               "born": {
-                "$type": "JEDNAGFKIDP",
+                "$type": "ConfigBornByAttachPoint",
                 "useRotation": true,
-                "OBNIJLKICKN": "RootNode"
-              },
-              "effectTempleteID": -1.0
+                "attachPointName": "RootNode"
+              }
             }
           ]
         },
         "Ready": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "MoleMole.Config.EnableSceneTransformByName",
               "MKNNBEGONKE": [
                 "Vo1"
               ],
-              "NJKBCLADIBK": true
+              "setEnable": true
             },
             {
               "$type": "MoleMole.Config.EnableSceneTransformByName",
@@ -464,9 +455,9 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_ChargingStation_Sand_02",
-      "PIDAPNFJNDF": [
+      "abilityMixins": [
         {
           "$type": "MoleMole.Config.AttachToGadgetStateMixin",
           "modifierName": "Charging"
@@ -482,67 +473,64 @@
           "modifierName": "Destory"
         }
       ],
-      "BFBDNNJCDLH": {
+      "modifiers": {
         "Charging": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.SetAnimatorInt",
+              "$type": "SetAnimatorInt",
               "intID": "State",
-              "value": 201.0
+              "value": 201
             },
             {
-              "$type": "MoleMole.Config.AttachEffect",
+              "$type": "AttachEffect",
               "effectPattern": "Eff_SceneObj_ChargingStation_01_Charge",
               "born": {
-                "$type": "JEDNAGFKIDP",
+                "$type": "ConfigBornByAttachPoint",
                 "useRotation": true,
-                "OBNIJLKICKN": "AttachPoint"
-              },
-              "effectTempleteID": -1.0
+                "attachPointName": "AttachPoint"
+              }
             }
           ]
         },
         "Ready": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.SetAnimatorInt",
+              "$type": "SetAnimatorInt",
               "intID": "State",
-              "value": 202.0
+              "value": 202
             },
             {
-              "$type": "MoleMole.Config.AttachEffect",
+              "$type": "AttachEffect",
               "effectPattern": "Eff_SceneObj_ChargingStation_01_Finish",
               "born": {
-                "$type": "JEDNAGFKIDP",
+                "$type": "ConfigBornByAttachPoint",
                 "useRotation": true,
-                "OBNIJLKICKN": "AttachPoint"
-              },
-              "effectTempleteID": -1.0
+                "attachPointName": "AttachPoint"
+              }
             }
           ]
         },
         "Destory": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.SetAnimatorInt",
+              "$type": "SetAnimatorInt",
               "intID": "State",
-              "value": 901.0
+              "value": 901
             },
             {
-              "$type": "MoleMole.Config.AttachEffect",
+              "$type": "AttachEffect",
               "effectPattern": "Eff_SceneObj_ChargingStation_01_Die",
               "born": {
-                "$type": "JEDNAGFKIDP",
+                "$type": "ConfigBornByAttachPoint",
                 "useRotation": true,
-                "OBNIJLKICKN": "AttachPoint"
-              },
-              "effectTempleteID": -1.0
+                "attachPointName": "AttachPoint"
+              }
             }
           ]
         }
@@ -551,9 +539,9 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_ChargingStationHpBar_01",
-      "PIDAPNFJNDF": [
+      "abilityMixins": [
         {
           "$type": "MoleMole.Config.AttachToGadgetStateMixin",
           "modifierName": "Base"
@@ -564,66 +552,66 @@
           "modifierName": "Invincible"
         }
       ],
-      "BFBDNNJCDLH": {
+      "modifiers": {
         "SneerMonster": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "BNJENAIMDPL": 2.0,
-          "PJKELBNICOI": [
+          "elementDurability": 100,
+          "thinkInterval": 2,
+          "onThinkInterval": [
             {
-              "$type": "MoleMole.Config.TriggerTaunt",
+              "$type": "TriggerTaunt",
               "otherTargets": {
-                "$type": "DOMPKGOHKNB",
+                "$type": "SelectTargetsByShape",
                 "shapeName": "CircleR25",
-                "FAMCBLCIFCJ": "Enemy",
-                "CONEFMBNECE": 1.0
+                "campTargetType": "Enemy",
+                "sizeRatio": 1
               },
               "predicates": [
                 {
-                  "$type": "DLLOJMFICPG",
-                  "JBEIOINCLFB": [
+                  "$type": "ByEntityTypes",
+                  "entityTypes": [
                     "Monster"
                   ]
                 }
               ],
-              "PIPNFFLFJDD": 30.0
+              "PIPNFFLFJDD": 30
             }
           ]
         },
         "Base": {
           "modifierName": "",
-          "elementDurability": 100.0
+          "elementDurability": 100
         },
         "Invincible": {
           "modifierName": "",
-          "elementDurability": 100.0,
+          "elementDurability": 100,
           "state": "LockHP"
         }
       },
-      "OAOGLLGGJPD": [
+      "onAdded": [
         {
-          "$type": "MoleMole.Config.ApplyModifier",
+          "$type": "ApplyModifier",
           "modifierName": "SneerMonster"
         },
         {
-          "$type": "MoleMole.Config.AttachAbilityStateResistance",
-          "OHNGCCEOFAM": 11002
+          "$type": "AttachAbilityStateResistance",
+          "resistanceListID": 11002
         },
         {
-          "$type": "MoleMole.Config.SetGlobalValue",
-          "value": 1.0,
+          "$type": "SetGlobalValue",
+          "value": 1,
           "key": "_SCENEOBJ_PROTECTTARGET",
-          "maxValue": 0.0,
-          "GCEOGBJIFCP": 0.0
+          "maxValue": 0,
+          "minValue": 0
         }
       ]
     }
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_WormCannon_Sand_01",
-      "PIDAPNFJNDF": [
+      "abilityMixins": [
         {
           "$type": "MoleMole.Config.AttachToGadgetStateMixin",
           "modifierName": "None"
@@ -639,20 +627,19 @@
           "modifierName": "Ready"
         }
       ],
-      "BFBDNNJCDLH": {
+      "modifiers": {
         "None": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.AttachEffect",
+              "$type": "AttachEffect",
               "effectPattern": "Eff_Item_SpecialTreasureBox_LockIdle",
               "born": {
-                "$type": "JEDNAGFKIDP",
+                "$type": "ConfigBornByAttachPoint",
                 "useRotation": true,
-                "OBNIJLKICKN": "AttachPoint"
-              },
-              "effectTempleteID": -1.0
+                "attachPointName": "AttachPoint"
+              }
             },
             {
               "$type": "MoleMole.Config.EnableSceneTransformByName",
@@ -665,48 +652,46 @@
               "MKNNBEGONKE": [
                 "Vo2"
               ],
-              "NJKBCLADIBK": true
+              "setEnable": true
             }
           ],
-          "MINFJCDAIBB": [
+          "onRemoved": [
             {
-              "$type": "MoleMole.Config.FireEffect",
+              "$type": "FireEffect",
               "effectPattern": "Eff_Item_SpecialTreasureBox_Unlock",
               "born": {
-                "$type": "JEDNAGFKIDP",
+                "$type": "ConfigBornByAttachPoint",
                 "useRotation": true,
-                "OBNIJLKICKN": "AttachPoint"
-              },
-              "effectTempleteID": -1.0
+                "attachPointName": "AttachPoint"
+              }
             }
           ]
         },
         "Build": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "MINFJCDAIBB": [
+          "elementDurability": 100,
+          "onRemoved": [
             {
-              "$type": "MoleMole.Config.FireEffect",
+              "$type": "FireEffect",
               "effectPattern": "Eff_SceneObj_WormCannon_01_Building",
               "born": {
-                "$type": "JEDNAGFKIDP",
+                "$type": "ConfigBornByAttachPoint",
                 "useRotation": true,
-                "OBNIJLKICKN": "RootNode"
-              },
-              "effectTempleteID": -1.0
+                "attachPointName": "RootNode"
+              }
             }
           ]
         },
         "Ready": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "MoleMole.Config.EnableSceneTransformByName",
               "MKNNBEGONKE": [
                 "Vo1"
               ],
-              "NJKBCLADIBK": true
+              "setEnable": true
             },
             {
               "$type": "MoleMole.Config.EnableSceneTransformByName",
@@ -721,9 +706,9 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_WormCannon_Sand_02",
-      "PIDAPNFJNDF": [
+      "abilityMixins": [
         {
           "$type": "MoleMole.Config.AttachToGadgetStateMixin",
           "modifierName": "Cannon_Charging"
@@ -744,11 +729,11 @@
           "modifierName": "Cannon_Fire"
         }
       ],
-      "BFBDNNJCDLH": {
+      "modifiers": {
         "Cannon_Charging": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "MoleMole.Config.SetMaterialParamFloatByTransform",
               "canBeHandledOnRecover": true,
@@ -764,75 +749,72 @@
               "value": 1.5
             },
             {
-              "$type": "MoleMole.Config.AttachEffect",
+              "$type": "AttachEffect",
               "effectPattern": "Eff_SceneObj_WormCannon_01_Charge",
               "born": {
-                "$type": "JEDNAGFKIDP",
+                "$type": "ConfigBornByAttachPoint",
                 "useRotation": true,
-                "OBNIJLKICKN": "AttachPoint"
-              },
-              "effectTempleteID": -1.0
+                "attachPointName": "AttachPoint"
+              }
             }
           ]
         },
         "Cannon_Ready": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "MoleMole.Config.SetMaterialParamFloatByTransform",
               "canBeHandledOnRecover": true,
               "BOMCOINOGJJ": "Mat1",
               "NBBNACBLOCB": "_EmissionStrength",
-              "value": 5.0
+              "value": 5
             },
             {
               "$type": "MoleMole.Config.SetMaterialParamFloatByTransform",
               "canBeHandledOnRecover": true,
               "BOMCOINOGJJ": "Mat2",
               "NBBNACBLOCB": "_EmissionStrength",
-              "value": 5.0
+              "value": 5
             },
             {
-              "$type": "MoleMole.Config.AttachEffect",
+              "$type": "AttachEffect",
               "effectPattern": "Eff_SceneObj_WormCannon_Finished",
               "born": {
-                "$type": "JEDNAGFKIDP",
+                "$type": "ConfigBornByAttachPoint",
                 "useRotation": true,
-                "OBNIJLKICKN": "AttachPoint"
-              },
-              "effectTempleteID": -1.0
+                "attachPointName": "AttachPoint"
+              }
             }
           ]
         },
         "Cannon_Accumulation": {
           "modifierName": "",
           "duration": 2.5,
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.AttachEffect",
+              "$type": "AttachEffect",
               "effectPattern": "Eff_SceneObj_WormCannon_Cast",
               "born": {
-                "$type": "JEDNAGFKIDP",
+                "$type": "ConfigBornByAttachPoint",
                 "useRotation": true,
-                "OBNIJLKICKN": "PaokouEffPoint"
-              },
-              "effectTempleteID": -1.0
+                "attachPointName": "PaokouEffPoint"
+              }
             },
             {
-              "$type": "MoleMole.Config.SetGlobalValue",
+              "$type": "SetGlobalValue",
               "otherTargets": {
                 "$type": "AGCDFMGOFPH",
                 "tag": "IS_DieSandworm"
               },
-              "value": 1.0,
+              "value": 1,
               "key": "DieSandworm_IsInCutscene",
-              "maxValue": 0.0,
-              "GCEOGBJIFCP": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ],
-          "MINFJCDAIBB": [
+          "onRemoved": [
             {
               "$type": "MoleMole.Config.ChangeGadgetState",
               "HOJGPJHDKFJ": 203
@@ -841,29 +823,28 @@
         },
         "Cannon_Fire": {
           "modifierName": "",
-          "duration": 2.0,
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "duration": 2,
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.AttachEffect",
+              "$type": "AttachEffect",
               "otherTargets": {
                 "$type": "AGCDFMGOFPH",
                 "tag": "IS_DieSandworm_PartcontrolTarget"
               },
               "effectPattern": "Eff_SceneObj_WormCannon_Laser",
-              "effectTempleteID": -1.0,
               "setSelfAsEffectPluginTarget": true
             },
             {
-              "$type": "MoleMole.Config.AttachModifier",
+              "$type": "AttachModifier",
               "modifierName": "SandWrom_Hit"
             },
             {
-              "$type": "MoleMole.Config.AttachModifier",
+              "$type": "AttachModifier",
               "modifierName": "PaokouFire"
             },
             {
-              "$type": "MoleMole.Config.ApplyModifier",
+              "$type": "ApplyModifier",
               "otherTargets": {
                 "$type": "AGCDFMGOFPH",
                 "tag": "IS_DieSandworm"
@@ -871,84 +852,82 @@
               "modifierName": "Lose_HP"
             }
           ],
-          "MINFJCDAIBB": [
+          "onRemoved": [
             {
-              "$type": "MoleMole.Config.AttachModifier",
+              "$type": "AttachModifier",
               "modifierName": "Notify_SandWorm"
             }
           ]
         },
         "SandWrom_Hit": {
           "modifierName": "",
-          "duration": 2.0,
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "duration": 2,
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.AttachEffect",
+              "$type": "AttachEffect",
               "otherTargets": {
                 "$type": "AGCDFMGOFPH",
                 "tag": "IS_DieSandworm_PartcontrolTarget"
               },
-              "effectPattern": "Eff_SceneObj_WormCannon_Hit",
-              "effectTempleteID": -1.0
+              "effectPattern": "Eff_SceneObj_WormCannon_Hit"
             }
           ]
         },
         "PaokouFire": {
           "modifierName": "",
           "duration": 1.5,
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.AttachEffect",
+              "$type": "AttachEffect",
               "effectPattern": "Eff_SceneObj_WormCannon_Fire",
               "born": {
-                "$type": "JEDNAGFKIDP",
+                "$type": "ConfigBornByAttachPoint",
                 "useRotation": true,
-                "OBNIJLKICKN": "PaokouEffPoint"
-              },
-              "effectTempleteID": -1.0
+                "attachPointName": "PaokouEffPoint"
+              }
             }
           ]
         },
         "Notify_SandWorm": {
           "modifierName": "",
-          "duration": 2.0,
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "duration": 2,
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.Predicated",
+              "$type": "Predicated",
               "otherTargets": {
                 "$type": "AGCDFMGOFPH",
                 "tag": "IS_DieSandworm"
               },
               "successActions": [
                 {
-                  "$type": "MoleMole.Config.SetGlobalValue",
-                  "MLDBFKEGPEF": "Other",
-                  "value": 1.0,
+                  "$type": "SetGlobalValue",
+                  "target": "Other",
+                  "value": 1,
                   "key": "DIESANDWORM_PLAYDIE",
-                  "maxValue": 0.0,
-                  "GCEOGBJIFCP": 0.0
+                  "maxValue": 0,
+                  "minValue": 0
                 }
               ]
             }
           ],
-          "MINFJCDAIBB": [
+          "onRemoved": [
             {
-              "$type": "MoleMole.Config.Predicated",
+              "$type": "Predicated",
               "otherTargets": {
                 "$type": "AGCDFMGOFPH",
                 "tag": "IS_DieSandworm"
               },
               "successActions": [
                 {
-                  "$type": "MoleMole.Config.SetGlobalValue",
-                  "MLDBFKEGPEF": "Other",
-                  "value": 1.0,
+                  "$type": "SetGlobalValue",
+                  "target": "Other",
+                  "value": 1,
                   "key": "DIESANDWORM_PLAYDIE",
-                  "maxValue": 0.0,
-                  "GCEOGBJIFCP": 0.0
+                  "maxValue": 0,
+                  "minValue": 0
                 }
               ]
             }
@@ -956,26 +935,26 @@
         },
         "Lose_HP": {
           "modifierName": "",
-          "duration": 2.299999952316284,
-          "elementDurability": 100.0,
-          "BNJENAIMDPL": 0.30000001192092896,
-          "PJKELBNICOI": [
+          "duration": 2.3,
+          "elementDurability": 100,
+          "thinkInterval": 0.3,
+          "onThinkInterval": [
             {
-              "$type": "MoleMole.Config.LoseHP",
-              "LHENKJCLGMH": 0.20000000298023224,
+              "$type": "LoseHP",
+              "amountByTargetMaxHPRatio": 0.2,
               "CNHEAJCMHPI": ""
             }
           ],
-          "AKONFAAGBJC": true
+          "onThinkIntervalIsFixedUpdate": true
         }
       }
     }
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_WormBattleBuff_01",
-      "PIDAPNFJNDF": [
+      "abilityMixins": [
         {
           "$type": "MoleMole.Config.AttachToGadgetStateMixin",
           "modifierName": "Buff_Ball_Stay"
@@ -986,75 +965,73 @@
           "modifierName": "Buff_Ball_Disappear"
         }
       ],
-      "BFBDNNJCDLH": {
+      "modifiers": {
         "Buff_Ball_Stay": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.AttachEffect",
+              "$type": "AttachEffect",
               "effectPattern": "Eff_Tower_Ball_AttackUp_01",
               "born": {
-                "$type": "JEDNAGFKIDP",
+                "$type": "ConfigBornByAttachPoint",
                 "useRotation": true,
-                "OBNIJLKICKN": "AttachPoint"
-              },
-              "effectTempleteID": -1.0
+                "attachPointName": "AttachPoint"
+              }
             }
           ]
         },
         "Buff_Ball_Disappear": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.FireEffect",
+              "$type": "FireEffect",
               "effectPattern": "Eff_Tower_Ball_Active_01",
               "born": {
-                "$type": "JEDNAGFKIDP",
+                "$type": "ConfigBornByAttachPoint",
                 "useRotation": true,
-                "OBNIJLKICKN": "AttachPoint"
-              },
-              "effectTempleteID": -1.0
+                "attachPointName": "AttachPoint"
+              }
             },
             {
-              "$type": "MoleMole.Config.ApplyModifier",
-              "MLDBFKEGPEF": "Team",
+              "$type": "ApplyModifier",
+              "target": "Team",
               "modifierName": "UNIQUE_SuperSandWorm_BuffBall_Controller"
             }
           ]
         },
         "UNIQUE_SuperSandWorm_BuffBall_Controller": {
-          "EODJPKICNGG": "RefreshUniqueDurability",
+          "stacking": "RefreshUniqueDurability",
           "modifierName": "",
-          "LLIJGLMEHFK": true,
-          "duration": 5.0,
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "isUnique": true,
+          "duration": 5,
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.SetGlobalValue",
-              "MLDBFKEGPEF": "Team",
-              "value": 1.0,
+              "$type": "SetGlobalValue",
+              "target": "Team",
+              "value": 1,
               "key": "_HAS_FallingAttack",
-              "HPICGAMGEGA": true,
-              "maxValue": 2.0,
-              "GCEOGBJIFCP": 0.0
+              "useLimitRange": true,
+              "maxValue": 2,
+              "minValue": 0
             }
           ],
-          "MINFJCDAIBB": [
+          "onRemoved": [
             {
-              "$type": "MoleMole.Config.SetGlobalValue",
-              "MLDBFKEGPEF": "Team",
-              "value": 0.0,
+              "$type": "SetGlobalValue",
+              "target": "Team",
+              "value": 0,
               "key": "_HAS_FallingAttack",
-              "HPICGAMGEGA": true,
-              "maxValue": 2.0,
-              "GCEOGBJIFCP": 0.0
+              "useLimitRange": true,
+              "maxValue": 2,
+              "minValue": 0
             }
           ]
         }
       },
-      "GGGLNDFDIMI": [
+      "onFieldEnter": [
         {
           "$type": "MoleMole.Config.ChangeGadgetState",
           "HOJGPJHDKFJ": 201
@@ -1064,9 +1041,9 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_ChargingBuff_01",
-      "PIDAPNFJNDF": [
+      "abilityMixins": [
         {
           "$type": "MoleMole.Config.AttachToGadgetStateMixin",
           "modifierName": "Buff_Ball_Stay"
@@ -1077,32 +1054,32 @@
           "modifierName": "Buff_Ball_Disappear"
         }
       ],
-      "BFBDNNJCDLH": {
+      "modifiers": {
         "Buff_Ball_Stay": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "MINFJCDAIBB": [
+          "elementDurability": 100,
+          "onRemoved": [
             {
               "$type": "MoleMole.Config.ServerLuaTriggerEvent",
               "MECCMJIFJKG": "FromGroup",
               "FBPFAJFIFCG": "ChargingBall_Charging",
-              "param1": 0.0,
-              "param2": 0.0,
-              "GBOGNIOMAGM": 0.0
+              "param1": 0,
+              "param2": 0,
+              "GBOGNIOMAGM": 0
             }
           ]
         },
         "Buff_Ball_Disappear": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.KillSelf"
+              "$type": "KillSelf"
             }
           ]
         }
       },
-      "GGGLNDFDIMI": [
+      "onFieldEnter": [
         {
           "$type": "MoleMole.Config.ChangeGadgetState",
           "HOJGPJHDKFJ": 201
@@ -1112,9 +1089,9 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_ChargingBuff_03",
-      "PIDAPNFJNDF": [
+      "abilityMixins": [
         {
           "$type": "MoleMole.Config.AttachToGadgetStateMixin",
           "modifierName": "Buff_Ball_Stay"
@@ -1125,133 +1102,126 @@
           "modifierName": "Buff_Ball_Disappear"
         }
       ],
-      "BFBDNNJCDLH": {
+      "modifiers": {
         "Buff_Ball_Stay": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.FireEffect",
+              "$type": "FireEffect",
               "effectPattern": "Eff_SceneObj_ChargingBuff_02_Create",
               "born": {
-                "$type": "JEDNAGFKIDP",
+                "$type": "ConfigBornByAttachPoint",
                 "useRotation": true,
-                "OBNIJLKICKN": "AttachPoint"
-              },
-              "effectTempleteID": -1.0
+                "attachPointName": "AttachPoint"
+              }
             },
             {
-              "$type": "MoleMole.Config.AttachEffect",
+              "$type": "AttachEffect",
               "effectPattern": "Eff_SceneObj_ChargingBuff_02_Self",
               "born": {
-                "$type": "JEDNAGFKIDP",
+                "$type": "ConfigBornByAttachPoint",
                 "useRotation": true,
-                "OBNIJLKICKN": "AttachPoint"
-              },
-              "effectTempleteID": -1.0
+                "attachPointName": "AttachPoint"
+              }
             }
           ],
-          "MINFJCDAIBB": [
+          "onRemoved": [
             {
               "$type": "MoleMole.Config.ServerLuaTriggerEvent",
               "MECCMJIFJKG": "FromGroup",
               "FBPFAJFIFCG": "ChargingBall_Charging_Big",
-              "param1": 0.0,
-              "param2": 0.0,
-              "GBOGNIOMAGM": 0.0
+              "param1": 0,
+              "param2": 0,
+              "GBOGNIOMAGM": 0
             },
             {
-              "$type": "MoleMole.Config.FireEffect",
+              "$type": "FireEffect",
               "effectPattern": "Eff_SceneObj_ChargingBuff_02_Die",
               "born": {
-                "$type": "JEDNAGFKIDP",
+                "$type": "ConfigBornByAttachPoint",
                 "useRotation": true,
-                "OBNIJLKICKN": "AttachPoint"
-              },
-              "effectTempleteID": -1.0
+                "attachPointName": "AttachPoint"
+              }
             }
           ]
         },
         "Buff_Ball_Disappear": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.KillSelf"
+              "$type": "KillSelf"
             }
           ]
         }
       },
-      "GGGLNDFDIMI": [
+      "onFieldEnter": [
         {
           "$type": "MoleMole.Config.ChangeGadgetState",
           "HOJGPJHDKFJ": 201
         },
         {
-          "$type": "MoleMole.Config.ReviveStamina",
-          "MLDBFKEGPEF": "CurLocalAvatar",
+          "$type": "ReviveStamina",
+          "target": "CurLocalAvatar",
           "doOffStage": true,
-          "value": 1000.0
+          "value": 1000
         }
       ]
     }
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_WormSandPile_Sand_01",
-      "BFBDNNJCDLH": {
+      "modifiers": {
         "SandwormStoneHit": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.AttachEffect",
+              "$type": "AttachEffect",
               "effectPattern": "Eff_Item_Hint",
               "born": {
-                "$type": "JEDNAGFKIDP",
+                "$type": "ConfigBornByAttachPoint",
                 "useRotation": true,
-                "OBNIJLKICKN": "Point1"
-              },
-              "effectTempleteID": -1.0
+                "attachPointName": "Point1"
+              }
             },
             {
-              "$type": "MoleMole.Config.AttachEffect",
+              "$type": "AttachEffect",
               "effectPattern": "Eff_Item_Hint",
               "born": {
-                "$type": "JEDNAGFKIDP",
+                "$type": "ConfigBornByAttachPoint",
                 "useRotation": true,
-                "OBNIJLKICKN": "Point2"
-              },
-              "effectTempleteID": -1.0
+                "attachPointName": "Point2"
+              }
             },
             {
-              "$type": "MoleMole.Config.AttachEffect",
+              "$type": "AttachEffect",
               "effectPattern": "Eff_Item_Hint",
               "born": {
-                "$type": "JEDNAGFKIDP",
+                "$type": "ConfigBornByAttachPoint",
                 "useRotation": true,
-                "OBNIJLKICKN": "Point3"
-              },
-              "effectTempleteID": -1.0
+                "attachPointName": "Point3"
+              }
             },
             {
-              "$type": "MoleMole.Config.AttachEffect",
+              "$type": "AttachEffect",
               "effectPattern": "Eff_Item_Hint",
               "born": {
-                "$type": "JEDNAGFKIDP",
+                "$type": "ConfigBornByAttachPoint",
                 "useRotation": true,
-                "OBNIJLKICKN": "Point4"
-              },
-              "effectTempleteID": -1.0
+                "attachPointName": "Point4"
+              }
             }
           ],
           "onBeingHit": [
             {
-              "$type": "MoleMole.Config.Predicated",
-              "CKBKOCJPJMM": [
+              "$type": "Predicated",
+              "targetPredicates": [
                 {
-                  "$type": "AIIEFALBANL",
+                  "$type": "ByAttackTags",
                   "attackTags": [
                     "SandwormAttack"
                   ]
@@ -1259,16 +1229,16 @@
               ],
               "successActions": [
                 {
-                  "$type": "MoleMole.Config.KillSelf"
+                  "$type": "KillSelf"
                 }
               ]
             }
           ]
         }
       },
-      "OAOGLLGGJPD": [
+      "onAdded": [
         {
-          "$type": "MoleMole.Config.AttachModifier",
+          "$type": "AttachModifier",
           "modifierName": "SandwormStoneHit"
         }
       ]
@@ -1276,29 +1246,28 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_SandWormAirWall_Sand_01",
-      "BFBDNNJCDLH": {
+      "modifiers": {
         "AttachAirWall": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.AttachEffect",
+              "$type": "AttachEffect",
               "effectPattern": "Eff_SceneObj_SandstormWall_01",
               "born": {
-                "$type": "JEDNAGFKIDP",
+                "$type": "ConfigBornByAttachPoint",
                 "useRotation": true,
-                "OBNIJLKICKN": "RootNode"
-              },
-              "effectTempleteID": -1.0
+                "attachPointName": "RootNode"
+              }
             }
           ]
         }
       },
-      "OAOGLLGGJPD": [
+      "onAdded": [
         {
-          "$type": "MoleMole.Config.AttachModifier",
+          "$type": "AttachModifier",
           "modifierName": "AttachAirWall"
         }
       ]
@@ -1306,9 +1275,9 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_SandWorm_SetEndState",
-      "EIIHGJGFDHC": [
+      "onAbilityStart": [
         {
           "$type": "MoleMole.Config.ChangeGadgetState",
           "HOJGPJHDKFJ": 201
@@ -1318,9 +1287,9 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_SmashSandWorm_SetKilledEndState",
-      "EIIHGJGFDHC": [
+      "onAbilityStart": [
         {
           "$type": "MoleMole.Config.ChangeGadgetState",
           "HOJGPJHDKFJ": 202
@@ -1330,37 +1299,37 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_AbilitySandWorm_Sand_01_Steer",
-      "PIDAPNFJNDF": [
+      "abilityMixins": [
         {
           "$type": "MoleMole.Config.SteerAttackMixin",
           "BAJBFPAEMHB": [
             "Skill01"
           ],
           "startNormalizedTime": 0.5,
-          "angularSpeed": 720.0,
+          "angularSpeed": 720,
           "GMIILFMLLJI": "",
-          "MJFJKAHGHDJ": ""
+          "__unk_Q2081332355": ""
         },
         {
           "$type": "MoleMole.Config.SteerAttackMixin",
           "BAJBFPAEMHB": [
             "Skill02"
           ],
-          "endNormalizedTime": 0.44999998807907104,
-          "angularSpeed": 120.0,
+          "endNormalizedTime": 0.45,
+          "angularSpeed": 120,
           "GMIILFMLLJI": "",
-          "MJFJKAHGHDJ": ""
+          "__unk_Q2081332355": ""
         }
       ]
     }
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_AbilitySandWorm_Sand_01",
-      "PIDAPNFJNDF": [
+      "abilityMixins": [
         {
           "$type": "MoleMole.Config.AttachToGadgetStateMixin",
           "modifierName": "Skill"
@@ -1371,55 +1340,55 @@
           "modifierName": "End"
         }
       ],
-      "BFBDNNJCDLH": {
+      "modifiers": {
         "Skill": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.ApplyModifier",
+              "$type": "ApplyModifier",
               "modifierName": "AbilitySandworm_01_EndTimer"
             }
           ]
         },
         "End": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "BNJENAIMDPL": 1.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "thinkInterval": 1,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.RemoveUniqueModifier",
+              "$type": "RemoveUniqueModifier",
               "modifierName": "UNIQUE_AbilitySandWormScreenEffect"
             },
             {
               "$type": "MoleMole.Config.ServerLuaTriggerEvent",
               "MECCMJIFJKG": "FromGroup",
               "FBPFAJFIFCG": "AbilitySandWorm_Sand_End",
-              "param1": 0.0,
-              "param2": 0.0,
-              "GBOGNIOMAGM": 0.0
+              "param1": 0,
+              "param2": 0,
+              "GBOGNIOMAGM": 0
             }
           ],
-          "PJKELBNICOI": [
+          "onThinkInterval": [
             {
-              "$type": "MoleMole.Config.RemoveUniqueModifier",
+              "$type": "RemoveUniqueModifier",
               "modifierName": "UNIQUE_AbilitySandWormScreenEffect"
             },
             {
               "$type": "MoleMole.Config.ServerLuaTriggerEvent",
               "MECCMJIFJKG": "FromGroup",
               "FBPFAJFIFCG": "AbilitySandWorm_Sand_End",
-              "param1": 0.0,
-              "param2": 0.0,
-              "GBOGNIOMAGM": 0.0
+              "param1": 0,
+              "param2": 0,
+              "GBOGNIOMAGM": 0
             }
           ]
         },
         "AbilitySandworm_01_EndTimer": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "BNJENAIMDPL": 32.0,
-          "PJKELBNICOI": [
+          "elementDurability": 100,
+          "thinkInterval": 32,
+          "onThinkInterval": [
             {
               "$type": "MoleMole.Config.ChangeGadgetState",
               "HOJGPJHDKFJ": 201
@@ -1431,9 +1400,9 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_AbilitySandWorm_Sand_02",
-      "PIDAPNFJNDF": [
+      "abilityMixins": [
         {
           "$type": "MoleMole.Config.AttachToGadgetStateMixin",
           "modifierName": "Skill"
@@ -1444,55 +1413,55 @@
           "modifierName": "End"
         }
       ],
-      "BFBDNNJCDLH": {
+      "modifiers": {
         "Skill": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.ApplyModifier",
+              "$type": "ApplyModifier",
               "modifierName": "AbilitySandworm_02_EndTimer"
             }
           ]
         },
         "End": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "BNJENAIMDPL": 1.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "thinkInterval": 1,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.RemoveUniqueModifier",
+              "$type": "RemoveUniqueModifier",
               "modifierName": "UNIQUE_AbilitySandWormScreenEffect"
             },
             {
               "$type": "MoleMole.Config.ServerLuaTriggerEvent",
               "MECCMJIFJKG": "FromGroup",
               "FBPFAJFIFCG": "AbilitySandWorm_Sand_End",
-              "param1": 0.0,
-              "param2": 0.0,
-              "GBOGNIOMAGM": 0.0
+              "param1": 0,
+              "param2": 0,
+              "GBOGNIOMAGM": 0
             }
           ],
-          "PJKELBNICOI": [
+          "onThinkInterval": [
             {
-              "$type": "MoleMole.Config.RemoveUniqueModifier",
+              "$type": "RemoveUniqueModifier",
               "modifierName": "UNIQUE_AbilitySandWormScreenEffect"
             },
             {
               "$type": "MoleMole.Config.ServerLuaTriggerEvent",
               "MECCMJIFJKG": "FromGroup",
               "FBPFAJFIFCG": "AbilitySandWorm_Sand_End",
-              "param1": 0.0,
-              "param2": 0.0,
-              "GBOGNIOMAGM": 0.0
+              "param1": 0,
+              "param2": 0,
+              "GBOGNIOMAGM": 0
             }
           ]
         },
         "AbilitySandworm_02_EndTimer": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "BNJENAIMDPL": 32.0,
-          "PJKELBNICOI": [
+          "elementDurability": 100,
+          "thinkInterval": 32,
+          "onThinkInterval": [
             {
               "$type": "MoleMole.Config.ChangeGadgetState",
               "HOJGPJHDKFJ": 201
@@ -1504,9 +1473,9 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_AbilitySandWorm_Sand_03",
-      "PIDAPNFJNDF": [
+      "abilityMixins": [
         {
           "$type": "MoleMole.Config.AttachToGadgetStateMixin",
           "modifierName": "Skill"
@@ -1517,55 +1486,55 @@
           "modifierName": "End"
         }
       ],
-      "BFBDNNJCDLH": {
+      "modifiers": {
         "Skill": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.ApplyModifier",
+              "$type": "ApplyModifier",
               "modifierName": "AbilitySandworm_03_EndTimer"
             }
           ]
         },
         "End": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "BNJENAIMDPL": 1.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "thinkInterval": 1,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.RemoveUniqueModifier",
+              "$type": "RemoveUniqueModifier",
               "modifierName": "UNIQUE_AbilitySandWormScreenEffect"
             },
             {
               "$type": "MoleMole.Config.ServerLuaTriggerEvent",
               "MECCMJIFJKG": "FromGroup",
               "FBPFAJFIFCG": "AbilitySandWorm_Sand_End",
-              "param1": 0.0,
-              "param2": 0.0,
-              "GBOGNIOMAGM": 0.0
+              "param1": 0,
+              "param2": 0,
+              "GBOGNIOMAGM": 0
             }
           ],
-          "PJKELBNICOI": [
+          "onThinkInterval": [
             {
-              "$type": "MoleMole.Config.RemoveUniqueModifier",
+              "$type": "RemoveUniqueModifier",
               "modifierName": "UNIQUE_AbilitySandWormScreenEffect"
             },
             {
               "$type": "MoleMole.Config.ServerLuaTriggerEvent",
               "MECCMJIFJKG": "FromGroup",
               "FBPFAJFIFCG": "AbilitySandWorm_Sand_End",
-              "param1": 0.0,
-              "param2": 0.0,
-              "GBOGNIOMAGM": 0.0
+              "param1": 0,
+              "param2": 0,
+              "GBOGNIOMAGM": 0
             }
           ]
         },
         "AbilitySandworm_03_EndTimer": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "BNJENAIMDPL": 32.0,
-          "PJKELBNICOI": [
+          "elementDurability": 100,
+          "thinkInterval": 32,
+          "onThinkInterval": [
             {
               "$type": "MoleMole.Config.ChangeGadgetState",
               "HOJGPJHDKFJ": 201
@@ -1577,28 +1546,23 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_AbilitySandWorm_Sand_01_ShootAttack",
-      "EIIHGJGFDHC": [
+      "onAbilityStart": [
         {
-          "$type": "MoleMole.Config.CreateGadget",
-          "MLDBFKEGPEF": "CurLocalAvatar",
+          "$type": "CreateGadget",
+          "target": "CurLocalAvatar",
           "predicates": [
             {
-              "$type": "IPGGGPIJONN",
-              "MLDBFKEGPEF": "Self",
+              "$type": "ByTargetGlobalValue",
+              "target": "Self",
               "key": "DieSandworm_IsInCutscene",
-              "value": 0.0,
+              "value": 0,
               "compareType": "NoneOrEqual"
             }
           ],
           "born": {
             "$type": "CMAHLGBNGEC",
-            "offset": {
-              "GOAPOLCAJBP": 0.0,
-              "FMOPCJGGFMH": 0.0,
-              "EJJEPFCDDAM": 0.0
-            },
             "onGround": true
           },
           "ACNKPHHONBO": true,
@@ -1610,46 +1574,46 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_AbilitySandWorm_Sand_01_ShootAttack_Attack",
-      "EIIHGJGFDHC": [
+      "onAbilityStart": [
         {
-          "$type": "MoleMole.Config.FireSubEmitterEffect",
+          "$type": "FireSubEmitterEffect",
           "effectPattern": "Eff_Monster_Sandworm_01_Stage02_FlyingAttack_MultiBullet_Hit_Dungeon",
           "born": {
-            "$type": "AGPIGGAPILF"
+            "$type": "ConfigBornByCollisionPoint"
           }
         },
         {
-          "$type": "MoleMole.Config.TriggerAttackEvent",
+          "$type": "TriggerAttackEvent",
           "attackEvent": {
             "attackPattern": {
-              "$type": "IJCIPLFIDAK",
+              "$type": "ConfigAttackSphere",
               "triggerType": "TriggerNoRepeat",
               "born": {
-                "$type": "AGPIGGAPILF"
+                "$type": "ConfigBornByCollisionPoint"
               },
-              "MFGGJCPPBGA": 3.0
+              "radius": 3
             },
             "attackInfo": {
               "attackTag": "SandwormAttack",
               "attenuationTag": "Sandworm_Stage02_FlyingAttackBullet",
               "attenuationGroup": "Sandworm_Stage02_FlyingAttackBullet",
               "attackProperty": {
-                "JMLMDDCBIAO": 1.0,
-                "damagePercentageRatio": 0.0,
+                "damagePercentage": 1,
+                "damagePercentageRatio": 0,
                 "elementType": "Wind",
-                "elementDurability": 100.0,
+                "elementDurability": 100,
                 "strikeType": "Blunt",
-                "enBreak": 50.0,
+                "enBreak": 50,
                 "attackType": "Range",
-                "damagePercentage": 0.0
+                "__exp_arkhe": 0
               },
               "hitPattern": {
                 "onHitEffectName": "default",
-                "hitImpulseY": "",
+                "__unk_Q3893899620": "",
                 "hitImpulseType": "LV3",
-                "hitHaltTimeScale": 0.05000000074505806
+                "hitHaltTimeScale": 0.05
               }
             }
           },
@@ -1660,64 +1624,64 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_AbilitySandWorm_Sand_02_ShootAttack",
-      "BFBDNNJCDLH": {
+      "modifiers": {
         "Bullet_Launcher": {
           "modifierName": "",
-          "duration": 5.0,
-          "elementDurability": 100.0,
-          "BNJENAIMDPL": 1.0,
-          "OAOGLLGGJPD": [
+          "duration": 5,
+          "elementDurability": 100,
+          "thinkInterval": 1,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.CreateGadget",
-              "MLDBFKEGPEF": "CurLocalAvatar",
+              "$type": "CreateGadget",
+              "target": "CurLocalAvatar",
               "predicates": [
                 {
-                  "$type": "IPGGGPIJONN",
-                  "MLDBFKEGPEF": "Self",
+                  "$type": "ByTargetGlobalValue",
+                  "target": "Self",
                   "key": "DieSandworm_IsInCutscene",
-                  "value": 0.0,
+                  "value": 0,
                   "compareType": "NoneOrEqual"
                 }
               ],
               "born": {
                 "$type": "CMAHLGBNGEC",
                 "bornRandom": {
-                  "$type": "IKAJINIJLFD",
-                  "HJLODMLADDK": 0.0,
-                  "LEBHFOBMPMJ": 0.0
+                  "$type": "BornRandomFromCenter",
+                  "minRandomRange": 0,
+                  "maxRandomRange": 0
                 },
                 "onGround": true,
-                "onGroundRaycastUpDist": 0.20000000298023224
+                "onGroundRaycastUpDist": 0.2
               },
               "ACNKPHHONBO": true,
               "gadgetID": 70290941,
               "campID": 5001
             }
           ],
-          "PJKELBNICOI": [
+          "onThinkInterval": [
             {
-              "$type": "MoleMole.Config.CreateGadget",
-              "MLDBFKEGPEF": "CurLocalAvatar",
+              "$type": "CreateGadget",
+              "target": "CurLocalAvatar",
               "predicates": [
                 {
-                  "$type": "IPGGGPIJONN",
-                  "MLDBFKEGPEF": "Self",
+                  "$type": "ByTargetGlobalValue",
+                  "target": "Self",
                   "key": "DieSandworm_IsInCutscene",
-                  "value": 0.0,
+                  "value": 0,
                   "compareType": "NoneOrEqual"
                 }
               ],
               "born": {
                 "$type": "CMAHLGBNGEC",
                 "bornRandom": {
-                  "$type": "IKAJINIJLFD",
-                  "HJLODMLADDK": 0.0,
-                  "LEBHFOBMPMJ": 0.0
+                  "$type": "BornRandomFromCenter",
+                  "minRandomRange": 0,
+                  "maxRandomRange": 0
                 },
                 "onGround": true,
-                "onGroundRaycastUpDist": 0.20000000298023224
+                "onGroundRaycastUpDist": 0.2
               },
               "ACNKPHHONBO": true,
               "gadgetID": 70290941,
@@ -1726,14 +1690,14 @@
           ]
         }
       },
-      "EIIHGJGFDHC": [
+      "onAbilityStart": [
         {
-          "$type": "MoleMole.Config.ApplyModifier",
+          "$type": "ApplyModifier",
           "predicates": [
             {
-              "$type": "IPGGGPIJONN",
+              "$type": "ByTargetGlobalValue",
               "key": "DieSandworm_IsInCutscene",
-              "value": 0.0,
+              "value": 0,
               "compareType": "NoneOrEqual"
             }
           ],
@@ -1744,68 +1708,67 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_AbilitySandWorm_Sand_03_ShootAttack",
-      "PIDAPNFJNDF": [
+      "abilityMixins": [
         {
-          "$type": "MoleMole.Config.AttachToNormalizedTimeMixin",
-          "GOPFOAFEKLC": "Skill02",
+          "$type": "AttachToNormalizedTimeMixin",
+          "stateID": "Skill02",
           "modifierName": "Alert",
-          "normalizeEnd": 0.5299999713897705,
-          "MJFJKAHGHDJ": ""
+          "normalizeEnd": 0.53,
+          "__unk_Q2081332355": ""
         },
         {
-          "$type": "MoleMole.Config.AttachToNormalizedTimeMixin",
-          "GOPFOAFEKLC": "Skill03",
+          "$type": "AttachToNormalizedTimeMixin",
+          "stateID": "Skill03",
           "modifierName": "Alert",
-          "normalizeEnd": 0.5299999713897705,
-          "MJFJKAHGHDJ": ""
+          "normalizeEnd": 0.53,
+          "__unk_Q2081332355": ""
         },
         {
-          "$type": "MoleMole.Config.AttachToNormalizedTimeMixin",
-          "GOPFOAFEKLC": "Skill04",
+          "$type": "AttachToNormalizedTimeMixin",
+          "stateID": "Skill04",
           "modifierName": "Alert",
-          "normalizeEnd": 0.5299999713897705,
-          "MJFJKAHGHDJ": ""
+          "normalizeEnd": 0.53,
+          "__unk_Q2081332355": ""
         }
       ],
-      "BFBDNNJCDLH": {
+      "modifiers": {
         "Alert": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.AttachEffect",
+              "$type": "AttachEffect",
               "predicates": [
                 {
-                  "$type": "IPGGGPIJONN",
+                  "$type": "ByTargetGlobalValue",
                   "key": "DieSandworm_IsInCutscene",
-                  "value": 0.0,
+                  "value": 0,
                   "compareType": "NoneOrEqual"
                 }
               ],
-              "effectPattern": "Eff_Monster_Sandworm_01_ActivityGadget_ShootAttack_02_Alert",
-              "effectTempleteID": -1.0
+              "effectPattern": "Eff_Monster_Sandworm_01_ActivityGadget_ShootAttack_02_Alert"
             }
           ]
         }
       },
-      "EIIHGJGFDHC": [
+      "onAbilityStart": [
         {
-          "$type": "MoleMole.Config.TriggerBullet",
+          "$type": "TriggerBullet",
           "predicates": [
             {
-              "$type": "IPGGGPIJONN",
+              "$type": "ByTargetGlobalValue",
               "key": "DieSandworm_IsInCutscene",
-              "value": 0.0,
+              "value": 0,
               "compareType": "NoneOrEqual"
             }
           ],
-          "DCNFGAGBCMP": 70290942,
+          "bulletID": 70290942,
           "born": {
-            "$type": "JEDNAGFKIDP",
+            "$type": "ConfigBornByAttachPoint",
             "useRotation": true,
-            "OBNIJLKICKN": "TailBulletSource_Fixed"
+            "attachPointName": "TailBulletSource_Fixed"
           },
           "DGEKFHHECPG": "CurLocalAvatar"
         }
@@ -1814,61 +1777,60 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_DieSandworm_03_ShootAttack",
-      "PIDAPNFJNDF": [
+      "abilityMixins": [
         {
-          "$type": "MoleMole.Config.AttachToNormalizedTimeMixin",
-          "GOPFOAFEKLC": "Skill03_02",
+          "$type": "AttachToNormalizedTimeMixin",
+          "stateID": "Skill03_02",
           "modifierName": "Alert",
-          "normalizeEnd": 0.5299999713897705,
-          "MJFJKAHGHDJ": ""
+          "normalizeEnd": 0.53,
+          "__unk_Q2081332355": ""
         },
         {
-          "$type": "MoleMole.Config.AttachToNormalizedTimeMixin",
-          "GOPFOAFEKLC": "Skill03_03",
+          "$type": "AttachToNormalizedTimeMixin",
+          "stateID": "Skill03_03",
           "modifierName": "Alert",
-          "normalizeEnd": 0.5299999713897705,
-          "MJFJKAHGHDJ": ""
+          "normalizeEnd": 0.53,
+          "__unk_Q2081332355": ""
         }
       ],
-      "BFBDNNJCDLH": {
+      "modifiers": {
         "Alert": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.AttachEffect",
+              "$type": "AttachEffect",
               "predicates": [
                 {
-                  "$type": "IPGGGPIJONN",
+                  "$type": "ByTargetGlobalValue",
                   "key": "DieSandworm_IsInCutscene",
-                  "value": 0.0,
+                  "value": 0,
                   "compareType": "NoneOrEqual"
                 }
               ],
-              "effectPattern": "Eff_Monster_Sandworm_01_ActivityGadget_ShootAttack_02_Alert",
-              "effectTempleteID": -1.0
+              "effectPattern": "Eff_Monster_Sandworm_01_ActivityGadget_ShootAttack_02_Alert"
             }
           ]
         }
       },
-      "EIIHGJGFDHC": [
+      "onAbilityStart": [
         {
-          "$type": "MoleMole.Config.TriggerBullet",
+          "$type": "TriggerBullet",
           "predicates": [
             {
-              "$type": "IPGGGPIJONN",
+              "$type": "ByTargetGlobalValue",
               "key": "DieSandworm_IsInCutscene",
-              "value": 0.0,
+              "value": 0,
               "compareType": "NoneOrEqual"
             }
           ],
-          "DCNFGAGBCMP": 70290942,
+          "bulletID": 70290942,
           "born": {
-            "$type": "JEDNAGFKIDP",
+            "$type": "ConfigBornByAttachPoint",
             "useRotation": true,
-            "OBNIJLKICKN": "TailBulletSource_Fixed"
+            "attachPointName": "TailBulletSource_Fixed"
           },
           "DGEKFHHECPG": "CurLocalAvatar"
         }
@@ -1877,25 +1839,24 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_AbilitySandWorm_Sand_02_ShootAttack_Bullet_Loop",
-      "BFBDNNJCDLH": {
+      "modifiers": {
         "UNIQUE_Bullet_Loop": {
           "modifierName": "",
-          "LLIJGLMEHFK": true,
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "isUnique": true,
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.AttachEffect",
-              "effectPattern": "Eff_Monster_Sandworm_01_Stage02_DrillRushAttack_Bullet_Activity",
-              "effectTempleteID": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_Monster_Sandworm_01_Stage02_DrillRushAttack_Bullet_Activity"
             }
           ]
         }
       },
-      "OAOGLLGGJPD": [
+      "onAdded": [
         {
-          "$type": "MoleMole.Config.AttachModifier",
+          "$type": "AttachModifier",
           "modifierName": "UNIQUE_Bullet_Loop"
         }
       ]
@@ -1903,66 +1864,55 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_AbilitySandWorm_Sand_02_ShootAttack_Bullet_Explode",
-      "EIIHGJGFDHC": [
+      "onAbilityStart": [
         {
-          "$type": "MoleMole.Config.FireEffect",
+          "$type": "FireEffect",
           "effectPattern": "Eff_Monster_Sandworm_01_Stage02_DrillRushAttack_Bullet_Hit_Activity",
           "born": {
-            "$type": "KPFCCIOJAMK",
-            "offset": {
-              "GOAPOLCAJBP": 0.0,
-              "FMOPCJGGFMH": 0.0,
-              "EJJEPFCDDAM": 0.0
-            },
+            "$type": "ConfigBornBySelf",
             "onGround": true,
             "alongGround": true,
             "useRotation": true
-          },
-          "effectTempleteID": -1.0
+          }
         },
         {
-          "$type": "MoleMole.Config.TriggerAttackEvent",
+          "$type": "TriggerAttackEvent",
           "attackEvent": {
             "attackPattern": {
-              "$type": "IJCIPLFIDAK",
+              "$type": "ConfigAttackSphere",
               "triggerType": "TriggerNoRepeat",
               "born": {
-                "$type": "KPFCCIOJAMK",
-                "offset": {
-                  "GOAPOLCAJBP": 0.0,
-                  "FMOPCJGGFMH": 0.0,
-                  "EJJEPFCDDAM": 0.0
-                },
+                "$type": "ConfigBornBySelf",
                 "onGround": true,
                 "alongGround": true,
                 "useRotation": true
               },
-              "MFGGJCPPBGA": 3.0
+              "radius": 3
             },
             "attackInfo": {
               "attackTag": "SandwormAttack",
               "attenuationTag": "",
               "attenuationGroup": "default",
               "attackProperty": {
-                "JMLMDDCBIAO": 2.5,
-                "damagePercentageRatio": 0.0,
+                "damagePercentage": 2.5,
+                "damagePercentageRatio": 0,
                 "elementType": "Wind",
-                "elementDurability": 50.0,
+                "elementDurability": 50,
                 "strikeType": "Blunt",
-                "enBreak": 25.0,
-                "damagePercentage": 0.0
+                "enBreak": 25,
+                "__exp_arkhe": 0
               },
               "hitPattern": {
                 "onHitEffectName": "none",
-                "hitImpulseY": "",
+                "__unk_Q3893899620": "",
                 "hitImpulseType": "LV3",
-                "hitHaltTimeScale": 0.05000000074505806
+                "hitHaltTimeScale": 0.05
               },
               "cameraShake": {
-                "shakeRange": 0.05999999865889549,
-                "shakeTime": 0.09000000357627869
+                "shakeRange": 0.06,
+                "shakeTime": 0.09
               },
               "canBeModifiedBy": "OriginOwner"
             }
@@ -1974,36 +1924,36 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_AbilitySandWorm_Sand_03_ShootAttack_Attack",
-      "BFBDNNJCDLH": {
+      "modifiers": {
         "Damage_Timer": {
           "modifierName": "",
           "duration": 2.5,
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.FireSubEmitterEffect",
+              "$type": "FireSubEmitterEffect",
               "effectPattern": "Eff_Monster_Sandworm_01_Stage02_Bullet_Alert_Activity",
               "born": {
-                "$type": "INKMBJGOPCK",
+                "$type": "ConfigBornByTarget",
                 "onGround": true,
                 "alongGround": true
               }
             }
           ],
-          "MINFJCDAIBB": [
+          "onRemoved": [
             {
-              "$type": "MoleMole.Config.TriggerAudio",
-              "DEGBIGJECEC": {
-                "$type": "HHIKBIFANNO",
-                "DEGBIGJECEC": {
+              "$type": "TriggerAudio",
+              "operation": {
+                "$type": "ConfigAudioEventOp",
+                "operation": {
                   "text": "Play_sfx_monster_effigy_ice_vfx_spikeStrike_attack"
                 }
               }
             },
             {
-              "$type": "MoleMole.Config.ApplyModifier",
+              "$type": "ApplyModifier",
               "modifierName": "SingleDamage"
             }
           ]
@@ -2011,49 +1961,46 @@
         "SingleDamage": {
           "modifierName": "",
           "duration": 0.5,
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.FireEffect",
+              "$type": "FireEffect",
               "effectPattern": "Eff_Monster_Sandworm_01_Stage02_Bullet_Hit_Activity",
               "born": {
-                "$type": "INKMBJGOPCK",
+                "$type": "ConfigBornByTarget",
                 "onGround": true,
                 "alongGround": true
-              },
-              "effectTempleteID": -1.0
+              }
             },
             {
-              "$type": "MoleMole.Config.TriggerAttackEvent",
+              "$type": "TriggerAttackEvent",
               "attackEvent": {
                 "attackPattern": {
-                  "$type": "LGEKKELKDAN",
+                  "$type": "ConfigAttackCircle",
                   "triggerType": "TriggerNoRepeat",
                   "born": {
-                    "$type": "KPFCCIOJAMK",
+                    "$type": "ConfigBornBySelf",
                     "offset": {
-                      "GOAPOLCAJBP": 0.0,
-                      "FMOPCJGGFMH": -0.125,
-                      "EJJEPFCDDAM": 0.0
+                      "y": -0.125
                     },
                     "onGround": true,
                     "useRotation": true
                   },
-                  "height": 2.0,
-                  "MFGGJCPPBGA": 3.0
+                  "height": 2,
+                  "radius": 3
                 },
                 "attackInfo": {
                   "attackTag": "SandwormAttack",
                   "attenuationTag": "",
                   "attenuationGroup": "default",
                   "attackProperty": {
-                    "JMLMDDCBIAO": 1.0,
-                    "damagePercentageRatio": 0.0,
+                    "damagePercentage": 1,
+                    "damagePercentageRatio": 0,
                     "elementType": "Wind",
-                    "elementDurability": 100.0,
+                    "elementDurability": 100,
                     "strikeType": "Blunt",
-                    "enBreak": 0.0,
-                    "damagePercentage": 0.0
+                    "enBreak": 0,
+                    "__exp_arkhe": 0
                   }
                 }
               },
@@ -2062,18 +2009,18 @@
           ]
         }
       },
-      "OAOGLLGGJPD": [
+      "onAdded": [
         {
-          "$type": "MoleMole.Config.ApplyModifier",
+          "$type": "ApplyModifier",
           "modifierName": "Damage_Timer"
         }
       ],
-      "EIIHGJGFDHC": [
+      "onAbilityStart": [
         {
-          "$type": "MoleMole.Config.KillSelf",
+          "$type": "KillSelf",
           "predicates": [
             {
-              "$type": "OFGMGHOHBJD",
+              "$type": "ByHasModifier",
               "modifierName": "Damage_Timer"
             }
           ]
@@ -2083,9 +2030,9 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_AbilitySandWorm_PartControl_Start",
-      "OAOGLLGGJPD": [
+      "onAdded": [
         {
           "$type": "MoleMole.Config.EnablePartControl",
           "PJJFOPBNMEA": [
@@ -2094,16 +2041,16 @@
         },
         {
           "$type": "MoleMole.Config.SetPartControlTarget",
-          "MLDBFKEGPEF": "CurLocalAvatar",
+          "target": "CurLocalAvatar",
           "PJJFOPBNMEA": [
             "PartControl"
           ]
         }
       ],
-      "EIIHGJGFDHC": [
+      "onAbilityStart": [
         {
           "$type": "MoleMole.Config.SetPartControlTarget",
-          "MLDBFKEGPEF": "CurLocalAvatar",
+          "target": "CurLocalAvatar",
           "PJJFOPBNMEA": [
             "PartControl"
           ]
@@ -2120,9 +2067,9 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_AbilitySandWorm_PartControl_End",
-      "EIIHGJGFDHC": [
+      "onAbilityStart": [
         {
           "$type": "MoleMole.Config.EnablePartControl",
           "PJJFOPBNMEA": [
@@ -2134,15 +2081,15 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_AbilitySandWorm_DoEarthQuake",
-      "BFBDNNJCDLH": {
+      "modifiers": {
         "UNIQUE_AbilitySandWormBillboardAsh": {
           "modifierName": "",
-          "LLIJGLMEHFK": true,
-          "duration": 1.0,
-          "elementDurability": 100.0,
-          "MINFJCDAIBB": [
+          "isUnique": true,
+          "duration": 1,
+          "elementDurability": 100,
+          "onRemoved": [
             {
               "$type": "MoleMole.Config.HideUIBillBoard"
             }
@@ -2150,56 +2097,56 @@
         },
         "UNIQUE_AbilitySandWormScreenEffect": {
           "modifierName": "",
-          "LLIJGLMEHFK": true,
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "isUnique": true,
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.SetGlobalValue",
-              "MLDBFKEGPEF": "Team",
-              "value": 1.0,
+              "$type": "SetGlobalValue",
+              "target": "Team",
+              "value": 1,
               "key": "_HAS_SandWorm_ScreenEffect",
-              "maxValue": 0.0,
-              "GCEOGBJIFCP": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ],
-          "MINFJCDAIBB": [
+          "onRemoved": [
             {
-              "$type": "MoleMole.Config.SetGlobalValue",
-              "MLDBFKEGPEF": "Team",
-              "value": 0.0,
+              "$type": "SetGlobalValue",
+              "target": "Team",
+              "value": 0,
               "key": "_HAS_SandWorm_ScreenEffect",
-              "maxValue": 0.0,
-              "GCEOGBJIFCP": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ],
-          "DOFDCKKDGHL": [
+          "onKill": [
             {
-              "$type": "MoleMole.Config.SetGlobalValue",
-              "MLDBFKEGPEF": "Team",
-              "value": 0.0,
+              "$type": "SetGlobalValue",
+              "target": "Team",
+              "value": 0,
               "key": "_HAS_SandWorm_ScreenEffect",
-              "maxValue": 0.0,
-              "GCEOGBJIFCP": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         "UNIQUE_AbilitySandWormCameraRadialBlur": {
           "modifierName": "",
-          "LLIJGLMEHFK": true,
-          "duration": 4.0,
-          "elementDurability": 100.0,
-          "JPIFFPJJEMK": [
+          "isUnique": true,
+          "duration": 4,
+          "elementDurability": 100,
+          "modifierMixins": [
             {
-              "$type": "MoleMole.Config.CameraBlurMixin",
-              "BNKAAOANKPF": {
-                "KGALJHJDKGI": 0.6000000238418579,
-                "DKGOEPPEFPN": 0.15000000596046448
+              "$type": "CameraBlurMixin",
+              "cameraRadialBlur": {
+                "power": 0.6,
+                "fadeTime": 0.15
               }
             }
           ]
         }
       },
-      "OAOGLLGGJPD": [
+      "onAdded": [
         {
           "$type": "MoleMole.Config.HideUIBillBoard",
           "hide": true
@@ -2210,30 +2157,30 @@
           "enable": true
         }
       ],
-      "EIIHGJGFDHC": [
+      "onAbilityStart": [
         {
-          "$type": "MoleMole.Config.TriggerAttackEvent",
+          "$type": "TriggerAttackEvent",
           "predicates": [
             {
-              "$type": "IPGGGPIJONN",
+              "$type": "ByTargetGlobalValue",
               "key": "SGV_Sandworm_LevelFive",
-              "value": 0.0,
+              "value": 0,
               "compareType": "NoneOrEqual"
             }
           ],
           "attackEvent": {
             "attackPattern": {
-              "$type": "CKCNJHBMNGJ",
+              "$type": "ConfigAttackBox",
               "triggerType": "TriggerNoRepeat",
               "ignoreMassive": true,
               "born": {
-                "$type": "KPFCCIOJAMK",
+                "$type": "ConfigBornBySelf",
                 "useRotation": true
               },
               "size": {
-                "GOAPOLCAJBP": 0.10000000149011612,
-                "FMOPCJGGFMH": 0.10000000149011612,
-                "EJJEPFCDDAM": 0.10000000149011612
+                "x": 0.1,
+                "y": 0.1,
+                "z": 0.1
               }
             },
             "attackInfo": {
@@ -2241,31 +2188,31 @@
               "attenuationTag": "",
               "attenuationGroup": "default",
               "attackProperty": {
-                "JMLMDDCBIAO": 0.0,
-                "damagePercentageRatio": 0.0,
-                "elementDurability": 100.0,
-                "damagePercentage": 0.0
+                "damagePercentage": 0,
+                "damagePercentageRatio": 0,
+                "elementDurability": 100,
+                "__exp_arkhe": 0
               },
               "hitPattern": {
                 "onHitEffectName": "none",
-                "hitImpulseY": "",
+                "__unk_Q3893899620": "",
                 "hitImpulseType": "LV0",
-                "hitHaltTimeScale": 0.05000000074505806
+                "hitHaltTimeScale": 0.05
               },
               "forceCameraShake": true,
               "cameraShake": {
                 "shakeType": "CustomVector",
                 "shakeRange": 0.125,
-                "shakeTime": 3.0,
-                "shakeDistance": 35.0,
+                "shakeTime": 3,
+                "shakeDistance": 35,
                 "shakeDir": {
-                  "y": -1.0
+                  "y": -1
                 },
                 "extension": {
                   "baseOnCamera": true,
-                  "baseCycle": 0.20000000298023224,
-                  "cycleDamping": 0.0,
-                  "rangeAttenuation": 1.0
+                  "baseCycle": 0.2,
+                  "cycleDamping": 0,
+                  "rangeAttenuation": 1
                 }
               }
             }
@@ -2276,33 +2223,33 @@
           "$type": "MoleMole.Config.ServerLuaTriggerEvent",
           "MECCMJIFJKG": "FromGroup",
           "FBPFAJFIFCG": "AbilitySandWorm_Monster_Die",
-          "param1": 0.0,
-          "param2": 0.0,
-          "GBOGNIOMAGM": 0.0
+          "param1": 0,
+          "param2": 0,
+          "GBOGNIOMAGM": 0
         },
         {
-          "$type": "MoleMole.Config.ApplyModifier",
+          "$type": "ApplyModifier",
           "modifierName": "UNIQUE_AbilitySandWormBillboardAsh"
         },
         {
-          "$type": "MoleMole.Config.ApplyModifier",
+          "$type": "ApplyModifier",
           "predicates": [
             {
-              "$type": "IPGGGPIJONN",
+              "$type": "ByTargetGlobalValue",
               "key": "SGV_Sandworm_LevelFive",
-              "value": 0.0,
+              "value": 0,
               "compareType": "NoneOrEqual"
             }
           ],
           "modifierName": "UNIQUE_AbilitySandWormScreenEffect"
         },
         {
-          "$type": "MoleMole.Config.ApplyModifier",
+          "$type": "ApplyModifier",
           "predicates": [
             {
-              "$type": "IPGGGPIJONN",
+              "$type": "ByTargetGlobalValue",
               "key": "SGV_Sandworm_LevelFive",
-              "value": 0.0,
+              "value": 0,
               "compareType": "NoneOrEqual"
             }
           ],
@@ -2313,41 +2260,41 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_DieSandWorm_DoEarthQuake",
-      "BFBDNNJCDLH": {
+      "modifiers": {
         "UNIQUE_DieSandWormCameraRadialBlur": {
           "modifierName": "",
-          "LLIJGLMEHFK": true,
-          "duration": 4.0,
-          "elementDurability": 100.0,
-          "JPIFFPJJEMK": [
+          "isUnique": true,
+          "duration": 4,
+          "elementDurability": 100,
+          "modifierMixins": [
             {
-              "$type": "MoleMole.Config.CameraBlurMixin",
-              "BNKAAOANKPF": {
-                "KGALJHJDKGI": 0.6000000238418579,
-                "DKGOEPPEFPN": 0.15000000596046448
+              "$type": "CameraBlurMixin",
+              "cameraRadialBlur": {
+                "power": 0.6,
+                "fadeTime": 0.15
               }
             }
           ]
         }
       },
-      "EIIHGJGFDHC": [
+      "onAbilityStart": [
         {
-          "$type": "MoleMole.Config.TriggerAttackEvent",
+          "$type": "TriggerAttackEvent",
           "attackEvent": {
             "attackPattern": {
-              "$type": "CKCNJHBMNGJ",
+              "$type": "ConfigAttackBox",
               "triggerType": "TriggerNoRepeat",
               "ignoreMassive": true,
               "born": {
-                "$type": "KPFCCIOJAMK",
+                "$type": "ConfigBornBySelf",
                 "useRotation": true
               },
               "size": {
-                "GOAPOLCAJBP": 0.10000000149011612,
-                "FMOPCJGGFMH": 0.10000000149011612,
-                "EJJEPFCDDAM": 0.10000000149011612
+                "x": 0.1,
+                "y": 0.1,
+                "z": 0.1
               }
             },
             "attackInfo": {
@@ -2355,31 +2302,31 @@
               "attenuationTag": "",
               "attenuationGroup": "default",
               "attackProperty": {
-                "JMLMDDCBIAO": 0.0,
-                "damagePercentageRatio": 0.0,
-                "elementDurability": 100.0,
-                "damagePercentage": 0.0
+                "damagePercentage": 0,
+                "damagePercentageRatio": 0,
+                "elementDurability": 100,
+                "__exp_arkhe": 0
               },
               "hitPattern": {
                 "onHitEffectName": "none",
-                "hitImpulseY": "",
+                "__unk_Q3893899620": "",
                 "hitImpulseType": "LV0",
-                "hitHaltTimeScale": 0.05000000074505806
+                "hitHaltTimeScale": 0.05
               },
               "forceCameraShake": true,
               "cameraShake": {
                 "shakeType": "CustomVector",
                 "shakeRange": 0.125,
-                "shakeTime": 3.0,
-                "shakeDistance": 35.0,
+                "shakeTime": 3,
+                "shakeDistance": 35,
                 "shakeDir": {
-                  "y": -1.0
+                  "y": -1
                 },
                 "extension": {
                   "baseOnCamera": true,
-                  "baseCycle": 0.20000000298023224,
-                  "cycleDamping": 0.0,
-                  "rangeAttenuation": 1.0
+                  "baseCycle": 0.2,
+                  "cycleDamping": 0,
+                  "rangeAttenuation": 1
                 }
               }
             }
@@ -2391,9 +2338,9 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_MoveSandWorm_Sand_01",
-      "PIDAPNFJNDF": [
+      "abilityMixins": [
         {
           "$type": "MoleMole.Config.AttachToGadgetStateMixin",
           "modifierName": "Skill"
@@ -2404,29 +2351,29 @@
           "modifierName": "End"
         }
       ],
-      "BFBDNNJCDLH": {
+      "modifiers": {
         "Skill": {
           "modifierName": "",
-          "elementDurability": 100.0,
+          "elementDurability": 100,
           "onBeingHit": [
             {
-              "$type": "MoleMole.Config.SetAnimatorBool",
-              "KIAGMJMPHPG": "End",
+              "$type": "SetAnimatorBool",
+              "boolID": "End",
               "value": true
             }
           ]
         },
         "End": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "MoleMole.Config.ServerLuaTriggerEvent",
               "MECCMJIFJKG": "FromGroup",
               "FBPFAJFIFCG": "MoveSandWorm_Sand_End",
-              "param1": 0.0,
-              "param2": 0.0,
-              "GBOGNIOMAGM": 0.0
+              "param1": 0,
+              "param2": 0,
+              "GBOGNIOMAGM": 0
             }
           ]
         }
@@ -2435,9 +2382,9 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_DieSandWorm_Sand_01",
-      "PIDAPNFJNDF": [
+      "abilityMixins": [
         {
           "$type": "MoleMole.Config.AttachToGadgetStateMixin",
           "modifierName": "Wait"
@@ -2463,31 +2410,31 @@
           "modifierName": "End"
         },
         {
-          "$type": "MoleMole.Config.AttachModifierToSelfGlobalValueMixin",
+          "$type": "AttachModifierToSelfGlobalValueMixin",
           "globalValueKey": "DIESANDWORM_PLAYDIE",
-          "KADKJMOFOLI": 0.0,
-          "FJEPHJNDEAI": [
+          "defaultGlobalValueOnCreate": 0,
+          "valueSteps": [
             -0.5,
             0.5,
             1.5
           ],
-          "IJEPHCMOAPE": [
+          "modifierNameSteps": [
             "Empty",
             "DieSandworm_PlayDie"
           ]
         }
       ],
-      "BFBDNNJCDLH": {
+      "modifiers": {
         "Wait": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.HealHP",
+              "$type": "HealHP",
               "doOffStage": true,
-              "LHENKJCLGMH": 1.0,
+              "amountByTargetMaxHPRatio": 1,
               "BEDKFKJOMJB": true,
-              "FKJDBJEPNPD": ""
+              "__exp_healTag": ""
             },
             {
               "$type": "MoleMole.Config.HideUIBillBoard",
@@ -2499,39 +2446,39 @@
               "HMDOJAIIHCI": true
             },
             {
-              "$type": "MoleMole.Config.SetGlobalValue",
-              "value": 0.0,
+              "$type": "SetGlobalValue",
+              "value": 0,
               "key": "DIESANDWORM_PLAYDIE",
-              "maxValue": 0.0,
-              "GCEOGBJIFCP": 0.0
+              "maxValue": 0,
+              "minValue": 0
             },
             {
-              "$type": "MoleMole.Config.SetAnimatorTrigger",
+              "$type": "SetAnimatorTrigger",
               "triggerID": "ToWait"
             },
             {
-              "$type": "MoleMole.Config.SetAnimatorTrigger",
+              "$type": "SetAnimatorTrigger",
               "triggerID": "ShaderWait"
             },
             {
-              "$type": "MoleMole.Config.SetAnimatorInt",
+              "$type": "SetAnimatorInt",
               "intID": "SkillState",
-              "value": 0.0
+              "value": 0
             },
             {
-              "$type": "MoleMole.Config.SetGlobalValue",
-              "value": 0.0,
+              "$type": "SetGlobalValue",
+              "value": 0,
               "key": "DieSandworm_IsInCutscene",
-              "maxValue": 0.0,
-              "GCEOGBJIFCP": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         "Skill01": {
           "modifierName": "",
-          "elementDurability": 100.0,
+          "elementDurability": 100,
           "state": "Limbo",
-          "OAOGLLGGJPD": [
+          "onAdded": [
             {
               "$type": "MoleMole.Config.HideUIBillBoard",
               "hide": true
@@ -2542,9 +2489,9 @@
               "JHNCAAJCNLH": true
             },
             {
-              "$type": "MoleMole.Config.SetAnimatorInt",
+              "$type": "SetAnimatorInt",
               "intID": "SkillState",
-              "value": 1.0
+              "value": 1
             },
             {
               "$type": "MoleMole.Config.SetFollowMove",
@@ -2556,19 +2503,19 @@
               "followRotation": true
             }
           ],
-          "MINFJCDAIBB": [
+          "onRemoved": [
             {
-              "$type": "MoleMole.Config.SetAnimatorInt",
+              "$type": "SetAnimatorInt",
               "intID": "SkillState",
-              "value": 0.0
+              "value": 0
             }
           ]
         },
         "Skill02": {
           "modifierName": "",
-          "elementDurability": 100.0,
+          "elementDurability": 100,
           "state": "Limbo",
-          "OAOGLLGGJPD": [
+          "onAdded": [
             {
               "$type": "MoleMole.Config.HideUIBillBoard",
               "hide": true
@@ -2579,9 +2526,9 @@
               "JHNCAAJCNLH": true
             },
             {
-              "$type": "MoleMole.Config.SetAnimatorInt",
+              "$type": "SetAnimatorInt",
               "intID": "SkillState",
-              "value": 2.0
+              "value": 2
             },
             {
               "$type": "MoleMole.Config.SetFollowMove",
@@ -2593,19 +2540,19 @@
               "followRotation": true
             }
           ],
-          "MINFJCDAIBB": [
+          "onRemoved": [
             {
-              "$type": "MoleMole.Config.SetAnimatorInt",
+              "$type": "SetAnimatorInt",
               "intID": "SkillState",
-              "value": 0.0
+              "value": 0
             }
           ]
         },
         "Skill03": {
           "modifierName": "",
-          "elementDurability": 100.0,
+          "elementDurability": 100,
           "state": "Limbo",
-          "OAOGLLGGJPD": [
+          "onAdded": [
             {
               "$type": "MoleMole.Config.HideUIBillBoard",
               "hide": true
@@ -2616,9 +2563,9 @@
               "JHNCAAJCNLH": true
             },
             {
-              "$type": "MoleMole.Config.SetAnimatorInt",
+              "$type": "SetAnimatorInt",
               "intID": "SkillState",
-              "value": 3.0
+              "value": 3
             },
             {
               "$type": "MoleMole.Config.SetFollowMove",
@@ -2630,92 +2577,92 @@
               "followRotation": true
             }
           ],
-          "MINFJCDAIBB": [
+          "onRemoved": [
             {
-              "$type": "MoleMole.Config.SetAnimatorInt",
+              "$type": "SetAnimatorInt",
               "intID": "SkillState",
-              "value": 0.0
+              "value": 0
             }
           ]
         },
         "End": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "MoleMole.Config.ServerLuaTriggerEvent",
               "MECCMJIFJKG": "FromGroup",
               "FBPFAJFIFCG": "DieSandWorm_Sand_End",
-              "param1": 0.0,
-              "param2": 0.0,
-              "GBOGNIOMAGM": 0.0
+              "param1": 0,
+              "param2": 0,
+              "GBOGNIOMAGM": 0
             },
             {
-              "$type": "MoleMole.Config.ApplyModifier",
+              "$type": "ApplyModifier",
               "modifierName": "Delayed_ReturnToWait"
             }
           ]
         },
         "DieSandworm_PlayDie": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.SetAnimatorTrigger",
+              "$type": "SetAnimatorTrigger",
               "triggerID": "ToDie"
             },
             {
-              "$type": "MoleMole.Config.SetAnimatorTrigger",
+              "$type": "SetAnimatorTrigger",
               "triggerID": "Die"
             },
             {
-              "$type": "MoleMole.Config.SetAnimatorInt",
+              "$type": "SetAnimatorInt",
               "intID": "SkillState",
-              "value": 0.0
+              "value": 0
             }
           ]
         },
         "Empty": {
           "modifierName": "",
-          "elementDurability": 100.0
+          "elementDurability": 100
         },
         "Delayed_ReturnToWait": {
           "modifierName": "",
-          "duration": 10.0,
-          "elementDurability": 100.0,
-          "MINFJCDAIBB": [
+          "duration": 10,
+          "elementDurability": 100,
+          "onRemoved": [
             {
               "$type": "MoleMole.Config.ChangeGadgetState",
               "predicates": [
                 {
                   "$type": "CBCGGIMMENP",
-                  "MLDBFKEGPEF": "Self",
+                  "target": "Self",
                   "MHKDFIPGJJO": 201
                 }
               ]
             },
             {
-              "$type": "MoleMole.Config.SetAnimatorInt",
+              "$type": "SetAnimatorInt",
               "intID": "SkillState",
-              "value": 0.0
+              "value": 0
             }
           ]
         }
       },
-      "OAOGLLGGJPD": [
+      "onAdded": [
         {
-          "$type": "MoleMole.Config.SetGlobalValue",
-          "value": 0.0,
+          "$type": "SetGlobalValue",
+          "value": 0,
           "key": "DIESANDWORM_PLAYDIE",
-          "maxValue": 0.0,
-          "GCEOGBJIFCP": 0.0
+          "maxValue": 0,
+          "minValue": 0
         },
         {
-          "$type": "MoleMole.Config.CreateGadget",
+          "$type": "CreateGadget",
           "ACNKPHHONBO": true,
           "gadgetID": 70290938,
           "campID": 5001,
-          "FAMCBLCIFCJ": "Enemy",
+          "campTargetType": "Enemy",
           "LKMNHMDMHJA": true
         },
         {
@@ -2728,9 +2675,9 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_SmashSandWorm_Sand_01",
-      "PIDAPNFJNDF": [
+      "abilityMixins": [
         {
           "$type": "MoleMole.Config.AttachToGadgetStateMixin",
           "modifierName": "Skill"
@@ -2746,98 +2693,98 @@
           "modifierName": "End"
         },
         {
-          "$type": "MoleMole.Config.AttachToStateIDMixin",
+          "$type": "AttachToStateIDMixin",
           "stateIDs": [
             "Skill"
           ],
           "modifierName": "SmashSandworm_BeHitDetector",
-          "MJFJKAHGHDJ": ""
+          "__unk_Q2081332355": ""
         }
       ],
-      "BFBDNNJCDLH": {
+      "modifiers": {
         "Empty": {
           "modifierName": "",
-          "elementDurability": 100.0
+          "elementDurability": 100
         },
         "Skill": {
           "modifierName": "",
-          "elementDurability": 100.0
+          "elementDurability": 100
         },
         "End": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "MoleMole.Config.ServerLuaTriggerEvent",
               "MECCMJIFJKG": "FromGroup",
               "FBPFAJFIFCG": "SmashSandWorm_Sand_End",
-              "param1": 0.0,
-              "param2": 0.0,
-              "GBOGNIOMAGM": 0.0
+              "param1": 0,
+              "param2": 0,
+              "GBOGNIOMAGM": 0
             },
             {
-              "$type": "MoleMole.Config.ApplyModifier",
+              "$type": "ApplyModifier",
               "modifierName": "DelayedRemove"
             }
           ]
         },
         "SmashSandworm_BeHitDetector": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "JPIFFPJJEMK": [
+          "elementDurability": 100,
+          "modifierMixins": [
             {
-              "$type": "MoleMole.Config.AttachModifierToSelfGlobalValueMixin",
+              "$type": "AttachModifierToSelfGlobalValueMixin",
               "globalValueKey": "SmashSandworm_BeHit_Count",
-              "KADKJMOFOLI": 0.0,
-              "FJEPHJNDEAI": [
+              "defaultGlobalValueOnCreate": 0,
+              "valueSteps": [
                 -0.5,
                 0.5,
                 1.5
               ],
-              "IJEPHCMOAPE": [
+              "modifierNameSteps": [
                 "Empty",
                 "SmashSandworm_ToEnd"
               ]
             }
           ],
-          "OAOGLLGGJPD": [
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.SetGlobalValue",
-              "value": 0.0,
+              "$type": "SetGlobalValue",
+              "value": 0,
               "key": "SmashSandworm_BeHit_Count",
-              "maxValue": 0.0,
-              "GCEOGBJIFCP": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ],
           "onBeingHit": [
             {
-              "$type": "MoleMole.Config.AddGlobalValue",
-              "value": 1.0,
+              "$type": "AddGlobalValue",
+              "value": 1,
               "key": "SmashSandworm_BeHit_Count",
-              "HPICGAMGEGA": true,
-              "maxValue": 1.0,
-              "GCEOGBJIFCP": 0.0
+              "useLimitRange": true,
+              "maxValue": 1,
+              "minValue": 0
             }
           ]
         },
         "SmashSandworm_ToEnd": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.SetAnimatorBool",
-              "KIAGMJMPHPG": "End_Killed",
+              "$type": "SetAnimatorBool",
+              "boolID": "End_Killed",
               "value": true
             }
           ]
         },
         "DelayedRemove": {
           "modifierName": "",
-          "duration": 10.0,
-          "elementDurability": 100.0,
-          "MINFJCDAIBB": [
+          "duration": 10,
+          "elementDurability": 100,
+          "onRemoved": [
             {
-              "$type": "MoleMole.Config.KillSelf"
+              "$type": "KillSelf"
             }
           ]
         }
@@ -2846,15 +2793,15 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_DieSandWorm_Sand_01_PartcontrolTarget",
-      "OAOGLLGGJPD": [
+      "onAdded": [
         {
-          "$type": "MoleMole.Config.SetGlobalValue",
-          "value": 1.0,
+          "$type": "SetGlobalValue",
+          "value": 1,
           "key": "DIESANDWORM_ISPARTCONTROLTARGET",
-          "maxValue": 0.0,
-          "GCEOGBJIFCP": 0.0
+          "maxValue": 0,
+          "minValue": 0
         },
         {
           "$type": "MoleMole.Config.ChangeTag",
@@ -2866,124 +2813,123 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_AbilitySandWorm_Sand_01_TailGroundCover_Start",
-      "PIDAPNFJNDF": [
+      "abilityMixins": [
         {
-          "$type": "MoleMole.Config.AttachModifierToSelfGlobalValueMixin",
+          "$type": "AttachModifierToSelfGlobalValueMixin",
           "globalValueKey": "_MONSTER_SANDWORM_TAILGROUNDCOVER_EFFECT_ON",
-          "KADKJMOFOLI": 0.0,
-          "FJEPHJNDEAI": [
+          "defaultGlobalValueOnCreate": 0,
+          "valueSteps": [
             -0.5,
             0.5,
             1.5
           ],
-          "IJEPHCMOAPE": [
+          "modifierNameSteps": [
             "Sandworm_TrailGroundCover_Off",
             "Sandworm_TrailGroundCover_On"
           ]
         }
       ],
-      "BFBDNNJCDLH": {
+      "modifiers": {
         "Sandworm_TrailGroundCover_Off": {
           "modifierName": "",
-          "elementDurability": 100.0
+          "elementDurability": 100
         },
         "Sandworm_TrailGroundCover_On": {
-          "EODJPKICNGG": "Unique",
+          "stacking": "Unique",
           "modifierName": "",
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.AttachEffect",
-              "effectPattern": "Eff_Monster_Sandworm_01_Stage01_GroundCover",
-              "effectTempleteID": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_Monster_Sandworm_01_Stage01_GroundCover"
             }
           ]
         }
       },
-      "OAOGLLGGJPD": [
+      "onAdded": [
         {
-          "$type": "MoleMole.Config.SetGlobalValue",
-          "value": 0.0,
+          "$type": "SetGlobalValue",
+          "value": 0,
           "key": "_MONSTER_SANDWORM_TAILGROUNDCOVER_EFFECT_ON",
-          "maxValue": 0.0,
-          "GCEOGBJIFCP": 0.0
+          "maxValue": 0,
+          "minValue": 0
         }
       ],
-      "EIIHGJGFDHC": [
+      "onAbilityStart": [
         {
-          "$type": "MoleMole.Config.SetGlobalValue",
-          "value": 1.0,
+          "$type": "SetGlobalValue",
+          "value": 1,
           "key": "_MONSTER_SANDWORM_TAILGROUNDCOVER_EFFECT_ON",
-          "maxValue": 0.0,
-          "GCEOGBJIFCP": 0.0
+          "maxValue": 0,
+          "minValue": 0
         }
       ]
     }
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_AbilitySandWorm_Sand_01_TailGroundCover_End",
-      "EIIHGJGFDHC": [
+      "onAbilityStart": [
         {
-          "$type": "MoleMole.Config.SetGlobalValue",
-          "value": 0.0,
+          "$type": "SetGlobalValue",
+          "value": 0,
           "key": "_MONSTER_SANDWORM_TAILGROUNDCOVER_EFFECT_ON",
-          "maxValue": 0.0,
-          "GCEOGBJIFCP": 0.0
+          "maxValue": 0,
+          "minValue": 0
         }
       ]
     }
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.GNKCLKNDOAK",
+      "$type": "ConfigAbility",
       "abilityName": "SceneObj_Area_Xm_Property_Ani_Prop_AbilitySandWorm_Sand_ClearBullet",
-      "PIDAPNFJNDF": [
+      "abilityMixins": [
         {
-          "$type": "MoleMole.Config.AttachModifierToSelfGlobalValueMixin",
+          "$type": "AttachModifierToSelfGlobalValueMixin",
           "globalValueKey": "DieSandworm_IsInCutscene",
-          "KADKJMOFOLI": 0.0,
-          "FJEPHJNDEAI": [
+          "defaultGlobalValueOnCreate": 0,
+          "valueSteps": [
             -0.5,
             0.5,
             1.5
           ],
-          "IJEPHCMOAPE": [
+          "modifierNameSteps": [
             "Empty",
             "ClearBullet"
           ]
         }
       ],
-      "BFBDNNJCDLH": {
+      "modifiers": {
         "Empty": {
           "modifierName": "",
-          "elementDurability": 100.0
+          "elementDurability": 100
         },
         "ClearBullet": {
           "modifierName": "",
-          "elementDurability": 100.0,
-          "OAOGLLGGJPD": [
+          "elementDurability": 100,
+          "onAdded": [
             {
-              "$type": "MoleMole.Config.KillGadget",
+              "$type": "KillGadget",
               "doOffStage": true,
-              "GBDKOCEAFOO": {
+              "gadgetInfo": {
                 "configID": 70290941
               }
             },
             {
-              "$type": "MoleMole.Config.KillGadget",
+              "$type": "KillGadget",
               "doOffStage": true,
-              "GBDKOCEAFOO": {
+              "gadgetInfo": {
                 "configID": 70290942
               }
             },
             {
               "$type": "MoleMole.Config.KillMultiBullet",
               "doOffStage": true,
-              "GBDKOCEAFOO": {
+              "gadgetInfo": {
                 "configID": 70290943
               }
             }

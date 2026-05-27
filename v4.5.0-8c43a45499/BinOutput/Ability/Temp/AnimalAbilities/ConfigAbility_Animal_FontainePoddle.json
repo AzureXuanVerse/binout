@@ -3,14 +3,14 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Animal_FontainePoddle_AIStateInitial",
-      "KBODACCMEFE": [
+      "abilityMixins": [
         {
           "$type": "SteerAttackMixin",
           "LMMLIKMOKHL": [
             "Turn"
           ],
-          "GGMOCFABGPD": 999.0,
-          "KNPBDOFJKKB": 60.0,
+          "GGMOCFABGPD": 999,
+          "angularSpeed": 60,
           "APILILGPPAD": ""
         },
         {
@@ -18,36 +18,36 @@
           "LMMLIKMOKHL": [
             "Dodge"
           ],
-          "GGMOCFABGPD": 0.18000000715255737,
-          "KNPBDOFJKKB": 3600.0,
+          "GGMOCFABGPD": 0.18,
+          "angularSpeed": 3600,
           "APILILGPPAD": ""
         }
       ],
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "UNIQUE_Invincible": {
-          "BGIONAIMBCJ": "",
-          "defaultDistanceBetweenAvatarAndCamera": true,
-          "ONIHJPOMNHA": 100.0,
-          "FJMPEOEHPJK": "Invincible"
+          "modifierName": "",
+          "isUnique": true,
+          "elementDurability": 100,
+          "state": "Invincible"
         },
         "DenyLockOn": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "FJMPEOEHPJK": "DenyLockOn"
+          "modifierName": "",
+          "elementDurability": 100,
+          "state": "DenyLockOn"
         }
       },
-      "NLFIGALMIPD": [
+      "onAdded": [
         {
           "$type": "AttachModifier",
-          "BGIONAIMBCJ": "UNIQUE_Invincible"
+          "modifierName": "UNIQUE_Invincible"
         },
         {
           "$type": "AttachModifier",
-          "BGIONAIMBCJ": "DenyLockOn"
+          "modifierName": "DenyLockOn"
         },
         {
           "$type": "AttachAbilityStateResistance",
-          "NPCLJKGFAMK": 11001
+          "resistanceListID": 11001
         }
       ]
     }
@@ -56,11 +56,11 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Animal_FontainePoddle_Prone",
-      "DEOJHLMNLFC": [
+      "onAbilityStart": [
         {
           "$type": "SetPoseInt",
-          "EGCALHMEFEC": "RandomPose",
-          "KHMNAHOBJAE": 2
+          "intID": "RandomPose",
+          "value": 2
         }
       ]
     }
@@ -69,11 +69,11 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Animal_FontainePoddle_Stand",
-      "DEOJHLMNLFC": [
+      "onAbilityStart": [
         {
           "$type": "SetPoseInt",
-          "EGCALHMEFEC": "RandomPose",
-          "KHMNAHOBJAE": 1
+          "intID": "RandomPose",
+          "value": 1
         }
       ]
     }
@@ -82,7 +82,7 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Animal_FontainePoddle_BeHit",
-      "KBODACCMEFE": [
+      "abilityMixins": [
         {
           "$type": "AttachToPoseIDMixin",
           "OLJKDPFLMCF": [
@@ -95,7 +95,7 @@
             401,
             501
           ],
-          "BGIONAIMBCJ": "BeHitDetect"
+          "modifierName": "BeHitDetect"
         },
         {
           "$type": "DoActionByPoseIDMixin",
@@ -106,23 +106,23 @@
           "EEGIIGFKBHC": [
             {
               "$type": "ApplyModifier",
-              "BGIONAIMBCJ": "FleeCountDown"
+              "modifierName": "FleeCountDown"
             }
           ]
         }
       ],
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "BeHitDetect": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "EOMGJKEEICG": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onBeingHit": [
             {
               "$type": "Predicated",
-              "KMGAOOHMCPK": "Target",
-              "EGMDPEHBAOA": [
+              "target": "Target",
+              "targetPredicates": [
                 {
-                  "$type": "FAGBAHBLACH",
-                  "MALHNOJHHDJ": [
+                  "$type": "ByEntityTypes",
+                  "entityTypes": [
                     "Avatar",
                     "Monster",
                     "Gadget",
@@ -133,18 +133,18 @@
               "successActions": [
                 {
                   "$type": "SetPoseBool",
-                  "CMLNMLEDGPA": "FleeHasTarget",
+                  "boolID": "FleeHasTarget",
                   "value": true
                 },
                 {
                   "$type": "SetAnimatorTrigger",
-                  "POPKLBPMAJN": "BeHitTrigger"
+                  "triggerID": "BeHitTrigger"
                 }
               ],
               "failActions": [
                 {
                   "$type": "SetPoseBool",
-                  "CMLNMLEDGPA": "FleeNoTarget",
+                  "boolID": "FleeNoTarget",
                   "value": true
                 }
               ]
@@ -152,14 +152,14 @@
           ]
         },
         "FleeCountDown": {
-          "HABNNJHCOCD": "Unique",
-          "BGIONAIMBCJ": "",
-          "FAFCPJJAIGK": 10.0,
-          "ONIHJPOMNHA": 100.0,
-          "NFKOGKMAIIE": [
+          "stacking": "Unique",
+          "modifierName": "",
+          "duration": 10,
+          "elementDurability": 100,
+          "onRemoved": [
             {
               "$type": "StartDither",
-              "duration": 3.0
+              "duration": 3
             },
             {
               "$type": "KillSelf",
@@ -177,7 +177,7 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Animal_FontainePoddle_Guard_TurnToProne",
-      "DEOJHLMNLFC": [
+      "onAbilityStart": [
         {
           "$type": "SetAISkillCDAvailableNow",
           "AGAIJDENKJE": [
@@ -192,7 +192,7 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "Animal_FontainePoddle_Guard_BeHit",
-      "KBODACCMEFE": [
+      "abilityMixins": [
         {
           "$type": "AttachToPoseIDMixin",
           "OLJKDPFLMCF": [
@@ -203,7 +203,7 @@
             201,
             301
           ],
-          "BGIONAIMBCJ": "BeHitDetect"
+          "modifierName": "BeHitDetect"
         },
         {
           "$type": "DoActionByPoseIDMixin",
@@ -214,23 +214,23 @@
           "EEGIIGFKBHC": [
             {
               "$type": "ApplyModifier",
-              "BGIONAIMBCJ": "FleeCountDown"
+              "modifierName": "FleeCountDown"
             }
           ]
         }
       ],
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "BeHitDetect": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "EOMGJKEEICG": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onBeingHit": [
             {
               "$type": "Predicated",
-              "KMGAOOHMCPK": "Target",
-              "EGMDPEHBAOA": [
+              "target": "Target",
+              "targetPredicates": [
                 {
-                  "$type": "FAGBAHBLACH",
-                  "MALHNOJHHDJ": [
+                  "$type": "ByEntityTypes",
+                  "entityTypes": [
                     "Avatar",
                     "Monster",
                     "Gadget",
@@ -241,18 +241,18 @@
               "successActions": [
                 {
                   "$type": "SetPoseBool",
-                  "CMLNMLEDGPA": "FleeHasTarget",
+                  "boolID": "FleeHasTarget",
                   "value": true
                 },
                 {
                   "$type": "SetAnimatorTrigger",
-                  "POPKLBPMAJN": "BeHitTrigger"
+                  "triggerID": "BeHitTrigger"
                 }
               ],
               "failActions": [
                 {
                   "$type": "SetPoseBool",
-                  "CMLNMLEDGPA": "FleeNoTarget",
+                  "boolID": "FleeNoTarget",
                   "value": true
                 }
               ]
@@ -260,14 +260,14 @@
           ]
         },
         "FleeCountDown": {
-          "HABNNJHCOCD": "Unique",
-          "BGIONAIMBCJ": "",
-          "FAFCPJJAIGK": 10.0,
-          "ONIHJPOMNHA": 100.0,
-          "NFKOGKMAIIE": [
+          "stacking": "Unique",
+          "modifierName": "",
+          "duration": 10,
+          "elementDurability": 100,
+          "onRemoved": [
             {
               "$type": "StartDither",
-              "duration": 3.0
+              "duration": 3
             },
             {
               "$type": "KillSelf",

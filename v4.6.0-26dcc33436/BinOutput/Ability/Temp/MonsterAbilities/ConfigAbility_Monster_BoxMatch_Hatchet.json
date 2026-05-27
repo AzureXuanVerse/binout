@@ -1,7 +1,7 @@
 [
   {
     "Default": {
-      "$type": "MoleMole.Config.ConfigAbility",
+      "$type": "ConfigAbility",
       "abilityName": "BoxMatch_Hatchet_CoreLogic",
       "abilityMixins": [
         {
@@ -21,9 +21,9 @@
           "modifierName": "Hatchet_Level_2"
         },
         {
-          "$type": "MoleMole.Config.AttachModifierToSelfGlobalValueMixin",
+          "$type": "AttachModifierToSelfGlobalValueMixin",
           "globalValueKey": "GV_BoxMatch_StartBurst",
-          "gvInTalk": 0.0,
+          "defaultGlobalValueOnCreate": 0,
           "valueSteps": [
             -0.5,
             0.5,
@@ -38,43 +38,42 @@
       "modifiers": {
         "Dummy": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0
+          "elementDurability": 100
         },
         "StartBurst": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "thinkInterval": 0.5,
           "onAdded": [
             {
-              "$type": "MoleMole.Config.SetAnimatorTrigger",
-              "value": "BurstImmediately"
+              "$type": "SetAnimatorTrigger",
+              "triggerID": "BurstImmediately"
             },
             {
-              "$type": "MoleMole.Config.FireEffect",
-              "rotationDampTime": "Eff_Monster_FungusFight_UnionBurstGlitter",
-              "NHGDGLICLFB": -1.0
+              "$type": "FireEffect",
+              "effectPattern": "Eff_Monster_FungusFight_UnionBurstGlitter"
             }
           ],
           "onThinkInterval": [
             {
-              "$type": "MoleMole.Config.SetGlobalValue",
-              "param3": 0.0,
+              "$type": "SetGlobalValue",
+              "value": 0,
               "key": "GV_BoxMatch_StartBurst",
-              "param2": 0.0,
-              "triggerID": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         "Hatchet_Level_1": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0
+          "elementDurability": 100
         },
         "Hatchet_Level_2": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "modifierMixins": [
             {
-              "$type": "MoleMole.Config.ReplaceEventPatternMixin",
+              "$type": "ReplaceEventPatternMixin",
               "oldPatterns": [
                 "Monster_BoxMatch_Hatchet_FireWork_BS"
               ],
@@ -89,37 +88,37 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.ConfigAbility",
+      "$type": "ConfigAbility",
       "abilityName": "BoxMatch_Hatchet_FireWork_Trigger",
       "onAbilityStart": [
         {
-          "$type": "MoleMole.Config.CreateGadget",
+          "$type": "CreateGadget",
           "predicates": [
             {
-              "$type": "LMBGIDDHLDM",
+              "$type": "ByHasModifier",
               "modifierName": "Hatchet_Level_1"
             }
           ],
           "born": {
-            "$type": "AHBFOPDDMPB",
+            "$type": "ConfigBornBySelf",
             "onGround": true,
             "useRotation": true
           },
           "gadgetID": 42501015
         },
         {
-          "$type": "MoleMole.Config.TriggerBullet",
+          "$type": "TriggerBullet",
           "predicates": [
             {
-              "$type": "LMBGIDDHLDM",
+              "$type": "ByHasModifier",
               "modifierName": "Hatchet_Level_2"
             }
           ],
           "bulletID": 42501016,
           "born": {
-            "$type": "POAPJOHEDDM",
+            "$type": "ConfigBornByAttachPoint",
             "direction": {
-              "$type": "PBGHCONEIHD"
+              "$type": "ConfigDirectionByEntity"
             },
             "useRotation": true,
             "attachPointName": "WeaponR"
@@ -130,43 +129,41 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.ConfigAbility",
+      "$type": "ConfigAbility",
       "abilityName": "BoxMatch_Hatchet_FireWork_Lv1",
       "modifiers": {
         "Firework_Logic": {
           "modifierName": "",
-          "elementDurability": 0.4000000059604645,
-          "bonusCriticalHurt": 100.0,
+          "duration": 0.4,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "MoleMole.Config.FireEffect",
-              "rotationDampTime": "Eff_Monster_BoxMatch_Firework_BS",
-              "NHGDGLICLFB": -1.0
+              "$type": "FireEffect",
+              "effectPattern": "Eff_Monster_BoxMatch_Firework_BS"
             }
           ],
           "onRemoved": [
             {
-              "$type": "MoleMole.Config.FireEffect",
-              "rotationDampTime": "Eff_Monster_BoxMatch_Firework_Attack",
-              "NHGDGLICLFB": -1.0
+              "$type": "FireEffect",
+              "effectPattern": "Eff_Monster_BoxMatch_Firework_Attack"
             },
             {
-              "$type": "MoleMole.Config.TriggerAttackEvent",
+              "$type": "TriggerAttackEvent",
               "attackEvent": {
                 "attackPattern": {
-                  "$type": "ABLEKHNLCEE",
+                  "$type": "ConfigAttackBox",
                   "triggerType": "TriggerNoRepeat",
                   "born": {
-                    "$type": "AHBFOPDDMPB",
+                    "$type": "ConfigBornBySelf",
                     "offset": {
-                      "CHEGDAPFFHA": 1.0
+                      "y": 1
                     },
                     "useRotation": true
                   },
                   "size": {
-                    "AOFNOGLCGMP": 4.5,
-                    "CHEGDAPFFHA": 2.0,
-                    "JEGKAACFHJK": 4.5
+                    "x": 4.5,
+                    "y": 2,
+                    "z": 4.5
                   }
                 },
                 "attackInfo": {
@@ -174,13 +171,13 @@
                   "attenuationTag": "",
                   "attenuationGroup": "default",
                   "attackProperty": {
-                    "AGMNCBAKCEF": 1.600000023841858,
-                    "AILJJDMKONE": 0.0,
+                    "damagePercentage": 1.6,
+                    "damagePercentageRatio": 0,
                     "elementType": "Fire",
-                    "bonusCriticalHurt": 50.0,
-                    "enBreak": 100.0,
+                    "elementDurability": 50,
+                    "damage": 100,
                     "attackType": "Range",
-                    "bonusCritical": 0.0
+                    "__exp_arkhe": 0
                   },
                   "hitPattern": {
                     "onHitEffectName": "default",
@@ -194,26 +191,26 @@
         },
         "Firework_Damage_Delay": {
           "modifierName": "",
-          "elementDurability": 0.44999998807907104,
-          "bonusCriticalHurt": 100.0,
+          "duration": 0.45,
+          "elementDurability": 100,
           "onRemoved": [
             {
-              "$type": "MoleMole.Config.TriggerAttackEvent",
+              "$type": "TriggerAttackEvent",
               "attackEvent": {
                 "attackPattern": {
-                  "$type": "ABLEKHNLCEE",
+                  "$type": "ConfigAttackBox",
                   "triggerType": "TriggerNoRepeat",
                   "born": {
-                    "$type": "AHBFOPDDMPB",
+                    "$type": "ConfigBornBySelf",
                     "offset": {
-                      "CHEGDAPFFHA": 1.0
+                      "y": 1
                     },
                     "useRotation": true
                   },
                   "size": {
-                    "AOFNOGLCGMP": 4.5,
-                    "CHEGDAPFFHA": 2.0,
-                    "JEGKAACFHJK": 4.5
+                    "x": 4.5,
+                    "y": 2,
+                    "z": 4.5
                   }
                 },
                 "attackInfo": {
@@ -221,13 +218,13 @@
                   "attenuationTag": "",
                   "attenuationGroup": "default",
                   "attackProperty": {
-                    "AGMNCBAKCEF": 0.4000000059604645,
-                    "AILJJDMKONE": 0.0,
+                    "damagePercentage": 0.4,
+                    "damagePercentageRatio": 0,
                     "elementType": "Fire",
-                    "bonusCriticalHurt": 25.0,
-                    "enBreak": 0.0,
+                    "elementDurability": 25,
+                    "damage": 0,
                     "attackType": "Range",
-                    "bonusCritical": 0.0
+                    "__exp_arkhe": 0
                   },
                   "hitPattern": {
                     "onHitEffectName": "default",
@@ -242,11 +239,11 @@
       },
       "onAdded": [
         {
-          "$type": "MoleMole.Config.ApplyModifier",
+          "$type": "ApplyModifier",
           "modifierName": "Firework_Logic"
         },
         {
-          "$type": "MoleMole.Config.ApplyModifier",
+          "$type": "ApplyModifier",
           "modifierName": "Firework_Damage_Delay"
         }
       ]
@@ -254,43 +251,41 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.ConfigAbility",
+      "$type": "ConfigAbility",
       "abilityName": "BoxMatch_FireWork_Lv2",
       "modifiers": {
         "Bullet_VFX": {
           "modifierName": "",
           "elementType": "Fire",
-          "bonusCriticalHurt": 25.0,
+          "elementDurability": 25,
           "isElementDurabilityMutable": false,
           "onAdded": [
             {
-              "$type": "MoleMole.Config.AttachEffect",
-              "rotationDampTime": "Eff_Monster_BoxMatch_Firework_Lv2_Bullet",
-              "NHGDGLICLFB": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_Monster_BoxMatch_Firework_Lv2_Bullet"
             },
             {
-              "$type": "MoleMole.Config.AttachEffect",
-              "rotationDampTime": "Eff_Monster_BoxMatch_Firework_Lv2_Bullet_Trail",
-              "NHGDGLICLFB": -1.0
+              "$type": "AttachEffect",
+              "effectPattern": "Eff_Monster_BoxMatch_Firework_Lv2_Bullet_Trail"
             }
           ]
         }
       },
       "onAdded": [
         {
-          "$type": "MoleMole.Config.AttachModifier",
+          "$type": "AttachModifier",
           "modifierName": "Bullet_VFX"
         }
       ],
       "onAbilityStart": [
         {
-          "$type": "MoleMole.Config.RemoveModifier",
+          "$type": "RemoveModifier",
           "modifierName": "Bullet_VFX"
         },
         {
-          "$type": "MoleMole.Config.CreateGadget",
+          "$type": "CreateGadget",
           "born": {
-            "$type": "KKKABMDCNIJ"
+            "$type": "ConfigBornByCollisionPoint"
           },
           "gadgetID": 42501017
         }
@@ -299,40 +294,40 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.ConfigAbility",
+      "$type": "ConfigAbility",
       "abilityName": "BoxMatch_Hatchet_FireWork_Lv2_Attack",
       "modifiers": {
         "Firework_Damage_Delay_Lv2": {
           "modifierName": "",
-          "elementDurability": 0.4000000059604645,
-          "bonusCriticalHurt": 100.0,
-          "thinkInterval": 0.09000000357627869,
+          "duration": 0.4,
+          "elementDurability": 100,
+          "thinkInterval": 0.09,
           "onThinkInterval": [
             {
-              "$type": "MoleMole.Config.TriggerAttackEvent",
+              "$type": "TriggerAttackEvent",
               "attackEvent": {
                 "attackPattern": {
-                  "$type": "CDFDJKDFCFJ",
+                  "$type": "ConfigAttackSphere",
                   "triggerType": "TriggerNoRepeat",
                   "born": {
-                    "$type": "AHBFOPDDMPB",
+                    "$type": "ConfigBornBySelf",
                     "useRotation": true
                   },
-                  "IDLDJCPGNHD": 5.199999809265137
+                  "radius": 5.2
                 },
                 "attackInfo": {
                   "attackTag": "",
                   "attenuationTag": "",
                   "attenuationGroup": "default",
                   "attackProperty": {
-                    "AGMNCBAKCEF": 0.4000000059604645,
-                    "AILJJDMKONE": 0.0,
+                    "damagePercentage": 0.4,
+                    "damagePercentageRatio": 0,
                     "elementType": "Fire",
-                    "bonusCriticalHurt": 25.0,
+                    "elementDurability": 25,
                     "strikeType": "Default",
-                    "enBreak": 0.0,
+                    "damage": 0,
                     "attackType": "Range",
-                    "bonusCritical": 0.0
+                    "__exp_arkhe": 0
                   },
                   "hitPattern": {
                     "onHitEffectName": "default",
@@ -347,39 +342,38 @@
       },
       "onAdded": [
         {
-          "$type": "MoleMole.Config.FireEffect",
-          "rotationDampTime": "Eff_Monster_BoxMatch_Firework_Lv2_Attack",
+          "$type": "FireEffect",
+          "effectPattern": "Eff_Monster_BoxMatch_Firework_Lv2_Attack",
           "born": {
-            "$type": "AHBFOPDDMPB",
+            "$type": "ConfigBornBySelf",
             "useRotation": true
-          },
-          "NHGDGLICLFB": -1.0
+          }
         },
         {
-          "$type": "MoleMole.Config.TriggerAttackEvent",
+          "$type": "TriggerAttackEvent",
           "attackEvent": {
             "attackPattern": {
-              "$type": "CDFDJKDFCFJ",
+              "$type": "ConfigAttackSphere",
               "triggerType": "TriggerNoRepeat",
               "born": {
-                "$type": "AHBFOPDDMPB",
+                "$type": "ConfigBornBySelf",
                 "useRotation": true
               },
-              "IDLDJCPGNHD": 5.199999809265137
+              "radius": 5.2
             },
             "attackInfo": {
               "attackTag": "",
               "attenuationTag": "",
               "attenuationGroup": "default",
               "attackProperty": {
-                "AGMNCBAKCEF": 2.4000000953674316,
-                "AILJJDMKONE": 0.0,
+                "damagePercentage": 2.4,
+                "damagePercentageRatio": 0,
                 "elementType": "Fire",
-                "bonusCriticalHurt": 50.0,
+                "elementDurability": 50,
                 "strikeType": "Default",
-                "enBreak": 250.0,
+                "damage": 250,
                 "attackType": "Range",
-                "bonusCritical": 0.0
+                "__exp_arkhe": 0
               },
               "hitPattern": {
                 "onHitEffectName": "default",
@@ -387,15 +381,15 @@
               },
               "forceCameraShake": true,
               "cameraShake": {
-                "shakeRange": 1.0,
-                "shakeTime": 0.23999999463558197
+                "shakeRange": 1,
+                "shakeTime": 0.24
               }
             }
           },
           "targetType": "Enemy"
         },
         {
-          "$type": "MoleMole.Config.ApplyModifier",
+          "$type": "ApplyModifier",
           "modifierName": "Firework_Damage_Delay_Lv2"
         }
       ]
@@ -403,13 +397,13 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.ConfigAbility",
+      "$type": "ConfigAbility",
       "abilityName": "BoxMatch_Hatchet_Equip_Display_Manager",
       "abilityMixins": [
         {
-          "$type": "MoleMole.Config.AttachModifierToSelfGlobalValueMixin",
+          "$type": "AttachModifierToSelfGlobalValueMixin",
           "globalValueKey": "_SHEATH_WEAPON",
-          "gvInTalk": 1.0,
+          "defaultGlobalValueOnCreate": 1,
           "valueSteps": [
             -0.5,
             0.5,
@@ -427,8 +421,8 @@
           ],
           "enterActions": [
             {
-              "$type": "MoleMole.Config.SetAnimatorTrigger",
-              "value": "SheathWeapon"
+              "$type": "SetAnimatorTrigger",
+              "triggerID": "SheathWeapon"
             }
           ]
         }
@@ -436,7 +430,7 @@
       "modifiers": {
         "BoxMatch_SheathWeapon": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "MoleMole.Config.SetWeaponAttachPointRealName",
@@ -462,7 +456,7 @@
         },
         "BoxMatch_ShowWeapon": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "MoleMole.Config.SetWeaponAttachPointRealName",
@@ -474,18 +468,18 @@
       },
       "onAbilityStart": [
         {
-          "$type": "MoleMole.Config.SetGlobalValue",
-          "param3": 0.0,
+          "$type": "SetGlobalValue",
+          "value": 0,
           "key": "_SHEATH_WEAPON",
-          "param2": 0.0,
-          "triggerID": 0.0
+          "maxValue": 0,
+          "minValue": 0
         }
       ]
     }
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.ConfigAbility",
+      "$type": "ConfigAbility",
       "abilityName": "BoxMatch_Hatchet_Dodge",
       "abilityMixins": [
         {
@@ -497,10 +491,10 @@
             "JumpAttack_AS"
           ],
           "defendTriggerID": "DodgeTrigger",
-          "defendAngle": 100.0,
+          "defendAngle": 100,
           "defendProbability": 0.5,
           "defendProbabilityDelta": 0.25,
-          "defendTimeInterval": 0.30000001192092896,
+          "defendTimeInterval": 0.3,
           "ICOAJNCIGEN": 0
         }
       ]
@@ -508,7 +502,7 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.ConfigAbility",
+      "$type": "ConfigAbility",
       "abilityName": "BoxMatch_Hatchet_AttackSteer",
       "abilityMixins": [
         {
@@ -516,89 +510,89 @@
           "steerStateIDs": [
             "Slash01"
           ],
-          "startNormalizedTime": 0.20000000298023224,
-          "endNormalizedTime": 0.26100000739097595,
-          "angularSpeed": 900.0,
+          "startNormalizedTime": 0.2,
+          "endNormalizedTime": 0.261,
+          "angularSpeed": 900,
           "attackTrigger": "",
           "GOMOPNPHADG": true,
-          "BILMCNCKIAO": ""
+          "__unk_Q2081332355": ""
         },
         {
           "$type": "MoleMole.Config.SteerAttackMixin",
           "steerStateIDs": [
             "Slash01"
           ],
-          "startNormalizedTime": 0.26100000739097595,
-          "endNormalizedTime": 0.32499998807907104,
-          "angularSpeed": 240.0,
+          "startNormalizedTime": 0.261,
+          "endNormalizedTime": 0.325,
+          "angularSpeed": 240,
           "attackTrigger": "",
           "GOMOPNPHADG": true,
-          "BILMCNCKIAO": ""
+          "__unk_Q2081332355": ""
         },
         {
           "$type": "MoleMole.Config.SteerAttackMixin",
           "steerStateIDs": [
             "Slash02"
           ],
-          "startNormalizedTime": 0.328000009059906,
-          "endNormalizedTime": 0.3540000021457672,
-          "angularSpeed": 240.0,
+          "startNormalizedTime": 0.328,
+          "endNormalizedTime": 0.354,
+          "angularSpeed": 240,
           "attackTrigger": "",
           "GOMOPNPHADG": true,
-          "BILMCNCKIAO": ""
+          "__unk_Q2081332355": ""
         },
         {
           "$type": "MoleMole.Config.SteerAttackMixin",
           "steerStateIDs": [
             "TripleAttack"
           ],
-          "startNormalizedTime": 0.2199999988079071,
-          "endNormalizedTime": 0.33000001311302185,
-          "angularSpeed": 900.0,
+          "startNormalizedTime": 0.22,
+          "endNormalizedTime": 0.33,
+          "angularSpeed": 900,
           "attackTrigger": "",
           "GOMOPNPHADG": true,
-          "BILMCNCKIAO": ""
+          "__unk_Q2081332355": ""
         },
         {
           "$type": "MoleMole.Config.SteerAttackMixin",
           "steerStateIDs": [
             "TripleAttack"
           ],
-          "startNormalizedTime": 0.5199999809265137,
-          "endNormalizedTime": 0.5569999814033508,
-          "angularSpeed": 480.0,
+          "startNormalizedTime": 0.52,
+          "endNormalizedTime": 0.557,
+          "angularSpeed": 480,
           "attackTrigger": "",
           "GOMOPNPHADG": true,
-          "BILMCNCKIAO": ""
+          "__unk_Q2081332355": ""
         },
         {
           "$type": "MoleMole.Config.SteerAttackMixin",
           "steerStateIDs": [
             "JumpAttack"
           ],
-          "startNormalizedTime": 0.20999999344348907,
-          "endNormalizedTime": 0.3400000035762787,
-          "angularSpeed": 700.0,
+          "startNormalizedTime": 0.21,
+          "endNormalizedTime": 0.34,
+          "angularSpeed": 700,
           "attackTrigger": "",
           "GOMOPNPHADG": true,
-          "BILMCNCKIAO": ""
+          "__unk_Q2081332355": ""
         },
         {
           "$type": "MoleMole.Config.SteerAttackMixin",
           "steerStateIDs": [
             "FireWork"
           ],
-          "angularSpeed": 180.0,
+          "angularSpeed": 180,
           "attackTrigger": "",
           "GOMOPNPHADG": true,
-          "BILMCNCKIAO": ""
+          "__unk_Q2081332355": ""
         }
       ]
     }
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.ConfigAbility",
+      "$type": "ConfigAbility",
       "abilityName": "BoxMatch_Affix_Skirmisher_SprayGun_Ice",
       "abilityMixins": [
         {
@@ -612,30 +606,30 @@
               "luaCallType": "CurGalleryControlGroup",
               "funcName": "SLC_BoxMatch_ShowReminder",
               "paramNum": 1,
-              "param1": 1.0,
-              "KEEFCBAAODF": 0.0,
-              "LABHKHBCHFB": 0.0
+              "param1": 1,
+              "KEEFCBAAODF": 0,
+              "LABHKHBCHFB": 0
             },
             {
               "$type": "MoleMole.Config.ServerLuaCall",
               "luaCallType": "CurGalleryControlGroup",
               "funcName": "SLC_SkillHint_Enabled",
               "paramNum": 1,
-              "param1": 1.0,
-              "KEEFCBAAODF": 0.0,
-              "LABHKHBCHFB": 0.0
+              "param1": 1,
+              "KEEFCBAAODF": 0,
+              "LABHKHBCHFB": 0
             },
             {
-              "$type": "MoleMole.Config.TriggerAudio",
+              "$type": "TriggerAudio",
               "operation": {
-                "$type": "LOPKKEONDBJ",
+                "$type": "ConfigAudioEventOp",
                 "operation": {
                   "text": "Play_ui_activity_BoxMatch_InLevel_Jubilate"
                 }
               }
             }
           ],
-          "BILMCNCKIAO": ""
+          "__unk_Q2081332355": ""
         },
         {
           "$type": "MoleMole.Config.DoActionByAnimatorStateIDMixin",
@@ -648,30 +642,30 @@
               "luaCallType": "CurGalleryControlGroup",
               "funcName": "SLC_BoxMatch_ShowReminder",
               "paramNum": 1,
-              "param1": 2.0,
-              "KEEFCBAAODF": 0.0,
-              "LABHKHBCHFB": 0.0
+              "param1": 2,
+              "KEEFCBAAODF": 0,
+              "LABHKHBCHFB": 0
             },
             {
               "$type": "MoleMole.Config.ServerLuaCall",
               "luaCallType": "CurGalleryControlGroup",
               "funcName": "SLC_SkillHint_Disabled",
               "paramNum": 1,
-              "param1": 1.0,
-              "KEEFCBAAODF": 0.0,
-              "LABHKHBCHFB": 0.0
+              "param1": 1,
+              "KEEFCBAAODF": 0,
+              "LABHKHBCHFB": 0
             },
             {
-              "$type": "MoleMole.Config.TriggerAudio",
+              "$type": "TriggerAudio",
               "operation": {
-                "$type": "LOPKKEONDBJ",
+                "$type": "ConfigAudioEventOp",
                 "operation": {
                   "text": "Play_ui_activity_BoxMatch_InLevel_Jubilate"
                 }
               }
             }
           ],
-          "BILMCNCKIAO": ""
+          "__unk_Q2081332355": ""
         },
         {
           "$type": "MoleMole.Config.ChangeBillboardMixin",
@@ -679,10 +673,10 @@
             "$type": "NJADPPLCLIE",
             "attachPoint": "BillboardAttach",
             "offset": {
-              "x": -0.3499999940395355
+              "x": -0.35
             },
             "offsetType": "Character",
-            "showDistance": 100.0,
+            "showDistance": 100,
             "elementStickUseShowDistanceInDungeon": true,
             "showHPBar": true,
             "size": "Big"
@@ -694,7 +688,7 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.ConfigAbility",
+      "$type": "ConfigAbility",
       "abilityName": "BoxMatch_Affix_Samurai_Kairagi",
       "abilityMixins": [
         {
@@ -708,14 +702,14 @@
               "luaCallType": "CurGalleryControlGroup",
               "funcName": "SLC_BoxMatch_ShowReminder",
               "paramNum": 1,
-              "param1": 4.0,
-              "KEEFCBAAODF": 0.0,
-              "LABHKHBCHFB": 0.0
+              "param1": 4,
+              "KEEFCBAAODF": 0,
+              "LABHKHBCHFB": 0
             }
           ]
         },
         {
-          "$type": "MoleMole.Config.AttachToAbilityStateMixin",
+          "$type": "AttachToAbilityStateMixin",
           "abilityStates": [
             "ElementFrozen"
           ],
@@ -727,10 +721,10 @@
             "$type": "NJADPPLCLIE",
             "attachPoint": "BillboardAttach",
             "offsetType": "Character",
-            "showDistance": 100.0,
+            "showDistance": 100,
             "elementStickUseShowDistanceInDungeon": true,
             "showHPBar": true,
-            "forceShowDistance": 50.0,
+            "forceShowDistance": 50,
             "size": "Big"
           }
         }
@@ -738,51 +732,51 @@
       "modifiers": {
         "SendElementFrozenSLC": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
               "$type": "MoleMole.Config.ServerLuaCall",
               "luaCallType": "CurGalleryControlGroup",
               "funcName": "SLC_BoxMatch_ShowReminder",
               "paramNum": 1,
-              "param1": 7.0,
-              "KEEFCBAAODF": 0.0,
-              "LABHKHBCHFB": 0.0
+              "param1": 7,
+              "KEEFCBAAODF": 0,
+              "LABHKHBCHFB": 0
             },
             {
-              "$type": "MoleMole.Config.TriggerAudio",
+              "$type": "TriggerAudio",
               "predicates": [
                 {
-                  "$type": "POOFKGMBLNA",
+                  "$type": "ByTargetGlobalValue",
                   "target": "Self",
                   "key": "_AUDIO_TRIGGERED_",
-                  "param3": 0.0
+                  "value": 0
                 }
               ],
               "operation": {
-                "$type": "LOPKKEONDBJ",
+                "$type": "ConfigAudioEventOp",
                 "operation": {
                   "text": "Play_ui_activity_BoxMatch_InLevel_Jubilate"
                 }
               }
             },
             {
-              "$type": "MoleMole.Config.SetGlobalValue",
-              "param3": 1.0,
+              "$type": "SetGlobalValue",
+              "value": 1,
               "key": "_AUDIO_TRIGGERED_",
-              "param2": 0.0,
-              "triggerID": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         }
       },
       "onAdded": [
         {
-          "$type": "MoleMole.Config.SetGlobalValue",
-          "param3": 0.0,
+          "$type": "SetGlobalValue",
+          "value": 0,
           "key": "_AUDIO_TRIGGERED_",
-          "param2": 0.0,
-          "triggerID": 0.0
+          "maxValue": 0,
+          "minValue": 0
         }
       ],
       "isDynamicAbility": true
@@ -790,7 +784,7 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.ConfigAbility",
+      "$type": "ConfigAbility",
       "abilityName": "BoxMatch_Affix_MuscleMan_NoWeapon",
       "abilityMixins": [
         {
@@ -805,27 +799,27 @@
               "luaCallType": "CurGalleryControlGroup",
               "funcName": "SLC_BoxMatch_ShowReminder",
               "paramNum": 1,
-              "param1": 9.0,
-              "KEEFCBAAODF": 0.0,
-              "LABHKHBCHFB": 0.0
+              "param1": 9,
+              "KEEFCBAAODF": 0,
+              "LABHKHBCHFB": 0
             },
             {
               "$type": "MoleMole.Config.ServerLuaCall",
               "luaCallType": "CurGalleryControlGroup",
               "funcName": "SLC_SkillHint_Enabled",
               "paramNum": 1,
-              "param1": 3.0,
-              "KEEFCBAAODF": 0.0,
-              "LABHKHBCHFB": 0.0
+              "param1": 3,
+              "KEEFCBAAODF": 0,
+              "LABHKHBCHFB": 0
             },
             {
               "$type": "MoleMole.Config.ServerLuaCall",
               "luaCallType": "CurGalleryControlGroup",
               "funcName": "SLC_SkillHint_Enabled",
               "paramNum": 1,
-              "param1": 2.0,
-              "KEEFCBAAODF": 0.0,
-              "LABHKHBCHFB": 0.0
+              "param1": 2,
+              "KEEFCBAAODF": 0,
+              "LABHKHBCHFB": 0
             }
           ],
           "exitActions": [
@@ -834,21 +828,21 @@
               "luaCallType": "CurGalleryControlGroup",
               "funcName": "SLC_SkillHint_Disabled",
               "paramNum": 1,
-              "param1": 3.0,
-              "KEEFCBAAODF": 0.0,
-              "LABHKHBCHFB": 0.0
+              "param1": 3,
+              "KEEFCBAAODF": 0,
+              "LABHKHBCHFB": 0
             },
             {
               "$type": "MoleMole.Config.ServerLuaCall",
               "luaCallType": "CurGalleryControlGroup",
               "funcName": "SLC_SkillHint_Disabled",
               "paramNum": 1,
-              "param1": 2.0,
-              "KEEFCBAAODF": 0.0,
-              "LABHKHBCHFB": 0.0
+              "param1": 2,
+              "KEEFCBAAODF": 0,
+              "LABHKHBCHFB": 0
             }
           ],
-          "BILMCNCKIAO": ""
+          "__unk_Q2081332355": ""
         },
         {
           "$type": "MoleMole.Config.ChangeBillboardMixin",
@@ -856,11 +850,11 @@
             "$type": "NJADPPLCLIE",
             "attachPoint": "BillboardAttach",
             "offset": {
-              "x": -0.05000000074505806
+              "x": -0.05
             },
             "offsetType": "Character",
             "radiusOffset": 0.25,
-            "showDistance": 100.0,
+            "showDistance": 100,
             "elementStickUseShowDistanceInDungeon": true,
             "showHPBar": true
           }
@@ -868,11 +862,11 @@
       ],
       "onAdded": [
         {
-          "$type": "MoleMole.Config.SetGlobalValue",
-          "param3": 1.0,
+          "$type": "SetGlobalValue",
+          "value": 1,
           "key": "_IS_IN_BOX_MATCH",
-          "param2": 0.0,
-          "triggerID": 0.0
+          "maxValue": 0,
+          "minValue": 0
         }
       ],
       "isDynamicAbility": true
@@ -880,7 +874,7 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.ConfigAbility",
+      "$type": "ConfigAbility",
       "abilityName": "BoxMatch_Affix_MachinaIustitia_Ruggiero",
       "abilityMixins": [
         {
@@ -894,9 +888,9 @@
               "luaCallType": "CurGalleryControlGroup",
               "funcName": "SLC_BoxMatch_ShowReminder",
               "paramNum": 1,
-              "param1": 3.0,
-              "KEEFCBAAODF": 0.0,
-              "LABHKHBCHFB": 0.0
+              "param1": 3,
+              "KEEFCBAAODF": 0,
+              "LABHKHBCHFB": 0
             }
           ]
         },
@@ -906,8 +900,8 @@
             "$type": "NJADPPLCLIE",
             "attachPoint": "BillboardAttach",
             "offsetType": "Character",
-            "radiusOffset": 0.4000000059604645,
-            "showDistance": 100.0,
+            "radiusOffset": 0.4,
+            "showDistance": 100,
             "elementStickUseShowDistanceInDungeon": true,
             "showHPBar": true,
             "size": "Big"
@@ -919,7 +913,7 @@
   },
   {
     "Default": {
-      "$type": "MoleMole.Config.ConfigAbility",
+      "$type": "ConfigAbility",
       "abilityName": "BoxMatch_Affix_MachinaIustitia_Bradamante",
       "abilityMixins": [
         {
@@ -933,62 +927,62 @@
               "luaCallType": "CurGalleryControlGroup",
               "funcName": "SLC_BoxMatch_ShowReminder",
               "paramNum": 1,
-              "param1": 8.0,
-              "KEEFCBAAODF": 0.0,
-              "LABHKHBCHFB": 0.0
+              "param1": 8,
+              "KEEFCBAAODF": 0,
+              "LABHKHBCHFB": 0
             },
             {
-              "$type": "MoleMole.Config.TriggerTaunt",
+              "$type": "TriggerTaunt",
               "otherTargets": {
-                "$type": "AFOOPHMLCCL",
+                "$type": "SelectTargetsByShape",
                 "shapeName": "CircleR30H10",
                 "campTargetType": "Enemy",
-                "doOffStage": 1.0
+                "sizeRatio": 1
               },
-              "careValue": -10000.0
+              "careValue": -10000
             },
             {
               "$type": "MoleMole.Config.ServerLuaCall",
               "luaCallType": "CurGalleryControlGroup",
               "funcName": "SLC_SkillHint_Disabled",
               "paramNum": 1,
-              "param1": 2.0,
-              "KEEFCBAAODF": 0.0,
-              "LABHKHBCHFB": 0.0
+              "param1": 2,
+              "KEEFCBAAODF": 0,
+              "LABHKHBCHFB": 0
             },
             {
-              "$type": "MoleMole.Config.ApplyModifier",
+              "$type": "ApplyModifier",
               "otherTargets": {
-                "$type": "AFOOPHMLCCL",
+                "$type": "SelectTargetsByShape",
                 "shapeName": "CircleR30H10",
                 "campTargetType": "Alliance",
-                "doOffStage": 1.0
+                "sizeRatio": 1
               },
               "modifierName": "AddTaunt"
             },
             {
-              "$type": "MoleMole.Config.TriggerAudio",
+              "$type": "TriggerAudio",
               "predicates": [
                 {
-                  "$type": "POOFKGMBLNA",
+                  "$type": "ByTargetGlobalValue",
                   "target": "Self",
                   "key": "_AUDIO_TRIGGERED_",
-                  "param3": 0.0
+                  "value": 0
                 }
               ],
               "operation": {
-                "$type": "LOPKKEONDBJ",
+                "$type": "ConfigAudioEventOp",
                 "operation": {
                   "text": "Play_ui_activity_BoxMatch_InLevel_Jubilate"
                 }
               }
             },
             {
-              "$type": "MoleMole.Config.SetGlobalValue",
-              "param3": 1.0,
+              "$type": "SetGlobalValue",
+              "value": 1,
               "key": "_AUDIO_TRIGGERED_",
-              "param2": 0.0,
-              "triggerID": 0.0
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
@@ -998,8 +992,8 @@
             "$type": "NJADPPLCLIE",
             "attachPoint": "BillboardAttach",
             "offsetType": "Character",
-            "radiusOffset": 0.4000000059604645,
-            "showDistance": 100.0,
+            "radiusOffset": 0.4,
+            "showDistance": 100,
             "elementStickUseShowDistanceInDungeon": true,
             "showHPBar": true,
             "size": "Big"
@@ -1009,54 +1003,54 @@
       "modifiers": {
         "Taunt_Timer": {
           "modifierName": "",
-          "elementDurability": 6.0,
-          "bonusCriticalHurt": 100.0,
+          "duration": 6,
+          "elementDurability": 100,
           "onRemoved": [
             {
-              "$type": "MoleMole.Config.TriggerTaunt",
+              "$type": "TriggerTaunt",
               "otherTargets": {
-                "$type": "AFOOPHMLCCL",
+                "$type": "SelectTargetsByShape",
                 "shapeName": "CircleR30H10",
                 "campTargetType": "Enemy",
-                "doOffStage": 1.0
+                "sizeRatio": 1
               },
-              "careValue": 10000.0
+              "careValue": 10000
             },
             {
-              "$type": "MoleMole.Config.ApplyModifier",
+              "$type": "ApplyModifier",
               "modifierName": "Hint_Timer"
             }
           ]
         },
         "Hint_Timer": {
           "modifierName": "",
-          "elementDurability": 4.0,
-          "bonusCriticalHurt": 100.0,
+          "duration": 4,
+          "elementDurability": 100,
           "onRemoved": [
             {
               "$type": "MoleMole.Config.ServerLuaCall",
               "luaCallType": "CurGalleryControlGroup",
               "funcName": "SLC_SkillHint_Enabled",
               "paramNum": 1,
-              "param1": 2.0,
-              "KEEFCBAAODF": 0.0,
-              "LABHKHBCHFB": 0.0
+              "param1": 2,
+              "KEEFCBAAODF": 0,
+              "LABHKHBCHFB": 0
             }
           ]
         },
         "AddTaunt": {
           "modifierName": "",
-          "bonusCriticalHurt": 100.0,
+          "elementDurability": 100,
           "onAdded": [
             {
-              "$type": "MoleMole.Config.TriggerTaunt",
+              "$type": "TriggerTaunt",
               "otherTargets": {
-                "$type": "AFOOPHMLCCL",
+                "$type": "SelectTargetsByShape",
                 "shapeName": "CircleR30H10",
                 "campTargetType": "Enemy",
-                "doOffStage": 1.0
+                "sizeRatio": 1
               },
-              "careValue": 10000.0,
+              "careValue": 10000,
               "tauntModifierOwner": true
             }
           ]
@@ -1064,14 +1058,14 @@
       },
       "onAdded": [
         {
-          "$type": "MoleMole.Config.SetGlobalValue",
-          "param3": 0.0,
+          "$type": "SetGlobalValue",
+          "value": 0,
           "key": "_AUDIO_TRIGGERED_",
-          "param2": 0.0,
-          "triggerID": 0.0
+          "maxValue": 0,
+          "minValue": 0
         },
         {
-          "$type": "MoleMole.Config.ApplyModifier",
+          "$type": "ApplyModifier",
           "modifierName": "Taunt_Timer"
         }
       ],

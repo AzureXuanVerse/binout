@@ -3,14 +3,14 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "BoxMatch_Hatchet_CoreLogic",
-      "KBODACCMEFE": [
+      "abilityMixins": [
         {
           "$type": "AttachToPoseIDMixin",
           "OLJKDPFLMCF": [
             101,
             102
           ],
-          "BGIONAIMBCJ": "Hatchet_Level_1"
+          "modifierName": "Hatchet_Level_1"
         },
         {
           "$type": "AttachToPoseIDMixin",
@@ -18,67 +18,66 @@
             201,
             202
           ],
-          "BGIONAIMBCJ": "Hatchet_Level_2"
+          "modifierName": "Hatchet_Level_2"
         },
         {
           "$type": "AttachModifierToSelfGlobalValueMixin",
-          "AOJHAGMBDNP": "GV_BoxMatch_StartBurst",
-          "MCAEKKJBNNJ": 0.0,
-          "FCPOANIDKOM": [
+          "globalValueKey": "GV_BoxMatch_StartBurst",
+          "defaultGlobalValueOnCreate": 0,
+          "valueSteps": [
             -0.5,
             0.5,
             1.5
           ],
-          "NGIGIMPCHOO": [
+          "modifierNameSteps": [
             "Dummy",
             "StartBurst"
           ]
         }
       ],
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "Dummy": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0
+          "modifierName": "",
+          "elementDurability": 100
         },
         "StartBurst": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "ANPDJHOGAFE": 0.5,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "thinkInterval": 0.5,
+          "onAdded": [
             {
               "$type": "SetAnimatorTrigger",
-              "POPKLBPMAJN": "BurstImmediately"
+              "triggerID": "BurstImmediately"
             },
             {
               "$type": "FireEffect",
-              "LHHFHDEJOHC": "Eff_Monster_FungusFight_UnionBurstGlitter",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_Monster_FungusFight_UnionBurstGlitter"
             }
           ],
-          "MDPGEKAIFIM": [
+          "onThinkInterval": [
             {
               "$type": "SetGlobalValue",
-              "value": 0.0,
-              "NGGCNKPAODB": "GV_BoxMatch_StartBurst",
-              "LBHGJKHHAKP": 0.0,
-              "EMGNPOKHMNN": 0.0
+              "value": 0,
+              "key": "GV_BoxMatch_StartBurst",
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
         "Hatchet_Level_1": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0
+          "modifierName": "",
+          "elementDurability": 100
         },
         "Hatchet_Level_2": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "CLOIGOBCDJK": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "modifierMixins": [
             {
               "$type": "ReplaceEventPatternMixin",
-              "GOKOHGENGHB": [
+              "oldPatterns": [
                 "Monster_BoxMatch_Hatchet_FireWork_BS"
               ],
-              "NMDJDCDMHLD": [
+              "newPatterns": [
                 "Monster_BoxMatch_Hatchet_FireWork_Lv2_BS"
               ]
             }
@@ -91,38 +90,38 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "BoxMatch_Hatchet_FireWork_Trigger",
-      "DEOJHLMNLFC": [
+      "onAbilityStart": [
         {
           "$type": "CreateGadget",
-          "FLEEHCIOPKA": [
+          "predicates": [
             {
-              "$type": "NLBPNOHOGKC",
-              "BGIONAIMBCJ": "Hatchet_Level_1"
+              "$type": "ByHasModifier",
+              "modifierName": "Hatchet_Level_1"
             }
           ],
-          "CCNCMOGOFAG": {
-            "$type": "DELDMCFKBBL",
-            "OINHJGEGJLO": true,
-            "FPDJOHEHNDD": true
+          "born": {
+            "$type": "ConfigBornBySelf",
+            "onGround": true,
+            "useRotation": true
           },
-          "BLPPFMNOOIO": 42501015
+          "gadgetID": 42501015
         },
         {
           "$type": "TriggerBullet",
-          "FLEEHCIOPKA": [
+          "predicates": [
             {
-              "$type": "NLBPNOHOGKC",
-              "BGIONAIMBCJ": "Hatchet_Level_2"
+              "$type": "ByHasModifier",
+              "modifierName": "Hatchet_Level_2"
             }
           ],
-          "PMOEIMCLPBE": 42501016,
-          "CCNCMOGOFAG": {
-            "$type": "IADBHDLMGJB",
-            "FNHBOFDBNNK": {
-              "$type": "GPKIIMADEMG"
+          "bulletID": 42501016,
+          "born": {
+            "$type": "ConfigBornByAttachPoint",
+            "direction": {
+              "$type": "ConfigDirectionByEntity"
             },
-            "FPDJOHEHNDD": true,
-            "MDPMJPIOGLA": "WeaponR"
+            "useRotation": true,
+            "attachPointName": "WeaponR"
           }
         }
       ]
@@ -132,122 +131,120 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "BoxMatch_Hatchet_FireWork_Lv1",
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "Firework_Logic": {
-          "BGIONAIMBCJ": "",
-          "FAFCPJJAIGK": 0.4000000059604645,
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "duration": 0.4,
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "FireEffect",
-              "LHHFHDEJOHC": "Eff_Monster_BoxMatch_Firework_BS",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_Monster_BoxMatch_Firework_BS"
             }
           ],
-          "NFKOGKMAIIE": [
+          "onRemoved": [
             {
               "$type": "FireEffect",
-              "LHHFHDEJOHC": "Eff_Monster_BoxMatch_Firework_Attack",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_Monster_BoxMatch_Firework_Attack"
             },
             {
               "$type": "TriggerAttackEvent",
-              "FMDHJHAACGM": {
-                "LOPCJCIFFBE": {
-                  "$type": "JDNHMJKEPOH",
+              "attackEvent": {
+                "attackPattern": {
+                  "$type": "ConfigAttackBox",
                   "triggerType": "TriggerNoRepeat",
-                  "CCNCMOGOFAG": {
-                    "$type": "DELDMCFKBBL",
+                  "born": {
+                    "$type": "ConfigBornBySelf",
                     "offset": {
-                      "KKKLBADAPPB": 1.0
+                      "y": 1
                     },
-                    "FPDJOHEHNDD": true
+                    "useRotation": true
                   },
-                  "DMIKDAOCFDG": {
-                    "NEEHMANEJKM": 4.5,
-                    "KKKLBADAPPB": 2.0,
-                    "GENNNOANKOO": 4.5
+                  "size": {
+                    "x": 4.5,
+                    "y": 2,
+                    "z": 4.5
                   }
                 },
-                "OIAMOBFMPAB": {
-                  "KNOKCFHALLI": "",
-                  "HOKPLNACNKG": "",
-                  "ILLFBEHPCJA": "default",
-                  "BAPFFKCLDPC": {
-                    "OLLFABADCKH": 1.600000023841858,
-                    "PDHAKJCMPHB": 0.0,
+                "attackInfo": {
+                  "attackTag": "",
+                  "attenuationTag": "",
+                  "attenuationGroup": "default",
+                  "attackProperty": {
+                    "damagePercentage": 1.6,
+                    "damagePercentageRatio": 0,
                     "elementType": "Fire",
-                    "ONIHJPOMNHA": 50.0,
-                    "FFIIMACIKEA": 100.0,
-                    "ELCPFOMENGK": "Range",
-                    "AEOLDMAMNLM": 0.0
+                    "elementDurability": 50,
+                    "enBreak": 100,
+                    "attackType": "Range",
+                    "__exp_arkhe": 0
                   },
-                  "OCHEEDIDOHI": {
-                    "AIDMNBLLAIJ": "default",
-                    "OEGAJNNFFPO": "LV3"
+                  "hitPattern": {
+                    "onHitEffectName": "default",
+                    "hitImpulseType": "LV3"
                   }
                 }
               },
-              "PFBJAFHFBDE": "Enemy"
+              "targetType": "Enemy"
             }
           ]
         },
         "Firework_Damage_Delay": {
-          "BGIONAIMBCJ": "",
-          "FAFCPJJAIGK": 0.44999998807907104,
-          "ONIHJPOMNHA": 100.0,
-          "NFKOGKMAIIE": [
+          "modifierName": "",
+          "duration": 0.45,
+          "elementDurability": 100,
+          "onRemoved": [
             {
               "$type": "TriggerAttackEvent",
-              "FMDHJHAACGM": {
-                "LOPCJCIFFBE": {
-                  "$type": "JDNHMJKEPOH",
+              "attackEvent": {
+                "attackPattern": {
+                  "$type": "ConfigAttackBox",
                   "triggerType": "TriggerNoRepeat",
-                  "CCNCMOGOFAG": {
-                    "$type": "DELDMCFKBBL",
+                  "born": {
+                    "$type": "ConfigBornBySelf",
                     "offset": {
-                      "KKKLBADAPPB": 1.0
+                      "y": 1
                     },
-                    "FPDJOHEHNDD": true
+                    "useRotation": true
                   },
-                  "DMIKDAOCFDG": {
-                    "NEEHMANEJKM": 4.5,
-                    "KKKLBADAPPB": 2.0,
-                    "GENNNOANKOO": 4.5
+                  "size": {
+                    "x": 4.5,
+                    "y": 2,
+                    "z": 4.5
                   }
                 },
-                "OIAMOBFMPAB": {
-                  "KNOKCFHALLI": "",
-                  "HOKPLNACNKG": "",
-                  "ILLFBEHPCJA": "default",
-                  "BAPFFKCLDPC": {
-                    "OLLFABADCKH": 0.4000000059604645,
-                    "PDHAKJCMPHB": 0.0,
+                "attackInfo": {
+                  "attackTag": "",
+                  "attenuationTag": "",
+                  "attenuationGroup": "default",
+                  "attackProperty": {
+                    "damagePercentage": 0.4,
+                    "damagePercentageRatio": 0,
                     "elementType": "Fire",
-                    "ONIHJPOMNHA": 25.0,
-                    "FFIIMACIKEA": 0.0,
-                    "ELCPFOMENGK": "Range",
-                    "AEOLDMAMNLM": 0.0
+                    "elementDurability": 25,
+                    "enBreak": 0,
+                    "attackType": "Range",
+                    "__exp_arkhe": 0
                   },
-                  "OCHEEDIDOHI": {
-                    "AIDMNBLLAIJ": "default",
-                    "OEGAJNNFFPO": "LV0"
+                  "hitPattern": {
+                    "onHitEffectName": "default",
+                    "hitImpulseType": "LV0"
                   }
                 }
               },
-              "PFBJAFHFBDE": "Enemy"
+              "targetType": "Enemy"
             }
           ]
         }
       },
-      "NLFIGALMIPD": [
+      "onAdded": [
         {
           "$type": "ApplyModifier",
-          "BGIONAIMBCJ": "Firework_Logic"
+          "modifierName": "Firework_Logic"
         },
         {
           "$type": "ApplyModifier",
-          "BGIONAIMBCJ": "Firework_Damage_Delay"
+          "modifierName": "Firework_Damage_Delay"
         }
       ]
     }
@@ -256,43 +253,41 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "BoxMatch_FireWork_Lv2",
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "Bullet_VFX": {
-          "BGIONAIMBCJ": "",
+          "modifierName": "",
           "elementType": "Fire",
-          "ONIHJPOMNHA": 25.0,
+          "elementDurability": 25,
           "isElementDurabilityMutable": false,
-          "NLFIGALMIPD": [
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_Monster_BoxMatch_Firework_Lv2_Bullet",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_Monster_BoxMatch_Firework_Lv2_Bullet"
             },
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_Monster_BoxMatch_Firework_Lv2_Bullet_Trail",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_Monster_BoxMatch_Firework_Lv2_Bullet_Trail"
             }
           ]
         }
       },
-      "NLFIGALMIPD": [
+      "onAdded": [
         {
           "$type": "AttachModifier",
-          "BGIONAIMBCJ": "Bullet_VFX"
+          "modifierName": "Bullet_VFX"
         }
       ],
-      "DEOJHLMNLFC": [
+      "onAbilityStart": [
         {
           "$type": "RemoveModifier",
-          "BGIONAIMBCJ": "Bullet_VFX"
+          "modifierName": "Bullet_VFX"
         },
         {
           "$type": "CreateGadget",
-          "CCNCMOGOFAG": {
-            "$type": "NCCAHOCNGAN"
+          "born": {
+            "$type": "ConfigBornByCollisionPoint"
           },
-          "BLPPFMNOOIO": 42501017
+          "gadgetID": 42501017
         }
       ]
     }
@@ -301,102 +296,101 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "BoxMatch_Hatchet_FireWork_Lv2_Attack",
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "Firework_Damage_Delay_Lv2": {
-          "BGIONAIMBCJ": "",
-          "FAFCPJJAIGK": 0.4000000059604645,
-          "ONIHJPOMNHA": 100.0,
-          "ANPDJHOGAFE": 0.09000000357627869,
-          "MDPGEKAIFIM": [
+          "modifierName": "",
+          "duration": 0.4,
+          "elementDurability": 100,
+          "thinkInterval": 0.09,
+          "onThinkInterval": [
             {
               "$type": "TriggerAttackEvent",
-              "FMDHJHAACGM": {
-                "LOPCJCIFFBE": {
-                  "$type": "IHKJIHKGECH",
+              "attackEvent": {
+                "attackPattern": {
+                  "$type": "ConfigAttackSphere",
                   "triggerType": "TriggerNoRepeat",
-                  "CCNCMOGOFAG": {
-                    "$type": "DELDMCFKBBL",
-                    "FPDJOHEHNDD": true
+                  "born": {
+                    "$type": "ConfigBornBySelf",
+                    "useRotation": true
                   },
-                  "GGEJLLOCJDH": 5.199999809265137
+                  "radius": 5.2
                 },
-                "OIAMOBFMPAB": {
-                  "KNOKCFHALLI": "",
-                  "HOKPLNACNKG": "",
-                  "ILLFBEHPCJA": "default",
-                  "BAPFFKCLDPC": {
-                    "OLLFABADCKH": 0.4000000059604645,
-                    "PDHAKJCMPHB": 0.0,
+                "attackInfo": {
+                  "attackTag": "",
+                  "attenuationTag": "",
+                  "attenuationGroup": "default",
+                  "attackProperty": {
+                    "damagePercentage": 0.4,
+                    "damagePercentageRatio": 0,
                     "elementType": "Fire",
-                    "ONIHJPOMNHA": 25.0,
-                    "GAOIEGMFFDJ": "Default",
-                    "FFIIMACIKEA": 0.0,
-                    "ELCPFOMENGK": "Range",
-                    "AEOLDMAMNLM": 0.0
+                    "elementDurability": 25,
+                    "strikeType": "Default",
+                    "enBreak": 0,
+                    "attackType": "Range",
+                    "__exp_arkhe": 0
                   },
-                  "OCHEEDIDOHI": {
-                    "AIDMNBLLAIJ": "default",
-                    "OEGAJNNFFPO": "LV0"
+                  "hitPattern": {
+                    "onHitEffectName": "default",
+                    "hitImpulseType": "LV0"
                   }
                 }
               },
-              "PFBJAFHFBDE": "Enemy"
+              "targetType": "Enemy"
             }
           ]
         }
       },
-      "NLFIGALMIPD": [
+      "onAdded": [
         {
           "$type": "FireEffect",
-          "LHHFHDEJOHC": "Eff_Monster_BoxMatch_Firework_Lv2_Attack",
-          "CCNCMOGOFAG": {
-            "$type": "DELDMCFKBBL",
-            "FPDJOHEHNDD": true
-          },
-          "PCLAEGHPNHE": -1.0
+          "effectPattern": "Eff_Monster_BoxMatch_Firework_Lv2_Attack",
+          "born": {
+            "$type": "ConfigBornBySelf",
+            "useRotation": true
+          }
         },
         {
           "$type": "TriggerAttackEvent",
-          "FMDHJHAACGM": {
-            "LOPCJCIFFBE": {
-              "$type": "IHKJIHKGECH",
+          "attackEvent": {
+            "attackPattern": {
+              "$type": "ConfigAttackSphere",
               "triggerType": "TriggerNoRepeat",
-              "CCNCMOGOFAG": {
-                "$type": "DELDMCFKBBL",
-                "FPDJOHEHNDD": true
+              "born": {
+                "$type": "ConfigBornBySelf",
+                "useRotation": true
               },
-              "GGEJLLOCJDH": 5.199999809265137
+              "radius": 5.2
             },
-            "OIAMOBFMPAB": {
-              "KNOKCFHALLI": "",
-              "HOKPLNACNKG": "",
-              "ILLFBEHPCJA": "default",
-              "BAPFFKCLDPC": {
-                "OLLFABADCKH": 2.4000000953674316,
-                "PDHAKJCMPHB": 0.0,
+            "attackInfo": {
+              "attackTag": "",
+              "attenuationTag": "",
+              "attenuationGroup": "default",
+              "attackProperty": {
+                "damagePercentage": 2.4,
+                "damagePercentageRatio": 0,
                 "elementType": "Fire",
-                "ONIHJPOMNHA": 50.0,
-                "GAOIEGMFFDJ": "Default",
-                "FFIIMACIKEA": 250.0,
-                "ELCPFOMENGK": "Range",
-                "AEOLDMAMNLM": 0.0
+                "elementDurability": 50,
+                "strikeType": "Default",
+                "enBreak": 250,
+                "attackType": "Range",
+                "__exp_arkhe": 0
               },
-              "OCHEEDIDOHI": {
-                "AIDMNBLLAIJ": "default",
-                "OEGAJNNFFPO": "LV3"
+              "hitPattern": {
+                "onHitEffectName": "default",
+                "hitImpulseType": "LV3"
               },
-              "KPCBFANCGFH": true,
-              "FCDFPCPCJGO": {
-                "FIKIBNDMNEF": 1.0,
-                "NCDMOKAIAJD": 0.23999999463558197
+              "forceCameraShake": true,
+              "cameraShake": {
+                "shakeRange": 1,
+                "shakeTime": 0.24
               }
             }
           },
-          "PFBJAFHFBDE": "Enemy"
+          "targetType": "Enemy"
         },
         {
           "$type": "ApplyModifier",
-          "BGIONAIMBCJ": "Firework_Damage_Delay_Lv2"
+          "modifierName": "Firework_Damage_Delay_Lv2"
         }
       ]
     }
@@ -405,17 +399,17 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "BoxMatch_Hatchet_Equip_Display_Manager",
-      "KBODACCMEFE": [
+      "abilityMixins": [
         {
           "$type": "AttachModifierToSelfGlobalValueMixin",
-          "AOJHAGMBDNP": "_SHEATH_WEAPON",
-          "MCAEKKJBNNJ": 1.0,
-          "FCPOANIDKOM": [
+          "globalValueKey": "_SHEATH_WEAPON",
+          "defaultGlobalValueOnCreate": 1,
+          "valueSteps": [
             -0.5,
             0.5,
             1.5
           ],
-          "NGIGIMPCHOO": [
+          "modifierNameSteps": [
             "BoxMatch_ShowWeapon",
             "BoxMatch_SheathWeapon"
           ]
@@ -428,24 +422,24 @@
           "EEGIIGFKBHC": [
             {
               "$type": "SetAnimatorTrigger",
-              "POPKLBPMAJN": "SheathWeapon"
+              "triggerID": "SheathWeapon"
             }
           ]
         }
       ],
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "BoxMatch_SheathWeapon": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "SetWeaponAttachPointRealName",
-              "DBNEEEGIJGN": true,
+              "canBeHandledOnRecover": true,
               "OFIIHIFLCMB": "equip01",
               "AGEJACLACAD": "WeaponSheathPoint"
             }
           ],
-          "FCHBGPJGEBK": [
+          "onReconnect": [
             {
               "$type": "SetWeaponAttachPointRealName",
               "OFIIHIFLCMB": "equip01",
@@ -461,9 +455,9 @@
           ]
         },
         "BoxMatch_ShowWeapon": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "SetWeaponAttachPointRealName",
               "OFIIHIFLCMB": "equip01",
@@ -472,13 +466,13 @@
           ]
         }
       },
-      "DEOJHLMNLFC": [
+      "onAbilityStart": [
         {
           "$type": "SetGlobalValue",
-          "value": 0.0,
-          "NGGCNKPAODB": "_SHEATH_WEAPON",
-          "LBHGJKHHAKP": 0.0,
-          "EMGNPOKHMNN": 0.0
+          "value": 0,
+          "key": "_SHEATH_WEAPON",
+          "maxValue": 0,
+          "minValue": 0
         }
       ]
     }
@@ -487,20 +481,20 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "BoxMatch_Hatchet_Dodge",
-      "KBODACCMEFE": [
+      "abilityMixins": [
         {
           "$type": "EntityDefenceMixin",
-          "FHCHNMKMJJA": [
+          "stateIDs": [
             "Slash01_AS",
             "Slash02_AS",
             "TripleAttack",
             "JumpAttack_AS"
           ],
           "NGADIBKINLO": "DodgeTrigger",
-          "GEGJNPPKBDI": 100.0,
+          "GEGJNPPKBDI": 100,
           "BPNCEFGKNCD": 0.5,
           "AOIABNCMNLD": 0.25,
-          "PGEEBEOJKED": 0.30000001192092896,
+          "PGEEBEOJKED": 0.3,
           "GFDMPEDMEDN": 0
         }
       ]
@@ -510,15 +504,15 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "BoxMatch_Hatchet_AttackSteer",
-      "KBODACCMEFE": [
+      "abilityMixins": [
         {
           "$type": "SteerAttackMixin",
           "LMMLIKMOKHL": [
             "Slash01"
           ],
-          "EIAGKLKHEFP": 0.20000000298023224,
-          "GGMOCFABGPD": 0.26100000739097595,
-          "KNPBDOFJKKB": 900.0,
+          "EIAGKLKHEFP": 0.2,
+          "GGMOCFABGPD": 0.261,
+          "angularSpeed": 900,
           "APILILGPPAD": "",
           "OCDBANEEBAM": true
         },
@@ -527,9 +521,9 @@
           "LMMLIKMOKHL": [
             "Slash01"
           ],
-          "EIAGKLKHEFP": 0.26100000739097595,
-          "GGMOCFABGPD": 0.32499998807907104,
-          "KNPBDOFJKKB": 240.0,
+          "EIAGKLKHEFP": 0.261,
+          "GGMOCFABGPD": 0.325,
+          "angularSpeed": 240,
           "APILILGPPAD": "",
           "OCDBANEEBAM": true
         },
@@ -538,9 +532,9 @@
           "LMMLIKMOKHL": [
             "Slash02"
           ],
-          "EIAGKLKHEFP": 0.328000009059906,
-          "GGMOCFABGPD": 0.3540000021457672,
-          "KNPBDOFJKKB": 240.0,
+          "EIAGKLKHEFP": 0.328,
+          "GGMOCFABGPD": 0.354,
+          "angularSpeed": 240,
           "APILILGPPAD": "",
           "OCDBANEEBAM": true
         },
@@ -549,9 +543,9 @@
           "LMMLIKMOKHL": [
             "TripleAttack"
           ],
-          "EIAGKLKHEFP": 0.2199999988079071,
-          "GGMOCFABGPD": 0.33000001311302185,
-          "KNPBDOFJKKB": 900.0,
+          "EIAGKLKHEFP": 0.22,
+          "GGMOCFABGPD": 0.33,
+          "angularSpeed": 900,
           "APILILGPPAD": "",
           "OCDBANEEBAM": true
         },
@@ -560,9 +554,9 @@
           "LMMLIKMOKHL": [
             "TripleAttack"
           ],
-          "EIAGKLKHEFP": 0.5199999809265137,
-          "GGMOCFABGPD": 0.5569999814033508,
-          "KNPBDOFJKKB": 480.0,
+          "EIAGKLKHEFP": 0.52,
+          "GGMOCFABGPD": 0.557,
+          "angularSpeed": 480,
           "APILILGPPAD": "",
           "OCDBANEEBAM": true
         },
@@ -571,9 +565,9 @@
           "LMMLIKMOKHL": [
             "JumpAttack"
           ],
-          "EIAGKLKHEFP": 0.20999999344348907,
-          "GGMOCFABGPD": 0.3400000035762787,
-          "KNPBDOFJKKB": 700.0,
+          "EIAGKLKHEFP": 0.21,
+          "GGMOCFABGPD": 0.34,
+          "angularSpeed": 700,
           "APILILGPPAD": "",
           "OCDBANEEBAM": true
         },
@@ -582,7 +576,7 @@
           "LMMLIKMOKHL": [
             "FireWork"
           ],
-          "KNPBDOFJKKB": 180.0,
+          "angularSpeed": 180,
           "APILILGPPAD": "",
           "OCDBANEEBAM": true
         }
@@ -593,10 +587,10 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "BoxMatch_Affix_Skirmisher_SprayGun_Ice",
-      "KBODACCMEFE": [
+      "abilityMixins": [
         {
           "$type": "DoActionByAnimatorStateIDMixin",
-          "FHCHNMKMJJA": [
+          "stateIDs": [
             "Improve"
           ],
           "PLOCKLIHJKB": [
@@ -605,24 +599,24 @@
               "FNBGNCANKJF": "CurGalleryControlGroup",
               "FDPMGLDLLIN": "SLC_BoxMatch_ShowReminder",
               "HALOALHGGNM": 1,
-              "param1": 1.0,
-              "HFOIEKLCLEM": 0.0,
-              "MCLOKLEBGPH": 0.0
+              "param1": 1,
+              "HFOIEKLCLEM": 0,
+              "MCLOKLEBGPH": 0
             },
             {
               "$type": "ServerLuaCall",
               "FNBGNCANKJF": "CurGalleryControlGroup",
               "FDPMGLDLLIN": "SLC_SkillHint_Enabled",
               "HALOALHGGNM": 1,
-              "param1": 1.0,
-              "HFOIEKLCLEM": 0.0,
-              "MCLOKLEBGPH": 0.0
+              "param1": 1,
+              "HFOIEKLCLEM": 0,
+              "MCLOKLEBGPH": 0
             },
             {
               "$type": "TriggerAudio",
-              "MNCMNAOBMDC": {
-                "$type": "KKBFMANIJFN",
-                "MNCMNAOBMDC": {
+              "operation": {
+                "$type": "ConfigAudioEventOp",
+                "operation": {
                   "text": "Play_ui_activity_BoxMatch_InLevel_Jubilate"
                 }
               }
@@ -631,7 +625,7 @@
         },
         {
           "$type": "DoActionByAnimatorStateIDMixin",
-          "FHCHNMKMJJA": [
+          "stateIDs": [
             "Weak_BS"
           ],
           "EEGIIGFKBHC": [
@@ -640,24 +634,24 @@
               "FNBGNCANKJF": "CurGalleryControlGroup",
               "FDPMGLDLLIN": "SLC_BoxMatch_ShowReminder",
               "HALOALHGGNM": 1,
-              "param1": 2.0,
-              "HFOIEKLCLEM": 0.0,
-              "MCLOKLEBGPH": 0.0
+              "param1": 2,
+              "HFOIEKLCLEM": 0,
+              "MCLOKLEBGPH": 0
             },
             {
               "$type": "ServerLuaCall",
               "FNBGNCANKJF": "CurGalleryControlGroup",
               "FDPMGLDLLIN": "SLC_SkillHint_Disabled",
               "HALOALHGGNM": 1,
-              "param1": 1.0,
-              "HFOIEKLCLEM": 0.0,
-              "MCLOKLEBGPH": 0.0
+              "param1": 1,
+              "HFOIEKLCLEM": 0,
+              "MCLOKLEBGPH": 0
             },
             {
               "$type": "TriggerAudio",
-              "MNCMNAOBMDC": {
-                "$type": "KKBFMANIJFN",
-                "MNCMNAOBMDC": {
+              "operation": {
+                "$type": "ConfigAudioEventOp",
+                "operation": {
                   "text": "Play_ui_activity_BoxMatch_InLevel_Jubilate"
                 }
               }
@@ -668,26 +662,26 @@
           "$type": "ChangeBillboardMixin",
           "FDEELEHEJHH": {
             "$type": "OPBKEDPMDBD",
-            "PAOPLDJGAKA": "BillboardAttach",
+            "attachPoint": "BillboardAttach",
             "offset": {
-              "x": -0.3499999940395355
+              "x": -0.35
             },
             "KNBIHIMMLME": "Character",
-            "NPDFLJLNCJL": 100.0,
+            "NPDFLJLNCJL": 100,
             "KGHDNJLCJNM": true,
             "KAFAFJNGLAG": true,
-            "DMIKDAOCFDG": "Big"
+            "size": "Big"
           }
         }
       ],
-      "EGGOIPOIGJA": true
+      "isDynamicAbility": true
     }
   },
   {
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "BoxMatch_Affix_Samurai_Kairagi",
-      "KBODACCMEFE": [
+      "abilityMixins": [
         {
           "$type": "DoActionByPoseIDMixin",
           "OLJKDPFLMCF": [
@@ -699,9 +693,9 @@
               "FNBGNCANKJF": "CurGalleryControlGroup",
               "FDPMGLDLLIN": "SLC_BoxMatch_ShowReminder",
               "HALOALHGGNM": 1,
-              "param1": 4.0,
-              "HFOIEKLCLEM": 0.0,
-              "MCLOKLEBGPH": 0.0
+              "param1": 4,
+              "HFOIEKLCLEM": 0,
+              "MCLOKLEBGPH": 0
             }
           ]
         },
@@ -710,83 +704,83 @@
           "LGDAFLEHFOH": [
             "ElementFrozen"
           ],
-          "BGIONAIMBCJ": "SendElementFrozenSLC"
+          "modifierName": "SendElementFrozenSLC"
         },
         {
           "$type": "ChangeBillboardMixin",
           "FDEELEHEJHH": {
             "$type": "OPBKEDPMDBD",
-            "PAOPLDJGAKA": "BillboardAttach",
+            "attachPoint": "BillboardAttach",
             "KNBIHIMMLME": "Character",
-            "NPDFLJLNCJL": 100.0,
+            "NPDFLJLNCJL": 100,
             "KGHDNJLCJNM": true,
             "KAFAFJNGLAG": true,
-            "NBCDKHPGJDC": 50.0,
-            "DMIKDAOCFDG": "Big"
+            "NBCDKHPGJDC": 50,
+            "size": "Big"
           }
         }
       ],
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "SendElementFrozenSLC": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "ServerLuaCall",
               "FNBGNCANKJF": "CurGalleryControlGroup",
               "FDPMGLDLLIN": "SLC_BoxMatch_ShowReminder",
               "HALOALHGGNM": 1,
-              "param1": 7.0,
-              "HFOIEKLCLEM": 0.0,
-              "MCLOKLEBGPH": 0.0
+              "param1": 7,
+              "HFOIEKLCLEM": 0,
+              "MCLOKLEBGPH": 0
             },
             {
               "$type": "TriggerAudio",
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "OMPKIEPKGPF",
-                  "KMGAOOHMCPK": "Self",
-                  "NGGCNKPAODB": "_AUDIO_TRIGGERED_",
-                  "value": 0.0
+                  "$type": "ByTargetGlobalValue",
+                  "target": "Self",
+                  "key": "_AUDIO_TRIGGERED_",
+                  "value": 0
                 }
               ],
-              "MNCMNAOBMDC": {
-                "$type": "KKBFMANIJFN",
-                "MNCMNAOBMDC": {
+              "operation": {
+                "$type": "ConfigAudioEventOp",
+                "operation": {
                   "text": "Play_ui_activity_BoxMatch_InLevel_Jubilate"
                 }
               }
             },
             {
               "$type": "SetGlobalValue",
-              "value": 1.0,
-              "NGGCNKPAODB": "_AUDIO_TRIGGERED_",
-              "LBHGJKHHAKP": 0.0,
-              "EMGNPOKHMNN": 0.0
+              "value": 1,
+              "key": "_AUDIO_TRIGGERED_",
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         }
       },
-      "NLFIGALMIPD": [
+      "onAdded": [
         {
           "$type": "SetGlobalValue",
-          "value": 0.0,
-          "NGGCNKPAODB": "_AUDIO_TRIGGERED_",
-          "LBHGJKHHAKP": 0.0,
-          "EMGNPOKHMNN": 0.0
+          "value": 0,
+          "key": "_AUDIO_TRIGGERED_",
+          "maxValue": 0,
+          "minValue": 0
         }
       ],
-      "EGGOIPOIGJA": true
+      "isDynamicAbility": true
     }
   },
   {
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "BoxMatch_Affix_MuscleMan_NoWeapon",
-      "KBODACCMEFE": [
+      "abilityMixins": [
         {
           "$type": "DoActionByAnimatorStateIDMixin",
-          "FHCHNMKMJJA": [
+          "stateIDs": [
             "UltStrike_BS",
             "UltStrike_Charge"
           ],
@@ -796,27 +790,27 @@
               "FNBGNCANKJF": "CurGalleryControlGroup",
               "FDPMGLDLLIN": "SLC_BoxMatch_ShowReminder",
               "HALOALHGGNM": 1,
-              "param1": 9.0,
-              "HFOIEKLCLEM": 0.0,
-              "MCLOKLEBGPH": 0.0
+              "param1": 9,
+              "HFOIEKLCLEM": 0,
+              "MCLOKLEBGPH": 0
             },
             {
               "$type": "ServerLuaCall",
               "FNBGNCANKJF": "CurGalleryControlGroup",
               "FDPMGLDLLIN": "SLC_SkillHint_Enabled",
               "HALOALHGGNM": 1,
-              "param1": 3.0,
-              "HFOIEKLCLEM": 0.0,
-              "MCLOKLEBGPH": 0.0
+              "param1": 3,
+              "HFOIEKLCLEM": 0,
+              "MCLOKLEBGPH": 0
             },
             {
               "$type": "ServerLuaCall",
               "FNBGNCANKJF": "CurGalleryControlGroup",
               "FDPMGLDLLIN": "SLC_SkillHint_Enabled",
               "HALOALHGGNM": 1,
-              "param1": 2.0,
-              "HFOIEKLCLEM": 0.0,
-              "MCLOKLEBGPH": 0.0
+              "param1": 2,
+              "HFOIEKLCLEM": 0,
+              "MCLOKLEBGPH": 0
             }
           ],
           "PLOCKLIHJKB": [
@@ -825,18 +819,18 @@
               "FNBGNCANKJF": "CurGalleryControlGroup",
               "FDPMGLDLLIN": "SLC_SkillHint_Disabled",
               "HALOALHGGNM": 1,
-              "param1": 3.0,
-              "HFOIEKLCLEM": 0.0,
-              "MCLOKLEBGPH": 0.0
+              "param1": 3,
+              "HFOIEKLCLEM": 0,
+              "MCLOKLEBGPH": 0
             },
             {
               "$type": "ServerLuaCall",
               "FNBGNCANKJF": "CurGalleryControlGroup",
               "FDPMGLDLLIN": "SLC_SkillHint_Disabled",
               "HALOALHGGNM": 1,
-              "param1": 2.0,
-              "HFOIEKLCLEM": 0.0,
-              "MCLOKLEBGPH": 0.0
+              "param1": 2,
+              "HFOIEKLCLEM": 0,
+              "MCLOKLEBGPH": 0
             }
           ]
         },
@@ -844,35 +838,35 @@
           "$type": "ChangeBillboardMixin",
           "FDEELEHEJHH": {
             "$type": "OPBKEDPMDBD",
-            "PAOPLDJGAKA": "BillboardAttach",
+            "attachPoint": "BillboardAttach",
             "offset": {
-              "x": -0.05000000074505806
+              "x": -0.05
             },
             "KNBIHIMMLME": "Character",
             "GFOGDCALKML": 0.25,
-            "NPDFLJLNCJL": 100.0,
+            "NPDFLJLNCJL": 100,
             "KGHDNJLCJNM": true,
             "KAFAFJNGLAG": true
           }
         }
       ],
-      "NLFIGALMIPD": [
+      "onAdded": [
         {
           "$type": "SetGlobalValue",
-          "value": 1.0,
-          "NGGCNKPAODB": "_IS_IN_BOX_MATCH",
-          "LBHGJKHHAKP": 0.0,
-          "EMGNPOKHMNN": 0.0
+          "value": 1,
+          "key": "_IS_IN_BOX_MATCH",
+          "maxValue": 0,
+          "minValue": 0
         }
       ],
-      "EGGOIPOIGJA": true
+      "isDynamicAbility": true
     }
   },
   {
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "BoxMatch_Affix_MachinaIustitia_Ruggiero",
-      "KBODACCMEFE": [
+      "abilityMixins": [
         {
           "$type": "DoActionByPoseIDMixin",
           "OLJKDPFLMCF": [
@@ -884,9 +878,9 @@
               "FNBGNCANKJF": "CurGalleryControlGroup",
               "FDPMGLDLLIN": "SLC_BoxMatch_ShowReminder",
               "HALOALHGGNM": 1,
-              "param1": 3.0,
-              "HFOIEKLCLEM": 0.0,
-              "MCLOKLEBGPH": 0.0
+              "param1": 3,
+              "HFOIEKLCLEM": 0,
+              "MCLOKLEBGPH": 0
             }
           ]
         },
@@ -894,24 +888,24 @@
           "$type": "ChangeBillboardMixin",
           "FDEELEHEJHH": {
             "$type": "OPBKEDPMDBD",
-            "PAOPLDJGAKA": "BillboardAttach",
+            "attachPoint": "BillboardAttach",
             "KNBIHIMMLME": "Character",
-            "GFOGDCALKML": 0.4000000059604645,
-            "NPDFLJLNCJL": 100.0,
+            "GFOGDCALKML": 0.4,
+            "NPDFLJLNCJL": 100,
             "KGHDNJLCJNM": true,
             "KAFAFJNGLAG": true,
-            "DMIKDAOCFDG": "Big"
+            "size": "Big"
           }
         }
       ],
-      "EGGOIPOIGJA": true
+      "isDynamicAbility": true
     }
   },
   {
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "BoxMatch_Affix_MachinaIustitia_Bradamante",
-      "KBODACCMEFE": [
+      "abilityMixins": [
         {
           "$type": "DoActionByPoseIDMixin",
           "OLJKDPFLMCF": [
@@ -923,62 +917,62 @@
               "FNBGNCANKJF": "CurGalleryControlGroup",
               "FDPMGLDLLIN": "SLC_BoxMatch_ShowReminder",
               "HALOALHGGNM": 1,
-              "param1": 8.0,
-              "HFOIEKLCLEM": 0.0,
-              "MCLOKLEBGPH": 0.0
+              "param1": 8,
+              "HFOIEKLCLEM": 0,
+              "MCLOKLEBGPH": 0
             },
             {
               "$type": "TriggerTaunt",
-              "musicSubStates": {
-                "$type": "HGNAFICLGFP",
-                "IBPOJODNMHO": "CircleR30H10",
-                "CHPLPFBEPDN": "Enemy",
-                "CHGLFBPDMKF": 1.0
+              "otherTargets": {
+                "$type": "SelectTargetsByShape",
+                "shapeName": "CircleR30H10",
+                "campTargetType": "Enemy",
+                "sizeRatio": 1
               },
-              "NKCIEFLMBMK": -10000.0
+              "NKCIEFLMBMK": -10000
             },
             {
               "$type": "ServerLuaCall",
               "FNBGNCANKJF": "CurGalleryControlGroup",
               "FDPMGLDLLIN": "SLC_SkillHint_Disabled",
               "HALOALHGGNM": 1,
-              "param1": 2.0,
-              "HFOIEKLCLEM": 0.0,
-              "MCLOKLEBGPH": 0.0
+              "param1": 2,
+              "HFOIEKLCLEM": 0,
+              "MCLOKLEBGPH": 0
             },
             {
               "$type": "ApplyModifier",
-              "musicSubStates": {
-                "$type": "HGNAFICLGFP",
-                "IBPOJODNMHO": "CircleR30H10",
-                "CHPLPFBEPDN": "Alliance",
-                "CHGLFBPDMKF": 1.0
+              "otherTargets": {
+                "$type": "SelectTargetsByShape",
+                "shapeName": "CircleR30H10",
+                "campTargetType": "Alliance",
+                "sizeRatio": 1
               },
-              "BGIONAIMBCJ": "AddTaunt"
+              "modifierName": "AddTaunt"
             },
             {
               "$type": "TriggerAudio",
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "OMPKIEPKGPF",
-                  "KMGAOOHMCPK": "Self",
-                  "NGGCNKPAODB": "_AUDIO_TRIGGERED_",
-                  "value": 0.0
+                  "$type": "ByTargetGlobalValue",
+                  "target": "Self",
+                  "key": "_AUDIO_TRIGGERED_",
+                  "value": 0
                 }
               ],
-              "MNCMNAOBMDC": {
-                "$type": "KKBFMANIJFN",
-                "MNCMNAOBMDC": {
+              "operation": {
+                "$type": "ConfigAudioEventOp",
+                "operation": {
                   "text": "Play_ui_activity_BoxMatch_InLevel_Jubilate"
                 }
               }
             },
             {
               "$type": "SetGlobalValue",
-              "value": 1.0,
-              "NGGCNKPAODB": "_AUDIO_TRIGGERED_",
-              "LBHGJKHHAKP": 0.0,
-              "EMGNPOKHMNN": 0.0
+              "value": 1,
+              "key": "_AUDIO_TRIGGERED_",
+              "maxValue": 0,
+              "minValue": 0
             }
           ]
         },
@@ -986,86 +980,86 @@
           "$type": "ChangeBillboardMixin",
           "FDEELEHEJHH": {
             "$type": "OPBKEDPMDBD",
-            "PAOPLDJGAKA": "BillboardAttach",
+            "attachPoint": "BillboardAttach",
             "KNBIHIMMLME": "Character",
-            "GFOGDCALKML": 0.4000000059604645,
-            "NPDFLJLNCJL": 100.0,
+            "GFOGDCALKML": 0.4,
+            "NPDFLJLNCJL": 100,
             "KGHDNJLCJNM": true,
             "KAFAFJNGLAG": true,
-            "DMIKDAOCFDG": "Big"
+            "size": "Big"
           }
         }
       ],
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "Taunt_Timer": {
-          "BGIONAIMBCJ": "",
-          "FAFCPJJAIGK": 6.0,
-          "ONIHJPOMNHA": 100.0,
-          "NFKOGKMAIIE": [
+          "modifierName": "",
+          "duration": 6,
+          "elementDurability": 100,
+          "onRemoved": [
             {
               "$type": "TriggerTaunt",
-              "musicSubStates": {
-                "$type": "HGNAFICLGFP",
-                "IBPOJODNMHO": "CircleR30H10",
-                "CHPLPFBEPDN": "Enemy",
-                "CHGLFBPDMKF": 1.0
+              "otherTargets": {
+                "$type": "SelectTargetsByShape",
+                "shapeName": "CircleR30H10",
+                "campTargetType": "Enemy",
+                "sizeRatio": 1
               },
-              "NKCIEFLMBMK": 10000.0
+              "NKCIEFLMBMK": 10000
             },
             {
               "$type": "ApplyModifier",
-              "BGIONAIMBCJ": "Hint_Timer"
+              "modifierName": "Hint_Timer"
             }
           ]
         },
         "Hint_Timer": {
-          "BGIONAIMBCJ": "",
-          "FAFCPJJAIGK": 4.0,
-          "ONIHJPOMNHA": 100.0,
-          "NFKOGKMAIIE": [
+          "modifierName": "",
+          "duration": 4,
+          "elementDurability": 100,
+          "onRemoved": [
             {
               "$type": "ServerLuaCall",
               "FNBGNCANKJF": "CurGalleryControlGroup",
               "FDPMGLDLLIN": "SLC_SkillHint_Enabled",
               "HALOALHGGNM": 1,
-              "param1": 2.0,
-              "HFOIEKLCLEM": 0.0,
-              "MCLOKLEBGPH": 0.0
+              "param1": 2,
+              "HFOIEKLCLEM": 0,
+              "MCLOKLEBGPH": 0
             }
           ]
         },
         "AddTaunt": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "TriggerTaunt",
-              "musicSubStates": {
-                "$type": "HGNAFICLGFP",
-                "IBPOJODNMHO": "CircleR30H10",
-                "CHPLPFBEPDN": "Enemy",
-                "CHGLFBPDMKF": 1.0
+              "otherTargets": {
+                "$type": "SelectTargetsByShape",
+                "shapeName": "CircleR30H10",
+                "campTargetType": "Enemy",
+                "sizeRatio": 1
               },
-              "NKCIEFLMBMK": 10000.0,
+              "NKCIEFLMBMK": 10000,
               "LOLNABDLDIF": true
             }
           ]
         }
       },
-      "NLFIGALMIPD": [
+      "onAdded": [
         {
           "$type": "SetGlobalValue",
-          "value": 0.0,
-          "NGGCNKPAODB": "_AUDIO_TRIGGERED_",
-          "LBHGJKHHAKP": 0.0,
-          "EMGNPOKHMNN": 0.0
+          "value": 0,
+          "key": "_AUDIO_TRIGGERED_",
+          "maxValue": 0,
+          "minValue": 0
         },
         {
           "$type": "ApplyModifier",
-          "BGIONAIMBCJ": "Taunt_Timer"
+          "modifierName": "Taunt_Timer"
         }
       ],
-      "EGGOIPOIGJA": true
+      "isDynamicAbility": true
     }
   }
 ]

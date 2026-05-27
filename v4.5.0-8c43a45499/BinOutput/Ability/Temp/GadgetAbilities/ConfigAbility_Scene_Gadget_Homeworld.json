@@ -3,13 +3,13 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "SceneObj_Homeworld_NPCObj_Ani_Djinn_Normal",
-      "NLFIGALMIPD": [
+      "onAdded": [
         {
           "$type": "SetGlobalValue",
-          "value": 0.0,
-          "NGGCNKPAODB": "_ABILITY_Djinn_Advance",
-          "LBHGJKHHAKP": 0.0,
-          "EMGNPOKHMNN": 0.0
+          "value": 0,
+          "key": "_ABILITY_Djinn_Advance",
+          "maxValue": 0,
+          "minValue": 0
         }
       ]
     }
@@ -18,13 +18,13 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "SceneObj_Homeworld_NPCObj_Ani_Djinn_Advance",
-      "NLFIGALMIPD": [
+      "onAdded": [
         {
           "$type": "SetGlobalValue",
-          "value": 1.0,
-          "NGGCNKPAODB": "_ABILITY_Djinn_Advance",
-          "LBHGJKHHAKP": 0.0,
-          "EMGNPOKHMNN": 0.0
+          "value": 1,
+          "key": "_ABILITY_Djinn_Advance",
+          "maxValue": 0,
+          "minValue": 0
         }
       ]
     }
@@ -33,13 +33,13 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "SceneObj_Homeworld_NPCObj_Ani_Djinn_AdvanceWithCloud",
-      "NLFIGALMIPD": [
+      "onAdded": [
         {
           "$type": "SetGlobalValue",
-          "value": 1.0,
-          "NGGCNKPAODB": "_ABILITY_Djinn_Advance",
-          "LBHGJKHHAKP": 0.0,
-          "EMGNPOKHMNN": 0.0
+          "value": 1,
+          "key": "_ABILITY_Djinn_Advance",
+          "maxValue": 0,
+          "minValue": 0
         },
         {
           "$type": "EnablePartControl",
@@ -50,7 +50,7 @@
         },
         {
           "$type": "SetPartControlTarget",
-          "musicSubStates": {
+          "otherTargets": {
             "$type": "CJCOPNEGNGB",
             "tag": "Homeworld_Standard_MainBuilding"
           },
@@ -65,173 +65,171 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "SceneObj_Homeworld_NPCObj_Ani_Djinn_01_Ability",
-      "KBODACCMEFE": [
+      "abilityMixins": [
         {
           "$type": "AttachToAnimatorStateIDMixin",
-          "FHCHNMKMJJA": [
+          "stateIDs": [
             "Appear"
           ],
-          "BGIONAIMBCJ": "AppearState"
+          "modifierName": "AppearState"
         },
         {
           "$type": "AttachToAnimatorStateIDMixin",
-          "FHCHNMKMJJA": [
+          "stateIDs": [
             "Idle"
           ],
-          "BGIONAIMBCJ": "IdleState"
+          "modifierName": "IdleState"
         },
         {
           "$type": "AttachToAnimatorStateIDMixin",
-          "FHCHNMKMJJA": [
+          "stateIDs": [
             "Show02Loop"
           ],
-          "BGIONAIMBCJ": "SleepState"
+          "modifierName": "SleepState"
         },
         {
           "$type": "AttachToAnimatorStateIDMixin",
-          "FHCHNMKMJJA": [
+          "stateIDs": [
             "Talk"
           ],
-          "BGIONAIMBCJ": "TalkState"
+          "modifierName": "TalkState"
         }
       ],
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "AppearState": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "FireEffect",
-              "LHHFHDEJOHC": "Eff_SceneObj_Djinn_Show",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_SceneObj_Djinn_Show"
             }
           ]
         },
         "SleepState": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_SceneObj_Djinn_Sleep",
-              "CCNCMOGOFAG": {
-                "$type": "IADBHDLMGJB",
-                "MDPMJPIOGLA": "DjinnSleepPoint"
-              },
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_SceneObj_Djinn_Sleep",
+              "born": {
+                "$type": "ConfigBornByAttachPoint",
+                "attachPointName": "DjinnSleepPoint"
+              }
             }
           ]
         },
         "IdleState": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "ANPDJHOGAFE": 15.0,
-          "MDPGEKAIFIM": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "thinkInterval": 15,
+          "onThinkInterval": [
             {
               "$type": "SetGlobalValue",
-              "value": 0.0,
-              "NGGCNKPAODB": "_Show_Mode",
-              "AJKBEKOCMKF": true,
+              "value": 0,
+              "key": "_Show_Mode",
+              "useLimitRange": true,
               "MBNOKIKNHHG": true,
-              "LBHGJKHHAKP": 20.0,
-              "EMGNPOKHMNN": 1.0
+              "maxValue": 20,
+              "minValue": 1
             },
             {
               "$type": "SetAnimatorTrigger",
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "OMPKIEPKGPF",
-                  "NGGCNKPAODB": "_Show_Mode",
-                  "value": 10.0,
-                  "GAGKBNPOCAC": "LessAndEqual"
+                  "$type": "ByTargetGlobalValue",
+                  "key": "_Show_Mode",
+                  "value": 10,
+                  "compareType": "LessAndEqual"
                 },
                 {
-                  "$type": "OMPKIEPKGPF",
-                  "NGGCNKPAODB": "_ABILITY_Djinn_Advance",
-                  "value": 0.0
+                  "$type": "ByTargetGlobalValue",
+                  "key": "_ABILITY_Djinn_Advance",
+                  "value": 0
                 }
               ],
-              "POPKLBPMAJN": "Show01",
+              "triggerID": "Show01",
               "BFIKMHMNOGK": true
             },
             {
               "$type": "SetAnimatorTrigger",
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "OMPKIEPKGPF",
-                  "NGGCNKPAODB": "_Show_Mode",
-                  "value": 7.0,
-                  "GAGKBNPOCAC": "LessAndEqual"
+                  "$type": "ByTargetGlobalValue",
+                  "key": "_Show_Mode",
+                  "value": 7,
+                  "compareType": "LessAndEqual"
                 },
                 {
-                  "$type": "OMPKIEPKGPF",
-                  "NGGCNKPAODB": "_ABILITY_Djinn_Advance",
-                  "value": 1.0
+                  "$type": "ByTargetGlobalValue",
+                  "key": "_ABILITY_Djinn_Advance",
+                  "value": 1
                 }
               ],
-              "POPKLBPMAJN": "Show01",
+              "triggerID": "Show01",
               "BFIKMHMNOGK": true
             },
             {
               "$type": "SetAnimatorTrigger",
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "OMPKIEPKGPF",
-                  "NGGCNKPAODB": "_Show_Mode",
-                  "value": 7.0,
-                  "LBHGJKHHAKP": 11.0,
-                  "GAGKBNPOCAC": "Between"
+                  "$type": "ByTargetGlobalValue",
+                  "key": "_Show_Mode",
+                  "value": 7,
+                  "maxValue": 11,
+                  "compareType": "Between"
                 },
                 {
-                  "$type": "OMPKIEPKGPF",
-                  "NGGCNKPAODB": "_ABILITY_Djinn_Advance",
-                  "value": 1.0
+                  "$type": "ByTargetGlobalValue",
+                  "key": "_ABILITY_Djinn_Advance",
+                  "value": 1
                 }
               ],
-              "POPKLBPMAJN": "Show02",
+              "triggerID": "Show02",
               "BFIKMHMNOGK": true
             },
             {
               "$type": "ApplyModifier",
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "OMPKIEPKGPF",
-                  "NGGCNKPAODB": "_Show_Mode",
-                  "value": 11.0,
-                  "GAGKBNPOCAC": "MoreThanAndEqual"
+                  "$type": "ByTargetGlobalValue",
+                  "key": "_Show_Mode",
+                  "value": 11,
+                  "compareType": "MoreThanAndEqual"
                 }
               ],
-              "BGIONAIMBCJ": "ShowEmotion"
+              "modifierName": "ShowEmotion"
             }
           ]
         },
         "TalkState": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "ApplyModifier",
-              "BGIONAIMBCJ": "ShowEmotion"
+              "modifierName": "ShowEmotion"
             }
           ]
         },
         "ShowEmotion": {
-          "BGIONAIMBCJ": "",
-          "FAFCPJJAIGK": 1.0,
-          "ONIHJPOMNHA": 100.0,
-          "CLOIGOBCDJK": [
+          "modifierName": "",
+          "duration": 1,
+          "elementDurability": 100,
+          "modifierMixins": [
             {
               "$type": "AttachModifierToSelfGlobalValueMixin",
-              "AOJHAGMBDNP": "_ABILITY_Djinn_Comfort",
-              "MCAEKKJBNNJ": 0.0,
-              "FCPOANIDKOM": [
+              "globalValueKey": "_ABILITY_Djinn_Comfort",
+              "defaultGlobalValueOnCreate": 0,
+              "valueSteps": [
                 0.5,
                 3.5,
                 6.5,
                 9.5,
                 10.5
               ],
-              "NGIGIMPCHOO": [
+              "modifierNameSteps": [
                 "Level1",
                 "Level2",
                 "Level3",
@@ -241,63 +239,59 @@
           ]
         },
         "Level1": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "FireEffect",
-              "LHHFHDEJOHC": "Eff_SceneObj_Djinn_Feeling_01",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_SceneObj_Djinn_Feeling_01"
             }
           ]
         },
         "Level2": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "FireEffect",
-              "LHHFHDEJOHC": "Eff_SceneObj_Djinn_Feeling_02",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_SceneObj_Djinn_Feeling_02"
             }
           ]
         },
         "Level3": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "FireEffect",
-              "LHHFHDEJOHC": "Eff_SceneObj_Djinn_Feeling_03",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_SceneObj_Djinn_Feeling_03"
             }
           ]
         },
         "Level4": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "FireEffect",
-              "LHHFHDEJOHC": "Eff_SceneObj_Djinn_Feeling_04",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_SceneObj_Djinn_Feeling_04"
             }
           ]
         }
       },
-      "NLFIGALMIPD": [
+      "onAdded": [
         {
           "$type": "SetGlobalValue",
-          "value": 0.0,
-          "NGGCNKPAODB": "_ABILITY_Djinn_Comfort",
-          "LBHGJKHHAKP": 0.0,
-          "EMGNPOKHMNN": 0.0
+          "value": 0,
+          "key": "_ABILITY_Djinn_Comfort",
+          "maxValue": 0,
+          "minValue": 0
         }
       ],
-      "DEOJHLMNLFC": [
+      "onAbilityStart": [
         {
           "$type": "ApplyModifier",
-          "BGIONAIMBCJ": "ShowEmotion"
+          "modifierName": "ShowEmotion"
         }
       ]
     }
@@ -306,95 +300,93 @@
     "Default": {
       "$type": "ConfigAbility",
       "abilityName": "SceneObj_Homeworld_NPCObj_Ani_Djinn_02_Ability",
-      "KBODACCMEFE": [
+      "abilityMixins": [
         {
           "$type": "AttachToAnimatorStateIDMixin",
-          "FHCHNMKMJJA": [
+          "stateIDs": [
             "Appear"
           ],
-          "BGIONAIMBCJ": "AppearState"
+          "modifierName": "AppearState"
         },
         {
           "$type": "AttachToAnimatorStateIDMixin",
-          "FHCHNMKMJJA": [
+          "stateIDs": [
             "Idle"
           ],
-          "BGIONAIMBCJ": "IdleState"
+          "modifierName": "IdleState"
         },
         {
           "$type": "AttachToAnimatorStateIDMixin",
-          "FHCHNMKMJJA": [
+          "stateIDs": [
             "Show02Loop"
           ],
-          "BGIONAIMBCJ": "SleepState"
+          "modifierName": "SleepState"
         }
       ],
-      "OHKLPBIHKNB": {
+      "modifiers": {
         "AppearState": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "FireEffect",
-              "LHHFHDEJOHC": "Eff_SceneObj_Djinn_Show",
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_SceneObj_Djinn_Show"
             }
           ]
         },
         "SleepState": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "NLFIGALMIPD": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "onAdded": [
             {
               "$type": "AttachEffect",
-              "LHHFHDEJOHC": "Eff_SceneObj_Djinn_Sleep",
-              "CCNCMOGOFAG": {
-                "$type": "IADBHDLMGJB",
-                "MDPMJPIOGLA": "DjinnSleepPoint"
-              },
-              "PCLAEGHPNHE": -1.0
+              "effectPattern": "Eff_SceneObj_Djinn_Sleep",
+              "born": {
+                "$type": "ConfigBornByAttachPoint",
+                "attachPointName": "DjinnSleepPoint"
+              }
             }
           ]
         },
         "IdleState": {
-          "BGIONAIMBCJ": "",
-          "ONIHJPOMNHA": 100.0,
-          "ANPDJHOGAFE": 15.0,
-          "MDPGEKAIFIM": [
+          "modifierName": "",
+          "elementDurability": 100,
+          "thinkInterval": 15,
+          "onThinkInterval": [
             {
               "$type": "SetGlobalValue",
-              "value": 0.0,
-              "NGGCNKPAODB": "_Show_Mode",
-              "AJKBEKOCMKF": true,
+              "value": 0,
+              "key": "_Show_Mode",
+              "useLimitRange": true,
               "MBNOKIKNHHG": true,
-              "LBHGJKHHAKP": 10.0,
-              "EMGNPOKHMNN": 1.0
+              "maxValue": 10,
+              "minValue": 1
             },
             {
               "$type": "SetAnimatorTrigger",
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "OMPKIEPKGPF",
-                  "NGGCNKPAODB": "_Show_Mode",
-                  "value": 7.0,
-                  "GAGKBNPOCAC": "LessAndEqual"
+                  "$type": "ByTargetGlobalValue",
+                  "key": "_Show_Mode",
+                  "value": 7,
+                  "compareType": "LessAndEqual"
                 }
               ],
-              "POPKLBPMAJN": "Show01",
+              "triggerID": "Show01",
               "BFIKMHMNOGK": true
             },
             {
               "$type": "SetAnimatorTrigger",
-              "FLEEHCIOPKA": [
+              "predicates": [
                 {
-                  "$type": "OMPKIEPKGPF",
-                  "NGGCNKPAODB": "_Show_Mode",
-                  "value": 7.0,
-                  "LBHGJKHHAKP": 11.0,
-                  "GAGKBNPOCAC": "Between"
+                  "$type": "ByTargetGlobalValue",
+                  "key": "_Show_Mode",
+                  "value": 7,
+                  "maxValue": 11,
+                  "compareType": "Between"
                 }
               ],
-              "POPKLBPMAJN": "Show02",
+              "triggerID": "Show02",
               "BFIKMHMNOGK": true
             }
           ]
